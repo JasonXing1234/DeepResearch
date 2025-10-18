@@ -101,11 +101,10 @@ CREATE TABLE classes (
 
   -- Basic info
   name text NOT NULL,
-  code text, -- e.g., "CS 101"
+  class_code text, -- e.g., "CS 101"
   description text,
 
   -- Semester info (stored inline, no separate semesters table)
-  semester_name text NOT NULL, -- e.g., "Fall 2024"
   semester_year integer NOT NULL,
   semester_term text NOT NULL CHECK (semester_term IN ('Fall', 'Spring', 'Summer', 'Winter')),
 
@@ -117,9 +116,7 @@ CREATE TABLE classes (
   location text,   -- e.g., "Science Building Room 203"
 
   -- Metadata
-  credits integer,
   color_code text, -- Hex color for UI (e.g., "#3b82f6")
-  is_archived boolean DEFAULT false, -- For completed/dropped classes
 
   -- Timestamps
   created_at timestamptz NOT NULL DEFAULT now(),
@@ -149,11 +146,10 @@ CREATE TABLE documents (
 
   -- Basic info
   title text,
-  content_type text CHECK (content_type IN ('lecture_recording', 'slide', 'textbook', 'assignment', 'syllabus', 'note', 'other')),
   is_lecture_notes boolean DEFAULT false,
 
   -- Storage info (PORTABLE: stores relative path, not full URL)
-  -- This allows switching from Supabase Storage → S3 → R2 without DB migration
+  -- This allows switching from Supabase Storage -> S3 -> R2 without DB migration
   storage_bucket text NOT NULL DEFAULT 'class-materials',
   file_path text NOT NULL, -- e.g., "user_123/class_456/doc_789.pdf"
   storage_provider text DEFAULT 'supabase', -- 'supabase', 's3', 'r2', etc.
@@ -167,7 +163,7 @@ CREATE TABLE documents (
   date_of_material date, -- When material is FROM (not when uploaded)
 
   -- Processing status tracking (for async pipeline)
-  -- Pipeline: Upload → Transcription (if audio) → Chunking → Embedding
+  -- Pipeline: Upload -> Transcription (if audio) -> Chunking -> Embedding
   upload_status text DEFAULT 'completed' CHECK (upload_status IN ('pending', 'uploading', 'completed', 'failed')),
   transcription_status text DEFAULT 'pending' CHECK (transcription_status IN ('pending', 'processing', 'completed', 'failed', 'not_applicable')),
   embedding_status text DEFAULT 'pending' CHECK (embedding_status IN ('pending', 'processing', 'completed', 'failed')),
