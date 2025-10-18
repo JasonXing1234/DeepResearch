@@ -134,6 +134,25 @@ export function StudyAssistant({ classes, lectures }: StudyAssistantProps) {
 
     const output = part.output;
 
+    // Handle getSyllabus output
+    if (part.type === 'tool-getSyllabus' && output.found && output.syllabi) {
+      const syllabi = output.syllabi;
+      let result = `📋 **Syllabus${syllabi.length > 1 ? ' Documents' : ''}:**\n\n`;
+
+      syllabi.forEach((syllabus: any, index: number) => {
+        result += `**${syllabus.title}**`;
+        if (syllabus.date) result += ` (${syllabus.date})`;
+        if (syllabus.pages) result += ` - ${syllabus.pages} pages`;
+        result += '\n\n';
+        if (syllabus.content) {
+          result += `${syllabus.content}\n\n`;
+        }
+        if (index < syllabi.length - 1) result += '---\n\n';
+      });
+
+      return result;
+    }
+
     // Handle getRecentLectures output
     if (part.type === 'tool-getRecentLectures' && output.found && output.lectures) {
       const lectures = output.lectures;

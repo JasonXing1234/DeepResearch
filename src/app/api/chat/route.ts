@@ -4,6 +4,7 @@ import { z } from 'zod';
 import { createClient } from '@/lib/supabase/server';
 import { semanticSearch } from '@/lib/tools/semanticSearch';
 import { getRecentLectures } from '@/lib/tools/getRecentLectures';
+import { getSyllabus } from '@/lib/tools/getSyllabus';
 
 // Allow streaming responses up to 30 seconds
 export const maxDuration = 30;
@@ -45,16 +46,25 @@ ${classListText}
 
 **Which tool to use:**
 
-1. **Use getRecentLectures when the student asks about:**
+1. **Use getSyllabus when the student asks about:**
+   - "Show me the syllabus for [class]"
+   - "What's on the syllabus?"
+   - "What are the course requirements?"
+   - "When is the final exam?" (syllabus usually has this)
+   - "What textbook do we need?"
+   - Any question about course structure, grading, or policies
+   - Example: User says "show me the calculus syllabus" → call getSyllabus with the Calculus class_id
+
+2. **Use getRecentLectures when the student asks about:**
    - "What did we talk about last time / recently / today?"
    - "Summarize the last lecture"
    - "What topics were covered in [class name]?"
    - Any question about recent or specific lectures
    - Example: User says "what did we cover in calculus?" → call getRecentLectures with the Calculus class_id
 
-2. **Use semanticSearch when the student asks about:**
+3. **Use semanticSearch when the student asks about:**
    - Specific topics or concepts (e.g., "Explain derivatives", "What are loops?")
-   - Finding information across multiple lectures
+   - Finding information across multiple lectures AND materials (including syllabus)
    - Comparing concepts or ideas
    - Example: User says "explain derivatives" → call semanticSearch with query "derivatives"
 
@@ -89,6 +99,32 @@ ${classListText}
       system: systemPrompt,
       messages: convertToModelMessages(messages),
       tools: {
+        getSyllabus: {
+          description: 'Get the syllabus for a specific class. Use this when the student asks about course requirements, grading, textbooks, exam dates, course policies, or anything typically found in a syllabus. Returns the full syllabus content.',
+          inputSchema: z.object({
+            class_id: z.string().describe('Required: UUID of the class to get the syllabus for'),
+          }),
+          execute: async (args: { class_id: string }) => {
+            const result = await getSyllabus(userId, {
+              classId: args.class_id,
+            });
+
+            if (!result.found) {
+              return result;
+            }
+
+            return {
+              found: true,
+              totalDocuments: result.totalDocuments,
+              syllabi: result.syllabi!.map(s => ({
+                title: s.title,
+                date: s.date,
+                pages: s.pages,
+                content: s.content,
+              })),
+            };
+          },
+        },
         getRecentLectures: {
           description: 'Get recent lectures from a class. Use this when the student asks about "what we talked about last time", "recent lectures", "what we covered in [class]", or any temporal/recency-based question. Returns full lecture transcripts.',
           inputSchema: z.object({
