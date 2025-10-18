@@ -129,6 +129,7 @@ export const processAudio = inngest.createFunction(
           transcription_status: 'completed',
           transcription_completed_at: new Date().toISOString(),
           transcription_model: 'whisper-1',
+          transcription_text: transcription.text, // Save transcript to database
           audio_duration_seconds: Math.round(transcription.duration || 0),
           word_count: wordCount,
         })

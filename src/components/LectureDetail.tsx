@@ -1,10 +1,11 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { ArrowLeft, Play, Pause, SkipBack, SkipForward, Calendar, Clock } from 'lucide-react';
 import { Button } from './ui/button';
 import { Card } from './ui/card';
 import { ScrollArea } from './ui/scroll-area';
 import { Slider } from './ui/slider';
 import type { Class, Lecture } from '../app/page';
+import { createClient } from '@/lib/supabase/client';
 
 type LectureDetailProps = {
   lecture: Lecture;
@@ -15,7 +16,55 @@ type LectureDetailProps = {
 export function LectureDetail({ lecture, classInfo, onBack }: LectureDetailProps) {
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
-  const playIntervalRef = useRef<number | null>(null);
+  const [duration, setDuration] = useState(lecture.duration);
+  const [audioUrl, setAudioUrl] = useState<string | null>(null);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+
+  // Load audio file from storage
+  useEffect(() => {
+    const loadAudio = async () => {
+      const supabase = createClient();
+
+      // Parse storage path from audioUrl (format: bucket/path)
+      const path = lecture.audioUrl;
+
+      // Generate signed URL (valid for 1 hour)
+      const { data, error } = await supabase.storage
+        .from('lecture-recordings')
+        .createSignedUrl(path, 3600);
+
+      if (error) {
+        console.error('Error loading audio:', error);
+        return;
+      }
+
+      if (data?.signedUrl) {
+        setAudioUrl(data.signedUrl);
+      }
+    };
+
+    loadAudio();
+  }, [lecture.audioUrl]);
+
+  // Update current time from audio element
+  useEffect(() => {
+    const audio = audioRef.current;
+    if (!audio) return;
+
+    const updateTime = () => setCurrentTime(Math.floor(audio.currentTime));
+    const updateDuration = () => setDuration(Math.floor(audio.duration));
+    const handleEnded = () => setIsPlaying(false);
+
+    audio.addEventListener('timeupdate', updateTime);
+    audio.addEventListener('loadedmetadata', updateDuration);
+    audio.addEventListener('ended', handleEnded);
+
+    return () => {
+      audio.removeEventListener('timeupdate', updateTime);
+      audio.removeEventListener('loadedmetadata', updateDuration);
+      audio.removeEventListener('ended', handleEnded);
+    };
+  }, [audioUrl]);
 
   const formatTime = (seconds: number) => {
     const mins = Math.floor(seconds / 60);
@@ -25,46 +74,39 @@ export function LectureDetail({ lecture, classInfo, onBack }: LectureDetailProps
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
-    return date.toLocaleDateString('en-US', { 
+    return date.toLocaleDateString('en-US', {
       weekday: 'long',
-      month: 'long', 
-      day: 'numeric', 
-      year: 'numeric' 
+      month: 'long',
+      day: 'numeric',
+      year: 'numeric'
     });
   };
 
   const handlePlayPause = () => {
+    if (!audioRef.current) return;
+
     if (isPlaying) {
+      audioRef.current.pause();
       setIsPlaying(false);
-      if (playIntervalRef.current) {
-        clearInterval(playIntervalRef.current);
-      }
     } else {
+      audioRef.current.play();
       setIsPlaying(true);
-      playIntervalRef.current = window.setInterval(() => {
-        setCurrentTime((prev) => {
-          if (prev >= lecture.duration) {
-            setIsPlaying(false);
-            if (playIntervalRef.current) {
-              clearInterval(playIntervalRef.current);
-            }
-            return lecture.duration;
-          }
-          return prev + 1;
-        });
-      }, 1000);
     }
   };
 
   const handleSkipBack = () => {
-    setCurrentTime((prev) => Math.max(0, prev - 10));
+    if (!audioRef.current) return;
+    audioRef.current.currentTime = Math.max(0, audioRef.current.currentTime - 10);
   };
 
   const handleSkipForward = () => {
-    setCurrentTime((prev) => Math.min(lecture.duration, prev + 10));
+    if (!audioRef.current) return;
+    audioRef.current.currentTime = Math.min(duration, audioRef.current.currentTime + 10);
   };
 
   const handleSeek = (value: number[]) => {
+    if (!audioRef.current) return;
+    audioRef.current.currentTime = value[0];
     setCurrentTime(value[0]);
   };
 
@@ -109,18 +151,28 @@ export function LectureDetail({ lecture, classInfo, onBack }: LectureDetailProps
       <div className="border-b border-gray-200 bg-white p-6">
         <Card className="p-6">
           <div className="space-y-4">
+            {/* Hidden audio element */}
+            {audioUrl && (
+              <audio
+                ref={audioRef}
+                src={audioUrl}
+                preload="metadata"
+              />
+            )}
+
             {/* Progress */}
             <div className="space-y-2">
               <Slider
                 value={[currentTime]}
-                max={lecture.duration}
+                max={duration}
                 step={1}
                 onValueChange={handleSeek}
                 className="w-full"
+                disabled={!audioUrl}
               />
               <div className="flex justify-between text-sm text-gray-500">
                 <span>{formatTime(currentTime)}</span>
-                <span>{formatTime(lecture.duration)}</span>
+                <span>{formatTime(duration)}</span>
               </div>
             </div>
 
@@ -130,14 +182,16 @@ export function LectureDetail({ lecture, classInfo, onBack }: LectureDetailProps
                 variant="outline"
                 size="icon"
                 onClick={handleSkipBack}
+                disabled={!audioUrl}
               >
                 <SkipBack className="w-4 h-4" />
               </Button>
-              
+
               <Button
                 size="icon"
                 className="w-12 h-12"
                 onClick={handlePlayPause}
+                disabled={!audioUrl}
               >
                 {isPlaying ? (
                   <Pause className="w-5 h-5" />
@@ -145,19 +199,22 @@ export function LectureDetail({ lecture, classInfo, onBack }: LectureDetailProps
                   <Play className="w-5 h-5" />
                 )}
               </Button>
-              
+
               <Button
                 variant="outline"
                 size="icon"
                 onClick={handleSkipForward}
+                disabled={!audioUrl}
               >
                 <SkipForward className="w-4 h-4" />
               </Button>
             </div>
 
-            <p className="text-center text-sm text-gray-500">
-              {isPlaying ? 'Playing audio recording...' : 'Audio player (mock)'}
-            </p>
+            {!audioUrl && (
+              <p className="text-center text-sm text-gray-500">
+                Loading audio...
+              </p>
+            )}
           </div>
         </Card>
       </div>

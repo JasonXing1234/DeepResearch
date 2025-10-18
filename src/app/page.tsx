@@ -105,9 +105,12 @@ export default function App() {
           // Split documents into lectures and materials
           const allDocuments = documentsResult.documents;
 
-          // Lectures: audio files with transcriptions
+          // Lectures: audio files (identified by mime type or storage bucket)
           const mappedLectures = allDocuments
-            .filter((d: any) => d.transcription_text && d.audio_duration_seconds)
+            .filter((d: any) =>
+              d.mime_type?.startsWith('audio/') ||
+              d.storage_bucket === 'lecture-recordings'
+            )
             .map((d: any) => ({
               id: d.id,
               classId: d.class_id,
@@ -115,12 +118,15 @@ export default function App() {
               date: d.date_of_material || d.created_at.split('T')[0],
               duration: d.audio_duration_seconds || 0,
               audioUrl: d.file_path || '#',
-              transcript: d.transcription_text || '',
+              transcript: d.transcription_text || 'Transcription in progress...',
             }));
 
-          // Materials: PDFs, DOCX, PPTX, etc.
+          // Materials: PDFs, DOCX, PPTX, etc. (non-audio files)
           const mappedMaterials = allDocuments
-            .filter((d: any) => !d.transcription_text || !d.audio_duration_seconds)
+            .filter((d: any) =>
+              !d.mime_type?.startsWith('audio/') &&
+              d.storage_bucket !== 'lecture-recordings'
+            )
             .map((d: any) => {
               // Determine type from mime_type
               let type: 'pdf' | 'pptx' | 'docx' | 'xlsx' | 'other' = 'other';

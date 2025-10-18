@@ -21,7 +21,7 @@ export async function POST(request: NextRequest) {
 
     // TEMP: Hardcoded user for local development
     // TODO: Remove this and use real auth when ready
-    const HARDCODED_USER_ID = 'b2bbb440-1d79-42fa-81e3-069efd22fae8';
+    const HARDCODED_USER_ID = '00000000-0000-0000-0000-000000000000';
 
     const profile = { id: HARDCODED_USER_ID };
 
@@ -59,7 +59,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Validate file type
-    const validTypes = ['audio/mpeg', 'audio/mp3', 'audio/wav', 'audio/m4a', 'audio/mp4'];
+    const validTypes = ['audio/mpeg', 'audio/mp3', 'audio/wav', 'audio/m4a', 'audio/mp4', 'audio/webm', 'audio/ogg'];
     if (!validTypes.includes(audioFile.type)) {
       return NextResponse.json(
         { error: `Invalid file type. Supported types: ${validTypes.join(', ')}` },
@@ -67,18 +67,27 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    // Generate UUID for document (so we can build file path before inserting)
+    const { data: uuidData } = await supabase.rpc('gen_random_uuid');
+    const documentId = uuidData || crypto.randomUUID();
+
+    // Build storage path
+    const filePath = buildStoragePath(profile.id, classId, audioFile.name, documentId);
+
     // Step 1: Create document record
     const { data: document, error: insertError } = await supabase
       .from('documents')
       .insert({
+        id: documentId,
         user_id: profile.id,
         class_id: classId,
         title: title || `Recording ${new Date().toLocaleDateString()}`,
-        content_type: 'lecture_recording',
+        is_lecture_notes: true, // Audio recordings are lecture notes
         original_filename: audioFile.name,
         file_size_bytes: audioFile.size,
         mime_type: audioFile.type,
         storage_bucket: 'lecture-recordings',
+        file_path: filePath, // Include file_path in initial insert
         transcription_status: 'pending',
         embedding_status: 'pending',
         upload_status: 'uploading',
@@ -96,7 +105,6 @@ export async function POST(request: NextRequest) {
     }
 
     // Step 2: Upload to storage
-    const filePath = buildStoragePath(profile.id, classId, audioFile.name, document.id);
 
     const { error: uploadError } = await supabase.storage
       .from('lecture-recordings')
@@ -117,11 +125,10 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Step 3: Update document with final path and status
+    // Step 3: Update document status to completed
     await supabase
       .from('documents')
       .update({
-        file_path: filePath,
         upload_status: 'completed',
         upload_completed_at: new Date().toISOString(),
       })
