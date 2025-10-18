@@ -104,7 +104,7 @@ export function UploadMaterialsView({ classes, onAddMaterial }: UploadMaterialsV
     }
   };
 
-  const handleUpload = () => {
+  const handleUpload = async () => {
     if (!selectedClass) {
       toast.error('Please select a class first');
       return;
@@ -115,21 +115,60 @@ export function UploadMaterialsView({ classes, onAddMaterial }: UploadMaterialsV
       return;
     }
 
-    // Mock upload - in real app this would upload to storage
-    selectedFiles.forEach((file) => {
-      const material: ClassMaterial = {
-        id: Date.now().toString() + Math.random(),
-        classId: selectedClass,
-        name: file.name.replace(/\.[^/.]+$/, ''), // Remove extension
-        type: getFileType(file),
-        size: file.size,
-        uploadDate: new Date().toISOString().split('T')[0],
-        url: '#',
-      };
-      onAddMaterial(material);
+    // Upload each file to the API
+    const uploadPromises = selectedFiles.map(async (file) => {
+      const formData = new FormData();
+      formData.append('file', file);
+      formData.append('class_id', selectedClass);
+      formData.append('title', file.name.replace(/\.[^/.]+$/, '')); // Remove extension
+
+      try {
+        const response = await fetch('/api/documents', {
+          method: 'POST',
+          body: formData,
+        });
+
+        if (!response.ok) {
+          const error = await response.json();
+          throw new Error(error.error || 'Upload failed');
+        }
+
+        const result = await response.json();
+
+        // Convert database document to ClassMaterial format for local state
+        const material: ClassMaterial = {
+          id: result.document.id,
+          classId: selectedClass,
+          name: result.document.title,
+          type: getFileType(file),
+          size: result.document.file_size_bytes,
+          uploadDate: result.document.date_of_material,
+          url: result.document.file_path,
+        };
+
+        onAddMaterial(material);
+        return { success: true, file: file.name };
+      } catch (error) {
+        console.error('Upload error:', error);
+        return { success: false, file: file.name, error };
+      }
     });
 
-    toast.success(`${selectedFiles.length} file(s) uploaded successfully`);
+    // Wait for all uploads to complete
+    const results = await Promise.all(uploadPromises);
+
+    const successCount = results.filter(r => r.success).length;
+    const failureCount = results.filter(r => !r.success).length;
+
+    if (successCount > 0) {
+      toast.success(`${successCount} file(s) uploaded successfully`);
+    }
+
+    if (failureCount > 0) {
+      const failedFiles = results.filter(r => !r.success).map(r => r.file).join(', ');
+      toast.error(`Failed to upload: ${failedFiles}`);
+    }
+
     setSelectedFiles([]);
     setSelectedClass('');
   };
