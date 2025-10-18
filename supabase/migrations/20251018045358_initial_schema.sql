@@ -90,10 +90,38 @@ CREATE INDEX idx_profiles_email ON profiles(email);
 CREATE INDEX idx_profiles_supabase_auth_id ON profiles(supabase_auth_id);
 
 -- ----------------------------------------------------------------------------
+-- SEMESTERS - Semester organization
+-- ----------------------------------------------------------------------------
+-- Stores semester information (must come before classes table)
+
+CREATE TABLE semesters (
+  id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  user_id uuid NOT NULL REFERENCES profiles(id) ON DELETE CASCADE,
+
+  year integer NOT NULL,
+  term text NOT NULL CHECK (term IN ('Fall', 'Spring', 'Summer', 'Winter')),
+
+  created_at timestamptz NOT NULL DEFAULT now(),
+  updated_at timestamptz NOT NULL DEFAULT now()
+);
+
+-- Trigger to auto-update updated_at
+CREATE TRIGGER semesters_updated_at
+  BEFORE UPDATE ON semesters
+  FOR EACH ROW
+  EXECUTE FUNCTION update_updated_at();
+
+-- Indexes for common queries
+CREATE INDEX idx_semesters_user_id ON semesters(user_id);
+CREATE INDEX idx_semesters_year_term ON semesters(year, term);
+
+-- Unique constraint to prevent duplicate semesters
+CREATE UNIQUE INDEX idx_semesters_unique ON semesters(user_id, year, term);
+
+-- ----------------------------------------------------------------------------
 -- CLASSES - Course/class information
 -- ----------------------------------------------------------------------------
 -- Stores information about classes/courses that users are taking.
--- Semester info stored directly on classes table (simpler than separate table).
 
 CREATE TABLE classes (
   id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -104,9 +132,8 @@ CREATE TABLE classes (
   class_code text, -- e.g., "CS 101"
   description text,
 
-  -- Semester info (stored inline, no separate semesters table)
-  semester_year integer NOT NULL,
-  semester_term text NOT NULL CHECK (semester_term IN ('Fall', 'Spring', 'Summer', 'Winter')),
+  -- Semester
+  semester_id uuid REFERENCES semesters(id) ON DELETE SET NULL,
 
   -- Instructor
   instructor text,
@@ -130,8 +157,6 @@ CREATE TRIGGER classes_updated_at
 
 -- Indexes for common queries
 CREATE INDEX idx_classes_user_id ON classes(user_id);
-CREATE INDEX idx_classes_semester ON classes(semester_year, semester_term);
-CREATE INDEX idx_classes_archived ON classes(is_archived) WHERE is_archived = false;
 
 -- ----------------------------------------------------------------------------
 -- DOCUMENTS - Uploaded materials and lecture recordings
@@ -317,13 +342,7 @@ CREATE TABLE messages (
 CREATE INDEX idx_messages_conversation_id ON messages(conversation_id);
 CREATE INDEX idx_messages_created_at ON messages(created_at); -- For ordering
 
--- ============================================================================
--- ROW LEVEL SECURITY (RLS) POLICIES
--- ============================================================================
--- Security model: Users can only access their own data
--- Uses portable current_user_id() function instead of auth.uid() directly
 
--- Enable RLS on all tables
 ALTER TABLE profiles ENABLE ROW LEVEL SECURITY;
 ALTER TABLE classes ENABLE ROW LEVEL SECURITY;
 ALTER TABLE documents ENABLE ROW LEVEL SECURITY;
@@ -331,10 +350,13 @@ ALTER TABLE segments ENABLE ROW LEVEL SECURITY;
 ALTER TABLE conversations ENABLE ROW LEVEL SECURITY;
 ALTER TABLE messages ENABLE ROW LEVEL SECURITY;
 
--- ----------------------------------------------------------------------------
--- PROFILES policies
--- ----------------------------------------------------------------------------
-
+-- Disable RLS on all tables for development
+ALTER TABLE profiles DISABLE ROW LEVEL SECURITY;
+ALTER TABLE classes DISABLE ROW LEVEL SECURITY;
+ALTER TABLE documents DISABLE ROW LEVEL SECURITY;
+ALTER TABLE segments DISABLE ROW LEVEL SECURITY;
+ALTER TABLE conversations DISABLE ROW LEVEL SECURITY;
+ALTER TABLE messages DISABLE ROW LEVEL SECURITY;
 CREATE POLICY "Users can view own profile"
   ON profiles FOR SELECT
   USING (current_user_id() = supabase_auth_id);

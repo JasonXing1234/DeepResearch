@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Mic, BookOpen, GraduationCap, ChevronDown, ChevronRight, Plus, FolderPlus, Upload } from 'lucide-react';
 import { Button } from './ui/button';
 import { ScrollArea } from './ui/scroll-area';
@@ -20,6 +20,7 @@ import {
 } from './ui/select';
 import { Input } from './ui/input';
 import { Label } from './ui/label';
+import { toast } from 'sonner';
 import type { Class, Semester } from '../app/page';
 
 type SidebarProps = {
@@ -43,11 +44,17 @@ export function Sidebar({
   onAddSemester,
   onAddClass,
 }: SidebarProps) {
-  const [expandedSemesters, setExpandedSemesters] = useState<Set<string>>(
-    new Set(semesters.filter(s => s.isActive).map(s => s.id))
-  );
+  const [expandedSemesters, setExpandedSemesters] = useState<Set<string>>(new Set());
   const [addSemesterOpen, setAddSemesterOpen] = useState(false);
   const [addClassOpen, setAddClassOpen] = useState(false);
+
+  // Expand all semesters when data loads or changes
+  useEffect(() => {
+    if (semesters.length > 0 && expandedSemesters.size === 0) {
+      // Expand all semesters by default
+      setExpandedSemesters(new Set(semesters.map(s => s.id)));
+    }
+  }, [semesters]);
   
   // Form states
   const [newSemesterTerm, setNewSemesterTerm] = useState<'Fall' | 'Spring' | 'Summer' | 'Winter'>('Fall');
@@ -57,6 +64,8 @@ export function Sidebar({
   const [newClassProfessor, setNewClassProfessor] = useState('');
   const [newClassSemester, setNewClassSemester] = useState(semesters[0]?.id || '');
   const [newClassColor, setNewClassColor] = useState('#3b82f6');
+  const [isAddingClass, setIsAddingClass] = useState(false);
+  const [isAddingSemester, setIsAddingSemester] = useState(false);
 
   const toggleSemester = (semesterId: string) => {
     const newExpanded = new Set(expandedSemesters);
@@ -68,36 +77,117 @@ export function Sidebar({
     setExpandedSemesters(newExpanded);
   };
 
-  const handleAddSemester = () => {
-    const newSemester: Semester = {
-      id: Date.now().toString(),
-      name: `${newSemesterTerm} ${newSemesterYear}`,
-      year: parseInt(newSemesterYear),
-      term: newSemesterTerm,
-      isActive: false,
-    };
-    onAddSemester(newSemester);
-    setAddSemesterOpen(false);
+  const handleAddSemester = async () => {
+    if (!newSemesterYear || !newSemesterTerm) return;
+
+    setIsAddingSemester(true);
+    try {
+      // Call API to create semester in Supabase
+      const response = await fetch('/api/semesters', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          year: parseInt(newSemesterYear),
+          term: newSemesterTerm,
+        }),
+      });
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        toast.error(result.error || 'Failed to create semester');
+        return;
+      }
+
+      // Create local Semester object for UI state
+      const newSemester: Semester = {
+        id: result.semester.id,
+        name: `${newSemesterTerm} ${newSemesterYear}`,
+        year: parseInt(newSemesterYear),
+        term: newSemesterTerm,
+        isActive: false,
+      };
+
+      onAddSemester(newSemester);
+      setAddSemesterOpen(false);
+      toast.success(`${newSemesterTerm} ${newSemesterYear} has been added!`);
+
+      // Reset form to current year
+      setNewSemesterYear(new Date().getFullYear().toString());
+      setNewSemesterTerm('Fall');
+    } catch (error) {
+      console.error('Error creating semester:', error);
+      toast.error('An error occurred while creating the semester');
+    } finally {
+      setIsAddingSemester(false);
+    }
   };
 
-  const handleAddClass = () => {
+  const handleAddClass = async () => {
     if (!newClassName || !newClassCode || !newClassSemester) return;
-    
-    const newClass: Class = {
-      id: Date.now().toString(),
-      semesterId: newClassSemester,
-      name: newClassName,
-      code: newClassCode,
-      professor: newClassProfessor,
-      color: newClassColor,
-    };
-    onAddClass(newClass);
-    setAddClassOpen(false);
-    // Reset form
-    setNewClassName('');
-    setNewClassCode('');
-    setNewClassProfessor('');
-    setNewClassColor('#3b82f6');
+
+    setIsAddingClass(true);
+    try {
+      // Get semester details to extract year and term
+      const selectedSemester = semesters.find(s => s.id === newClassSemester);
+      if (!selectedSemester) {
+        toast.error('Selected semester not found');
+        return;
+      }
+
+      // Call API to create class in Supabase
+      const response = await fetch('/api/classes', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: newClassName,
+          class_code: newClassCode,
+          instructor: newClassProfessor || null,
+          semester_year: selectedSemester.year,
+          semester_term: selectedSemester.term,
+          color_code: newClassColor,
+          description: null,
+          class_time: null,
+          location: null,
+        }),
+      });
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        toast.error(result.error || 'Failed to create class');
+        return;
+      }
+
+      // Create local Class object for UI state
+      const newClass: Class = {
+        id: result.class.id,
+        semesterId: newClassSemester,
+        name: newClassName,
+        code: newClassCode,
+        professor: newClassProfessor,
+        color: newClassColor,
+      };
+
+      onAddClass(newClass);
+      setAddClassOpen(false);
+      toast.success(`${newClassCode} has been added!`);
+
+      // Reset form
+      setNewClassName('');
+      setNewClassCode('');
+      setNewClassProfessor('');
+      setNewClassColor('#3b82f6');
+    } catch (error) {
+      console.error('Error creating class:', error);
+      toast.error('An error occurred while creating the class');
+    } finally {
+      setIsAddingClass(false);
+    }
   };
 
   const classesBySemester = classes.reduce((acc, cls) => {
@@ -107,6 +197,10 @@ export function Sidebar({
     acc[cls.semesterId].push(cls);
     return acc;
   }, {} as Record<string, Class[]>);
+
+  console.log('Sidebar - Semesters:', semesters);
+  console.log('Sidebar - Classes:', classes);
+  console.log('Sidebar - Classes by semester:', classesBySemester);
 
   const colorOptions = [
     '#3b82f6', // blue
@@ -239,8 +333,8 @@ export function Sidebar({
                       ))}
                     </div>
                   </div>
-                  <Button onClick={handleAddClass} className="w-full">
-                    Add Class
+                  <Button onClick={handleAddClass} className="w-full" disabled={isAddingClass}>
+                    {isAddingClass ? 'Adding...' : 'Add Class'}
                   </Button>
                 </div>
               </DialogContent>
@@ -283,8 +377,8 @@ export function Sidebar({
                       onChange={(e) => setNewSemesterYear(e.target.value)}
                     />
                   </div>
-                  <Button onClick={handleAddSemester} className="w-full">
-                    Add Semester
+                  <Button onClick={handleAddSemester} className="w-full" disabled={isAddingSemester}>
+                    {isAddingSemester ? 'Adding...' : 'Add Semester'}
                   </Button>
                 </div>
               </DialogContent>
