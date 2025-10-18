@@ -1,5 +1,8 @@
 import { useState, useRef, useEffect } from 'react';
-import { Send, BookOpen, Sparkles, Search, FileText, Brain, ListChecks, Lightbulb, ClipboardList } from 'lucide-react';
+import {
+  Send, BookOpen, Sparkles, Search, FileText, Brain,
+  ListChecks, Lightbulb, ClipboardList
+} from 'lucide-react';
 import { Button } from './ui/button';
 import { Card } from './ui/card';
 import { ScrollArea } from './ui/scroll-area';
@@ -77,22 +80,149 @@ export function StudyAssistant({ classes, lectures }: StudyAssistantProps) {
   const [isTyping, setIsTyping] = useState(false);
   const [toolsOpen, setToolsOpen] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
+  const processedMessageIds = useRef(new Set<string>()); // Track which messages we've auto-followed-up on
 
   useEffect(() => {
+    console.log("UPDATED MESSAGE", messages);
     if (scrollRef.current) {
       scrollRef.current.scrollIntoView({ behavior: 'smooth' });
     }
-  }, [messages]);
 
-  const handleSend = (toolUsed?: string) => {
+    // Auto-follow-up when tool calls complete but no text response
+    const lastMessage = messages[messages.length - 1];
+    if (lastMessage && lastMessage.role === 'assistant' && !processedMessageIds.current.has(lastMessage.id)) {
+      const text = extractTextFromMessage(lastMessage);
+      const hasToolCalls = lastMessage.parts?.some((part: any) => part.type?.startsWith('tool-'));
+      const toolHasOutput = lastMessage.parts?.some((part: any) =>
+        part.type?.startsWith('tool-') && part.state === 'output-available'
+      );
+
+      // If tool finished but no text generated, auto-send follow-up
+      if (hasToolCalls && toolHasOutput && !text && !isTyping) {
+        console.log("Tool call completed without text response - sending auto follow-up");
+        processedMessageIds.current.add(lastMessage.id); // Mark as processed
+        setIsTyping(true);
+        // Send follow-up message to synthesize the tool output
+        sendMessage({
+          text: "Based on the information you just retrieved, please answer my original question concisely."
+        }).finally(() => setIsTyping(false));
+      }
+    }
+  }, [messages, sendMessage, isTyping]);
+
+  // ✅ helper: safely extract text from any message format
+  const extractTextFromMessage = (message: any): string => {
+    const textParts: string[] = [];
+
+    // 1️⃣ Normal text message
+    if (message.parts) {
+      for (const part of message.parts) {
+        if (part.type === 'text' && typeof part.text === 'string') {
+          textParts.push(part.text);
+        }
+
+        // 2️⃣ Handle nested tool outputs
+        if (part.type?.startsWith('tool-') && part.output) {
+          const output = part.output;
+
+          // handle { output: { type: "message", content: [...] } }
+          if (output.content && Array.isArray(output.content)) {
+            for (const c of output.content) {
+              if (c.type === 'text') {
+                // handle both text and result props
+                textParts.push(c.text || c.result || '');
+              }
+            }
+          }
+
+          // handle { output: { type: "content", parts: [...] } }
+          if (output.parts && Array.isArray(output.parts)) {
+            for (const p of output.parts) {
+              if (p.type === 'text') {
+                textParts.push(p.text || p.result || '');
+              }
+            }
+          }
+        }
+      }
+    }
+
+    return textParts.join('\n\n');
+  };
+
+  // Helper: Format tool output into user-friendly text
+  const formatToolOutput = (part: any): string | null => {
+    if (!part.type?.startsWith('tool-') || !part.output) return null;
+
+    const output = part.output;
+
+    // Handle getSyllabus output
+    if (part.type === 'tool-getSyllabus' && output.found && output.syllabi) {
+      const syllabi = output.syllabi;
+      let result = `📋 **Syllabus${syllabi.length > 1 ? ' Documents' : ''}:**\n\n`;
+
+      syllabi.forEach((syllabus: any, index: number) => {
+        result += `**${syllabus.title}**`;
+        if (syllabus.date) result += ` (${syllabus.date})`;
+        if (syllabus.pages) result += ` - ${syllabus.pages} pages`;
+        result += '\n\n';
+        if (syllabus.content) {
+          result += `${syllabus.content}\n\n`;
+        }
+        if (index < syllabi.length - 1) result += '---\n\n';
+      });
+
+      return result;
+    }
+
+    // Handle getRecentLectures output
+    if (part.type === 'tool-getRecentLectures' && output.found && output.lectures) {
+      const lectures = output.lectures;
+      let result = `📚 **Found ${lectures.length} recent lecture${lectures.length > 1 ? 's' : ''}:**\n\n`;
+
+      lectures.forEach((lecture: any, index: number) => {
+        result += `**${lecture.title}**`;
+        if (lecture.date) result += ` (${lecture.date})`;
+        result += '\n\n';
+        if (lecture.transcript) {
+          result += `${lecture.transcript}\n\n`;
+        }
+        if (index < lectures.length - 1) result += '---\n\n';
+      });
+
+      return result;
+    }
+
+    // Handle semanticSearch output
+    if (part.type === 'tool-semanticSearch' && output.found && output.results) {
+      const results = output.results;
+      let result = `🔍 **Found ${results.length} relevant result${results.length > 1 ? 's' : ''}:**\n\n`;
+
+      results.forEach((r: any, index: number) => {
+        result += `**${r.source}**`;
+        if (r.class) result += ` - ${r.class}`;
+        result += '\n\n';
+        result += `${r.content}\n\n`;
+        if (index < results.length - 1) result += '---\n\n';
+      });
+
+      return result;
+    }
+
+    // Handle "not found" cases
+    if (output.found === false && output.message) {
+      return `ℹ️ ${output.message}`;
+    }
+
+    return null;
+  };
+
+  const handleSend = async (toolUsed?: string) => {
     if (!input.trim()) return;
-
     setInput('');
     setIsTyping(true);
-
-    // Call AI
-    sendMessage({text: input})
-    setIsTyping(false); // make this async
+    await sendMessage({ text: input });
+    setIsTyping(false);
   };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
@@ -133,13 +263,12 @@ export function StudyAssistant({ classes, lectures }: StudyAssistantProps) {
           </div>
         </div>
 
-        {/* TODO: make model to have a pop up error, or add it to the message list for the assistant response */}
         {error && (
-          <div className="mt-4">
-            <div className="text-red-500">An error occurred.</div>
+          <div className="mt-4 text-red-500 text-center">
+            <p>An error occurred.</p>
             <button
               type="button"
-              className="px-4 py-2 mt-4 text-blue-500 border border-blue-500 rounded-md"
+              className="px-4 py-2 mt-2 text-blue-500 border border-blue-500 rounded-md"
               onClick={() => regenerate()}
             >
               Retry
@@ -149,39 +278,42 @@ export function StudyAssistant({ classes, lectures }: StudyAssistantProps) {
         {/* Messages */}
         <ScrollArea className="flex-1 overflow-y-auto p-6">
           <div className="max-w-3xl mx-auto space-y-6">
-            {messages.map((message) => (
-              <div
-                key={message.id}
-                className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}
-              >
-                <div
-                  className={`max-w-[80%] ${message.role === 'user'
-                      ? 'bg-blue-600 text-white'
-                      : 'bg-white border border-gray-200'
-                    } rounded-2xl p-4`}
-                >
-                  {message.role !== 'user' && (
-                    <div className="flex items-center gap-2 mb-2">
-                      <BookOpen className="w-4 h-4 text-blue-600" />
-                      <span className="text-sm text-gray-500">AI Assistant</span>
-                    </div>
-                  )}
-                  {/*Todo: make the role of the tool pop up when displaying the result */}
-                  {/* {message.role === 'user' && message.toolUsed && (
-                    <div className="flex items-center gap-2 mb-2 opacity-80">
-                      <span className="text-xs">
-                        Used: {tools.find(t => t.id === message.toolUsed)?.name}
-                      </span>
-                    </div>
-                  )} */}
-                  <p className="whitespace-pre-wrap">{message.parts.map(part => {
-              if (part.type === 'text') {
-                return part.text;
+            {messages.map((message) => {
+              const text = extractTextFromMessage(message);
+
+              // Hide the auto-generated follow-up message
+              if (message.role === 'user' &&
+                  text === "Based on the information you just retrieved, please answer my original question concisely.") {
+                return null;
               }
-            })}</p>
+
+              // Don't render if no text content (skip raw tool outputs)
+              if (!text) return null;
+
+              return (
+                <div
+                  key={message.id}
+                  className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}
+                >
+                  <div
+                    className={`max-w-[80%] ${message.role === 'user'
+                        ? 'bg-blue-600 text-white'
+                        : 'bg-white border border-gray-200'
+                      } rounded-2xl p-4`}
+                  >
+                    {message.role !== 'user' && (
+                      <div className="flex items-center gap-2 mb-2">
+                        <BookOpen className="w-4 h-4 text-blue-600" />
+                        <span className="text-sm text-gray-500">AI Assistant</span>
+                      </div>
+                    )}
+                    <div className="whitespace-pre-wrap prose prose-sm max-w-none">
+                      {text}
+                    </div>
+                  </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
 
             {isTyping && (
               <div className="flex justify-start">

@@ -46,6 +46,37 @@ export type ClassMaterial = {
   url: string;
 };
 
+// Database types from API responses
+type DbSemester = {
+  id: string;
+  year: number;
+  term: string;
+};
+
+type DbClass = {
+  id: string;
+  semester_id: string;
+  name: string;
+  class_code: string | null;
+  color_code: string | null;
+  instructor: string | null;
+};
+
+type DbDocument = {
+  id: string;
+  class_id: string;
+  title: string | null;
+  original_filename: string | null;
+  mime_type: string | null;
+  storage_bucket: string;
+  file_path: string;
+  date_of_material: string | null;
+  created_at: string;
+  audio_duration_seconds: number | null;
+  transcription_text: string | null;
+  file_size_bytes: number | null;
+};
+
 
 export default function App() {
   const [currentView, setCurrentView] = useState<'record' | 'upload' | 'class' | 'study'>('class');
@@ -76,11 +107,11 @@ export default function App() {
 
         if (semestersResult.success && semestersResult.semesters) {
           // Map database semesters to UI format
-          const mappedSemesters = semestersResult.semesters.map((s: any) => ({
+          const mappedSemesters = semestersResult.semesters.map((s: DbSemester) => ({
             id: s.id,
             name: `${s.term} ${s.year}`,
             year: s.year,
-            term: s.term,
+            term: s.term as 'Fall' | 'Spring' | 'Summer' | 'Winter',
             isActive: false, // TODO: Determine active semester logic
           }));
           console.log('Loaded semesters:', mappedSemesters);
@@ -89,7 +120,7 @@ export default function App() {
 
         if (classesResult.success && classesResult.classes) {
           // Map database classes to UI format
-          const mappedClasses = classesResult.classes.map((c: any) => ({
+          const mappedClasses = classesResult.classes.map((c: DbClass) => ({
             id: c.id,
             semesterId: c.semester_id,
             name: c.name,
@@ -105,23 +136,29 @@ export default function App() {
           // Split documents into lectures and materials
           const allDocuments = documentsResult.documents;
 
-          // Lectures: audio files with transcriptions
+          // Lectures: audio files (identified by mime type or storage bucket)
           const mappedLectures = allDocuments
-            .filter((d: any) => d.transcription_text && d.audio_duration_seconds)
-            .map((d: any) => ({
+            .filter((d: DbDocument) =>
+              d.mime_type?.startsWith('audio/') ||
+              d.storage_bucket === 'lecture-recordings'
+            )
+            .map((d: DbDocument) => ({
               id: d.id,
               classId: d.class_id,
               title: d.title || d.original_filename || 'Untitled Lecture',
               date: d.date_of_material || d.created_at.split('T')[0],
               duration: d.audio_duration_seconds || 0,
               audioUrl: d.file_path || '#',
-              transcript: d.transcription_text || '',
+              transcript: d.transcription_text || 'Transcription in progress...',
             }));
 
-          // Materials: PDFs, DOCX, PPTX, etc.
+          // Materials: PDFs, DOCX, PPTX, etc. (non-audio files)
           const mappedMaterials = allDocuments
-            .filter((d: any) => !d.transcription_text || !d.audio_duration_seconds)
-            .map((d: any) => {
+            .filter((d: DbDocument) =>
+              !d.mime_type?.startsWith('audio/') &&
+              d.storage_bucket !== 'lecture-recordings'
+            )
+            .map((d: DbDocument) => {
               // Determine type from mime_type
               let type: 'pdf' | 'pptx' | 'docx' | 'xlsx' | 'other' = 'other';
               if (d.mime_type?.includes('pdf')) type = 'pdf';

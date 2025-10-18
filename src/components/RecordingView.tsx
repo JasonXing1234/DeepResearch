@@ -24,7 +24,10 @@ export function RecordingView({ classes }: RecordingViewProps) {
   const [recordingTime, setRecordingTime] = useState(0);
   const [selectedClass, setSelectedClass] = useState<string>('');
   const [lectureTitle, setLectureTitle] = useState('');
+  const [isUploading, setIsUploading] = useState(false);
   const timerRef = useRef<number | null>(null);
+  const mediaRecorderRef = useRef<MediaRecorder | null>(null);
+  const chunksRef = useRef<Blob[]>([]);
 
   useEffect(() => {
     if (isRecording && !isPaused) {
@@ -51,28 +54,98 @@ export function RecordingView({ classes }: RecordingViewProps) {
     return `${hrs.toString().padStart(2, '0')}:${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
   };
 
-  const handleStartRecording = () => {
+  const handleStartRecording = async () => {
     if (!selectedClass) {
       toast.error('Please select a class first');
       return;
     }
-    setIsRecording(true);
-    setIsPaused(false);
-    toast.success('Recording started');
+
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      const mediaRecorder = new MediaRecorder(stream);
+      mediaRecorderRef.current = mediaRecorder;
+      chunksRef.current = [];
+
+      mediaRecorder.ondataavailable = (event) => {
+        if (event.data.size > 0) {
+          chunksRef.current.push(event.data);
+        }
+      };
+
+      mediaRecorder.start();
+      setIsRecording(true);
+      setIsPaused(false);
+      toast.success('Recording started');
+    } catch (error) {
+      console.error('Error starting recording:', error);
+      toast.error('Failed to start recording. Please check microphone permissions.');
+    }
   };
 
   const handlePauseResume = () => {
-    setIsPaused(!isPaused);
-    toast.info(isPaused ? 'Recording resumed' : 'Recording paused');
+    if (!mediaRecorderRef.current) return;
+
+    if (isPaused) {
+      mediaRecorderRef.current.resume();
+      setIsPaused(false);
+      toast.info('Recording resumed');
+    } else {
+      mediaRecorderRef.current.pause();
+      setIsPaused(true);
+      toast.info('Recording paused');
+    }
   };
 
-  const handleStopRecording = () => {
-    setIsRecording(false);
-    setIsPaused(false);
-    toast.success('Recording saved and will be transcribed');
-    // Reset
-    setRecordingTime(0);
-    setLectureTitle('');
+  const handleStopRecording = async () => {
+    if (!mediaRecorderRef.current) return;
+
+    mediaRecorderRef.current.stop();
+    mediaRecorderRef.current.stream.getTracks().forEach(track => track.stop());
+
+    // Wait for final data
+    await new Promise((resolve) => {
+      if (mediaRecorderRef.current) {
+        mediaRecorderRef.current.onstop = resolve;
+      }
+    });
+
+    // Create audio blob
+    const audioBlob = new Blob(chunksRef.current, { type: 'audio/webm' });
+
+    // Upload to API
+    setIsUploading(true);
+    try {
+      const formData = new FormData();
+      formData.append('audio', audioBlob, `recording-${Date.now()}.webm`);
+      formData.append('classId', selectedClass);
+      if (lectureTitle) {
+        formData.append('title', lectureTitle);
+      }
+
+      const response = await fetch('/api/upload-audio', {
+        method: 'POST',
+        body: formData,
+      });
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        throw new Error(result.error || 'Upload failed');
+      }
+
+      toast.success('Recording uploaded! Transcription started.');
+
+      // Reset
+      setIsRecording(false);
+      setIsPaused(false);
+      setRecordingTime(0);
+      setLectureTitle('');
+    } catch (error) {
+      console.error('Upload error:', error);
+      toast.error('Failed to upload recording');
+    } finally {
+      setIsUploading(false);
+    }
   };
 
   return (
@@ -159,6 +232,7 @@ export function RecordingView({ classes }: RecordingViewProps) {
                 size="lg"
                 onClick={handleStartRecording}
                 className="w-40"
+                disabled={isUploading}
               >
                 <Mic className="w-5 h-5 mr-2" />
                 Start Recording
@@ -170,6 +244,7 @@ export function RecordingView({ classes }: RecordingViewProps) {
                   variant="outline"
                   onClick={handlePauseResume}
                   className="w-32"
+                  disabled={isUploading}
                 >
                   {isPaused ? (
                     <>
@@ -188,9 +263,10 @@ export function RecordingView({ classes }: RecordingViewProps) {
                   variant="destructive"
                   onClick={handleStopRecording}
                   className="w-32"
+                  disabled={isUploading}
                 >
                   <Square className="w-5 h-5 mr-2" />
-                  Stop
+                  {isUploading ? 'Uploading...' : 'Stop'}
                 </Button>
               </>
             )}
