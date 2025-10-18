@@ -128,6 +128,54 @@ export function StudyAssistant({ classes, lectures }: StudyAssistantProps) {
     return textParts.join('\n\n');
   };
 
+  // Helper: Format tool output into user-friendly text
+  const formatToolOutput = (part: any): string | null => {
+    if (!part.type?.startsWith('tool-') || !part.output) return null;
+
+    const output = part.output;
+
+    // Handle getRecentLectures output
+    if (part.type === 'tool-getRecentLectures' && output.found && output.lectures) {
+      const lectures = output.lectures;
+      let result = `📚 **Found ${lectures.length} recent lecture${lectures.length > 1 ? 's' : ''}:**\n\n`;
+
+      lectures.forEach((lecture: any, index: number) => {
+        result += `**${lecture.title}**`;
+        if (lecture.date) result += ` (${lecture.date})`;
+        result += '\n\n';
+        if (lecture.transcript) {
+          result += `${lecture.transcript}\n\n`;
+        }
+        if (index < lectures.length - 1) result += '---\n\n';
+      });
+
+      return result;
+    }
+
+    // Handle semanticSearch output
+    if (part.type === 'tool-semanticSearch' && output.found && output.results) {
+      const results = output.results;
+      let result = `🔍 **Found ${results.length} relevant result${results.length > 1 ? 's' : ''}:**\n\n`;
+
+      results.forEach((r: any, index: number) => {
+        result += `**${r.source}**`;
+        if (r.class) result += ` - ${r.class}`;
+        result += '\n\n';
+        result += `${r.content}\n\n`;
+        if (index < results.length - 1) result += '---\n\n';
+      });
+
+      return result;
+    }
+
+    // Handle "not found" cases
+    if (output.found === false && output.message) {
+      return `ℹ️ ${output.message}`;
+    }
+
+    return null;
+  };
+
   const handleSend = async (toolUsed?: string) => {
     if (!input.trim()) return;
     setInput('');
@@ -191,7 +239,23 @@ export function StudyAssistant({ classes, lectures }: StudyAssistantProps) {
           <div className="max-w-3xl mx-auto space-y-6">
             {messages.map((message) => {
               const text = extractTextFromMessage(message);
-              if (!text) return null;
+
+              // Try to get formatted tool output if no text
+              let toolOutput = '';
+              if (!text && message.role === 'assistant' && message.parts) {
+                for (const part of message.parts) {
+                  const formatted = formatToolOutput(part);
+                  if (formatted) {
+                    toolOutput += formatted + '\n\n';
+                  }
+                }
+                toolOutput = toolOutput.trim();
+              }
+
+              const displayContent = text || toolOutput;
+
+              // Don't render if no content at all
+              if (!displayContent) return null;
 
               return (
                 <div
@@ -210,7 +274,9 @@ export function StudyAssistant({ classes, lectures }: StudyAssistantProps) {
                         <span className="text-sm text-gray-500">AI Assistant</span>
                       </div>
                     )}
-                    <p className="whitespace-pre-wrap">{text}</p>
+                    <div className="whitespace-pre-wrap prose prose-sm max-w-none">
+                      {displayContent}
+                    </div>
                   </div>
                 </div>
               );

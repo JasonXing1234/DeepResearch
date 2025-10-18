@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@/lib/supabase/server';
+import { inngest } from '@/inngest/client';
 
 export async function GET(req: NextRequest) {
   try {
@@ -93,6 +94,9 @@ export async function POST(req: NextRequest) {
     // Get file size as number
     const fileSize = file.size;
 
+    // Check if file is PDF to determine if we need text extraction
+    const isPDF = file.type === 'application/pdf';
+
     // Insert document metadata into database
     const { data: document, error: dbError } = await supabase
       .from('documents')
@@ -107,7 +111,7 @@ export async function POST(req: NextRequest) {
         storage_bucket: 'class-materials',
         storage_provider: 'supabase',
         upload_status: 'completed',
-        transcription_status: 'not_applicable', // Non-audio files
+        transcription_status: isPDF ? 'pending' : 'not_applicable', // PDFs need text extraction
         embedding_status: 'pending',
         date_of_material: new Date().toISOString().split('T')[0],
       })
@@ -125,9 +129,20 @@ export async function POST(req: NextRequest) {
       );
     }
 
+    // Trigger PDF processing if it's a PDF file
+    if (isPDF) {
+      await inngest.send({
+        name: 'pdf/uploaded',
+        data: {
+          documentId: document.id,
+        },
+      });
+    }
+
     return NextResponse.json({
       success: true,
       document,
+      message: isPDF ? 'PDF uploaded successfully. Text extraction in progress.' : 'Document uploaded successfully.',
     });
   } catch (error) {
     console.error('Error uploading document:', error);

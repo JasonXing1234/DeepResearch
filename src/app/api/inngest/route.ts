@@ -11,14 +11,14 @@
 import { serve } from 'inngest/next';
 import { inngest } from '@/inngest/client';
 import { processAudio } from '@/inngest/functions/process-audio';
-// import { processPDF } from '@/inngest/functions/process-pdf'; // TODO: Fix pdf-parse import issues
+import { processPDF } from '@/inngest/functions/process-pdf';
 import { processTranscript } from '@/inngest/functions/process-transcript';
 
 export const { GET, POST, PUT } = serve({
   client: inngest,
   functions: [
     processAudio,
-    // processPDF, // TODO: Fix pdf-parse import issues
+    processPDF,
     processTranscript,
   ],
 });

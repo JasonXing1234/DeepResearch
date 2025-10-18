@@ -5,20 +5,21 @@
  * 1. Download PDF file from class-materials bucket
  * 2. Extract text using pdf-parse library
  * 3. Save extracted text as .txt file in transcripts bucket
- * 4. Update database with processing status
+ * 4. Update database with extraction status
  * 5. Trigger transcript/created event to start embedding generation
  */
 
 import { inngest } from '../client';
 import { createClient } from '@/lib/supabase/server';
 import { getOriginalFile, getTranscriptFile } from '@/lib/storage';
+import { extractText } from 'unpdf';
 
 export const processPDF = inngest.createFunction(
   {
     id: 'process-pdf',
     retries: 3,
     concurrency: {
-      limit: 10, // PDFs are processed locally, can handle more concurrency
+      limit: 10, // PDFs are CPU-bound, can handle more concurrency than API calls
     },
     onFailure: async ({ event, error }) => {
       // Mark document as failed in database
@@ -65,7 +66,7 @@ export const processPDF = inngest.createFunction(
 
     // Step 2: Download PDF and extract text
     // Note: Download and extraction are in same step because Blob can't be serialized between steps
-    const extractedText = await step.run('download-and-extract-pdf', async () => {
+    const extractedText = await step.run('download-and-extract', async () => {
       // Download PDF file
       const supabase = await createClient();
       const originalFile = getOriginalFile(document);
@@ -78,21 +79,20 @@ export const processPDF = inngest.createFunction(
         throw new Error(`Failed to download PDF: ${error?.message}`);
       }
 
-      // Convert Blob to Buffer for pdf-parse
+      // Convert Blob to ArrayBuffer for unpdf
       const arrayBuffer = await pdfBlob.arrayBuffer();
-      const buffer = Buffer.from(arrayBuffer);
 
-      // Extract text from PDF using dynamic import for CommonJS module
-      const pdfParse = (await import('pdf-parse')).default as (buffer: Buffer) => Promise<{ text: string; numpages: number }>;
-      const data = await pdfParse(buffer);
+      // Extract text from PDF using unpdf
+      // mergePages: true returns a single string instead of array
+      const { text, totalPages } = await extractText(arrayBuffer, { mergePages: true });
 
-      if (!data.text || data.text.trim().length === 0) {
-        throw new Error('No text could be extracted from PDF');
+      if (!text || text.trim().length === 0) {
+        throw new Error('No text content found in PDF. The PDF may be scanned or image-based.');
       }
 
       return {
-        text: data.text,
-        numPages: data.numpages,
+        text,
+        numPages: totalPages,
       };
     });
 
@@ -125,7 +125,13 @@ export const processPDF = inngest.createFunction(
         .update({
           transcription_status: 'completed',
           transcription_completed_at: new Date().toISOString(),
+          transcription_model: 'unpdf',
+          transcription_text: extractedText.text, // Save extracted text to database
           word_count: wordCount,
+          // Store PDF metadata if available
+          metadata: {
+            numPages: extractedText.numPages,
+          },
         })
         .eq('id', documentId);
     });
