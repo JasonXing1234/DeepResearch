@@ -87,14 +87,6 @@ export function StudyAssistant({ classes, lectures }: StudyAssistantProps) {
   const handleSend = (toolUsed?: string) => {
     if (!input.trim()) return;
 
-    // Add user message
-    const userMessage: Message = {
-      id: Date.now().toString(),
-      role: 'user',
-      content: input,
-      timestamp: new Date(),
-      toolUsed,
-    };
     setInput('');
     setIsTyping(true);
 
