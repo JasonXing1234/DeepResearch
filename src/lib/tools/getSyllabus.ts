@@ -48,21 +48,10 @@ export async function getSyllabus(
   // If we found explicit syllabus documents, use those; otherwise use all PDFs
   const docsToReturn = syllabusDocs.length > 0 ? syllabusDocs : documents;
 
-  // Format documents with their content
-  // Use embedding_status since that's what matters for semantic search
-  const syllabi = docsToReturn
-    .filter(doc => doc.embedding_status === 'completed') // Only show if embeddings are ready
-    .map(doc => ({
-      id: doc.id,
-      title: doc.title,
-      date: doc.date_of_material || doc.created_at?.split('T')[0],
-      content: doc.transcription_text,
-      file_size_bytes: doc.file_size_bytes,
-      pages: doc.metadata?.numPages,
-      total_segments: doc.total_segments,
-    }));
+  // Filter to only documents with completed embeddings (segments exist)
+  const processedDocs = docsToReturn.filter(doc => doc.embedding_status === 'completed');
 
-  if (syllabi.length === 0) {
+  if (processedDocs.length === 0) {
     return {
       found: false,
       message: 'Syllabus document(s) found but not yet processed. Please wait for text extraction to complete.',
@@ -74,9 +63,49 @@ export async function getSyllabus(
     };
   }
 
+  // Fetch content from segments table for each document
+  const syllabi = await Promise.all(
+    processedDocs.map(async (doc) => {
+      // Get all segments for this document, ordered by segment_index
+      const { data: segments, error: segError } = await supabase
+        .from('segments')
+        .select('content, segment_index')
+        .eq('document_id', doc.id)
+        .order('segment_index', { ascending: true });
+
+      if (segError) {
+        console.error('Error fetching segments:', segError);
+        return null;
+      }
+
+      // Combine all segments to reconstruct the full text
+      const fullContent = segments?.map(s => s.content).join('\n\n') || '';
+
+      return {
+        id: doc.id,
+        title: doc.title,
+        date: doc.date_of_material || doc.created_at?.split('T')[0],
+        content: fullContent,
+        file_size_bytes: doc.file_size_bytes,
+        pages: doc.metadata?.numPages,
+        total_segments: doc.total_segments,
+      };
+    })
+  );
+
+  // Filter out any nulls from errors
+  const validSyllabi = syllabi.filter(s => s !== null);
+
+  if (validSyllabi.length === 0) {
+    return {
+      found: false,
+      message: 'Error retrieving syllabus content from database.',
+    };
+  }
+
   return {
     found: true,
-    totalDocuments: syllabi.length,
-    syllabi,
+    totalDocuments: validSyllabi.length,
+    syllabi: validSyllabi,
   };
 }
