@@ -94,6 +94,171 @@ npx supabase db reset
 npx supabase db push
 ```
 
+## Inngest Queue System
+
+The application uses Inngest for background job processing (transcription, PDF text extraction, embedding generation).
+
+### Local Development
+
+**Prerequisites**:
+- Docker running (for Supabase)
+- Inngest dev server
+
+**Starting the full development environment**:
+```bash
+# Terminal 1: Start Next.js dev server
+npm run dev
+
+# Terminal 2: Start Inngest dev server (required for background jobs)
+npx inngest-cli@latest dev
+```
+
+**Inngest Dashboard**: http://localhost:8288
+- View all jobs, retries, failures
+- Manually trigger events for testing
+- See step-by-step execution
+
+### Processing Pipeline
+
+**Audio Files (Lectures)**:
+```
+1. POST /api/upload-audio
+   ├─ Store audio in lecture-recordings bucket
+   ├─ Create document record (status: pending)
+   └─ Trigger event: "audio/uploaded"
+
+2. Inngest: processAudio
+   ├─ Download audio file
+   ├─ Call OpenAI Whisper API
+   ├─ Save transcript to transcripts bucket
+   └─ Trigger event: "transcript/created"
+
+3. Inngest: processTranscript
+   ├─ Download transcript
+   ├─ Chunk text (500 tokens, 50 overlap)
+   ├─ Generate embeddings (batched)
+   └─ Insert into segments table
+```
+
+**PDF Files (Materials)**:
+```
+1. POST /api/upload-pdf
+   ├─ Store PDF in class-materials bucket
+   ├─ Create document record (status: pending)
+   └─ Trigger event: "pdf/uploaded"
+
+2. Inngest: processPDF
+   ├─ Download PDF file
+   ├─ Extract text with pdf-parse
+   ├─ Save transcript to transcripts bucket
+   └─ Trigger event: "transcript/created"
+
+3. Inngest: processTranscript (same as audio)
+   ├─ Chunk and generate embeddings
+   └─ Insert into segments table
+```
+
+### Storage Buckets
+
+**Bucket Structure**:
+```
+lecture-recordings/   # Original audio files
+  └─ {user_id}/{class_id}/{document_id}.mp3
+
+class-materials/      # Original PDFs
+  └─ {user_id}/{class_id}/{document_id}.pdf
+
+transcripts/          # Extracted text (both audio and PDF)
+  └─ {user_id}/{class_id}/{document_id}.txt
+```
+
+**Key Design Pattern**:
+- Original files stored in their respective buckets
+- Transcripts stored separately in `transcripts/` bucket
+- Transcript path derived from original path (same structure, .txt extension)
+- Database stores path to original file only; transcript path computed via `getTranscriptPath()`
+
+### Inngest Functions
+
+- **process-audio.ts** - Whisper transcription for audio files
+- **process-pdf.ts** - Text extraction from PDFs
+- **process-transcript.ts** - Shared chunking/embedding pipeline (used by both)
+
+All functions include:
+- Automatic retries (3 attempts)
+- Error handling with database status updates
+- Progress tracking in database
+- Rate limiting for OpenAI API
+
+### Monitoring Jobs
+
+**Database Status Fields**:
+```sql
+-- Check document processing status
+SELECT
+  id,
+  title,
+  transcription_status,  -- pending, processing, completed, failed
+  embedding_status,      -- pending, processing, completed, failed
+  error_message
+FROM documents;
+
+-- Check progress
+SELECT
+  id,
+  total_segments,
+  processed_segments
+FROM documents
+WHERE embedding_status = 'processing';
+```
+
+**Inngest Dashboard** (http://localhost:8288):
+- Real-time job status
+- Step-by-step execution logs
+- Retry history
+- Failure details
+
+### Testing
+
+**Create storage buckets** (via Supabase Dashboard > Storage):
+```
+lecture-recordings (private)
+class-materials (private)
+transcripts (private)
+```
+
+**Test audio upload**:
+```bash
+curl -X POST http://localhost:3000/api/upload-audio \
+  -H "Authorization: Bearer YOUR_TOKEN" \
+  -F "audio=@test.mp3" \
+  -F "classId=UUID" \
+  -F "title=Test Lecture"
+```
+
+**Test PDF upload**:
+```bash
+curl -X POST http://localhost:3000/api/upload-pdf \
+  -H "Authorization: Bearer YOUR_TOKEN" \
+  -F "pdf=@test.pdf" \
+  -F "classId=UUID" \
+  -F "title=Test Document"
+```
+
+### Production Deployment
+
+1. **Sign up for Inngest**: https://inngest.com (free tier available)
+2. **Get keys**: Event Key and Signing Key
+3. **Set environment variables** in Vercel:
+   ```
+   INNGEST_EVENT_KEY=your-event-key
+   INNGEST_SIGNING_KEY=your-signing-key
+   ```
+4. **Create storage buckets** in production Supabase
+5. Deploy to Vercel
+
+Inngest will automatically discover your functions at `/api/inngest` endpoint.
+
 ## Architecture
 
 ### Data Model (defined in src/app/page.tsx)
