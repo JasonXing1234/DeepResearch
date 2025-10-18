@@ -5,20 +5,13 @@ import { Card } from './ui/card';
 import { ScrollArea } from './ui/scroll-area';
 import { Textarea } from './ui/textarea';
 import { Badge } from './ui/badge';
+import { useChat } from '@ai-sdk/react';
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from './ui/popover';
 import type { Class, Lecture } from '../app/page';
-
-type Message = {
-  id: string;
-  role: 'user' | 'assistant';
-  content: string;
-  timestamp: Date;
-  toolUsed?: string;
-};
 
 type StudyAssistantProps = {
   classes: Class[];
@@ -78,29 +71,8 @@ const tools: Tool[] = [
   },
 ];
 
-const mockResponses = [
-  "Based on your lecture notes, let me help you with that. In your CS 101 lecture on 'Introduction to Programming', you learned that variables are containers for storing data values. They're fundamental because they allow us to store and manipulate data throughout our programs.",
-  
-  "Looking at your Calculus notes from the lecture on 'Limits and Continuity', a limit describes the value that a function approaches as the input approaches some value. The formal definition states that the limit of f(x) as x approaches a equals L if we can make f(x) arbitrarily close to L by making x sufficiently close to a.",
-  
-  "According to your English Composition lecture notes, a strong thesis statement should be specific, arguable, and focused. It should clearly state your position and give the reader a roadmap of your essay. For example, instead of 'Social media has effects on society,' you should write something like 'Social media has increased political polarization by creating echo chambers that reinforce existing beliefs.'",
-  
-  "From your Psychology 101 lecture on Cognitive Psychology, the Gestalt principles describe how we organize visual elements into groups. These include proximity (things close together are grouped), similarity (similar things are grouped), and closure (we fill in gaps to see complete forms).",
-  
-  "Great question! Let me search through your lecture transcripts to find relevant information about that topic.",
-  
-  "I can see from your Computer Science notes that algorithms are step-by-step procedures for solving problems. Big O notation is used to describe performance - O(n) means time grows linearly with input size, while O(1) represents constant time.",
-];
-
 export function StudyAssistant({ classes, lectures }: StudyAssistantProps) {
-  const [messages, setMessages] = useState<Message[]>([
-    {
-      id: '1',
-      role: 'assistant',
-      content: "Hi! I'm your AI study assistant. I have access to all your lecture transcripts and can help you study, answer questions, or explain concepts from your classes. Use the tools menu to get started, or just ask me anything!",
-      timestamp: new Date(),
-    },
-  ]);
+  const { error, status, sendMessage, messages, regenerate, stop } = useChat();
   const [input, setInput] = useState('');
   const [isTyping, setIsTyping] = useState(false);
   const [toolsOpen, setToolsOpen] = useState(false);
@@ -123,23 +95,12 @@ export function StudyAssistant({ classes, lectures }: StudyAssistantProps) {
       timestamp: new Date(),
       toolUsed,
     };
-
-    setMessages((prev) => [...prev, userMessage]);
     setInput('');
     setIsTyping(true);
 
-    // Simulate AI response
-    setTimeout(() => {
-      const response = mockResponses[Math.floor(Math.random() * mockResponses.length)];
-      const assistantMessage: Message = {
-        id: (Date.now() + 1).toString(),
-        role: 'assistant',
-        content: response,
-        timestamp: new Date(),
-      };
-      setMessages((prev) => [...prev, assistantMessage]);
-      setIsTyping(false);
-    }, 1500);
+    // Call AI
+    sendMessage({text: input})
+    setIsTyping(false); // make this async
   };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
@@ -180,8 +141,21 @@ export function StudyAssistant({ classes, lectures }: StudyAssistantProps) {
           </div>
         </div>
 
+        {/* TODO: make model to have a pop up error, or add it to the message list for the assistant response */}
+        {error && (
+          <div className="mt-4">
+            <div className="text-red-500">An error occurred.</div>
+            <button
+              type="button"
+              className="px-4 py-2 mt-4 text-blue-500 border border-blue-500 rounded-md"
+              onClick={() => regenerate()}
+            >
+              Retry
+            </button>
+          </div>
+        )}
         {/* Messages */}
-        <ScrollArea className="flex-1 p-6">
+        <ScrollArea className="flex-1 overflow-y-auto p-6">
           <div className="max-w-3xl mx-auto space-y-6">
             {messages.map((message) => (
               <div
@@ -189,26 +163,30 @@ export function StudyAssistant({ classes, lectures }: StudyAssistantProps) {
                 className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}
               >
                 <div
-                  className={`max-w-[80%] ${
-                    message.role === 'user'
+                  className={`max-w-[80%] ${message.role === 'user'
                       ? 'bg-blue-600 text-white'
                       : 'bg-white border border-gray-200'
-                  } rounded-2xl p-4`}
+                    } rounded-2xl p-4`}
                 >
-                  {message.role === 'assistant' && (
+                  {message.role !== 'user' && (
                     <div className="flex items-center gap-2 mb-2">
                       <BookOpen className="w-4 h-4 text-blue-600" />
                       <span className="text-sm text-gray-500">AI Assistant</span>
                     </div>
                   )}
-                  {message.role === 'user' && message.toolUsed && (
+                  {/*Todo: make the role of the tool pop up when displaying the result */}
+                  {/* {message.role === 'user' && message.toolUsed && (
                     <div className="flex items-center gap-2 mb-2 opacity-80">
                       <span className="text-xs">
                         Used: {tools.find(t => t.id === message.toolUsed)?.name}
                       </span>
                     </div>
-                  )}
-                  <p className="whitespace-pre-wrap">{message.content}</p>
+                  )} */}
+                  <p className="whitespace-pre-wrap">{message.parts.map(part => {
+              if (part.type === 'text') {
+                return part.text;
+              }
+            })}</p>
                 </div>
               </div>
             ))}
@@ -266,8 +244,8 @@ export function StudyAssistant({ classes, lectures }: StudyAssistantProps) {
                       <Sparkles className="w-4 h-4" />
                     </Button>
                   </PopoverTrigger>
-                  <PopoverContent 
-                    className="w-80 p-0" 
+                  <PopoverContent
+                    className="w-80 p-0"
                     align="start"
                     side="top"
                   >
@@ -303,7 +281,7 @@ export function StudyAssistant({ classes, lectures }: StudyAssistantProps) {
                     </ScrollArea>
                   </PopoverContent>
                 </Popover>
-                
+
                 <Textarea
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
@@ -319,6 +297,18 @@ export function StudyAssistant({ classes, lectures }: StudyAssistantProps) {
                 >
                   <Send className="w-4 h-4" />
                 </Button>
+                {(status === 'submitted' || status === 'streaming') && (
+                    <div className="mt-4 text-gray-500">
+                      {status === 'submitted' && <div>Loading...</div>}
+                      <button
+                        type="button"
+                        className="px-4 py-2 mt-4 text-blue-500 border border-blue-500 rounded-md"
+                        onClick={stop}
+                      >
+                        Stop
+                      </button>
+                    </div>
+                  )}
               </div>
             </Card>
             <p className="text-xs text-gray-500 text-center mt-2">
@@ -336,7 +326,7 @@ export function StudyAssistant({ classes, lectures }: StudyAssistantProps) {
             Use these tools to enhance your studying
           </p>
         </div>
-        
+
         <ScrollArea className="flex-1 p-4">
           <div className="space-y-2">
             {tools.map((tool) => {
