@@ -80,13 +80,35 @@ export function StudyAssistant({ classes, lectures }: StudyAssistantProps) {
   const [isTyping, setIsTyping] = useState(false);
   const [toolsOpen, setToolsOpen] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
+  const processedMessageIds = useRef(new Set<string>()); // Track which messages we've auto-followed-up on
 
   useEffect(() => {
     console.log("UPDATED MESSAGE", messages);
     if (scrollRef.current) {
       scrollRef.current.scrollIntoView({ behavior: 'smooth' });
     }
-  }, [messages]);
+
+    // Auto-follow-up when tool calls complete but no text response
+    const lastMessage = messages[messages.length - 1];
+    if (lastMessage && lastMessage.role === 'assistant' && !processedMessageIds.current.has(lastMessage.id)) {
+      const text = extractTextFromMessage(lastMessage);
+      const hasToolCalls = lastMessage.parts?.some((part: any) => part.type?.startsWith('tool-'));
+      const toolHasOutput = lastMessage.parts?.some((part: any) =>
+        part.type?.startsWith('tool-') && part.state === 'output-available'
+      );
+
+      // If tool finished but no text generated, auto-send follow-up
+      if (hasToolCalls && toolHasOutput && !text && !isTyping) {
+        console.log("Tool call completed without text response - sending auto follow-up");
+        processedMessageIds.current.add(lastMessage.id); // Mark as processed
+        setIsTyping(true);
+        // Send follow-up message to synthesize the tool output
+        sendMessage({
+          text: "Based on the information you just retrieved, please answer my original question concisely."
+        }).finally(() => setIsTyping(false));
+      }
+    }
+  }, [messages, sendMessage, isTyping]);
 
   // ✅ helper: safely extract text from any message format
   const extractTextFromMessage = (message: any): string => {
@@ -259,22 +281,14 @@ export function StudyAssistant({ classes, lectures }: StudyAssistantProps) {
             {messages.map((message) => {
               const text = extractTextFromMessage(message);
 
-              // Try to get formatted tool output if no text
-              let toolOutput = '';
-              if (!text && message.role === 'assistant' && message.parts) {
-                for (const part of message.parts) {
-                  const formatted = formatToolOutput(part);
-                  if (formatted) {
-                    toolOutput += formatted + '\n\n';
-                  }
-                }
-                toolOutput = toolOutput.trim();
+              // Hide the auto-generated follow-up message
+              if (message.role === 'user' &&
+                  text === "Based on the information you just retrieved, please answer my original question concisely.") {
+                return null;
               }
 
-              const displayContent = text || toolOutput;
-
-              // Don't render if no content at all
-              if (!displayContent) return null;
+              // Don't render if no text content (skip raw tool outputs)
+              if (!text) return null;
 
               return (
                 <div
@@ -294,7 +308,7 @@ export function StudyAssistant({ classes, lectures }: StudyAssistantProps) {
                       </div>
                     )}
                     <div className="whitespace-pre-wrap prose prose-sm max-w-none">
-                      {displayContent}
+                      {text}
                     </div>
                   </div>
                 </div>
