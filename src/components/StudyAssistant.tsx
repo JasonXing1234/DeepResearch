@@ -1,5 +1,8 @@
 import { useState, useRef, useEffect } from 'react';
-import { Send, BookOpen, Sparkles, Search, FileText, Brain, ListChecks, Lightbulb, ClipboardList } from 'lucide-react';
+import {
+  Send, BookOpen, Sparkles, Search, FileText, Brain,
+  ListChecks, Lightbulb, ClipboardList
+} from 'lucide-react';
 import { Button } from './ui/button';
 import { Card } from './ui/card';
 import { ScrollArea } from './ui/scroll-area';
@@ -79,20 +82,58 @@ export function StudyAssistant({ classes, lectures }: StudyAssistantProps) {
   const scrollRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    console.log("UPDATED MESSAGE", messages);
     if (scrollRef.current) {
       scrollRef.current.scrollIntoView({ behavior: 'smooth' });
     }
   }, [messages]);
 
-  const handleSend = (toolUsed?: string) => {
-    if (!input.trim()) return;
+  // ✅ helper: safely extract text from any message format
+  const extractTextFromMessage = (message: any): string => {
+    const textParts: string[] = [];
 
+    // 1️⃣ Normal text message
+    if (message.parts) {
+      for (const part of message.parts) {
+        if (part.type === 'text' && typeof part.text === 'string') {
+          textParts.push(part.text);
+        }
+
+        // 2️⃣ Handle nested tool outputs
+        if (part.type?.startsWith('tool-') && part.output) {
+          const output = part.output;
+
+          // handle { output: { type: "message", content: [...] } }
+          if (output.content && Array.isArray(output.content)) {
+            for (const c of output.content) {
+              if (c.type === 'text') {
+                // handle both text and result props
+                textParts.push(c.text || c.result || '');
+              }
+            }
+          }
+
+          // handle { output: { type: "content", parts: [...] } }
+          if (output.parts && Array.isArray(output.parts)) {
+            for (const p of output.parts) {
+              if (p.type === 'text') {
+                textParts.push(p.text || p.result || '');
+              }
+            }
+          }
+        }
+      }
+    }
+
+    return textParts.join('\n\n');
+  };
+
+  const handleSend = async (toolUsed?: string) => {
+    if (!input.trim()) return;
     setInput('');
     setIsTyping(true);
-
-    // Call AI
-    sendMessage({text: input})
-    setIsTyping(false); // make this async
+    await sendMessage({ text: input });
+    setIsTyping(false);
   };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
@@ -133,13 +174,12 @@ export function StudyAssistant({ classes, lectures }: StudyAssistantProps) {
           </div>
         </div>
 
-        {/* TODO: make model to have a pop up error, or add it to the message list for the assistant response */}
         {error && (
-          <div className="mt-4">
-            <div className="text-red-500">An error occurred.</div>
+          <div className="mt-4 text-red-500 text-center">
+            <p>An error occurred.</p>
             <button
               type="button"
-              className="px-4 py-2 mt-4 text-blue-500 border border-blue-500 rounded-md"
+              className="px-4 py-2 mt-2 text-blue-500 border border-blue-500 rounded-md"
               onClick={() => regenerate()}
             >
               Retry
@@ -149,39 +189,32 @@ export function StudyAssistant({ classes, lectures }: StudyAssistantProps) {
         {/* Messages */}
         <ScrollArea className="flex-1 overflow-y-auto p-6">
           <div className="max-w-3xl mx-auto space-y-6">
-            {messages.map((message) => (
-              <div
-                key={message.id}
-                className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}
-              >
+            {messages.map((message) => {
+              const text = extractTextFromMessage(message);
+              if (!text) return null;
+
+              return (
                 <div
-                  className={`max-w-[80%] ${message.role === 'user'
-                      ? 'bg-blue-600 text-white'
-                      : 'bg-white border border-gray-200'
-                    } rounded-2xl p-4`}
+                  key={message.id}
+                  className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}
                 >
-                  {message.role !== 'user' && (
-                    <div className="flex items-center gap-2 mb-2">
-                      <BookOpen className="w-4 h-4 text-blue-600" />
-                      <span className="text-sm text-gray-500">AI Assistant</span>
-                    </div>
-                  )}
-                  {/*Todo: make the role of the tool pop up when displaying the result */}
-                  {/* {message.role === 'user' && message.toolUsed && (
-                    <div className="flex items-center gap-2 mb-2 opacity-80">
-                      <span className="text-xs">
-                        Used: {tools.find(t => t.id === message.toolUsed)?.name}
-                      </span>
-                    </div>
-                  )} */}
-                  <p className="whitespace-pre-wrap">{message.parts.map(part => {
-              if (part.type === 'text') {
-                return part.text;
-              }
-            })}</p>
+                  <div
+                    className={`max-w-[80%] ${message.role === 'user'
+                        ? 'bg-blue-600 text-white'
+                        : 'bg-white border border-gray-200'
+                      } rounded-2xl p-4`}
+                  >
+                    {message.role !== 'user' && (
+                      <div className="flex items-center gap-2 mb-2">
+                        <BookOpen className="w-4 h-4 text-blue-600" />
+                        <span className="text-sm text-gray-500">AI Assistant</span>
+                      </div>
+                    )}
+                    <p className="whitespace-pre-wrap">{text}</p>
+                  </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
 
             {isTyping && (
               <div className="flex justify-start">
