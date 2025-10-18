@@ -90,10 +90,38 @@ CREATE INDEX idx_profiles_email ON profiles(email);
 CREATE INDEX idx_profiles_supabase_auth_id ON profiles(supabase_auth_id);
 
 -- ----------------------------------------------------------------------------
+-- SEMESTERS - Semester organization
+-- ----------------------------------------------------------------------------
+-- Stores semester information (must come before classes table)
+
+CREATE TABLE semesters (
+  id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  user_id uuid NOT NULL REFERENCES profiles(id) ON DELETE CASCADE,
+
+  year integer NOT NULL,
+  term text NOT NULL CHECK (term IN ('Fall', 'Spring', 'Summer', 'Winter')),
+
+  created_at timestamptz NOT NULL DEFAULT now(),
+  updated_at timestamptz NOT NULL DEFAULT now()
+);
+
+-- Trigger to auto-update updated_at
+CREATE TRIGGER semesters_updated_at
+  BEFORE UPDATE ON semesters
+  FOR EACH ROW
+  EXECUTE FUNCTION update_updated_at();
+
+-- Indexes for common queries
+CREATE INDEX idx_semesters_user_id ON semesters(user_id);
+CREATE INDEX idx_semesters_year_term ON semesters(year, term);
+
+-- Unique constraint to prevent duplicate semesters
+CREATE UNIQUE INDEX idx_semesters_unique ON semesters(user_id, year, term);
+
+-- ----------------------------------------------------------------------------
 -- CLASSES - Course/class information
 -- ----------------------------------------------------------------------------
 -- Stores information about classes/courses that users are taking.
--- Semester info stored directly on classes table (simpler than separate table).
 
 CREATE TABLE classes (
   id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -104,9 +132,8 @@ CREATE TABLE classes (
   class_code text, -- e.g., "CS 101"
   description text,
 
-  -- Semester info (stored inline, no separate semesters table)
-  semester_year integer NOT NULL,
-  semester_term text NOT NULL CHECK (semester_term IN ('Fall', 'Spring', 'Summer', 'Winter')),
+  -- Semester
+  semester_id uuid REFERENCES semesters(id) ON DELETE SET NULL,
 
   -- Instructor
   instructor text,
@@ -130,7 +157,6 @@ CREATE TRIGGER classes_updated_at
 
 -- Indexes for common queries
 CREATE INDEX idx_classes_user_id ON classes(user_id);
-CREATE INDEX idx_classes_semester ON classes(semester_year, semester_term);
 
 -- ----------------------------------------------------------------------------
 -- DOCUMENTS - Uploaded materials and lecture recordings

@@ -1,12 +1,13 @@
 'use client'
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Sidebar } from '../components/Sidebar';
 import { RecordingView } from '../components/RecordingView';
 import { ClassView } from '../components/ClassView';
 import { StudyAssistant } from '../components/StudyAssistant';
 import { UploadMaterialsView } from '../components/UploadMaterialsView';
 import { Toaster } from '../components/ui/sonner';
+import { toast } from 'sonner';
 
 export type Semester = {
   id: string;
@@ -233,9 +234,61 @@ Next week, we'll dive deeper into memory systems and discuss strategies for impr
 export default function App() {
   const [currentView, setCurrentView] = useState<'record' | 'upload' | 'class' | 'study'>('class');
   const [selectedClassId, setSelectedClassId] = useState<string | null>(null);
-  const [semesters, setSemesters] = useState<Semester[]>(mockSemesters);
-  const [classes, setClasses] = useState<Class[]>(mockClasses);
+  const [semesters, setSemesters] = useState<Semester[]>([]);
+  const [classes, setClasses] = useState<Class[]>([]);
   const [materials, setMaterials] = useState<ClassMaterial[]>(mockMaterials);
+  const [isLoading, setIsLoading] = useState(true);
+
+  // Fetch semesters and classes from API on mount
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        setIsLoading(true);
+
+        // Fetch semesters
+        const semestersResponse = await fetch('/api/semesters');
+        const semestersResult = await semestersResponse.json();
+
+        // Fetch classes
+        const classesResponse = await fetch('/api/classes');
+        const classesResult = await classesResponse.json();
+
+        if (semestersResult.success && semestersResult.semesters) {
+          // Map database semesters to UI format
+          const mappedSemesters = semestersResult.semesters.map((s: any) => ({
+            id: s.id,
+            name: `${s.term} ${s.year}`,
+            year: s.year,
+            term: s.term,
+            isActive: false, // TODO: Determine active semester logic
+          }));
+          console.log('Loaded semesters:', mappedSemesters);
+          setSemesters(mappedSemesters);
+        }
+
+        if (classesResult.success && classesResult.classes) {
+          // Map database classes to UI format
+          const mappedClasses = classesResult.classes.map((c: any) => ({
+            id: c.id,
+            semesterId: c.semester_id,
+            name: c.name,
+            code: c.class_code || '',
+            color: c.color_code || '#3b82f6',
+            professor: c.instructor || '',
+          }));
+          console.log('Loaded classes:', mappedClasses);
+          setClasses(mappedClasses);
+        }
+      } catch (error) {
+        console.error('Error fetching data:', error);
+        toast.error('Failed to load semesters and classes');
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   const handleAddSemester = (semester: Semester) => {
     setSemesters([...semesters, semester]);
