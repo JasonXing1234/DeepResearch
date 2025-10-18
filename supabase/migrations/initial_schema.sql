@@ -1,0 +1,28 @@
+-- tables:
+-- profile: stores user profile information
+--  what should be here in addition to the default auth fields supabase provides? ideally this table would allow us to be able to move off supabase auth in the future if needed? 
+-- class: stores class/course information
+--  id (primary key)
+--  name
+--  semester
+--  year
+--  instructor
+--  color_code
+--  time (string representation of class time and days that the llm can understand)
+--  location (same as time)
+--  user_id (foreign key to profile)
+-- document: stores uploaded documents/materials
+--   id (primary key)
+--   class_id (foreign key to class)
+--   is_lecture_notes (boolean)
+--   date_uploaded (timestamp)
+--   title (string) (nullable)
+--   file_url (string) How do we access the file in storage? Does this change if we move from supabase storage to another provider like s3?
+--   user_id (foreign key to profile)
+-- segment: stores vectorized segments of documents for study assistance
+--   id (primary key)
+--   document_id (foreign key to document)
+--   content (text)
+--   embedding (vector)
+--   class_id (foreign key to class)
+--   user_id (foreign key to profile)
