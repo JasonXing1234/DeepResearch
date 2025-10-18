@@ -236,7 +236,8 @@ export default function App() {
   const [selectedClassId, setSelectedClassId] = useState<string | null>(null);
   const [semesters, setSemesters] = useState<Semester[]>([]);
   const [classes, setClasses] = useState<Class[]>([]);
-  const [materials, setMaterials] = useState<ClassMaterial[]>(mockMaterials);
+  const [materials, setMaterials] = useState<ClassMaterial[]>([]);
+  const [lectures, setLectures] = useState<Lecture[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
   // Fetch semesters and classes from API on mount
@@ -252,6 +253,10 @@ export default function App() {
         // Fetch classes
         const classesResponse = await fetch('/api/classes');
         const classesResult = await classesResponse.json();
+
+        // Fetch documents (lectures and materials)
+        const documentsResponse = await fetch('/api/documents');
+        const documentsResult = await documentsResponse.json();
 
         if (semestersResult.success && semestersResult.semesters) {
           // Map database semesters to UI format
@@ -279,9 +284,54 @@ export default function App() {
           console.log('Loaded classes:', mappedClasses);
           setClasses(mappedClasses);
         }
+
+        if (documentsResult.success && documentsResult.documents) {
+          // Split documents into lectures and materials
+          const allDocuments = documentsResult.documents;
+
+          // Lectures: audio files with transcriptions
+          const mappedLectures = allDocuments
+            .filter((d: any) => d.transcription_text && d.audio_duration_seconds)
+            .map((d: any) => ({
+              id: d.id,
+              classId: d.class_id,
+              title: d.title || d.original_filename || 'Untitled Lecture',
+              date: d.date_of_material || d.created_at.split('T')[0],
+              duration: d.audio_duration_seconds || 0,
+              audioUrl: d.file_path || '#',
+              transcript: d.transcription_text || '',
+            }));
+
+          // Materials: PDFs, DOCX, PPTX, etc.
+          const mappedMaterials = allDocuments
+            .filter((d: any) => !d.transcription_text || !d.audio_duration_seconds)
+            .map((d: any) => {
+              // Determine type from mime_type
+              let type: 'pdf' | 'pptx' | 'docx' | 'xlsx' | 'other' = 'other';
+              if (d.mime_type?.includes('pdf')) type = 'pdf';
+              else if (d.mime_type?.includes('presentation') || d.mime_type?.includes('powerpoint')) type = 'pptx';
+              else if (d.mime_type?.includes('word') || d.mime_type?.includes('document')) type = 'docx';
+              else if (d.mime_type?.includes('spreadsheet') || d.mime_type?.includes('excel')) type = 'xlsx';
+
+              return {
+                id: d.id,
+                classId: d.class_id,
+                name: d.original_filename || d.title || 'Untitled Document',
+                type,
+                size: d.file_size_bytes || 0,
+                uploadDate: d.created_at.split('T')[0],
+                url: d.file_path || '#',
+              };
+            });
+
+          console.log('Loaded lectures:', mappedLectures);
+          console.log('Loaded materials:', mappedMaterials);
+          setLectures(mappedLectures);
+          setMaterials(mappedMaterials);
+        }
       } catch (error) {
         console.error('Error fetching data:', error);
-        toast.error('Failed to load semesters and classes');
+        toast.error('Failed to load data');
       } finally {
         setIsLoading(false);
       }
@@ -317,7 +367,7 @@ export default function App() {
       
       <main className="flex-1 overflow-hidden">
         {currentView === 'study' && (
-          <StudyAssistant classes={classes} lectures={mockLectures} />
+          <StudyAssistant classes={classes} lectures={lectures} />
         )}
         {currentView === 'record' && (
           <RecordingView classes={classes} />
@@ -329,7 +379,7 @@ export default function App() {
           <ClassView
             selectedClassId={selectedClassId}
             classes={classes}
-            lectures={mockLectures}
+            lectures={lectures}
             materials={materials}
           />
         )}
