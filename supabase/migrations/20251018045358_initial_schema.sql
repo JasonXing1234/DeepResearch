@@ -131,7 +131,6 @@ CREATE TRIGGER classes_updated_at
 -- Indexes for common queries
 CREATE INDEX idx_classes_user_id ON classes(user_id);
 CREATE INDEX idx_classes_semester ON classes(semester_year, semester_term);
-CREATE INDEX idx_classes_archived ON classes(is_archived) WHERE is_archived = false;
 
 -- ----------------------------------------------------------------------------
 -- DOCUMENTS - Uploaded materials and lecture recordings
