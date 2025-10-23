@@ -1,6 +1,6 @@
 'use client'
 
-import { useMemo, useRef } from 'react';
+import { useEffect, useMemo, useRef } from 'react';
 import { useChat } from '@ai-sdk/react';
 import { Button } from '../ui/button';
 import { Input } from '../ui/input';
