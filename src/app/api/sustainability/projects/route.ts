@@ -12,6 +12,16 @@ const supabase = supabaseUrl && supabaseKey
 // GET: List all projects for the user
 export async function GET(request: NextRequest) {
   try {
+    if (!supabase) {
+      return NextResponse.json(
+        {
+          success: false,
+          error: 'Supabase is not configured. Please set NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY environment variables.',
+        },
+        { status: 500 }
+      );
+    }
+
     // For development, use hardcoded user ID
     const userId = 'b2bbb440-1d79-42fa-81e3-069efd22fae8';
 
