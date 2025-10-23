@@ -112,6 +112,16 @@ export async function POST(request: NextRequest) {
 // DELETE: Delete a project
 export async function DELETE(request: NextRequest) {
   try {
+    if (!supabase) {
+      return NextResponse.json(
+        {
+          success: false,
+          error: 'Supabase is not configured. Please set NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY environment variables.',
+        },
+        { status: 500 }
+      );
+    }
+
     const { projectId } = await request.json();
 
     if (!projectId) {
