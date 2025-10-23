@@ -27,8 +27,14 @@ interface ResearchContextType {
 
 const ResearchContext = createContext<ResearchContextType | undefined>(undefined);
 
-export function ResearchProvider({ children }: { children: React.ReactNode }) {
-  const [queries, setQueries] = useState<ResearchQuery[]>([]);
+export function ResearchProvider({
+  children,
+  initialQueries = [],
+}: {
+  children: React.ReactNode;
+  initialQueries?: ResearchQuery[];
+}) {
+  const [queries, setQueries] = useState<ResearchQuery[]>(initialQueries);
 
   const addQuery = (query: ResearchQuery) => {
     setQueries([query, ...queries]);
