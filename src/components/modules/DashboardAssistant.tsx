@@ -94,88 +94,112 @@ export function DashboardAssistant() {
         <ScrollArea className="flex-1 px-8 py-6">
           <div className="space-y-4">
             {messages.length === 0 ? (
-              <div className="flex items-center justify-center h-64">
-                <Card className="w-full max-w-lg border-0 shadow-lg">
-                  <CardHeader>
-                    <CardTitle className="flex items-center gap-2">
-                      <Sparkles className="h-5 w-5 text-blue-600" />
-                      Ask about ESG Data
-                    </CardTitle>
-                    <CardDescription>
-                      Query insights from research and analysis data
-                    </CardDescription>
-                  </CardHeader>
-                  <CardContent className="space-y-3 text-sm text-gray-600">
-                    <div>
-                      <p className="font-medium text-gray-900 mb-2">Example questions:</p>
-                      <ul className="space-y-1 list-disc list-inside">
-                        <li>Which companies have net-zero targets?</li>
-                        <li>Summarize investment announcements</li>
-                        <li>Show me pilot projects by company</li>
-                        <li>Compare emissions reduction commitments</li>
-                        <li>What equipment purchases were identified?</li>
-                      </ul>
-                    </div>
-                  </CardContent>
-                </Card>
+              <div className="flex items-center justify-center h-full">
+                <div className="w-full max-w-3xl flex flex-col items-center justify-center gap-8">
+                  <Card className="w-full border-0 shadow-lg bg-gradient-to-br from-blue-50 to-blue-100">
+                    <CardHeader>
+                      <CardTitle className="flex items-center justify-center gap-2 text-center">
+                        <Sparkles className="h-6 w-6 text-blue-600" />
+                        Ask about ESG Data
+                      </CardTitle>
+                      <CardDescription className="text-center">
+                        Query insights from research and analysis data
+                      </CardDescription>
+                    </CardHeader>
+                    <CardContent className="space-y-3 text-sm text-gray-600">
+                      <div>
+                        <p className="font-medium text-gray-900 mb-3">Example questions:</p>
+                        <ul className="space-y-2 list-disc list-inside">
+                          <li>Which companies have net-zero targets?</li>
+                          <li>Summarize investment announcements</li>
+                          <li>Show me pilot projects by company</li>
+                          <li>Compare emissions reduction commitments</li>
+                          <li>What equipment purchases were identified?</li>
+                        </ul>
+                      </div>
+                    </CardContent>
+                  </Card>
+
+                  {/* Input Section - Centered and Prominent */}
+                  <form onSubmit={handleSubmit} className="w-full flex gap-3 px-4">
+                    <Input
+                      value={input}
+                      onChange={handleInputChange}
+                      placeholder="Ask about ESG data, companies, or research findings..."
+                      disabled={isLoading}
+                      className="flex-1 text-lg px-6 py-3 border-2 border-blue-200 focus:border-blue-600 focus:ring-blue-600"
+                    />
+                    <Button
+                      type="submit"
+                      disabled={isLoading || !(input ?? '').trim()}
+                      className="bg-blue-600 hover:bg-blue-700 px-6 py-3 h-auto text-lg"
+                    >
+                      <Send className="h-5 w-5" />
+                    </Button>
+                  </form>
+                </div>
               </div>
             ) : (
-              messages.map((message) => (
-                <div
-                  key={message.id}
-                  className={`flex ${
-                    message.role === 'user' ? 'justify-end' : 'justify-start'
-                  }`}
-                >
+              <>
+                {messages.map((message) => (
                   <div
-                    className={`max-w-2xl rounded-lg px-4 py-3 ${
-                      message.role === 'user'
-                        ? 'bg-blue-600 text-white'
-                        : 'bg-gray-100 text-gray-900'
+                    key={message.id}
+                    className={`flex ${
+                      message.role === 'user' ? 'justify-end' : 'justify-start'
                     }`}
                   >
-                    {message.role === 'user' ? (
-                      <p className="text-sm">{message.content}</p>
-                    ) : (
-                      <Markdown className="text-sm prose prose-sm max-w-none dark:prose-invert">
-                        {message.content}
-                      </Markdown>
-                    )}
+                    <div
+                      className={`max-w-2xl rounded-lg px-4 py-3 ${
+                        message.role === 'user'
+                          ? 'bg-blue-600 text-white'
+                          : 'bg-gray-100 text-gray-900'
+                      }`}
+                    >
+                      {message.role === 'user' ? (
+                        <p className="text-sm">{message.content}</p>
+                      ) : (
+                        <Markdown className="text-sm prose prose-sm max-w-none dark:prose-invert">
+                          {message.content}
+                        </Markdown>
+                      )}
+                    </div>
                   </div>
-                </div>
-              ))
-            )}
-            {isLoading && (
-              <div className="flex justify-start">
-                <div className="bg-gray-100 rounded-lg px-4 py-3 flex items-center gap-2">
-                  <Loader2 className="h-4 w-4 animate-spin text-gray-600" />
-                  <p className="text-sm text-gray-600">Analyzing data...</p>
-                </div>
-              </div>
+                ))}
+                {isLoading && (
+                  <div className="flex justify-start">
+                    <div className="bg-gray-100 rounded-lg px-4 py-3 flex items-center gap-2">
+                      <Loader2 className="h-4 w-4 animate-spin text-gray-600" />
+                      <p className="text-sm text-gray-600">Analyzing data...</p>
+                    </div>
+                  </div>
+                )}
+              </>
             )}
             <div ref={scrollRef} />
           </div>
         </ScrollArea>
 
-        {/* Input */}
-        <div className="border-t border-gray-200 px-8 py-4">
-          <form onSubmit={handleSubmit} className="flex gap-3">
-            <Input
-              value={input}
-              onChange={handleInputChange}
-              placeholder="Ask about ESG data, companies, or research findings..."
-              disabled={isLoading}
-              className="flex-1"
-            />
-            <Button
-              type="submit"
-              disabled={isLoading || !(input ?? '').trim()}
-              className="bg-blue-600 hover:bg-blue-700"
-            >
-              <Send className="h-4 w-4" />
-            </Button>
-          </form>
-        </div>
+        {/* Input - Always visible at bottom when there are messages */}
+        {messages.length > 0 && (
+          <div className="border-t border-gray-200 px-8 py-6 bg-gradient-to-r from-blue-50 to-transparent">
+            <form onSubmit={handleSubmit} className="flex gap-3">
+              <Input
+                value={input}
+                onChange={handleInputChange}
+                placeholder="Ask about ESG data, companies, or research findings..."
+                disabled={isLoading}
+                className="flex-1 text-lg px-6 py-3 border-2 border-blue-200 focus:border-blue-600 focus:ring-blue-600"
+              />
+              <Button
+                type="submit"
+                disabled={isLoading || !(input ?? '').trim()}
+                className="bg-blue-600 hover:bg-blue-700 px-6 py-3 h-auto text-lg"
+              >
+                <Send className="h-5 w-5" />
+              </Button>
+            </form>
+          </div>
+        )}
       </div>
     </div>
   );

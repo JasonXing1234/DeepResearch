@@ -99,60 +99,6 @@ function DashboardHome({ onModuleChange }: { onModuleChange: (module: DashboardM
           </div>
         </div>
 
-        {/* Features Section */}
-        <div className="mt-16 grid grid-cols-1 md:grid-cols-2 gap-8">
-          <div className="bg-white p-8 rounded-lg border border-gray-200">
-            <h3 className="text-lg font-semibold text-gray-900 mb-4">Key Features</h3>
-            <ul className="space-y-3 text-gray-600">
-              <li className="flex gap-3">
-                <span className="text-blue-600 font-bold">✓</span>
-                <span>Create and organize ESG analysis projects</span>
-              </li>
-              <li className="flex gap-3">
-                <span className="text-blue-600 font-bold">✓</span>
-                <span>Upload structured report files for analysis</span>
-              </li>
-              <li className="flex gap-3">
-                <span className="text-blue-600 font-bold">✓</span>
-                <span>View results directly within each project</span>
-              </li>
-              <li className="flex gap-3">
-                <span className="text-blue-600 font-bold">✓</span>
-                <span>Automated web research with Tavily integration</span>
-              </li>
-            </ul>
-          </div>
-
-          <div className="bg-white p-8 rounded-lg border border-gray-200">
-            <h3 className="text-lg font-semibold text-gray-900 mb-4">Six Data Attributes</h3>
-            <ul className="space-y-2 text-gray-600">
-              <li className="flex items-center gap-2">
-                <span className="w-2 h-2 bg-blue-600 rounded-full" />
-                Commitment to Reduce
-              </li>
-              <li className="flex items-center gap-2">
-                <span className="w-2 h-2 bg-blue-600 rounded-full" />
-                Net-zero Target
-              </li>
-              <li className="flex items-center gap-2">
-                <span className="w-2 h-2 bg-blue-600 rounded-full" />
-                Pilot Projects
-              </li>
-              <li className="flex items-center gap-2">
-                <span className="w-2 h-2 bg-blue-600 rounded-full" />
-                Investment Announced
-              </li>
-              <li className="flex items-center gap-2">
-                <span className="w-2 h-2 bg-blue-600 rounded-full" />
-                Equipment Purchased
-              </li>
-              <li className="flex items-center gap-2">
-                <span className="w-2 h-2 bg-blue-600 rounded-full" />
-                Project Environment
-              </li>
-            </ul>
-          </div>
-        </div>
       </div>
     </div>
   );
