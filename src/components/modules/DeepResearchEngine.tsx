@@ -44,8 +44,8 @@ const MOCK_RESULTS: ResearchQuery = {
 
 export function DeepResearchEngine() {
   const [companies, setCompanies] = useState(['', '', '', '']);
-  const [queries, setQueries] = useState<ResearchQuery[]>([MOCK_RESULTS]);
   const [isResearching, setIsResearching] = useState(false);
+  const { queries, addQuery, deleteQuery } = useResearch();
 
   const companyInputs = companies.filter((c) => c.trim()).length;
 
