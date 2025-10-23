@@ -14,19 +14,22 @@ export default function DashboardPage() {
   const [activeModule, setActiveModule] = useState<DashboardModule>('home');
 
   return (
-    <div className="flex h-screen bg-gray-50">
-      {/* Navigation Sidebar */}
-      <DashboardNav activeModule={activeModule} onModuleChange={setActiveModule} />
+    <ResearchProvider>
+      <div className="flex h-screen bg-gray-50">
+        {/* Navigation Sidebar */}
+        <DashboardNav activeModule={activeModule} onModuleChange={setActiveModule} />
 
-      {/* Main Content */}
-      <main className="flex-1 overflow-hidden flex flex-col">
-        {activeModule === 'home' && <DashboardHome onModuleChange={setActiveModule} />}
-        {activeModule === 'projects' && <ProjectManager />}
-        {activeModule === 'research' && <DeepResearchEngine />}
-      </main>
+        {/* Main Content */}
+        <main className="flex-1 overflow-hidden flex flex-col">
+          {activeModule === 'home' && <DashboardHome onModuleChange={setActiveModule} />}
+          {activeModule === 'projects' && <ProjectManager />}
+          {activeModule === 'research' && <DeepResearchEngine />}
+          {activeModule === 'assistant' && <DashboardAssistant />}
+        </main>
 
-      <Toaster />
-    </div>
+        <Toaster />
+      </div>
+    </ResearchProvider>
   );
 }
 
