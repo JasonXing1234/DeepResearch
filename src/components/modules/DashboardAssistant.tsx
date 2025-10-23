@@ -169,7 +169,7 @@ export function DashboardAssistant() {
             />
             <Button
               type="submit"
-              disabled={isLoading || !input.trim()}
+              disabled={isLoading || !(input ?? '').trim()}
               className="bg-blue-600 hover:bg-blue-700"
             >
               <Send className="h-4 w-4" />
