@@ -30,7 +30,7 @@ export function DashboardAssistant() {
   const scrollRef = useRef<HTMLDivElement>(null);
   const { queries } = useResearch();
 
-  const buildSystemPrompt = () => {
+  const systemPrompt = useMemo(() => {
     let fullPrompt = BASE_SYSTEM_PROMPT;
 
     // Add research data context if available
@@ -56,19 +56,12 @@ export function DashboardAssistant() {
     }
 
     return fullPrompt;
-  };
+  }, [queries]);
 
   const { messages, input, handleInputChange, handleSubmit, isLoading } = useChat({
     api: '/api/chat',
-    system: buildSystemPrompt(),
+    system: systemPrompt,
   });
-
-  // Scroll to bottom when new messages arrive
-  useEffect(() => {
-    if (scrollRef.current) {
-      scrollRef.current.scrollIntoView({ behavior: 'smooth' });
-    }
-  }, [messages]);
 
   return (
     <div className="flex-1 overflow-hidden flex flex-col bg-white">
