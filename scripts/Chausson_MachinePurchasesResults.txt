@@ -1,0 +1,28 @@
+[
+  {
+    "Company": "Chausson Matériaux",
+    "Manufacturer": "Mercedes-Benz",
+    "MachineType": "Truck",
+    "Model": "eActros 600",
+    "Quantity": 3,
+    "PurchaseDate": "2025-09-30",
+    "SourceURLs": [
+      "https://negoce.zepros.fr/actu-enseignes/vehicules-zero-emission-chausson-materiaux-continue-verdir-son-parc",
+      "https://www.flotauto.com/chausson-materiaux-camions-electriques-20251001.html"
+    ],
+    "Comments": "Electric semi-truck (tractor unit) with ~500 km range"
+  },
+  {
+    "Company": "Chausson Matériaux",
+    "Manufacturer": "Mercedes-Benz",
+    "MachineType": "Truck",
+    "Model": "eActros 400",
+    "Quantity": 2,
+    "PurchaseDate": "2025-09-30",
+    "SourceURLs": [
+      "https://negoce.zepros.fr/actu-enseignes/vehicules-zero-emission-chausson-materiaux-continue-verdir-son-parc",
+      "https://www.flotauto.com/chausson-materiaux-camions-electriques-20251001.html"
+    ],
+    "Comments": "Electric rigid truck with Hiab crane (15 m reach) for deliveries"
+  }
+]

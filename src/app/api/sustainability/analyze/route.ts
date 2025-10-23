@@ -1,13 +1,14 @@
 import { createClient } from '@supabase/supabase-js';
 import { NextRequest, NextResponse } from 'next/server';
+import { inngest } from '@/inngest/client';
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
   process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY!
 );
 
-// Mock analysis function - replace with actual backend analysis script
-async function runAnalysisScript(projectId: string, files: any[]) {
+// This function is no longer used - kept for reference
+async function runAnalysisScriptOld(projectId: string, files: any[]) {
   // Simulate analysis delay
   await new Promise((resolve) => setTimeout(resolve, 2000));
 
@@ -127,91 +128,19 @@ export async function POST(request: NextRequest) {
       .update({ analysis_status: 'processing' })
       .eq('id', projectId);
 
-    // Fetch project files
-    const { data: files } = await supabase
-      .from('project_files')
-      .select('*')
-      .eq('project_id', projectId);
+    // Trigger Inngest function for background processing
+    await inngest.send({
+      name: 'sustainability/analyze.requested',
+      data: {
+        projectId,
+        userId,
+      },
+    });
 
-    try {
-      // Run analysis script
-      const {
-        summaryResults,
-        detailsResults,
-        diagnosticsResults,
-      } = await runAnalysisScript(projectId, files || []);
-
-      // Insert summary results
-      const { error: summaryError } = await supabase
-        .from('analysis_results')
-        .insert(
-          summaryResults.map((result) => ({
-            project_id: projectId,
-            ...result,
-          }))
-        );
-
-      if (summaryError) throw summaryError;
-
-      // Insert detailed results
-      const { error: detailsError } = await supabase
-        .from('analysis_details')
-        .insert(
-          detailsResults.map((result) => ({
-            project_id: projectId,
-            ...result,
-          }))
-        );
-
-      if (detailsError) throw detailsError;
-
-      // Insert diagnostics
-      const { error: diagnosticsError } = await supabase
-        .from('analysis_diagnostics')
-        .insert(
-          diagnosticsResults.map((result) => ({
-            project_id: projectId,
-            ...result,
-          }))
-        );
-
-      if (diagnosticsError) throw diagnosticsError;
-
-      // Update project status to completed
-      await supabase
-        .from('sustainability_projects')
-        .update({ analysis_status: 'completed' })
-        .eq('id', projectId);
-
-      return NextResponse.json({
-        success: true,
-        message: 'Analysis completed successfully',
-        results: {
-          summaryResults,
-          detailsResults,
-          diagnosticsResults,
-        },
-      });
-    } catch (analysisError) {
-      console.error('Analysis error:', analysisError);
-
-      // Update project status to failed
-      await supabase
-        .from('sustainability_projects')
-        .update({
-          analysis_status: 'failed',
-          analysis_error: analysisError instanceof Error ? analysisError.message : 'Unknown error',
-        })
-        .eq('id', projectId);
-
-      return NextResponse.json(
-        {
-          success: false,
-          error: analysisError instanceof Error ? analysisError.message : 'Analysis failed',
-        },
-        { status: 500 }
-      );
-    }
+    return NextResponse.json({
+      success: true,
+      message: 'Analysis started. Check back in a few moments.',
+    });
   } catch (error) {
     console.error('Error running analysis:', error);
     return NextResponse.json(

@@ -1,0 +1,14 @@
+[
+  {
+    "Company": "Chausson Matériaux",
+    "Emissions Reduction Target": "25%",
+    "Target Year": "2022",
+    "Baseline Year": "2011",
+    "Pledge Year": "2011",
+    "Net-Zero Target": false,
+    "Source": [
+      "https://media.chausson.fr/catalogues/rapport-rse-chausson-materiaux-2023.pdf"
+    ],
+    "Comments": "Achieved 25% GHG emissions reduction between 2011 and 2022."
+  }
+]

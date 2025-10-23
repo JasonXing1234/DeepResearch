@@ -7,6 +7,7 @@ import type { TextChunk } from './chunking';
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
+  baseURL: 'https://api.openai.com/v1',
 });
 
 export const EMBEDDING_MODEL = 'text-embedding-3-small';

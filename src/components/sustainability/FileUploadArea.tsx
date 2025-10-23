@@ -16,31 +16,31 @@ const FILE_TYPES = [
   {
     key: 'emissions',
     label: 'Emissions Report',
-    description: 'Upload your emissions data report (TXT)',
+    description: 'Upload your emissions data report (JSON/TXT)',
     fileId: 'emissions_file_id',
   },
   {
     key: 'investments',
     label: 'Investments Report',
-    description: 'Upload your investments report (TXT)',
+    description: 'Upload your investments report (JSON/TXT)',
     fileId: 'investments_file_id',
   },
   {
     key: 'machine_purchases',
     label: 'Machine Purchases Report',
-    description: 'Upload your machine purchases report (TXT)',
+    description: 'Upload your machine purchases report (JSON/TXT)',
     fileId: 'machine_purchases_file_id',
   },
   {
     key: 'pilot_projects',
     label: 'Pilot Projects Report',
-    description: 'Upload your pilot projects report (TXT)',
+    description: 'Upload your pilot projects report (JSON/TXT)',
     fileId: 'pilot_projects_file_id',
   },
   {
     key: 'project_environments',
     label: 'Project Environments Report',
-    description: 'Upload your project environments report (TXT)',
+    description: 'Upload your project environments report (JSON/TXT)',
     fileId: 'project_environments_file_id',
   },
 ];
@@ -63,12 +63,14 @@ export function FileUploadArea({
     const file = event.target.files?.[0];
     if (!file) return;
 
-    // Validate file type (should be text/plain or .txt)
+    // Validate file type (should be text/plain, .txt, application/json, or .json)
     if (
       file.type !== 'text/plain' &&
-      !file.name.endsWith('.txt')
+      file.type !== 'application/json' &&
+      !file.name.endsWith('.txt') &&
+      !file.name.endsWith('.json')
     ) {
-      toast.error('Please upload a TXT file');
+      toast.error('Please upload a TXT or JSON file');
       return;
     }
 
@@ -119,7 +121,7 @@ export function FileUploadArea({
             >
               <input
                 type="file"
-                accept=".txt,text/plain"
+                accept=".txt,.json,text/plain,application/json"
                 onChange={(e) => handleFileUpload(e, fileType.key)}
                 className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
                 disabled={uploadingFile === fileType.key}
@@ -168,8 +170,8 @@ export function FileUploadArea({
       <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
         <h4 className="font-semibold text-blue-900 mb-2">Upload Instructions</h4>
         <ul className="text-sm text-blue-800 space-y-1">
-          <li>• Upload up to 5 TXT report files</li>
-          <li>• Each report should contain company data in text format</li>
+          <li>• Upload up to 5 JSON or TXT report files</li>
+          <li>• Each report should contain company data (JSON arrays or text format)</li>
           <li>• After uploading all files, click "Run Analysis" to start processing</li>
           <li>
             • Results will be displayed in the Summary, Details, and Diagnostics tabs
@@ -179,7 +181,7 @@ export function FileUploadArea({
 
       <div className="flex gap-2 text-sm text-gray-600">
         <FileText className="h-4 w-4 flex-shrink-0 mt-1" />
-        <p>Supported format: TXT files only</p>
+        <p>Supported formats: JSON and TXT files</p>
       </div>
     </div>
   );

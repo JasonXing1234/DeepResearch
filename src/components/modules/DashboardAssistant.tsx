@@ -1,16 +1,16 @@
 'use client'
 
-import { useEffect, useMemo, useRef } from 'react';
-import { useChat } from '@ai-sdk/react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { Button } from '../ui/button';
 import { Input } from '../ui/input';
 import { ScrollArea } from '../ui/scroll-area';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../ui/card';
-import { Send, Loader2, Sparkles } from 'lucide-react';
+import { Send, Loader2, Sparkles, Bot, User, FileText } from 'lucide-react';
 import { Markdown } from '../markdown';
 import { useResearch } from '@/contexts/ResearchContext';
+import { toast } from 'sonner';
 
-const BASE_SYSTEM_PROMPT = `You are an intelligent ESG (Environmental, Social, and Governance) research assistant. You have access to data from:
+const BASE_SYSTEM_PROMPT = `You are an intelligent Leads research assistant. You have access to data from:
 
 1. **Project Management Results**: Analysis results from sustainability projects including project information and analysis findings.
 
@@ -24,44 +24,78 @@ When answering user questions:
 - Provide actionable insights based on the data
 - If data is missing for a question, let the user know what information is available
 
-Always be helpful, accurate, and focused on ESG and sustainability topics.`;
+Always be helpful, accurate, and focused on Leads and sustainability topics.`;
+
+interface Message {
+  role: 'user' | 'assistant';
+  content: string;
+  sources?: Array<{
+    company?: string;
+    category?: string;
+    content: string;
+    similarity?: number;
+  }>;
+}
 
 export function DashboardAssistant() {
   const scrollRef = useRef<HTMLDivElement>(null);
   const { queries } = useResearch();
+  const [messages, setMessages] = useState<Message[]>([]);
+  const [input, setInput] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
-  const systemPrompt = useMemo(() => {
-    let fullPrompt = BASE_SYSTEM_PROMPT;
+  const handleSend = async () => {
+    if (!input.trim() || isLoading) return;
 
-    // Add research data context if available
-    if (queries.length > 0) {
-      fullPrompt += '\n\n### Recent Research Data Available:\n';
-      queries.slice(0, 2).forEach((query) => {
-        fullPrompt += `- Companies: ${query.companies.join(', ')}\n`;
-        fullPrompt += `  Date: ${query.created_at}, Status: ${query.status}\n`;
-        if (query.datasets) {
-          const datasets = [];
-          if (query.datasets.emissions?.length) datasets.push('Emissions');
-          if (query.datasets.investments?.length) datasets.push('Investments');
-          if (query.datasets.purchases?.length) datasets.push('Purchases');
-          if (query.datasets.pilots?.length) datasets.push('Pilots');
-          if (query.datasets.environments?.length) datasets.push('Environments');
-          if (datasets.length) {
-            fullPrompt += `  Datasets: ${datasets.join(', ')}\n`;
-          }
-        }
+    const userMessage = input.trim();
+    setInput('');
+
+    // Add user message
+    const newMessages = [...messages, { role: 'user' as const, content: userMessage }];
+    setMessages(newMessages);
+    setIsLoading(true);
+
+    try {
+      const response = await fetch('/api/research-chat-all', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          message: userMessage,
+          conversationHistory: messages,
+        }),
       });
-    } else {
-      fullPrompt += '\n\n### Research Data:\nNo research queries have been performed yet.';
+
+      const data = await response.json();
+
+      if (!data.success) {
+        toast.error(data.error || 'Failed to get response');
+        setMessages(newMessages);
+        return;
+      }
+
+      // Add assistant message with sources
+      setMessages([
+        ...newMessages,
+        {
+          role: 'assistant',
+          content: data.message,
+          sources: data.sources,
+        },
+      ]);
+    } catch (error) {
+      console.error('Chat error:', error);
+      toast.error('Error sending message');
+    } finally {
+      setIsLoading(false);
     }
+  };
 
-    return fullPrompt;
-  }, [queries]);
-
-  const { messages, input, handleInputChange, handleSubmit, isLoading } = useChat({
-    api: '/api/chat',
-    system: systemPrompt,
-  });
+  const handleKeyPress = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      handleSend();
+    }
+  };
 
   // Scroll to bottom when new messages arrive
   useEffect(() => {
@@ -75,15 +109,15 @@ export function DashboardAssistant() {
       {/* Header */}
       <div className="border-b border-gray-200 px-8 py-6">
         <div className="flex items-center gap-3">
-          <div className="h-10 w-10 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center">
+          <div className="h-10 w-10 rounded-full bg-gradient-to-br from-purple-500 to-purple-600 flex items-center justify-center">
             <Sparkles className="h-5 w-5 text-white" />
           </div>
           <div>
-            <h2 className="text-2xl font-bold text-gray-900">ESG Research Assistant</h2>
+            <h2 className="text-2xl font-bold text-gray-900">AI Research Assistant</h2>
             <p className="text-sm text-gray-600 mt-1">
               {queries.length > 0
-                ? `Query insights from ${queries.length} research ${queries.length === 1 ? 'query' : 'queries'}`
-                : 'Ask questions about ESG and sustainability topics'}
+                ? `Ask questions about ${queries.length} research ${queries.length === 1 ? 'project' : 'projects'}`
+                : 'Ask questions about your research data'}
             </p>
           </div>
         </div>
@@ -100,7 +134,7 @@ export function DashboardAssistant() {
                     <CardHeader>
                       <CardTitle className="flex items-center justify-center gap-2 text-center">
                         <Sparkles className="h-6 w-6 text-blue-600" />
-                        Ask about ESG Data
+                        Ask about Leads Data
                       </CardTitle>
                       <CardDescription className="text-center">
                         Query insights from research and analysis data
@@ -121,55 +155,95 @@ export function DashboardAssistant() {
                   </Card>
 
                   {/* Input Section - Centered and Prominent */}
-                  <form onSubmit={handleSubmit} className="w-full flex gap-3 px-4">
+                  <div className="w-full flex gap-3 px-4">
                     <Input
                       value={input}
-                      onChange={handleInputChange}
-                      placeholder="Ask about ESG data, companies, or research findings..."
+                      onChange={(e) => setInput(e.target.value)}
+                      onKeyPress={handleKeyPress}
+                      placeholder="Ask about your research data..."
                       disabled={isLoading}
-                      className="flex-1 text-lg px-6 py-3 border-2 border-blue-200 focus:border-blue-600 focus:ring-blue-600"
+                      className="flex-1 text-lg px-6 py-3 border-2 border-purple-200 focus:border-purple-600 focus:ring-purple-600"
                     />
                     <Button
-                      type="submit"
-                      disabled={isLoading || !(input ?? '').trim()}
-                      className="bg-blue-600 hover:bg-blue-700 px-6 py-3 h-auto text-lg"
+                      onClick={handleSend}
+                      disabled={isLoading || !input.trim()}
+                      className="bg-purple-600 hover:bg-purple-700 px-6 py-3 h-auto text-lg"
                     >
                       <Send className="h-5 w-5" />
                     </Button>
-                  </form>
+                  </div>
                 </div>
               </div>
             ) : (
               <>
-                {messages.map((message) => (
+                {messages.map((message, idx) => (
                   <div
-                    key={message.id}
-                    className={`flex ${
+                    key={idx}
+                    className={`flex gap-3 ${
                       message.role === 'user' ? 'justify-end' : 'justify-start'
                     }`}
                   >
+                    {message.role === 'assistant' && (
+                      <div className="flex-shrink-0 w-8 h-8 rounded-full bg-purple-100 flex items-center justify-center">
+                        <Bot className="h-4 w-4 text-purple-600" />
+                      </div>
+                    )}
+
                     <div
-                      className={`max-w-2xl rounded-lg px-4 py-3 ${
-                        message.role === 'user'
-                          ? 'bg-blue-600 text-white'
-                          : 'bg-gray-100 text-gray-900'
+                      className={`flex flex-col gap-2 max-w-[80%] ${
+                        message.role === 'user' ? 'items-end' : 'items-start'
                       }`}
                     >
-                      {message.role === 'user' ? (
-                        <p className="text-sm">{message.content}</p>
-                      ) : (
-                        <Markdown className="text-sm prose prose-sm max-w-none dark:prose-invert">
-                          {message.content}
-                        </Markdown>
+                      <div
+                        className={`rounded-lg px-4 py-2 ${
+                          message.role === 'user'
+                            ? 'bg-purple-600 text-white'
+                            : 'bg-gray-100 text-gray-900'
+                        }`}
+                      >
+                        {message.role === 'user' ? (
+                          <p className="text-sm whitespace-pre-wrap">{message.content}</p>
+                        ) : (
+                          <Markdown className="text-sm prose prose-sm max-w-none dark:prose-invert">
+                            {message.content}
+                          </Markdown>
+                        )}
+                      </div>
+
+                      {/* Show sources for assistant messages */}
+                      {message.role === 'assistant' && message.sources && message.sources.length > 0 && (
+                        <div className="text-xs text-gray-500 space-y-1">
+                          <p className="font-medium flex items-center gap-1">
+                            <FileText className="h-3 w-3" />
+                            Sources:
+                          </p>
+                          {message.sources.map((source, sourceIdx) => (
+                            <div key={sourceIdx} className="pl-4 border-l-2 border-gray-200">
+                              <p className="font-medium">
+                                {source.company && `${source.company} - `}
+                                {source.category && <span className="capitalize">{source.category}</span>}
+                              </p>
+                              <p className="text-gray-400 line-clamp-2">{source.content}</p>
+                            </div>
+                          ))}
+                        </div>
                       )}
                     </div>
+
+                    {message.role === 'user' && (
+                      <div className="flex-shrink-0 w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center">
+                        <User className="h-4 w-4 text-blue-600" />
+                      </div>
+                    )}
                   </div>
                 ))}
                 {isLoading && (
-                  <div className="flex justify-start">
-                    <div className="bg-gray-100 rounded-lg px-4 py-3 flex items-center gap-2">
-                      <Loader2 className="h-4 w-4 animate-spin text-gray-600" />
-                      <p className="text-sm text-gray-600">Analyzing data...</p>
+                  <div className="flex gap-3">
+                    <div className="flex-shrink-0 w-8 h-8 rounded-full bg-purple-100 flex items-center justify-center">
+                      <Bot className="h-4 w-4 text-purple-600" />
+                    </div>
+                    <div className="bg-gray-100 rounded-lg px-4 py-2">
+                      <Loader2 className="h-4 w-4 animate-spin text-gray-400" />
                     </div>
                   </div>
                 )}
@@ -181,23 +255,27 @@ export function DashboardAssistant() {
 
         {/* Input - Always visible at bottom when there are messages */}
         {messages.length > 0 && (
-          <div className="border-t border-gray-200 px-8 py-6 bg-gradient-to-r from-blue-50 to-transparent">
-            <form onSubmit={handleSubmit} className="flex gap-3">
+          <div className="border-t border-gray-200 px-8 py-6 bg-gradient-to-r from-purple-50 to-transparent">
+            <div className="flex gap-3">
               <Input
                 value={input}
-                onChange={handleInputChange}
-                placeholder="Ask about ESG data, companies, or research findings..."
+                onChange={(e) => setInput(e.target.value)}
+                onKeyPress={handleKeyPress}
+                placeholder="Ask about your research data..."
                 disabled={isLoading}
-                className="flex-1 text-lg px-6 py-3 border-2 border-blue-200 focus:border-blue-600 focus:ring-blue-600"
+                className="flex-1 text-lg px-6 py-3 border-2 border-purple-200 focus:border-purple-600 focus:ring-purple-600"
               />
               <Button
-                type="submit"
-                disabled={isLoading || !(input ?? '').trim()}
-                className="bg-blue-600 hover:bg-blue-700 px-6 py-3 h-auto text-lg"
+                onClick={handleSend}
+                disabled={isLoading || !input.trim()}
+                className="bg-purple-600 hover:bg-purple-700 px-6 py-3 h-auto text-lg"
               >
                 <Send className="h-5 w-5" />
               </Button>
-            </form>
+            </div>
+            <p className="text-xs text-gray-500 mt-2">
+              Press Enter to send, Shift+Enter for new line
+            </p>
           </div>
         )}
       </div>

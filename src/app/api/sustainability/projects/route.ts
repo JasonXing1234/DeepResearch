@@ -9,7 +9,7 @@ const supabase = supabaseUrl && supabaseKey
   ? createClient(supabaseUrl, supabaseKey)
   : null;
 
-// GET: List all projects for the user
+// GET: List all projects for the user OR get a specific project by ID
 export async function GET(request: NextRequest) {
   try {
     if (!supabase) {
@@ -25,6 +25,40 @@ export async function GET(request: NextRequest) {
     // For development, use hardcoded user ID
     const userId = 'b2bbb440-1d79-42fa-81e3-069efd22fae8';
 
+    // Check if requesting a specific project
+    const { searchParams } = new URL(request.url);
+    const projectId = searchParams.get('id');
+
+    if (projectId) {
+      // Get specific project
+      const { data: project, error } = await supabase
+        .from('sustainability_projects')
+        .select('*')
+        .eq('id', projectId)
+        .eq('user_id', userId)
+        .single();
+
+      if (error) {
+        return NextResponse.json(
+          { success: false, error: error.message },
+          { status: 500 }
+        );
+      }
+
+      if (!project) {
+        return NextResponse.json(
+          { success: false, error: 'Project not found' },
+          { status: 404 }
+        );
+      }
+
+      return NextResponse.json({
+        success: true,
+        project,
+      });
+    }
+
+    // Get all projects
     const { data: projects, error } = await supabase
       .from('sustainability_projects')
       .select('*')

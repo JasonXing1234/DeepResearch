@@ -1,12 +1,11 @@
 'use client'
 
-import { useState } from 'react';
-import { Plus, Trash2, Download, Play, ArrowLeft, FileUp, BarChart3 } from 'lucide-react';
+import { useState, useEffect, useRef } from 'react';
+import { Plus, Trash2, Download, FileUp, FileText, ArrowLeft } from 'lucide-react';
 import { Button } from '../ui/button';
 import { Input } from '../ui/input';
 import { Textarea } from '../ui/textarea';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../ui/card';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '../ui/tabs';
 import { toast } from 'sonner';
 import {
   Dialog,
@@ -16,212 +15,320 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '../ui/dialog';
+import { ResultsExplorer } from './ResultsExplorer';
 
-interface MockProject {
+interface Project {
   id: string;
   name: string;
   description: string;
-  status: 'pending' | 'processing' | 'completed' | 'failed';
+  analysis_status: string;
   created_at: string;
-  files: {
-    emissions?: { name: string; size: number };
-    investments?: { name: string; size: number };
-    purchases?: { name: string; size: number };
-    pilots?: { name: string; size: number };
-    environments?: { name: string; size: number };
-    output?: { name: string; size: number };
-  };
+  emissions_file_id?: string | null;
+  investments_file_id?: string | null;
+  machine_purchases_file_id?: string | null;
+  pilot_projects_file_id?: string | null;
+  project_environments_file_id?: string | null;
 }
 
-const MOCK_PROJECTS: MockProject[] = [
-  {
-    id: '1',
-    name: 'Tech Giants Q4 2024',
-    description: 'Sustainability analysis for major tech companies',
-    status: 'completed',
-    created_at: '2024-01-15',
-    files: {
-      emissions: { name: 'emissions_report.txt', size: 124567 },
-      investments: { name: 'investments_report.txt', size: 98234 },
-      purchases: { name: 'purchases_report.txt', size: 156789 },
-      pilots: { name: 'pilots_report.txt', size: 87654 },
-      environments: { name: 'environments_report.txt', size: 112345 },
-      output: { name: 'analysis_output.xlsx', size: 256789 },
-    },
-  },
-  {
-    id: '2',
-    name: 'Energy Sector Analysis',
-    description: 'ESG data for renewable energy companies',
-    status: 'completed',
-    created_at: '2024-01-10',
-    files: {
-      emissions: { name: 'emissions_data.txt', size: 145678 },
-      investments: { name: 'investments_data.txt', size: 103456 },
-      pilots: { name: 'pilots_data.txt', size: 94567 },
-      output: { name: 'energy_analysis.xlsx', size: 234567 },
-    },
-  },
-];
+interface ProjectFile {
+  id: string;
+  file_type: string;
+  original_filename: string;
+  file_size_bytes: number;
+  upload_status: string;
+}
 
-const MOCK_SUMMARY = [
-  {
-    company: 'Apple',
-    commitment_to_reduce: true,
-    net_zero_target: true,
-    pilot: true,
-    investment_announced: true,
-    equipment_purchased: true,
-    project_environment: true,
-  },
-  {
-    company: 'Microsoft',
-    commitment_to_reduce: true,
-    net_zero_target: true,
-    pilot: true,
-    investment_announced: true,
-    equipment_purchased: true,
-    project_environment: true,
-  },
-  {
-    company: 'Google',
-    commitment_to_reduce: true,
-    net_zero_target: true,
-    pilot: false,
-    investment_announced: true,
-    equipment_purchased: true,
-    project_environment: true,
-  },
-];
-
-const MOCK_DETAILS = [
-  {
-    customer: 'Apple',
-    attribute: 'Commitment to Reduce',
-    yes_no: 'Yes',
-    text: 'Apple committed to reducing carbon footprint by 75% by 2030',
-    source: 'emissions',
-    url: 'https://apple.com/environment',
-  },
-  {
-    customer: 'Apple',
-    attribute: 'Net-zero Target',
-    yes_no: 'Yes',
-    text: 'Carbon neutral by 2030 for Scope 1 and 2 emissions',
-    source: 'emissions',
-    url: 'https://apple.com/environment',
-  },
-  {
-    customer: 'Microsoft',
-    attribute: 'Investment Announced',
-    yes_no: 'Yes',
-    text: '$10 billion innovation fund for carbon removal technologies',
-    source: 'investments',
-    url: 'https://microsoft.com/climate',
-  },
-  {
-    customer: 'Google',
-    attribute: 'Equipment Purchased',
-    yes_no: 'Yes',
-    text: 'Purchased renewable energy equipment for data centers',
-    source: 'purchases',
-    url: 'https://google.com/sustainability',
-  },
-];
-
-const MOCK_DIAGNOSTICS = [
-  {
-    company: 'Apple',
-    emissions: 3,
-    investments: 2,
-    purchases: 4,
-    pilots: 2,
-    environments: 3,
-  },
-  {
-    company: 'Microsoft',
-    emissions: 4,
-    investments: 5,
-    purchases: 3,
-    pilots: 3,
-    environments: 2,
-  },
-  {
-    company: 'Google',
-    emissions: 3,
-    investments: 3,
-    purchases: 4,
-    pilots: 0,
-    environments: 4,
-  },
+const FILE_TYPES = [
+  { id: 'emissions', label: 'Emissions Reductions', required: true },
+  { id: 'investments', label: 'Investments & Commitments', required: true },
+  { id: 'machine_purchases', label: 'Machine Purchases', required: true },
+  { id: 'pilot_projects', label: 'Pilot Projects', required: true },
+  { id: 'project_environments', label: 'Project Environments', required: true },
 ];
 
 export function ProjectManager() {
-  const [projects, setProjects] = useState<MockProject[]>(MOCK_PROJECTS);
-  const [selectedProject, setSelectedProject] = useState<MockProject | null>(null);
+  const [projects, setProjects] = useState<Project[]>([]);
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+  const [projectFiles, setProjectFiles] = useState<ProjectFile[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [projectName, setProjectName] = useState('');
   const [projectDescription, setProjectDescription] = useState('');
   const [searchTerm, setSearchTerm] = useState('');
+  const [uploadingFileType, setUploadingFileType] = useState<string | null>(null);
+  const [isExporting, setIsExporting] = useState(false);
+  const [viewResults, setViewResults] = useState(false);
 
-  const handleCreateProject = () => {
+  const fileInputRefs = useRef<Record<string, HTMLInputElement | null>>({});
+
+  useEffect(() => {
+    fetchProjects();
+  }, []);
+
+  useEffect(() => {
+    if (selectedProject) {
+      fetchProjectFiles(selectedProject.id);
+    }
+  }, [selectedProject]);
+
+  // Poll for analysis status updates
+  useEffect(() => {
+    if (!selectedProject || selectedProject.analysis_status !== 'processing') {
+      return;
+    }
+
+    const pollInterval = setInterval(async () => {
+      try {
+        const response = await fetch('/api/sustainability/projects');
+        const data = await response.json();
+
+        if (data.success) {
+          const updatedProject = data.projects.find((p: Project) => p.id === selectedProject.id);
+          if (updatedProject && updatedProject.analysis_status !== 'processing') {
+            setSelectedProject(updatedProject);
+            setProjects(data.projects);
+
+            if (updatedProject.analysis_status === 'completed') {
+              toast.success('Analysis completed successfully!');
+            } else if (updatedProject.analysis_status === 'failed') {
+              toast.error('Analysis failed. Please try again.');
+            }
+          }
+        }
+      } catch (error) {
+        console.error('Error polling project status:', error);
+      }
+    }, 3000); // Poll every 3 seconds
+
+    return () => clearInterval(pollInterval);
+  }, [selectedProject]);
+
+  const fetchProjects = async () => {
+    try {
+      setIsLoading(true);
+      const response = await fetch('/api/sustainability/projects');
+      const data = await response.json();
+
+      if (data.success) {
+        setProjects(data.projects || []);
+      } else {
+        toast.error('Failed to load projects');
+      }
+    } catch (error) {
+      console.error('Error fetching projects:', error);
+      toast.error('Error loading projects');
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const fetchProjectFiles = async (projectId: string) => {
+    try {
+      const response = await fetch(`/api/sustainability/files?projectId=${projectId}`);
+      const data = await response.json();
+
+      if (data.success) {
+        setProjectFiles(data.files || []);
+      }
+    } catch (error) {
+      console.error('Error fetching project files:', error);
+    }
+  };
+
+  const handleCreateProject = async () => {
     if (!projectName.trim()) {
       toast.error('Project name is required');
       return;
     }
 
-    const newProject: MockProject = {
-      id: Math.random().toString(36).substr(2, 9),
-      name: projectName,
-      description: projectDescription,
-      status: 'pending',
-      created_at: new Date().toISOString().split('T')[0],
-      files: {},
-    };
+    try {
+      const response = await fetch('/api/sustainability/projects', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: projectName,
+          description: projectDescription,
+        }),
+      });
 
-    setProjects([newProject, ...projects]);
-    setProjectName('');
-    setProjectDescription('');
-    setIsDialogOpen(false);
-    toast.success('Project created successfully');
-  };
+      const data = await response.json();
 
-  const handleDeleteProject = (id: string) => {
-    setProjects(projects.filter((p) => p.id !== id));
-    if (selectedProject?.id === id) {
-      setSelectedProject(null);
-    }
-    toast.success('Project deleted');
-  };
-
-  const getStatusColor = (status: string) => {
-    switch (status) {
-      case 'completed':
-        return 'bg-green-100 text-green-800';
-      case 'processing':
-        return 'bg-yellow-100 text-yellow-800';
-      case 'failed':
-        return 'bg-red-100 text-red-800';
-      default:
-        return 'bg-gray-100 text-gray-800';
+      if (data.success) {
+        toast.success('Project created successfully');
+        setProjectName('');
+        setProjectDescription('');
+        setIsDialogOpen(false);
+        await fetchProjects();
+      } else {
+        toast.error(data.error || 'Failed to create project');
+      }
+    } catch (error) {
+      console.error('Error creating project:', error);
+      toast.error('Error creating project');
     }
   };
 
-  const filteredSummary = MOCK_SUMMARY.filter((item) =>
-    item.company.toLowerCase().includes(searchTerm.toLowerCase())
+  const handleDeleteProject = async (projectId: string) => {
+    if (!confirm('Are you sure you want to delete this project?')) return;
+
+    try {
+      const response = await fetch('/api/sustainability/projects', {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ projectId }),
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        toast.success('Project deleted successfully');
+        await fetchProjects();
+        if (selectedProject?.id === projectId) {
+          setSelectedProject(null);
+        }
+      } else {
+        toast.error(data.error || 'Failed to delete project');
+      }
+    } catch (error) {
+      console.error('Error deleting project:', error);
+      toast.error('Error deleting project');
+    }
+  };
+
+  const handleFileUpload = async (projectId: string, fileType: string, file: File) => {
+    if (!file) return;
+
+    setUploadingFileType(fileType);
+
+    try {
+      const formData = new FormData();
+      formData.append('file', file);
+      formData.append('projectId', projectId);
+      formData.append('fileType', fileType);
+
+      const response = await fetch('/api/sustainability/upload', {
+        method: 'POST',
+        body: formData,
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        toast.success(`${fileType} file uploaded successfully`);
+        await fetchProjects();
+        if (selectedProject) {
+          await fetchProjectFiles(selectedProject.id);
+          // Refresh selected project
+          const updated = await fetch(`/api/sustainability/projects?id=${selectedProject.id}`);
+          const updatedData = await updated.json();
+          if (updatedData.success) {
+            setSelectedProject(updatedData.project);
+          }
+        }
+      } else {
+        toast.error(data.error || 'Failed to upload file');
+      }
+    } catch (error) {
+      console.error('Error uploading file:', error);
+      toast.error('Error uploading file');
+    } finally {
+      setUploadingFileType(null);
+    }
+  };
+
+  const handleExportExcel = async (projectId: string) => {
+    setIsExporting(true);
+    try {
+      const response = await fetch('/api/sustainability/export-excel', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ projectId }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Export failed');
+      }
+
+      const blob = await response.blob();
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `${selectedProject?.name.replace(/[^a-zA-Z0-9]/g, '_')}_attributes.xlsx`;
+      a.click();
+      window.URL.revokeObjectURL(url);
+
+      toast.success('Excel file exported successfully');
+    } catch (error) {
+      console.error('Error exporting Excel:', error);
+      toast.error('Error exporting Excel file');
+    } finally {
+      setIsExporting(false);
+    }
+  };
+
+  const handleAnalyze = async (projectId: string) => {
+    try {
+      const response = await fetch('/api/sustainability/analyze', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ projectId }),
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        toast.success('Analysis started. This may take a few minutes.');
+        // Refresh project to get updated status (should be 'processing')
+        await fetchProjects();
+        if (selectedProject) {
+          const updatedProject = projects.find(p => p.id === selectedProject.id);
+          if (updatedProject) {
+            setSelectedProject(updatedProject);
+          }
+        }
+      } else {
+        toast.error(data.error || 'Analysis failed');
+      }
+    } catch (error) {
+      console.error('Error starting analysis:', error);
+      toast.error('Error starting analysis');
+    }
+  };
+
+  const filteredProjects = projects.filter(p =>
+    p.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    (p.description && p.description.toLowerCase().includes(searchTerm.toLowerCase()))
   );
 
-  const filteredDetails = MOCK_DETAILS.filter(
-    (item) =>
-      item.customer.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      item.attribute.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const getFileForType = (fileType: string): ProjectFile | undefined => {
+    return projectFiles.find(f => f.file_type === fileType);
+  };
 
-  const filteredDiagnostics = MOCK_DIAGNOSTICS.filter((item) =>
-    item.company.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const hasRequiredFiles = (project: Project): boolean => {
+    return !!(
+      project.emissions_file_id &&
+      project.investments_file_id &&
+      project.machine_purchases_file_id &&
+      project.pilot_projects_file_id &&
+      project.project_environments_file_id
+    );
+  };
 
-  // Project Detail View
+  const formatFileSize = (bytes: number): string => {
+    if (bytes < 1024) return bytes + ' B';
+    if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
+    return (bytes / (1024 * 1024)).toFixed(1) + ' MB';
+  };
+
+  if (selectedProject && viewResults) {
+    return (
+      <ResultsExplorer
+        projectId={selectedProject.id}
+        onBack={() => setViewResults(false)}
+      />
+    );
+  }
+
   if (selectedProject) {
     return (
       <div className="flex-1 overflow-hidden flex flex-col bg-gray-50">
@@ -231,12 +338,11 @@ export function ProjectManager() {
             <div className="flex items-center gap-4">
               <Button
                 variant="ghost"
-                size="sm"
                 onClick={() => setSelectedProject(null)}
                 className="text-gray-600 hover:text-gray-900"
               >
                 <ArrowLeft className="h-4 w-4 mr-2" />
-                Back to Projects
+                Back
               </Button>
               <div>
                 <h2 className="text-3xl font-bold text-gray-900">{selectedProject.name}</h2>
@@ -245,327 +351,107 @@ export function ProjectManager() {
                 )}
               </div>
             </div>
-            <div className="flex gap-2">
-              {selectedProject.status === 'pending' && (
-                <Button className="bg-blue-600 hover:bg-blue-700">
-                  <Play className="h-4 w-4 mr-2" />
-                  Run Analysis
-                </Button>
+            <div className="flex items-center gap-3">
+              {hasRequiredFiles(selectedProject) && (
+                <>
+                  <Button
+                    onClick={() => handleAnalyze(selectedProject.id)}
+                    disabled={selectedProject.analysis_status === 'processing'}
+                    className="bg-blue-600 hover:bg-blue-700"
+                  >
+                    {selectedProject.analysis_status === 'processing' ? 'Analyzing...' : 'Analyze'}
+                  </Button>
+                  <Button
+                    onClick={() => handleExportExcel(selectedProject.id)}
+                    disabled={isExporting}
+                    className="bg-green-600 hover:bg-green-700"
+                  >
+                    <Download className="h-4 w-4 mr-2" />
+                    {isExporting ? 'Exporting...' : 'Export Excel'}
+                  </Button>
+                </>
               )}
-              {selectedProject.files.output && (
-                <Button variant="outline">
-                  <Download className="h-4 w-4 mr-2" />
-                  Download Excel
+              {selectedProject.analysis_status === 'completed' && (
+                <Button
+                  onClick={() => setViewResults(true)}
+                  className="bg-purple-600 hover:bg-purple-700"
+                >
+                  View Results
                 </Button>
               )}
             </div>
           </div>
         </div>
 
-        {/* Tabs */}
-        <div className="flex-1 overflow-hidden">
-          <Tabs defaultValue="files" className="h-full flex flex-col">
-            <div className="bg-white border-b border-gray-200 px-8 pt-6">
-              <TabsList>
-                <TabsTrigger value="files" className="flex items-center gap-2">
-                  <FileUp className="h-4 w-4" />
-                  Upload Files
-                </TabsTrigger>
-                <TabsTrigger value="results" className="flex items-center gap-2">
-                  <BarChart3 className="h-4 w-4" />
-                  Results
-                </TabsTrigger>
-              </TabsList>
-            </div>
+        {/* File Upload Section */}
+        <div className="flex-1 overflow-y-auto px-8 py-6">
+          <Card className="border-0 shadow-sm">
+            <CardHeader>
+              <CardTitle>Upload Report Files</CardTitle>
+              <CardDescription>
+                Upload all 5 required report files (JSON or TXT format) to enable Excel export
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              {FILE_TYPES.map((fileType) => {
+                const existingFile = getFileForType(fileType.id);
+                const isUploading = uploadingFileType === fileType.id;
 
-            <div className="flex-1 overflow-y-auto px-8 py-6">
-              {/* Upload Files Tab */}
-              <TabsContent value="files" className="mt-0">
-                <div className="space-y-6">
-                  {/* Files Status */}
-                  <Card className="border-0 shadow-sm">
-                    <CardHeader>
-                      <CardTitle>Project Files</CardTitle>
-                      <CardDescription>
-                        Status of uploaded reports (5 required + 1 output)
-                      </CardDescription>
-                    </CardHeader>
-                    <CardContent>
-                      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
-                        {['emissions', 'investments', 'purchases', 'pilots', 'environments', 'output'].map(
-                          (type) => {
-                            const file = selectedProject.files[type as keyof typeof selectedProject.files];
-                            return (
-                              <div
-                                key={type}
-                                className={`p-4 rounded-lg border text-center ${
-                                  file
-                                    ? 'bg-green-50 border-green-200'
-                                    : 'bg-gray-50 border-gray-200'
-                                }`}
-                              >
-                                <p className="font-medium text-gray-900 capitalize text-sm mb-2">
-                                  {type === 'purchases' ? 'Purchases' : type === 'output' ? 'Excel Output' : type}
-                                </p>
-                                {file ? (
-                                  <div>
-                                    <p className="text-xs text-green-700 font-semibold mb-1">✓ Uploaded</p>
-                                    <p className="text-xs text-gray-600">{file.name}</p>
-                                  </div>
-                                ) : (
-                                  <p className="text-xs text-gray-500">Not uploaded</p>
-                                )}
-                              </div>
-                            );
-                          }
+                return (
+                  <div key={fileType.id} className="flex items-center justify-between p-4 border rounded-lg">
+                    <div className="flex-1">
+                      <div className="flex items-center gap-2">
+                        <FileText className="h-5 w-5 text-gray-500" />
+                        <h4 className="font-medium text-gray-900">{fileType.label}</h4>
+                        {fileType.required && (
+                          <span className="text-xs text-red-600 font-medium">*Required</span>
                         )}
                       </div>
-                    </CardContent>
-                  </Card>
-
-                  {/* Upload Area */}
-                  <Card className="border-0 shadow-sm">
-                    <CardHeader>
-                      <CardTitle>Upload Reports</CardTitle>
-                      <CardDescription>
-                        Drag and drop or click to upload report files
-                      </CardDescription>
-                    </CardHeader>
-                    <CardContent>
-                      <div className="space-y-3">
-                        {['emissions', 'investments', 'purchases', 'pilots', 'environments'].map((type) => (
-                          <div
-                            key={type}
-                            className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-blue-400 transition-colors cursor-pointer"
-                          >
-                            <FileUp className="h-8 w-8 text-gray-400 mx-auto mb-2" />
-                            <p className="font-medium text-gray-900 capitalize">{type}</p>
-                            <p className="text-sm text-gray-600 mt-1">Click to upload or drag and drop</p>
-                          </div>
-                        ))}
-                      </div>
-                    </CardContent>
-                  </Card>
-                </div>
-              </TabsContent>
-
-              {/* Results Tab */}
-              <TabsContent value="results" className="mt-0">
-                <div className="space-y-6">
-                  {/* Search */}
-                  <div className="mb-4">
-                    <Input
-                      value={searchTerm}
-                      onChange={(e) => setSearchTerm(e.target.value)}
-                      placeholder="Search companies or attributes..."
-                      className="max-w-md"
-                    />
+                      {existingFile && (
+                        <p className="text-sm text-gray-600 mt-1">
+                          {existingFile.original_filename} ({formatFileSize(existingFile.file_size_bytes)})
+                        </p>
+                      )}
+                    </div>
+                    <div>
+                      <input
+                        type="file"
+                        ref={el => fileInputRefs.current[fileType.id] = el}
+                        onChange={(e) => {
+                          const file = e.target.files?.[0];
+                          if (file) {
+                            handleFileUpload(selectedProject.id, fileType.id, file);
+                          }
+                        }}
+                        accept=".json,.txt"
+                        className="hidden"
+                      />
+                      <Button
+                        onClick={() => fileInputRefs.current[fileType.id]?.click()}
+                        disabled={isUploading}
+                        variant={existingFile ? 'outline' : 'default'}
+                        className={existingFile ? '' : 'bg-blue-600 hover:bg-blue-700'}
+                      >
+                        <FileUp className="h-4 w-4 mr-2" />
+                        {isUploading ? 'Uploading...' : (existingFile ? 'Replace' : 'Upload')}
+                      </Button>
+                    </div>
                   </div>
+                );
+              })}
 
-                  {/* Results Tabs */}
-                  <Tabs defaultValue="normalized" className="w-full">
-                    <TabsList className="mb-4">
-                      <TabsTrigger value="normalized">Normalized View</TabsTrigger>
-                      <TabsTrigger value="details">Original View</TabsTrigger>
-                      <TabsTrigger value="diagnostics">Diagnostics</TabsTrigger>
-                    </TabsList>
-
-                    {/* Normalized View */}
-                    <TabsContent value="normalized">
-                      <Card className="border-0 shadow-sm">
-                        <CardHeader>
-                          <CardTitle>Summary by Company</CardTitle>
-                        </CardHeader>
-                        <CardContent>
-                          <div className="overflow-x-auto">
-                            <table className="w-full text-sm">
-                              <thead>
-                                <tr className="border-b border-gray-200 bg-gray-50">
-                                  <th className="px-4 py-3 text-left font-semibold text-gray-900">
-                                    Company
-                                  </th>
-                                  <th className="px-4 py-3 text-center font-semibold text-gray-900">
-                                    Commitment
-                                  </th>
-                                  <th className="px-4 py-3 text-center font-semibold text-gray-900">
-                                    Net-zero
-                                  </th>
-                                  <th className="px-4 py-3 text-center font-semibold text-gray-900">
-                                    Pilot
-                                  </th>
-                                  <th className="px-4 py-3 text-center font-semibold text-gray-900">
-                                    Investment
-                                  </th>
-                                  <th className="px-4 py-3 text-center font-semibold text-gray-900">
-                                    Equipment
-                                  </th>
-                                  <th className="px-4 py-3 text-center font-semibold text-gray-900">
-                                    Environment
-                                  </th>
-                                </tr>
-                              </thead>
-                              <tbody className="divide-y divide-gray-200">
-                                {filteredSummary.map((row) => (
-                                  <tr key={row.company} className="hover:bg-gray-50">
-                                    <td className="px-4 py-3 font-medium text-gray-900">
-                                      {row.company}
-                                    </td>
-                                    {[
-                                      'commitment_to_reduce',
-                                      'net_zero_target',
-                                      'pilot',
-                                      'investment_announced',
-                                      'equipment_purchased',
-                                      'project_environment',
-                                    ].map((attr) => (
-                                      <td key={attr} className="px-4 py-3 text-center">
-                                        {row[attr as keyof typeof row] ? (
-                                          <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">
-                                            Yes
-                                          </span>
-                                        ) : (
-                                          <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-gray-100 text-gray-800">
-                                            No
-                                          </span>
-                                        )}
-                                      </td>
-                                    ))}
-                                  </tr>
-                                ))}
-                              </tbody>
-                            </table>
-                          </div>
-                        </CardContent>
-                      </Card>
-                    </TabsContent>
-
-                    {/* Original View */}
-                    <TabsContent value="details">
-                      <div className="space-y-4">
-                        {filteredDetails.map((item, idx) => (
-                          <Card key={idx} className="border-0 shadow-sm">
-                            <CardContent className="pt-6">
-                              <div className="grid grid-cols-2 gap-4 mb-4">
-                                <div>
-                                  <p className="text-xs text-gray-600 font-semibold uppercase">Customer</p>
-                                  <p className="text-lg font-semibold text-gray-900">{item.customer}</p>
-                                </div>
-                                <div>
-                                  <p className="text-xs text-gray-600 font-semibold uppercase">Attribute</p>
-                                  <p className="text-lg font-semibold text-gray-900">{item.attribute}</p>
-                                </div>
-                              </div>
-
-                              <div className="grid grid-cols-2 gap-4 mb-4">
-                                <div>
-                                  <p className="text-xs text-gray-600 font-semibold uppercase">Yes/No</p>
-                                  <p className="font-medium text-green-600">{item.yes_no}</p>
-                                </div>
-                                <div>
-                                  <p className="text-xs text-gray-600 font-semibold uppercase">Source</p>
-                                  <p className="text-sm text-gray-700 capitalize">{item.source}</p>
-                                </div>
-                              </div>
-
-                              <div className="mb-4">
-                                <p className="text-xs text-gray-600 font-semibold uppercase mb-2">Text</p>
-                                <p className="text-sm text-gray-700 bg-gray-50 p-3 rounded">
-                                  {item.text}
-                                </p>
-                              </div>
-
-                              {item.url && (
-                                <div>
-                                  <p className="text-xs text-gray-600 font-semibold uppercase mb-2">
-                                    Source URL
-                                  </p>
-                                  <a
-                                    href={item.url}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="text-blue-600 hover:underline text-sm"
-                                  >
-                                    {item.url}
-                                  </a>
-                                </div>
-                              )}
-                            </CardContent>
-                          </Card>
-                        ))}
-                      </div>
-                    </TabsContent>
-
-                    {/* Diagnostics View */}
-                    <TabsContent value="diagnostics">
-                      <Card className="border-0 shadow-sm">
-                        <CardHeader>
-                          <CardTitle>Diagnostics by Company</CardTitle>
-                        </CardHeader>
-                        <CardContent>
-                          <div className="overflow-x-auto">
-                            <table className="w-full text-sm">
-                              <thead>
-                                <tr className="border-b border-gray-200 bg-gray-50">
-                                  <th className="px-4 py-3 text-left font-semibold text-gray-900">
-                                    Company
-                                  </th>
-                                  <th className="px-4 py-3 text-center font-semibold text-gray-900">
-                                    Emissions
-                                  </th>
-                                  <th className="px-4 py-3 text-center font-semibold text-gray-900">
-                                    Investments
-                                  </th>
-                                  <th className="px-4 py-3 text-center font-semibold text-gray-900">
-                                    Purchases
-                                  </th>
-                                  <th className="px-4 py-3 text-center font-semibold text-gray-900">
-                                    Pilots
-                                  </th>
-                                  <th className="px-4 py-3 text-center font-semibold text-gray-900">
-                                    Environments
-                                  </th>
-                                  <th className="px-4 py-3 text-center font-semibold text-gray-900">
-                                    Total
-                                  </th>
-                                </tr>
-                              </thead>
-                              <tbody className="divide-y divide-gray-200">
-                                {filteredDiagnostics.map((row) => (
-                                  <tr key={row.company} className="hover:bg-gray-50">
-                                    <td className="px-4 py-3 font-medium text-gray-900">
-                                      {row.company}
-                                    </td>
-                                    <td className="px-4 py-3 text-center text-gray-700">{row.emissions}</td>
-                                    <td className="px-4 py-3 text-center text-gray-700">{row.investments}</td>
-                                    <td className="px-4 py-3 text-center text-gray-700">{row.purchases}</td>
-                                    <td className="px-4 py-3 text-center text-gray-700">{row.pilots}</td>
-                                    <td className="px-4 py-3 text-center text-gray-700">{row.environments}</td>
-                                    <td className="px-4 py-3 text-center font-semibold text-gray-900">
-                                      {row.emissions +
-                                        row.investments +
-                                        row.purchases +
-                                        row.pilots +
-                                        row.environments}
-                                    </td>
-                                  </tr>
-                                ))}
-                              </tbody>
-                            </table>
-                          </div>
-                        </CardContent>
-                      </Card>
-                    </TabsContent>
-                  </Tabs>
+              {!hasRequiredFiles(selectedProject) && (
+                <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4 text-sm text-yellow-900">
+                  <p className="font-medium">Upload all 5 required files to enable Excel export</p>
                 </div>
-              </TabsContent>
-            </div>
-          </Tabs>
+              )}
+            </CardContent>
+          </Card>
         </div>
       </div>
     );
   }
 
-  // Projects List View
   return (
     <div className="flex-1 overflow-hidden flex flex-col bg-gray-50">
       {/* Header */}
@@ -574,7 +460,7 @@ export function ProjectManager() {
           <div>
             <h2 className="text-3xl font-bold text-gray-900">Projects</h2>
             <p className="text-gray-600 mt-1">
-              Manage your ESG analysis projects and upload report files
+              Manage your Leads analysis projects and upload report files
             </p>
           </div>
           <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
@@ -588,7 +474,7 @@ export function ProjectManager() {
               <DialogHeader>
                 <DialogTitle>Create New Project</DialogTitle>
                 <DialogDescription>
-                  Start a new ESG analysis project by providing basic information
+                  Start a new Leads analysis project by providing basic information
                 </DialogDescription>
               </DialogHeader>
               <div className="space-y-4">
@@ -604,23 +490,20 @@ export function ProjectManager() {
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Description
+                    Description (Optional)
                   </label>
                   <Textarea
                     value={projectDescription}
                     onChange={(e) => setProjectDescription(e.target.value)}
-                    placeholder="Describe your project..."
+                    placeholder="Describe the purpose of this project..."
                     rows={3}
                   />
                 </div>
-                <div className="flex gap-3 justify-end pt-4">
+                <div className="flex justify-end gap-2 pt-4">
                   <Button variant="outline" onClick={() => setIsDialogOpen(false)}>
                     Cancel
                   </Button>
-                  <Button
-                    onClick={handleCreateProject}
-                    className="bg-blue-600 hover:bg-blue-700"
-                  >
+                  <Button onClick={handleCreateProject} className="bg-blue-600 hover:bg-blue-700">
                     Create Project
                   </Button>
                 </div>
@@ -630,103 +513,85 @@ export function ProjectManager() {
         </div>
       </div>
 
+      {/* Search */}
+      <div className="border-b border-gray-200 bg-white px-8 py-4">
+        <Input
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          placeholder="Search projects..."
+          className="max-w-md"
+        />
+      </div>
+
       {/* Projects List */}
       <div className="flex-1 overflow-y-auto px-8 py-6">
-        {projects.length === 0 ? (
-          <Card className="border-0 shadow-sm">
-            <CardContent className="pt-12">
-              <p className="text-center text-gray-500 text-lg">
-                No projects yet. Create one to get started.
-              </p>
-            </CardContent>
-          </Card>
+        {isLoading ? (
+          <div className="text-center py-12">
+            <p className="text-gray-500">Loading projects...</p>
+          </div>
+        ) : filteredProjects.length === 0 ? (
+          <div className="text-center py-12">
+            <p className="text-gray-500">
+              {searchTerm ? 'No projects match your search' : 'No projects yet. Create your first project to get started.'}
+            </p>
+          </div>
         ) : (
-          <div className="space-y-4">
-            {projects.map((project) => (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {filteredProjects.map((project) => (
               <Card
                 key={project.id}
-                onClick={() => setSelectedProject(project)}
                 className="border-0 shadow-sm hover:shadow-md transition-shadow cursor-pointer"
+                onClick={() => setSelectedProject(project)}
               >
-                <CardHeader className="pb-3">
+                <CardHeader>
                   <div className="flex items-start justify-between">
                     <div className="flex-1">
-                      <div className="flex items-center gap-3 mb-1">
-                        <h3 className="text-lg font-semibold text-gray-900">{project.name}</h3>
-                        <span
-                          className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-medium ${getStatusColor(
-                            project.status
-                          )}`}
-                        >
-                          {project.status.charAt(0).toUpperCase() + project.status.slice(1)}
-                        </span>
-                      </div>
-                      <p className="text-sm text-gray-600">{project.description}</p>
-                      <p className="text-xs text-gray-500 mt-2">Created on {project.created_at}</p>
-                    </div>
-                    <div className="flex gap-2">
-                      {project.status === 'pending' && (
-                        <Button
-                          size="sm"
-                          variant="default"
-                          className="bg-blue-600 hover:bg-blue-700"
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            toast.info('Analysis started');
-                          }}
-                        >
-                          <Play className="h-4 w-4 mr-1" />
-                          Run Analysis
-                        </Button>
+                      <CardTitle className="text-lg">{project.name}</CardTitle>
+                      {project.description && (
+                        <CardDescription className="mt-1">{project.description}</CardDescription>
                       )}
-                      {project.files.output && (
-                        <Button
-                          size="sm"
-                          variant="outline"
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            toast.info('Downloading output.xlsx');
-                          }}
-                        >
-                          <Download className="h-4 w-4 mr-1" />
-                          Download
-                        </Button>
-                      )}
-                      <Button
-                        size="sm"
-                        variant="ghost"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          handleDeleteProject(project.id);
-                        }}
-                      >
-                        <Trash2 className="h-4 w-4 text-red-600" />
-                      </Button>
                     </div>
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleDeleteProject(project.id);
+                      }}
+                      className="text-red-600 hover:text-red-700 hover:bg-red-50 -mt-2"
+                    >
+                      <Trash2 className="h-4 w-4" />
+                    </Button>
                   </div>
                 </CardHeader>
-                <CardContent className="pt-0">
-                  <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3 text-sm">
-                    {['emissions', 'investments', 'purchases', 'pilots', 'environments', 'output'].map((type) => {
-                      const file = project.files[type as keyof typeof project.files];
-                      return (
-                        <div
-                          key={type}
-                          className={`p-3 rounded-lg border ${
-                            file ? 'bg-green-50 border-green-200' : 'bg-gray-50 border-gray-200'
-                          }`}
-                        >
-                          <p className="font-medium text-gray-900 capitalize text-xs">
-                            {type === 'purchases' ? 'Purchases' : type === 'output' ? 'Output' : type}
-                          </p>
-                          {file ? (
-                            <p className="text-xs text-gray-600 mt-1">✓ Uploaded</p>
-                          ) : (
-                            <p className="text-xs text-gray-500 mt-1">Not uploaded</p>
-                          )}
-                        </div>
-                      );
-                    })}
+                <CardContent>
+                  <div className="space-y-2 text-sm">
+                    <div className="flex justify-between">
+                      <span className="text-gray-600">Created:</span>
+                      <span className="font-medium">
+                        {new Date(project.created_at).toLocaleDateString()}
+                      </span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-gray-600">Status:</span>
+                      <span className={`font-medium ${
+                        project.analysis_status === 'completed' ? 'text-green-600' :
+                        project.analysis_status === 'processing' ? 'text-blue-600' :
+                        project.analysis_status === 'failed' ? 'text-red-600' :
+                        'text-gray-600'
+                      }`}>
+                        {project.analysis_status.charAt(0).toUpperCase() + project.analysis_status.slice(1)}
+                      </span>
+                    </div>
+                    <div className="pt-2 border-t">
+                      <div className="text-xs text-gray-500">
+                        {hasRequiredFiles(project) ? (
+                          <span className="text-green-600 font-medium">✓ All files uploaded</span>
+                        ) : (
+                          <span className="text-yellow-600">Upload files to enable export</span>
+                        )}
+                      </div>
+                    </div>
                   </div>
                 </CardContent>
               </Card>

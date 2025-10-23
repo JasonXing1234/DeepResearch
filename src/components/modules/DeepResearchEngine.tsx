@@ -1,60 +1,53 @@
 'use client'
 
 import { useState, useEffect } from 'react';
-import { Search, Trash2, Download, Loader2, Plus } from 'lucide-react';
+import { Search, Trash2, Download, Loader2, Clock, CheckCircle, XCircle } from 'lucide-react';
 import { Button } from '../ui/button';
 import { Input } from '../ui/input';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../ui/card';
 import { toast } from 'sonner';
-import { useResearch, type ResearchQuery } from '@/contexts/ResearchContext';
 
-const MOCK_RESULTS: ResearchQuery = {
-  id: '1',
-  companies: ['Apple', 'Microsoft', 'Google'],
-  status: 'completed',
-  created_at: '2024-01-15',
-  datasets: {
-    emissions: [
-      { company: 'Apple', commitment_to_reduce: true, target_year: 2030, reduction_percent: 75 },
-      { company: 'Microsoft', commitment_to_reduce: true, target_year: 2030, reduction_percent: 100 },
-      { company: 'Google', commitment_to_reduce: true, target_year: 2030, reduction_percent: 75 },
-    ],
-    investments: [
-      { company: 'Apple', investment_amount: '$15B', focus: 'Renewable energy' },
-      { company: 'Microsoft', investment_amount: '$10B', focus: 'Carbon removal' },
-      { company: 'Google', investment_amount: '$12B', focus: 'Clean energy' },
-    ],
-    purchases: [
-      { company: 'Apple', equipment_type: 'Manufacturing', quantity: 500 },
-      { company: 'Microsoft', equipment_type: 'Data centers', quantity: 200 },
-      { company: 'Google', equipment_type: 'Facilities', quantity: 400 },
-    ],
-    pilots: [
-      { company: 'Apple', pilot_name: 'Zero waste retail', status: 'ongoing' },
-      { company: 'Microsoft', pilot_name: 'Renewable energy grid', status: 'ongoing' },
-      { company: 'Google', pilot_name: 'AI energy optimization', status: 'pilot' },
-    ],
-    environments: [
-      { company: 'Apple', constraint: 'Water usage reduction', severity: 'high' },
-      { company: 'Microsoft', constraint: 'Biodiversity protection', severity: 'medium' },
-      { company: 'Google', constraint: 'Supply chain emissions', severity: 'high' },
-    ],
-  },
-};
+interface ResearchQueueEntry {
+  id: string;
+  companies: string[];
+  status: string;
+  project_id: string;
+  created_at: string;
+  completed_at: string | null;
+  total_companies: number;
+  files_generated: number;
+  document_count: number;
+  segment_count: number;
+}
 
 export function DeepResearchEngine() {
   const [companies, setCompanies] = useState(['', '', '', '']);
   const [isResearching, setIsResearching] = useState(false);
-  const [isInitialized, setIsInitialized] = useState(false);
-  const { queries, addQuery, deleteQuery } = useResearch();
+  const [researchHistory, setResearchHistory] = useState<ResearchQueueEntry[]>([]);
+  const [isLoadingHistory, setIsLoadingHistory] = useState(true);
 
-  // Initialize with mock data on first load
+  // Fetch research history on mount
   useEffect(() => {
-    if (!isInitialized && queries.length === 0) {
-      addQuery(MOCK_RESULTS);
-      setIsInitialized(true);
+    fetchResearchHistory();
+  }, []);
+
+  const fetchResearchHistory = async () => {
+    try {
+      setIsLoadingHistory(true);
+      const response = await fetch('/api/research-queue');
+      const data = await response.json();
+
+      if (data.success) {
+        setResearchHistory(data.data);
+      } else {
+        console.error('Failed to fetch research history:', data.error);
+      }
+    } catch (error) {
+      console.error('Error fetching research history:', error);
+    } finally {
+      setIsLoadingHistory(false);
     }
-  }, [isInitialized, queries.length, addQuery]);
+  };
 
   const companyInputs = companies.filter((c) => c.trim()).length;
 
@@ -73,43 +66,139 @@ export function DeepResearchEngine() {
     }
 
     setIsResearching(true);
-    toast.info('Starting deep research... (simulated)');
+    toast.info('Starting deep research...');
 
-    // Simulate research delay
-    setTimeout(() => {
-      const newQuery: ResearchQuery = {
-        id: Math.random().toString(36).substr(2, 9),
-        companies: activeCompanies,
-        status: 'completed',
-        created_at: new Date().toISOString().split('T')[0],
-        datasets: MOCK_RESULTS.datasets,
+    try {
+      // First create a project to store the results
+      const projectResponse = await fetch('/api/sustainability/projects', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: `Research: ${activeCompanies.join(', ')}`,
+          description: `Automated research for ${activeCompanies.length} companies`,
+        }),
+      });
+
+      const projectData = await projectResponse.json();
+
+      if (!projectData.success) {
+        toast.error(projectData.error || 'Failed to create project');
+        setIsResearching(false);
+        return;
+      }
+
+      const projectId = projectData.project.id;
+
+      // Now run the research
+      const researchResponse = await fetch('/api/research-companies', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          companies: activeCompanies.map(name => ({ name })),
+          projectId: projectId,
+        }),
+      });
+
+      const researchData = await researchResponse.json();
+
+      if (researchData.success) {
+        setCompanies(['', '', '', '']);
+        toast.success(`Research completed! Generated ${researchData.uploadedFiles} report files.`);
+
+        // Refresh research history
+        await fetchResearchHistory();
+      } else {
+        toast.error(researchData.error || 'Research failed');
+      }
+    } catch (error) {
+      console.error('Error running research:', error);
+      toast.error('Error running research');
+    } finally {
+      setIsResearching(false);
+    }
+  };
+
+  const handleExportJSON = async (query: ResearchQuery, datasetType: string) => {
+    try {
+      toast.info('Downloading research file...');
+
+      // Map dataset type to file type
+      const fileTypeMap: Record<string, string> = {
+        'emissions': 'emissions',
+        'investments': 'investments',
+        'purchases': 'machine_purchases',
+        'pilots': 'pilot_projects',
+        'environments': 'project_environments',
       };
 
-      addQuery(newQuery);
-      setIsResearching(false);
-      setCompanies(['', '', '', '']);
-      toast.success('Research completed! Datasets generated.');
-    }, 2000);
+      const fileType = fileTypeMap[datasetType] || datasetType;
+
+      // Fetch the actual JSON file from the API
+      const response = await fetch(`/api/sustainability/download-file?projectId=${query.id}&fileType=${fileType}`);
+
+      if (!response.ok) {
+        throw new Error('Failed to download file');
+      }
+
+      const blob = await response.blob();
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `${datasetType}_${query.companies.join('_')}.json`;
+      a.click();
+      window.URL.revokeObjectURL(url);
+
+      toast.success(`Downloaded ${datasetType}.json`);
+    } catch (error) {
+      console.error('Error downloading file:', error);
+      toast.error('Failed to download file');
+    }
   };
 
-  const handleExportJSON = (query: ResearchQuery, datasetType: string) => {
-    if (!query.datasets) return;
+  const handleDeleteQuery = async (id: string) => {
+    try {
+      const response = await fetch(`/api/research-queue/${id}`, {
+        method: 'DELETE',
+      });
 
-    const data = query.datasets[datasetType as keyof typeof query.datasets];
-    const json = JSON.stringify(data, null, 2);
-    const blob = new Blob([json], { type: 'application/json' });
-    const url = window.URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = `${datasetType}_${query.id}.json`;
-    a.click();
-    window.URL.revokeObjectURL(url);
-    toast.success(`Downloaded ${datasetType}.json`);
+      const data = await response.json();
+
+      if (data.success) {
+        toast.success('Research entry deleted');
+        await fetchResearchHistory();
+      } else {
+        toast.error(data.error || 'Failed to delete research entry');
+      }
+    } catch (error) {
+      console.error('Error deleting research entry:', error);
+      toast.error('Error deleting research entry');
+    }
   };
 
-  const handleDeleteQuery = (id: string) => {
-    deleteQuery(id);
-    toast.success('Research query deleted');
+  const getStatusIcon = (status: string) => {
+    switch (status) {
+      case 'completed':
+        return <CheckCircle className="h-5 w-5 text-green-600" />;
+      case 'processing':
+        return <Loader2 className="h-5 w-5 text-blue-600 animate-spin" />;
+      case 'failed':
+        return <XCircle className="h-5 w-5 text-red-600" />;
+      default:
+        return <Clock className="h-5 w-5 text-gray-400" />;
+    }
+  };
+
+  const getStatusBadgeClass = (status: string) => {
+    switch (status) {
+      case 'completed':
+        return 'bg-green-100 text-green-800';
+      case 'processing':
+        return 'bg-blue-100 text-blue-800';
+      case 'failed':
+        return 'bg-red-100 text-red-800';
+      default:
+        return 'bg-gray-100 text-gray-800';
+    }
   };
 
   return (
@@ -119,7 +208,7 @@ export function DeepResearchEngine() {
         <div>
           <h2 className="text-3xl font-bold text-gray-900">Deep Research Engine</h2>
           <p className="text-gray-600 mt-1">
-            Automated web research for up to 4 companies. Generates structured ESG datasets.
+            Automated web research for up to 4 companies. Generates structured Leads datasets.
           </p>
         </div>
       </div>
@@ -190,7 +279,16 @@ export function DeepResearchEngine() {
         {/* Results Section */}
         <div>
           <h3 className="text-lg font-semibold text-gray-900 mb-4">Research History</h3>
-          {queries.length === 0 ? (
+          {isLoadingHistory ? (
+            <Card className="border-0 shadow-sm">
+              <CardContent className="pt-12 pb-12">
+                <div className="flex items-center justify-center">
+                  <Loader2 className="h-6 w-6 animate-spin text-gray-400" />
+                  <span className="ml-2 text-gray-500">Loading research history...</span>
+                </div>
+              </CardContent>
+            </Card>
+          ) : researchHistory.length === 0 ? (
             <Card className="border-0 shadow-sm">
               <CardContent className="pt-12">
                 <p className="text-center text-gray-500">
@@ -200,41 +298,71 @@ export function DeepResearchEngine() {
             </Card>
           ) : (
             <div className="space-y-4">
-              {queries.map((query) => (
-                <Card key={query.id} className="border-0 shadow-sm">
+              {researchHistory.map((entry) => (
+                <Card key={entry.id} className="border-0 shadow-sm">
                   <CardHeader className="pb-3">
                     <div className="flex items-start justify-between">
-                      <div>
-                        <h4 className="font-semibold text-gray-900">
-                          {query.companies.join(', ')}
-                        </h4>
+                      <div className="flex-1">
+                        <div className="flex items-center gap-2">
+                          {getStatusIcon(entry.status)}
+                          <h4 className="font-semibold text-gray-900">
+                            {entry.companies.join(', ')}
+                          </h4>
+                        </div>
                         <p className="text-sm text-gray-600 mt-1">
-                          Researched on {query.created_at}
+                          Created: {new Date(entry.created_at).toLocaleDateString()}
+                          {entry.completed_at && ` • Completed: ${new Date(entry.completed_at).toLocaleDateString()}`}
                         </p>
+                        <div className="flex gap-2 mt-2 text-xs text-gray-500">
+                          <span>{entry.files_generated} files</span>
+                          <span>•</span>
+                          <span>{entry.document_count} documents</span>
+                          {entry.segment_count > 0 && (
+                            <>
+                              <span>•</span>
+                              <span>{entry.segment_count} vector segments</span>
+                            </>
+                          )}
+                        </div>
                       </div>
-                      <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">
-                        Completed
-                      </span>
+                      <div className="flex items-center gap-2">
+                        <span className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-medium ${getStatusBadgeClass(entry.status)}`}>
+                          {entry.status.charAt(0).toUpperCase() + entry.status.slice(1)}
+                        </span>
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          onClick={() => handleDeleteQuery(entry.id)}
+                          className="h-8 w-8 p-0 text-red-600 hover:text-red-700 hover:bg-red-50"
+                        >
+                          <Trash2 className="h-4 w-4" />
+                        </Button>
+                      </div>
                     </div>
                   </CardHeader>
-                  <CardContent>
-                    <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
-                      {['emissions', 'investments', 'purchases', 'pilots', 'environments'].map((type) => (
-                        <Button
-                          key={type}
-                          variant="outline"
-                          size="sm"
-                          onClick={() => handleExportJSON(query, type)}
-                          className="h-auto flex flex-col items-center gap-2 py-2"
-                        >
-                          <Download className="h-4 w-4" />
-                          <span className="text-xs font-medium capitalize">
-                            {type === 'investments' ? 'Investments' : type}
-                          </span>
-                        </Button>
-                      ))}
-                    </div>
-                  </CardContent>
+                  {entry.status === 'completed' && entry.project_id && (
+                    <CardContent>
+                      <div className="space-y-3">
+                        {/* Download Buttons */}
+                        <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
+                          {['emissions', 'investments', 'purchases', 'pilots', 'environments'].map((type) => (
+                            <Button
+                              key={type}
+                              variant="outline"
+                              size="sm"
+                              onClick={() => handleExportJSON({ id: entry.project_id, companies: entry.companies, status: entry.status, created_at: entry.created_at, datasets: {} } as any, type)}
+                              className="h-auto flex flex-col items-center gap-2 py-2"
+                            >
+                              <Download className="h-4 w-4" />
+                              <span className="text-xs font-medium capitalize">
+                                {type === 'investments' ? 'Investments' : type}
+                              </span>
+                            </Button>
+                          ))}
+                        </div>
+                      </div>
+                    </CardContent>
+                  )}
                 </Card>
               ))}
             </div>

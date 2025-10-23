@@ -39,9 +39,9 @@ function DashboardHome({ onModuleChange }: { onModuleChange: (module: DashboardM
       <div className="max-w-7xl mx-auto px-8 py-12">
         {/* Header */}
         <div className="mb-12">
-          <h1 className="text-4xl font-bold text-gray-900 mb-2">ESG Research Dashboard</h1>
+          <h1 className="text-4xl font-bold text-gray-900 mb-2">Leads Research Dashboard</h1>
           <p className="text-xl text-gray-600">
-            Comprehensive sustainability and ESG data research platform
+            Comprehensive sustainability and Leads data research platform
           </p>
         </div>
 
@@ -56,7 +56,7 @@ function DashboardHome({ onModuleChange }: { onModuleChange: (module: DashboardM
             <div className="p-6">
               <h2 className="text-2xl font-bold text-gray-900 mb-2">Project Management</h2>
               <p className="text-gray-600 mb-4">
-                Create and manage ESG analysis projects. Upload five report files, run analysis, and view results directly within each project.
+                Create and manage Leads analysis projects. Upload five report files, run analysis, and view results directly within each project.
               </p>
               <div className="flex items-center gap-2 text-blue-600 font-semibold">
                 Open <span className="text-lg">→</span>
@@ -73,7 +73,7 @@ function DashboardHome({ onModuleChange }: { onModuleChange: (module: DashboardM
             <div className="p-6">
               <h2 className="text-2xl font-bold text-gray-900 mb-2">Deep Research Engine</h2>
               <p className="text-gray-600 mb-4">
-                Automated web research for up to 4 companies. Generate structured ESG datasets automatically.
+                Automated web research for up to 4 companies. Generate structured Leads datasets automatically.
               </p>
               <div className="flex items-center gap-2 text-purple-600 font-semibold">
                 Open <span className="text-lg">→</span>
@@ -90,7 +90,7 @@ function DashboardHome({ onModuleChange }: { onModuleChange: (module: DashboardM
             <div className="p-6">
               <h2 className="text-2xl font-bold text-gray-900 mb-2">AI Assistant</h2>
               <p className="text-gray-600 mb-4">
-                Intelligent assistant that queries both project analysis and deep research data to provide insights on ESG metrics.
+                Intelligent assistant that queries both project analysis and deep research data to provide insights on Leads metrics.
               </p>
               <div className="flex items-center gap-2 text-cyan-600 font-semibold">
                 Open <span className="text-lg">→</span>

@@ -1,0 +1,21 @@
+[
+  {
+    "Company": "Chausson Matériaux",
+    "Investment Type": "Electric Vehicles (Electric Trucks)",
+    "Announcement Date": "2025-09-18",
+    "Description": "Chausson Matériaux acquired five 100% electric Mercedes-Benz eActros trucks (3 eActros 600 tractors and 2 eActros 400 rigids with cranes) to begin electrifying its delivery fleet, marking a new step in decarbonizing its logistics. This was announced in September 2025, and with these vehicles the company’s electric fleet reached 94 vehicles (47 in operation and 45 on order), alongside 194 hybrid cars.",
+    "Source URLs": [
+      "https://www.ladepeche.fr/2025/09/18/chausson-materiaux-veut-verdir-sa-flotte-de-camions-12937251.php",
+      "https://www.flotauto.com/chausson-materiaux-camions-electriques-20251001.html"
+    ]
+  },
+  {
+    "Company": "Chausson Matériaux",
+    "Investment Type": "Charging Infrastructure (EV Charging Stations)",
+    "Announcement Date": "2024",
+    "Description": "Chausson Matériaux invested in electric vehicle charging infrastructure across its sites. By the end of 2023, it had 105 EV charging stations installed at its branches (a 50% increase over 2022), and it made EV chargers standard in every newly built or renovated agency. This initiative was reported in the company’s 2024 CSR (RSE) report as part of its carbon reduction strategy.",
+    "Source URLs": [
+      "https://www.flotauto.com/chausson-materiaux-camions-electriques-20251001.html"
+    ]
+  }
+]

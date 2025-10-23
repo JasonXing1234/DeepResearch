@@ -1,0 +1,17 @@
+[
+  {
+    "Company": "Chausson Matériaux",
+    "Project": "Grand-Champ Concrete Block Plant",
+    "constraint type": "Noise sensitive area",
+    "Project date": "2023 (planned)",
+    "Description": "Plans to build a concrete block factory in Grand-Champ (Morbihan) had to meet strict noise limits due to nearby residents. Noise at the site boundary must stay below 70 dB in the daytime and 60 dB at night, with mandatory noise monitoring after the plant begins operation.",
+    "Source": "https://www.ouest-france.fr/bretagne/grand-champ-56390/grand-champ-les-ajustements-du-projet-dusine-chausson-exposes-aux-riverains-8f2d0ae4-9380-11ee-b24b-a448fcca4c9e"
+  },
+  {
+    "Company": "Chausson Matériaux",
+    "Project": "Marseille Tramway Extension",
+    "constraint type": "Area with strict air quality standards",
+    "Project date": "2023 (ongoing)",
+    "Description": "During the extension of Marseille’s tram Line T3, Chausson Materiaux provided on-site mixing silos to ensure a clean and dust-free construction process with minimal nuisance. This helped the project comply with strict air quality and environmental requirements in a dense urban area.",
+    "Source": "https://www.facebook.com/chaussonmateriaux/videos/-un-chantier-%C3%A0-marseille-avec-les-silos-malaxeurs-d%C3%A9couvrez-en-vid%C3%A9o-comment-les/899908638181966/"
+  }

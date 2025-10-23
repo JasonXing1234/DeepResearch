@@ -1,0 +1,32 @@
+[
+  {
+    "Company": "Chausson Matériaux",
+    "Project Name": "Ariane Constructions Eysines Houses (Bloc Airium project)",
+    "Project Type": "Residential construction (two houses)",
+    "Involvement": "Supplied low-carbon insulating concrete blocks (Airium) for construction",
+    "Lower Emissions Approach": "Use of Chausson’s low-carbon Airium concrete blocks to reduce embodied carbon and improve energy efficiency",
+    "Electric Equipment & Manufacturer": "",
+    "Project Description": "Construction of two Cradle-to-Cradle certified houses in Eysines (Gironde) using Chausson’s Airium blocks, an eco-friendly insulating concrete block meeting RE2020 standards, to decarbonize the building process and future energy use",
+    "Sources": "https://www.youtube.com/watch?v=_33jOOLAekw"
+  },
+  {
+    "Company": "Chausson Matériaux",
+    "Project Name": "Electric Truck Fleet Deployment",
+    "Project Type": "Logistics decarbonization (fleet upgrade)",
+    "Involvement": "Implemented as fleet operator",
+    "Lower Emissions Approach": "Replacing diesel delivery trucks with 100% electric vehicles to cut CO2 and pollutant emissions in material transport",
+    "Electric Equipment & Manufacturer": "Mercedes-Benz eActros 600 (electric tractor trucks) and eActros 400 (electric rigid trucks with Hiab cranes) by Mercedes-Benz",
+    "Project Description": "Integration of five 100% electric Mercedes-Benz eActros trucks (3 eActros 600 and 2 eActros 400) into Chausson Matériaux’s 900-vehicle delivery fleet in 2025, expanding the fleet to 94 electric vehicles and significantly reducing carbon emissions in construction material logistics",
+    "Sources": "https://www.flotauto.com/chausson-materiaux-camions-electriques-20251001.html"
+  },
+  {
+    "Company": "Chausson Matériaux",
+    "Project Name": "Grand-Champ Block Factory",
+    "Project Type": "Industrial construction (concrete block plant)",
+    "Involvement": "Project developer (investor and operator)",
+    "Lower Emissions Approach": "On-site use of locally sourced aggregates (adjacent granite quarry) to eliminate long-distance hauling emissions",
+    "Electric Equipment & Manufacturer": "",
+    "Project Description": "Planned construction of a 2,560 m² concrete block production plant in Grand-Champ (Morbihan) adjacent to a granite quarry, enabling production of ~100,000 tonnes/year of concrete blocks using nearby raw materials. This €11 million project aims to reduce transport-related emissions and support low-carbon construction material supply in Brittany.",
+    "Sources": "https://www.lesechos.fr/pme-regions/bretagne/morbihan-chausson-materiaux-va-ouvrir-une-usine-a-grand-champ-1888732"
+  }
+]

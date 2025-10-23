@@ -22,7 +22,7 @@ export function DashboardNav({ activeModule, onModuleChange }: DashboardNavProps
     <div className="w-64 border-r border-gray-200 bg-white flex flex-col">
       {/* Header */}
       <div className="p-6 border-b border-gray-200">
-        <h1 className="text-2xl font-bold text-gray-900">ESG Research</h1>
+        <h1 className="text-2xl font-bold text-gray-900">Leads Research</h1>
         <p className="text-xs text-gray-600 mt-1 font-medium">DASHBOARD</p>
       </div>
 
