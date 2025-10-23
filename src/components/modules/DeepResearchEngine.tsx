@@ -1,25 +1,12 @@
 'use client'
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Search, Trash2, Download, Loader2, Plus } from 'lucide-react';
 import { Button } from '../ui/button';
 import { Input } from '../ui/input';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../ui/card';
 import { toast } from 'sonner';
-
-interface ResearchQuery {
-  id: string;
-  companies: string[];
-  status: 'idle' | 'researching' | 'completed' | 'failed';
-  created_at: string;
-  datasets?: {
-    emissions: Record<string, any>[];
-    investments: Record<string, any>[];
-    purchases: Record<string, any>[];
-    pilots: Record<string, any>[];
-    environments: Record<string, any>[];
-  };
-}
+import { useResearch, type ResearchQuery } from '@/contexts/ResearchContext';
 
 const MOCK_RESULTS: ResearchQuery = {
   id: '1',
@@ -57,8 +44,17 @@ const MOCK_RESULTS: ResearchQuery = {
 
 export function DeepResearchEngine() {
   const [companies, setCompanies] = useState(['', '', '', '']);
-  const [queries, setQueries] = useState<ResearchQuery[]>([MOCK_RESULTS]);
   const [isResearching, setIsResearching] = useState(false);
+  const [isInitialized, setIsInitialized] = useState(false);
+  const { queries, addQuery, deleteQuery } = useResearch();
+
+  // Initialize with mock data on first load
+  useEffect(() => {
+    if (!isInitialized && queries.length === 0) {
+      addQuery(MOCK_RESULTS);
+      setIsInitialized(true);
+    }
+  }, [isInitialized, queries.length, addQuery]);
 
   const companyInputs = companies.filter((c) => c.trim()).length;
 
@@ -89,7 +85,7 @@ export function DeepResearchEngine() {
         datasets: MOCK_RESULTS.datasets,
       };
 
-      setQueries([newQuery, ...queries]);
+      addQuery(newQuery);
       setIsResearching(false);
       setCompanies(['', '', '', '']);
       toast.success('Research completed! Datasets generated.');
@@ -109,6 +105,11 @@ export function DeepResearchEngine() {
     a.click();
     window.URL.revokeObjectURL(url);
     toast.success(`Downloaded ${datasetType}.json`);
+  };
+
+  const handleDeleteQuery = (id: string) => {
+    deleteQuery(id);
+    toast.success('Research query deleted');
   };
 
   return (

@@ -4,27 +4,32 @@ import { useState } from 'react';
 import { DashboardNav } from '@/components/DashboardNav';
 import { ProjectManager } from '@/components/modules/ProjectManager';
 import { DeepResearchEngine } from '@/components/modules/DeepResearchEngine';
+import { DashboardAssistant } from '@/components/modules/DashboardAssistant';
+import { ResearchProvider } from '@/contexts/ResearchContext';
 import { Toaster } from '@/components/ui/sonner';
 
-export type DashboardModule = 'home' | 'projects' | 'research';
+export type DashboardModule = 'home' | 'projects' | 'research' | 'assistant';
 
 export default function DashboardPage() {
   const [activeModule, setActiveModule] = useState<DashboardModule>('home');
 
   return (
-    <div className="flex h-screen bg-gray-50">
-      {/* Navigation Sidebar */}
-      <DashboardNav activeModule={activeModule} onModuleChange={setActiveModule} />
+    <ResearchProvider>
+      <div className="flex h-screen bg-gray-50">
+        {/* Navigation Sidebar */}
+        <DashboardNav activeModule={activeModule} onModuleChange={setActiveModule} />
 
-      {/* Main Content */}
-      <main className="flex-1 overflow-hidden flex flex-col">
-        {activeModule === 'home' && <DashboardHome onModuleChange={setActiveModule} />}
-        {activeModule === 'projects' && <ProjectManager />}
-        {activeModule === 'research' && <DeepResearchEngine />}
-      </main>
+        {/* Main Content */}
+        <main className="flex-1 overflow-hidden flex flex-col">
+          {activeModule === 'home' && <DashboardHome onModuleChange={setActiveModule} />}
+          {activeModule === 'projects' && <ProjectManager />}
+          {activeModule === 'research' && <DeepResearchEngine />}
+          {activeModule === 'assistant' && <DashboardAssistant />}
+        </main>
 
-      <Toaster />
-    </div>
+        <Toaster />
+      </div>
+    </ResearchProvider>
   );
 }
 
@@ -41,7 +46,7 @@ function DashboardHome({ onModuleChange }: { onModuleChange: (module: DashboardM
         </div>
 
         {/* Module Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {/* Projects Module Card */}
           <div
             onClick={() => onModuleChange('projects')}
@@ -71,6 +76,23 @@ function DashboardHome({ onModuleChange }: { onModuleChange: (module: DashboardM
                 Automated web research for up to 4 companies. Generate structured ESG datasets automatically.
               </p>
               <div className="flex items-center gap-2 text-purple-600 font-semibold">
+                Open <span className="text-lg">→</span>
+              </div>
+            </div>
+          </div>
+
+          {/* AI Assistant Module Card */}
+          <div
+            onClick={() => onModuleChange('assistant')}
+            className="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow cursor-pointer overflow-hidden border border-gray-200"
+          >
+            <div className="h-32 bg-gradient-to-br from-cyan-500 to-blue-600" />
+            <div className="p-6">
+              <h2 className="text-2xl font-bold text-gray-900 mb-2">AI Assistant</h2>
+              <p className="text-gray-600 mb-4">
+                Intelligent assistant that queries both project analysis and deep research data to provide insights on ESG metrics.
+              </p>
+              <div className="flex items-center gap-2 text-cyan-600 font-semibold">
                 Open <span className="text-lg">→</span>
               </div>
             </div>

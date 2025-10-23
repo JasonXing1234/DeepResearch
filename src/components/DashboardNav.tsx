@@ -1,6 +1,6 @@
 'use client'
 
-import { Home, FolderOpen, Search, BarChart3, Settings, LogOut } from 'lucide-react';
+import { Home, FolderOpen, Search, Settings, LogOut, Sparkles } from 'lucide-react';
 import { Button } from './ui/button';
 import { cn } from '@/lib/utils';
 import type { DashboardModule } from '@/app/page';
@@ -14,6 +14,7 @@ const NAV_ITEMS = [
   { id: 'home' as DashboardModule, label: 'Home', icon: Home },
   { id: 'projects' as DashboardModule, label: 'Projects', icon: FolderOpen },
   { id: 'research' as DashboardModule, label: 'Deep Research', icon: Search },
+  { id: 'assistant' as DashboardModule, label: 'AI Assistant', icon: Sparkles },
 ];
 
 export function DashboardNav({ activeModule, onModuleChange }: DashboardNavProps) {
