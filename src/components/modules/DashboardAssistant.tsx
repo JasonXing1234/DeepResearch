@@ -7,23 +7,17 @@ import { Input } from '../ui/input';
 import { ScrollArea } from '../ui/scroll-area';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../ui/card';
 import { Send, Loader2, Sparkles } from 'lucide-react';
-import { toast } from 'sonner';
 import { Markdown } from '../markdown';
 import { useResearch } from '@/contexts/ResearchContext';
 
-const BASE_SYSTEM_PROMPT = `You are an intelligent ESG (Environmental, Social, and Governance) research assistant. You have access to two types of data:
+const BASE_SYSTEM_PROMPT = `You are an intelligent ESG (Environmental, Social, and Governance) research assistant. You have access to data from:
 
-1. **Project Management Results**: Analysis results from sustainability projects including normalized data, detailed findings, and diagnostics for specific companies.
+1. **Project Management Results**: Analysis results from sustainability projects including project information and analysis findings.
 
-2. **Deep Research Engine Data**: Automated web research datasets containing:
-   - Emissions Reductions: Companies' commitments to reduce emissions and net-zero targets
-   - Investments & Commitments: Investment announcements and financial commitments
-   - Equipment Purchases: Machine and equipment purchases for sustainability initiatives
-   - Pilot Projects: Ongoing or completed pilot programs
-   - Environmental Constraints: Environmental challenges and project requirements
+2. **Deep Research Engine Data**: Automated web research datasets containing information about companies, their sustainability commitments, investments, equipment purchases, pilot projects, and environmental constraints.
 
 When answering user questions:
-- Provide insights based on the available data from both sources
+- Provide insights based on the available data
 - Be specific about companies, targets, and commitments
 - Cite which data source you're using (project results or research data)
 - Offer comparisons between companies when relevant
@@ -33,19 +27,34 @@ When answering user questions:
 Always be helpful, accurate, and focused on ESG and sustainability topics.`;
 
 export function DashboardAssistant() {
-  const [projectContext, setProjectContext] = useState<string>('');
-  const [researchContext, setResearchContext] = useState<string>('');
   const scrollRef = useRef<HTMLDivElement>(null);
   const { queries } = useResearch();
 
   const buildSystemPrompt = () => {
     let fullPrompt = BASE_SYSTEM_PROMPT;
-    if (projectContext) {
-      fullPrompt += `\n\n---\n### Available Project Data:\n${projectContext}`;
+
+    // Add research data context if available
+    if (queries.length > 0) {
+      fullPrompt += '\n\n### Recent Research Data Available:\n';
+      queries.slice(0, 2).forEach((query) => {
+        fullPrompt += `- Companies: ${query.companies.join(', ')}\n`;
+        fullPrompt += `  Date: ${query.created_at}, Status: ${query.status}\n`;
+        if (query.datasets) {
+          const datasets = [];
+          if (query.datasets.emissions?.length) datasets.push('Emissions');
+          if (query.datasets.investments?.length) datasets.push('Investments');
+          if (query.datasets.purchases?.length) datasets.push('Purchases');
+          if (query.datasets.pilots?.length) datasets.push('Pilots');
+          if (query.datasets.environments?.length) datasets.push('Environments');
+          if (datasets.length) {
+            fullPrompt += `  Datasets: ${datasets.join(', ')}\n`;
+          }
+        }
+      });
+    } else {
+      fullPrompt += '\n\n### Research Data:\nNo research queries have been performed yet.';
     }
-    if (researchContext) {
-      fullPrompt += `\n\n---\n### Available Research Data:\n${researchContext}`;
-    }
+
     return fullPrompt;
   };
 
@@ -61,98 +70,6 @@ export function DashboardAssistant() {
     }
   }, [messages]);
 
-  // Load project context
-  useEffect(() => {
-    const loadProjectContext = async () => {
-      try {
-        const response = await fetch('/api/sustainability/projects');
-        if (!response.ok) return;
-
-        const data = await response.json();
-        if (!data.success || !data.projects || data.projects.length === 0) {
-          setProjectContext('No projects available.');
-          return;
-        }
-
-        let contextStr = 'Available Projects:\n';
-        for (const project of data.projects) {
-          contextStr += `\n- ${project.name}`;
-          if (project.description) {
-            contextStr += ` (${project.description})`;
-          }
-          contextStr += `\n  Status: ${project.analysis_status}`;
-
-          // Load analysis results for each project
-          if (project.analysis_status === 'completed') {
-            const resultsResponse = await fetch(
-              `/api/sustainability/results?projectId=${project.id}`
-            );
-            if (resultsResponse.ok) {
-              const resultsData = await resultsResponse.json();
-              if (resultsData.success && resultsData.results && resultsData.results.length > 0) {
-                contextStr += `\n  Results Summary:`;
-                resultsData.results.forEach((result: any) => {
-                  const attributes = [
-                    result.commitment_to_reduce && 'Commitment to Reduce',
-                    result.net_zero_target && 'Net-zero Target',
-                    result.pilot && 'Pilot Projects',
-                    result.investment_announced && 'Investment Announced',
-                    result.equipment_purchased && 'Equipment Purchased',
-                    result.project_environment && 'Project Environment',
-                  ].filter(Boolean);
-
-                  contextStr += `\n    ${result.company_name}: ${attributes.join(', ') || 'No specific attributes found'}`;
-                });
-              }
-            }
-          }
-        }
-
-        setProjectContext(contextStr);
-      } catch (error) {
-        console.error('Error loading project context:', error);
-        setProjectContext('Error loading project data.');
-      }
-    };
-
-    loadProjectContext();
-  }, []);
-
-  // Load research context
-  useEffect(() => {
-    if (queries.length === 0) {
-      setResearchContext('No research data available yet.');
-      return;
-    }
-
-    let contextStr = 'Recent Research Data:\n';
-    queries.slice(0, 3).forEach((query) => {
-      contextStr += `\n\nResearch Query (${query.created_at}):`;
-      contextStr += `\nCompanies: ${query.companies.join(', ')}`;
-      contextStr += `\nStatus: ${query.status}`;
-
-      if (query.datasets) {
-        if (query.datasets.emissions && query.datasets.emissions.length > 0) {
-          contextStr += `\n  Emissions Data: ${JSON.stringify(query.datasets.emissions)}`;
-        }
-        if (query.datasets.investments && query.datasets.investments.length > 0) {
-          contextStr += `\n  Investment Data: ${JSON.stringify(query.datasets.investments)}`;
-        }
-        if (query.datasets.purchases && query.datasets.purchases.length > 0) {
-          contextStr += `\n  Equipment Purchases: ${JSON.stringify(query.datasets.purchases)}`;
-        }
-        if (query.datasets.pilots && query.datasets.pilots.length > 0) {
-          contextStr += `\n  Pilot Projects: ${JSON.stringify(query.datasets.pilots)}`;
-        }
-        if (query.datasets.environments && query.datasets.environments.length > 0) {
-          contextStr += `\n  Environmental Data: ${JSON.stringify(query.datasets.environments)}`;
-        }
-      }
-    });
-
-    setResearchContext(contextStr);
-  }, [queries]);
-
   return (
     <div className="flex-1 overflow-hidden flex flex-col bg-white">
       {/* Header */}
@@ -164,7 +81,9 @@ export function DashboardAssistant() {
           <div>
             <h2 className="text-2xl font-bold text-gray-900">ESG Research Assistant</h2>
             <p className="text-sm text-gray-600 mt-1">
-              Query insights from both project analysis and deep research data
+              {queries.length > 0
+                ? `Query insights from ${queries.length} research ${queries.length === 1 ? 'query' : 'queries'}`
+                : 'Ask questions about ESG and sustainability topics'}
             </p>
           </div>
         </div>
@@ -183,7 +102,7 @@ export function DashboardAssistant() {
                       Ask about ESG Data
                     </CardTitle>
                     <CardDescription>
-                      Query insights from project analysis and research
+                      Query insights from research and analysis data
                     </CardDescription>
                   </CardHeader>
                   <CardContent className="space-y-3 text-sm text-gray-600">
@@ -191,10 +110,10 @@ export function DashboardAssistant() {
                       <p className="font-medium text-gray-900 mb-2">Example questions:</p>
                       <ul className="space-y-1 list-disc list-inside">
                         <li>Which companies have net-zero targets?</li>
-                        <li>Summarize investment announcements across research</li>
+                        <li>Summarize investment announcements</li>
                         <li>Show me pilot projects by company</li>
                         <li>Compare emissions reduction commitments</li>
-                        <li>What equipment has been purchased for sustainability?</li>
+                        <li>What equipment purchases were identified?</li>
                       </ul>
                     </div>
                   </CardContent>
@@ -258,14 +177,6 @@ export function DashboardAssistant() {
           </form>
         </div>
       </div>
-
-      {/* Debug info (hidden by default, visible for development) */}
-      {(projectContext || researchContext) && (
-        <div className="hidden">
-          <textarea value={projectContext} readOnly />
-          <textarea value={researchContext} readOnly />
-        </div>
-      )}
     </div>
   );
 }
