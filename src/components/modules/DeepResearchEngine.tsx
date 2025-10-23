@@ -6,20 +6,7 @@ import { Button } from '../ui/button';
 import { Input } from '../ui/input';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../ui/card';
 import { toast } from 'sonner';
-
-interface ResearchQuery {
-  id: string;
-  companies: string[];
-  status: 'idle' | 'researching' | 'completed' | 'failed';
-  created_at: string;
-  datasets?: {
-    emissions: Record<string, any>[];
-    investments: Record<string, any>[];
-    purchases: Record<string, any>[];
-    pilots: Record<string, any>[];
-    environments: Record<string, any>[];
-  };
-}
+import { useResearch, type ResearchQuery } from '@/contexts/ResearchContext';
 
 const MOCK_RESULTS: ResearchQuery = {
   id: '1',
