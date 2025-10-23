@@ -98,6 +98,11 @@ export function DeepResearchEngine() {
     toast.success(`Downloaded ${datasetType}.json`);
   };
 
+  const handleDeleteQuery = (id: string) => {
+    deleteQuery(id);
+    toast.success('Research query deleted');
+  };
+
   return (
     <div className="flex-1 overflow-hidden flex flex-col bg-gray-50">
       {/* Header */}
