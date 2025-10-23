@@ -54,6 +54,16 @@ export async function GET(request: NextRequest) {
 // POST: Create a new project
 export async function POST(request: NextRequest) {
   try {
+    if (!supabase) {
+      return NextResponse.json(
+        {
+          success: false,
+          error: 'Supabase is not configured. Please set NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY environment variables.',
+        },
+        { status: 500 }
+      );
+    }
+
     const { name, description } = await request.json();
 
     if (!name) {
