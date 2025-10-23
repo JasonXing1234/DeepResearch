@@ -45,7 +45,16 @@ const MOCK_RESULTS: ResearchQuery = {
 export function DeepResearchEngine() {
   const [companies, setCompanies] = useState(['', '', '', '']);
   const [isResearching, setIsResearching] = useState(false);
+  const [isInitialized, setIsInitialized] = useState(false);
   const { queries, addQuery, deleteQuery } = useResearch();
+
+  // Initialize with mock data on first load
+  useEffect(() => {
+    if (!isInitialized && queries.length === 0) {
+      addQuery(MOCK_RESULTS);
+      setIsInitialized(true);
+    }
+  }, [isInitialized, queries.length, addQuery]);
 
   const companyInputs = companies.filter((c) => c.trim()).length;
 
