@@ -81,6 +81,11 @@ export default function App() {
     try {
       setIsLoading(true);
       const response = await fetch('/api/sustainability/projects');
+
+      if (!response.ok) {
+        throw new Error(`API error: ${response.status}`);
+      }
+
       const data = await response.json();
 
       if (data.success) {
@@ -89,7 +94,7 @@ export default function App() {
           setSelectedProjectId(data.projects[0].id);
         }
       } else {
-        toast.error('Failed to load projects');
+        toast.error(data.error || 'Failed to load projects');
       }
     } catch (error) {
       console.error('Error fetching projects:', error);
