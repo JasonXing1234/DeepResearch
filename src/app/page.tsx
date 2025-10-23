@@ -21,7 +21,6 @@ export default function DashboardPage() {
         {activeModule === 'home' && <DashboardHome onModuleChange={setActiveModule} />}
         {activeModule === 'projects' && <ProjectManager />}
         {activeModule === 'research' && <DeepResearchEngine />}
-        {activeModule === 'results' && <ResultsExplorer />}
       </main>
 
       <Toaster />
