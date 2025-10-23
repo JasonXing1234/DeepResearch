@@ -14,7 +14,6 @@ const NAV_ITEMS = [
   { id: 'home' as DashboardModule, label: 'Home', icon: Home },
   { id: 'projects' as DashboardModule, label: 'Projects', icon: FolderOpen },
   { id: 'research' as DashboardModule, label: 'Deep Research', icon: Search },
-  { id: 'results' as DashboardModule, label: 'Results', icon: BarChart3 },
 ];
 
 export function DashboardNav({ activeModule, onModuleChange }: DashboardNavProps) {
