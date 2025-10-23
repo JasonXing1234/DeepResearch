@@ -63,6 +63,13 @@ export function DashboardAssistant() {
     system: systemPrompt,
   });
 
+  // Scroll to bottom when new messages arrive
+  useEffect(() => {
+    if (scrollRef.current) {
+      scrollRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, [messages]);
+
   return (
     <div className="flex-1 overflow-hidden flex flex-col bg-white">
       {/* Header */}
