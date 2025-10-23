@@ -4,10 +4,9 @@ import { useState } from 'react';
 import { DashboardNav } from '@/components/DashboardNav';
 import { ProjectManager } from '@/components/modules/ProjectManager';
 import { DeepResearchEngine } from '@/components/modules/DeepResearchEngine';
-import { ResultsExplorer } from '@/components/modules/ResultsExplorer';
 import { Toaster } from '@/components/ui/sonner';
 
-export type DashboardModule = 'home' | 'projects' | 'research' | 'results';
+export type DashboardModule = 'home' | 'projects' | 'research';
 
 export default function DashboardPage() {
   const [activeModule, setActiveModule] = useState<DashboardModule>('home');
