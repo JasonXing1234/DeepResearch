@@ -1,14 +1,27 @@
 import { createClient } from '@supabase/supabase-js';
 import { NextRequest, NextResponse } from 'next/server';
 
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY!
-);
+// Check if Supabase credentials are available
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY;
+
+const supabase = supabaseUrl && supabaseKey
+  ? createClient(supabaseUrl, supabaseKey)
+  : null;
 
 // GET: List all projects for the user
 export async function GET(request: NextRequest) {
   try {
+    if (!supabase) {
+      return NextResponse.json(
+        {
+          success: false,
+          error: 'Supabase is not configured. Please set NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY environment variables.',
+        },
+        { status: 500 }
+      );
+    }
+
     // For development, use hardcoded user ID
     const userId = 'b2bbb440-1d79-42fa-81e3-069efd22fae8';
 
@@ -41,6 +54,16 @@ export async function GET(request: NextRequest) {
 // POST: Create a new project
 export async function POST(request: NextRequest) {
   try {
+    if (!supabase) {
+      return NextResponse.json(
+        {
+          success: false,
+          error: 'Supabase is not configured. Please set NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY environment variables.',
+        },
+        { status: 500 }
+      );
+    }
+
     const { name, description } = await request.json();
 
     if (!name) {
@@ -89,6 +112,16 @@ export async function POST(request: NextRequest) {
 // DELETE: Delete a project
 export async function DELETE(request: NextRequest) {
   try {
+    if (!supabase) {
+      return NextResponse.json(
+        {
+          success: false,
+          error: 'Supabase is not configured. Please set NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY environment variables.',
+        },
+        { status: 500 }
+      );
+    }
+
     const { projectId } = await request.json();
 
     if (!projectId) {

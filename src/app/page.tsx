@@ -1,244 +1,137 @@
 'use client'
 
-import { useState, useEffect } from 'react';
-import { Sidebar } from '../components/Sidebar';
-import { RecordingView } from '../components/RecordingView';
-import { ClassView } from '../components/ClassView';
-import { StudyAssistant } from '../components/StudyAssistant';
-import { UploadMaterialsView } from '../components/UploadMaterialsView';
-import { Toaster } from '../components/ui/sonner';
-import { toast } from 'sonner';
+import { useState } from 'react';
+import { DashboardNav } from '@/components/DashboardNav';
+import { ProjectManager } from '@/components/modules/ProjectManager';
+import { DeepResearchEngine } from '@/components/modules/DeepResearchEngine';
+import { Toaster } from '@/components/ui/sonner';
 
-export type Semester = {
-  id: string;
-  name: string;
-  year: number;
-  term: 'Fall' | 'Spring' | 'Summer' | 'Winter';
-  isActive: boolean;
-};
+export type DashboardModule = 'home' | 'projects' | 'research';
 
-export type Class = {
-  id: string;
-  semesterId: string;
-  name: string;
-  code: string;
-  color: string;
-  professor: string;
-};
-
-export type Lecture = {
-  id: string;
-  classId: string;
-  title: string;
-  date: string;
-  duration: number; // in seconds
-  audioUrl: string;
-  transcript: string;
-};
-
-export type ClassMaterial = {
-  id: string;
-  classId: string;
-  name: string;
-  type: 'pdf' | 'pptx' | 'docx' | 'xlsx' | 'other';
-  size: number; // in bytes
-  uploadDate: string;
-  url: string;
-};
-
-// Database types from API responses
-type DbSemester = {
-  id: string;
-  year: number;
-  term: string;
-};
-
-type DbClass = {
-  id: string;
-  semester_id: string;
-  name: string;
-  class_code: string | null;
-  color_code: string | null;
-  instructor: string | null;
-};
-
-type DbDocument = {
-  id: string;
-  class_id: string;
-  title: string | null;
-  original_filename: string | null;
-  mime_type: string | null;
-  storage_bucket: string;
-  file_path: string;
-  date_of_material: string | null;
-  created_at: string;
-  audio_duration_seconds: number | null;
-  transcription_text: string | null;
-  file_size_bytes: number | null;
-};
-
-
-export default function App() {
-  const [currentView, setCurrentView] = useState<'record' | 'upload' | 'class' | 'study'>('class');
-  const [selectedClassId, setSelectedClassId] = useState<string | null>(null);
-  const [semesters, setSemesters] = useState<Semester[]>([]);
-  const [classes, setClasses] = useState<Class[]>([]);
-  const [materials, setMaterials] = useState<ClassMaterial[]>([]);
-  const [lectures, setLectures] = useState<Lecture[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
-
-  // Fetch semesters and classes from API on mount
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        setIsLoading(true);
-
-        // Fetch semesters
-        const semestersResponse = await fetch('/api/semesters');
-        const semestersResult = await semestersResponse.json();
-
-        // Fetch classes
-        const classesResponse = await fetch('/api/classes');
-        const classesResult = await classesResponse.json();
-
-        // Fetch documents (lectures and materials)
-        const documentsResponse = await fetch('/api/documents');
-        const documentsResult = await documentsResponse.json();
-
-        if (semestersResult.success && semestersResult.semesters) {
-          // Map database semesters to UI format
-          const mappedSemesters = semestersResult.semesters.map((s: DbSemester) => ({
-            id: s.id,
-            name: `${s.term} ${s.year}`,
-            year: s.year,
-            term: s.term as 'Fall' | 'Spring' | 'Summer' | 'Winter',
-            isActive: false, // TODO: Determine active semester logic
-          }));
-          console.log('Loaded semesters:', mappedSemesters);
-          setSemesters(mappedSemesters);
-        }
-
-        if (classesResult.success && classesResult.classes) {
-          // Map database classes to UI format
-          const mappedClasses = classesResult.classes.map((c: DbClass) => ({
-            id: c.id,
-            semesterId: c.semester_id,
-            name: c.name,
-            code: c.class_code || '',
-            color: c.color_code || '#3b82f6',
-            professor: c.instructor || '',
-          }));
-          console.log('Loaded classes:', mappedClasses);
-          setClasses(mappedClasses);
-        }
-
-        if (documentsResult.success && documentsResult.documents) {
-          // Split documents into lectures and materials
-          const allDocuments = documentsResult.documents;
-
-          // Lectures: audio files (identified by mime type or storage bucket)
-          const mappedLectures = allDocuments
-            .filter((d: DbDocument) =>
-              d.mime_type?.startsWith('audio/') ||
-              d.storage_bucket === 'lecture-recordings'
-            )
-            .map((d: DbDocument) => ({
-              id: d.id,
-              classId: d.class_id,
-              title: d.title || d.original_filename || 'Untitled Lecture',
-              date: d.date_of_material || d.created_at.split('T')[0],
-              duration: d.audio_duration_seconds || 0,
-              audioUrl: d.file_path || '#',
-              transcript: d.transcription_text || 'Transcription in progress...',
-            }));
-
-          // Materials: PDFs, DOCX, PPTX, etc. (non-audio files)
-          const mappedMaterials = allDocuments
-            .filter((d: DbDocument) =>
-              !d.mime_type?.startsWith('audio/') &&
-              d.storage_bucket !== 'lecture-recordings'
-            )
-            .map((d: DbDocument) => {
-              // Determine type from mime_type
-              let type: 'pdf' | 'pptx' | 'docx' | 'xlsx' | 'other' = 'other';
-              if (d.mime_type?.includes('pdf')) type = 'pdf';
-              else if (d.mime_type?.includes('presentation') || d.mime_type?.includes('powerpoint')) type = 'pptx';
-              else if (d.mime_type?.includes('word') || d.mime_type?.includes('document')) type = 'docx';
-              else if (d.mime_type?.includes('spreadsheet') || d.mime_type?.includes('excel')) type = 'xlsx';
-
-              return {
-                id: d.id,
-                classId: d.class_id,
-                name: d.title || d.original_filename || 'Untitled Document',
-                type,
-                size: d.file_size_bytes || 0,
-                uploadDate: d.date_of_material || d.created_at.split('T')[0],
-                url: d.file_path || '#',
-              };
-            });
-
-          console.log('Loaded lectures:', mappedLectures);
-          console.log('Loaded materials:', mappedMaterials);
-          setLectures(mappedLectures);
-          setMaterials(mappedMaterials);
-        }
-      } catch (error) {
-        console.error('Error fetching data:', error);
-        toast.error('Failed to load data');
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    fetchData();
-  }, []);
-
-  const handleAddSemester = (semester: Semester) => {
-    setSemesters([...semesters, semester]);
-  };
-
-  const handleAddClass = (cls: Class) => {
-    setClasses([...classes, cls]);
-  };
-
-  const handleAddMaterial = (material: ClassMaterial) => {
-    setMaterials([...materials, material]);
-  };
+export default function DashboardPage() {
+  const [activeModule, setActiveModule] = useState<DashboardModule>('home');
 
   return (
     <div className="flex h-screen bg-gray-50">
-      <Sidebar
-        semesters={semesters}
-        classes={classes}
-        currentView={currentView}
-        onViewChange={setCurrentView}
-        selectedClassId={selectedClassId}
-        onClassSelect={setSelectedClassId}
-        onAddSemester={handleAddSemester}
-        onAddClass={handleAddClass}
-      />
-      
-      <main className="flex-1 overflow-hidden">
-        {currentView === 'study' && (
-          <StudyAssistant classes={classes} lectures={lectures} />
-        )}
-        {currentView === 'record' && (
-          <RecordingView classes={classes} />
-        )}
-        {currentView === 'upload' && (
-          <UploadMaterialsView classes={classes} onAddMaterial={handleAddMaterial} />
-        )}
-        {currentView === 'class' && (
-          <ClassView
-            selectedClassId={selectedClassId}
-            classes={classes}
-            lectures={lectures}
-            materials={materials}
-          />
-        )}
+      {/* Navigation Sidebar */}
+      <DashboardNav activeModule={activeModule} onModuleChange={setActiveModule} />
+
+      {/* Main Content */}
+      <main className="flex-1 overflow-hidden flex flex-col">
+        {activeModule === 'home' && <DashboardHome onModuleChange={setActiveModule} />}
+        {activeModule === 'projects' && <ProjectManager />}
+        {activeModule === 'research' && <DeepResearchEngine />}
       </main>
-      
+
       <Toaster />
+    </div>
+  );
+}
+
+function DashboardHome({ onModuleChange }: { onModuleChange: (module: DashboardModule) => void }) {
+  return (
+    <div className="flex-1 overflow-y-auto bg-gradient-to-br from-slate-50 to-slate-100">
+      <div className="max-w-7xl mx-auto px-8 py-12">
+        {/* Header */}
+        <div className="mb-12">
+          <h1 className="text-4xl font-bold text-gray-900 mb-2">ESG Research Dashboard</h1>
+          <p className="text-xl text-gray-600">
+            Comprehensive sustainability and ESG data research platform
+          </p>
+        </div>
+
+        {/* Module Cards Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          {/* Projects Module Card */}
+          <div
+            onClick={() => onModuleChange('projects')}
+            className="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow cursor-pointer overflow-hidden border border-gray-200"
+          >
+            <div className="h-32 bg-gradient-to-br from-blue-500 to-blue-600" />
+            <div className="p-6">
+              <h2 className="text-2xl font-bold text-gray-900 mb-2">Project Management</h2>
+              <p className="text-gray-600 mb-4">
+                Create and manage ESG analysis projects. Upload five report files, run analysis, and view results directly within each project.
+              </p>
+              <div className="flex items-center gap-2 text-blue-600 font-semibold">
+                Open <span className="text-lg">→</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Deep Research Module Card */}
+          <div
+            onClick={() => onModuleChange('research')}
+            className="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow cursor-pointer overflow-hidden border border-gray-200"
+          >
+            <div className="h-32 bg-gradient-to-br from-purple-500 to-purple-600" />
+            <div className="p-6">
+              <h2 className="text-2xl font-bold text-gray-900 mb-2">Deep Research Engine</h2>
+              <p className="text-gray-600 mb-4">
+                Automated web research for up to 4 companies. Generate structured ESG datasets automatically.
+              </p>
+              <div className="flex items-center gap-2 text-purple-600 font-semibold">
+                Open <span className="text-lg">→</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Features Section */}
+        <div className="mt-16 grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="bg-white p-8 rounded-lg border border-gray-200">
+            <h3 className="text-lg font-semibold text-gray-900 mb-4">Key Features</h3>
+            <ul className="space-y-3 text-gray-600">
+              <li className="flex gap-3">
+                <span className="text-blue-600 font-bold">✓</span>
+                <span>Create and organize ESG analysis projects</span>
+              </li>
+              <li className="flex gap-3">
+                <span className="text-blue-600 font-bold">✓</span>
+                <span>Upload structured report files for analysis</span>
+              </li>
+              <li className="flex gap-3">
+                <span className="text-blue-600 font-bold">✓</span>
+                <span>View results directly within each project</span>
+              </li>
+              <li className="flex gap-3">
+                <span className="text-blue-600 font-bold">✓</span>
+                <span>Automated web research with Tavily integration</span>
+              </li>
+            </ul>
+          </div>
+
+          <div className="bg-white p-8 rounded-lg border border-gray-200">
+            <h3 className="text-lg font-semibold text-gray-900 mb-4">Six Data Attributes</h3>
+            <ul className="space-y-2 text-gray-600">
+              <li className="flex items-center gap-2">
+                <span className="w-2 h-2 bg-blue-600 rounded-full" />
+                Commitment to Reduce
+              </li>
+              <li className="flex items-center gap-2">
+                <span className="w-2 h-2 bg-blue-600 rounded-full" />
+                Net-zero Target
+              </li>
+              <li className="flex items-center gap-2">
+                <span className="w-2 h-2 bg-blue-600 rounded-full" />
+                Pilot Projects
+              </li>
+              <li className="flex items-center gap-2">
+                <span className="w-2 h-2 bg-blue-600 rounded-full" />
+                Investment Announced
+              </li>
+              <li className="flex items-center gap-2">
+                <span className="w-2 h-2 bg-blue-600 rounded-full" />
+                Equipment Purchased
+              </li>
+              <li className="flex items-center gap-2">
+                <span className="w-2 h-2 bg-blue-600 rounded-full" />
+                Project Environment
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
