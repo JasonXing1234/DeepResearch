@@ -41,7 +41,7 @@ function DashboardHome({ onModuleChange }: { onModuleChange: (module: DashboardM
         </div>
 
         {/* Module Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {/* Projects Module Card */}
           <div
             onClick={() => onModuleChange('projects')}
@@ -51,7 +51,7 @@ function DashboardHome({ onModuleChange }: { onModuleChange: (module: DashboardM
             <div className="p-6">
               <h2 className="text-2xl font-bold text-gray-900 mb-2">Project Management</h2>
               <p className="text-gray-600 mb-4">
-                Create and manage ESG analysis projects. Upload five report files and generate normalized Excel output.
+                Create and manage ESG analysis projects. Upload five report files, run analysis, and view results directly within each project.
               </p>
               <div className="flex items-center gap-2 text-blue-600 font-semibold">
                 Open <span className="text-lg">→</span>
@@ -71,23 +71,6 @@ function DashboardHome({ onModuleChange }: { onModuleChange: (module: DashboardM
                 Automated web research for up to 4 companies. Generate structured ESG datasets automatically.
               </p>
               <div className="flex items-center gap-2 text-purple-600 font-semibold">
-                Open <span className="text-lg">→</span>
-              </div>
-            </div>
-          </div>
-
-          {/* Results Module Card */}
-          <div
-            onClick={() => onModuleChange('results')}
-            className="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow cursor-pointer overflow-hidden border border-gray-200"
-          >
-            <div className="h-32 bg-gradient-to-br from-emerald-500 to-emerald-600" />
-            <div className="p-6">
-              <h2 className="text-2xl font-bold text-gray-900 mb-2">Results Explorer</h2>
-              <p className="text-gray-600 mb-4">
-                View and analyze results in multiple formats: normalized, detailed, and diagnostic views.
-              </p>
-              <div className="flex items-center gap-2 text-emerald-600 font-semibold">
                 Open <span className="text-lg">→</span>
               </div>
             </div>
