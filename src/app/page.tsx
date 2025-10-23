@@ -92,11 +92,11 @@ function DashboardHome({ onModuleChange }: { onModuleChange: (module: DashboardM
               </li>
               <li className="flex gap-3">
                 <span className="text-blue-600 font-bold">✓</span>
-                <span>Automated web research with Tavily integration</span>
+                <span>View results directly within each project</span>
               </li>
               <li className="flex gap-3">
                 <span className="text-blue-600 font-bold">✓</span>
-                <span>Multi-view results with normalized and detailed data</span>
+                <span>Automated web research with Tavily integration</span>
               </li>
             </ul>
           </div>
