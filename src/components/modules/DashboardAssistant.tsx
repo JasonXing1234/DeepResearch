@@ -11,16 +11,7 @@ import { toast } from 'sonner';
 import { Markdown } from '../markdown';
 import { useResearch } from '@/contexts/ResearchContext';
 
-export function DashboardAssistant() {
-  const [projectContext, setProjectContext] = useState<string>('');
-  const [researchContext, setResearchContext] = useState<string>('');
-  const [systemPrompt, setSystemPrompt] = useState<string>('');
-  const scrollRef = useRef<HTMLDivElement>(null);
-  const { queries } = useResearch();
-
-  // Initialize system prompt with context
-  useEffect(() => {
-    const basePrompt = `You are an intelligent ESG (Environmental, Social, and Governance) research assistant. You have access to two types of data:
+const BASE_SYSTEM_PROMPT = `You are an intelligent ESG (Environmental, Social, and Governance) research assistant. You have access to two types of data:
 
 1. **Project Management Results**: Analysis results from sustainability projects including normalized data, detailed findings, and diagnostics for specific companies.
 
@@ -41,20 +32,26 @@ When answering user questions:
 
 Always be helpful, accurate, and focused on ESG and sustainability topics.`;
 
-    let fullPrompt = basePrompt;
+export function DashboardAssistant() {
+  const [projectContext, setProjectContext] = useState<string>('');
+  const [researchContext, setResearchContext] = useState<string>('');
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const { queries } = useResearch();
+
+  const buildSystemPrompt = () => {
+    let fullPrompt = BASE_SYSTEM_PROMPT;
     if (projectContext) {
       fullPrompt += `\n\n---\n### Available Project Data:\n${projectContext}`;
     }
     if (researchContext) {
       fullPrompt += `\n\n---\n### Available Research Data:\n${researchContext}`;
     }
-
-    setSystemPrompt(fullPrompt);
-  }, [projectContext, researchContext]);
+    return fullPrompt;
+  };
 
   const { messages, input, handleInputChange, handleSubmit, isLoading } = useChat({
     api: '/api/chat',
-    system: systemPrompt || 'You are a helpful ESG research assistant.',
+    system: buildSystemPrompt(),
   });
 
   // Scroll to bottom when new messages arrive
