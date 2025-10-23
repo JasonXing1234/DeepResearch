@@ -10,18 +10,12 @@
 
 import { serve } from 'inngest/next';
 import { inngest } from '@/inngest/client';
-import { processAudio } from '@/inngest/functions/process-audio';
-import { processPDF } from '@/inngest/functions/process-pdf';
-import { processTranscript } from '@/inngest/functions/process-transcript';
 import { processResearchDocument } from '@/inngest/functions/process-research-document';
 import { processSustainabilityAnalysis } from '@/inngest/functions/process-sustainability-analysis';
 
 export const { GET, POST, PUT } = serve({
   client: inngest,
   functions: [
-    processAudio,
-    processPDF,
-    processTranscript,
     processResearchDocument,
     processSustainabilityAnalysis,
   ],

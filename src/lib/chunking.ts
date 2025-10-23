@@ -1,185 +1,103 @@
 /**
- * Text chunking utilities for creating segments from documents.
- *
- * Chunks text into overlapping segments for better retrieval in RAG systems.
+ * Text chunking utilities for processing documents into segments.
+ * Used for preparing text for embedding generation and vector search.
  */
 
 export type TextChunk = {
   content: string;
+  segmentIndex: number;
   charStart: number;
   charEnd: number;
-  segmentIndex: number;
 };
 
-export type ChunkingOptions = {
-  /** Target chunk size in tokens (approximate) */
-  chunkSize?: number;
-  /** Overlap between chunks in tokens (approximate) */
-  overlap?: number;
+export type ChunkOptions = {
+  chunkSize: number;
+  overlap: number;
 };
 
-const DEFAULT_CHUNK_SIZE = 500;
-const DEFAULT_OVERLAP = 50;
-
 /**
- * Rough token estimation: ~4 characters per token for English text
- * This is an approximation - actual tokenization varies by model
- */
-function estimateTokens(text: string): number {
-  return Math.ceil(text.length / 4);
-}
-
-/**
- * Convert token count to approximate character count
- */
-function tokensToChars(tokens: number): number {
-  return tokens * 4;
-}
-
-/**
- * Split text into chunks with overlap.
+ * Smart text chunking that respects sentence boundaries.
  *
- * @param text - The full text to chunk
- * @param options - Chunking configuration
- * @returns Array of text chunks with metadata
+ * Splits text into chunks of approximately chunkSize tokens, trying to break
+ * at sentence boundaries when possible to preserve semantic coherence.
  *
- * @example
- * const chunks = chunkText(transcription, { chunkSize: 500, overlap: 50 });
- * // chunks = [
- * //   { content: "...", charStart: 0, charEnd: 2000, segmentIndex: 0 },
- * //   { content: "...", charStart: 1800, charEnd: 3800, segmentIndex: 1 },
- * //   ...
- * // ]
- */
-export function chunkText(
-  text: string,
-  options: ChunkingOptions = {}
-): TextChunk[] {
-  const { chunkSize = DEFAULT_CHUNK_SIZE, overlap = DEFAULT_OVERLAP } = options;
-
-  if (!text || text.trim().length === 0) {
-    return [];
-  }
-
-  const chunks: TextChunk[] = [];
-  const chunkChars = tokensToChars(chunkSize);
-  const overlapChars = tokensToChars(overlap);
-  const step = chunkChars - overlapChars;
-
-  let segmentIndex = 0;
-  let charStart = 0;
-
-  while (charStart < text.length) {
-    const charEnd = Math.min(charStart + chunkChars, text.length);
-    const content = text.slice(charStart, charEnd).trim();
-
-    if (content.length > 0) {
-      chunks.push({
-        content,
-        charStart,
-        charEnd,
-        segmentIndex,
-      });
-      segmentIndex++;
-    }
-
-    charStart += step;
-
-    // Break if we're at the end
-    if (charEnd >= text.length) {
-      break;
-    }
-  }
-
-  return chunks;
-}
-
-/**
- * Smart chunking that tries to break on sentence boundaries.
- * Falls back to character-based chunking if no good break points found.
- *
- * @param text - The full text to chunk
+ * @param text - Text to chunk
  * @param options - Chunking configuration
  * @returns Array of text chunks with metadata
  */
 export function chunkTextSmart(
   text: string,
-  options: ChunkingOptions = {}
+  options: ChunkOptions = { chunkSize: 500, overlap: 50 }
 ): TextChunk[] {
-  const { chunkSize = DEFAULT_CHUNK_SIZE, overlap = DEFAULT_OVERLAP } = options;
+  const { chunkSize, overlap } = options;
 
   if (!text || text.trim().length === 0) {
     return [];
   }
 
+  // Approximate tokens as words (rough estimate: 1 token ≈ 0.75 words)
+  const approxTokensPerWord = 0.75;
+  const targetWordCount = Math.floor(chunkSize / approxTokensPerWord);
+  const overlapWordCount = Math.floor(overlap / approxTokensPerWord);
+
+  // Split into sentences (basic splitting on . ! ? followed by space)
+  const sentences = text.match(/[^.!?]+[.!?]+(\s|$)|[^.!?]+$/g) || [text];
+
   const chunks: TextChunk[] = [];
-  const chunkChars = tokensToChars(chunkSize);
-  const overlapChars = tokensToChars(overlap);
-  const step = chunkChars - overlapChars;
-
-  // Sentence boundary regex (. ! ? followed by space or newline)
-  const sentenceEnd = /[.!?][\s\n]+/g;
-
-  let segmentIndex = 0;
+  let currentChunk: string[] = [];
+  let currentWordCount = 0;
   let charStart = 0;
+  let segmentIndex = 0;
 
-  while (charStart < text.length) {
-    let charEnd = Math.min(charStart + chunkChars, text.length);
+  for (const sentence of sentences) {
+    const sentenceWords = sentence.trim().split(/\s+/).length;
 
-    // Try to find a sentence boundary near the target end
-    if (charEnd < text.length) {
-      const searchStart = Math.max(charStart, charEnd - 200); // Look back up to 200 chars
-      const searchText = text.slice(searchStart, charEnd + 200); // Look ahead up to 200 chars
-      const matches = Array.from(searchText.matchAll(sentenceEnd));
+    // If adding this sentence would exceed target, finalize current chunk
+    if (currentWordCount > 0 && currentWordCount + sentenceWords > targetWordCount) {
+      const chunkContent = currentChunk.join(' ').trim();
+      const charEnd = charStart + chunkContent.length;
 
-      if (matches.length > 0) {
-        // Find the match closest to our target end point
-        const targetOffset = charEnd - searchStart;
-        let closestMatch = matches[0];
-        let closestDist = Math.abs((matches[0].index || 0) - targetOffset);
-
-        for (const match of matches) {
-          const dist = Math.abs((match.index || 0) - targetOffset);
-          if (dist < closestDist) {
-            closestMatch = match;
-            closestDist = dist;
-          }
-        }
-
-        if (closestMatch.index !== undefined) {
-          charEnd = searchStart + closestMatch.index + closestMatch[0].length;
-        }
-      }
-    }
-
-    const content = text.slice(charStart, charEnd).trim();
-
-    if (content.length > 0) {
       chunks.push({
-        content,
+        content: chunkContent,
+        segmentIndex,
         charStart,
         charEnd,
-        segmentIndex,
       });
+
       segmentIndex++;
+
+      // Start next chunk with overlap
+      const overlapSentences = [];
+      let overlapWords = 0;
+
+      // Take last few sentences for overlap
+      for (let i = currentChunk.length - 1; i >= 0 && overlapWords < overlapWordCount; i--) {
+        const s = currentChunk[i];
+        overlapSentences.unshift(s);
+        overlapWords += s.split(/\s+/).length;
+      }
+
+      currentChunk = overlapSentences;
+      currentWordCount = overlapWords;
+      charStart = charEnd - overlapSentences.join(' ').length;
     }
 
-    charStart += step;
+    currentChunk.push(sentence.trim());
+    currentWordCount += sentenceWords;
+  }
 
-    // Break if we're at the end
-    if (charEnd >= text.length) {
-      break;
-    }
+  // Add final chunk if there's content
+  if (currentChunk.length > 0) {
+    const chunkContent = currentChunk.join(' ').trim();
+    const charEnd = charStart + chunkContent.length;
+
+    chunks.push({
+      content: chunkContent,
+      segmentIndex,
+      charStart,
+      charEnd,
+    });
   }
 
   return chunks;
-}
-
-/**
- * Get the total word count for chunked text
- */
-export function getWordCount(chunks: TextChunk[]): number {
-  return chunks.reduce((count, chunk) => {
-    return count + chunk.content.split(/\s+/).length;
-  }, 0);
 }
