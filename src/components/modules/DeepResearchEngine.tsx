@@ -76,7 +76,7 @@ export function DeepResearchEngine() {
         datasets: MOCK_RESULTS.datasets,
       };
 
-      setQueries([newQuery, ...queries]);
+      addQuery(newQuery);
       setIsResearching(false);
       setCompanies(['', '', '', '']);
       toast.success('Research completed! Datasets generated.');
