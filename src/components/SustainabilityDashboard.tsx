@@ -78,7 +78,7 @@ export function SustainabilityDashboard() {
   const [detailsResults, setDetailsResults] = useState<AnalysisDetail[]>([]);
   const [diagnosticsResults, setDiagnosticsResults] = useState<AnalysisDiagnostic[]>([]);
 
-  // Load projects on mount
+  
   useEffect(() => {
     loadProjects();
   }, []);
@@ -128,7 +128,7 @@ export function SustainabilityDashboard() {
 
   const handleFileUploaded = () => {
     if (selectedProject) {
-      // Refresh project details
+      
       loadProjects();
     }
   };
@@ -151,9 +151,9 @@ export function SustainabilityDashboard() {
 
       if (data.success) {
         toast.success('Analysis completed successfully');
-        // Load results
+        
         await loadAnalysisResults();
-        // Refresh project status
+        
         await loadProjects();
       } else {
         toast.error(data.error || 'Analysis failed');
@@ -170,7 +170,7 @@ export function SustainabilityDashboard() {
     if (!selectedProject) return;
 
     try {
-      // Load summary results
+      
       const summaryResponse = await fetch(
         `/api/sustainability/results?projectId=${selectedProject.id}&type=summary`
       );
@@ -179,7 +179,7 @@ export function SustainabilityDashboard() {
         setSummaryResults(summaryData.results);
       }
 
-      // Load details results
+      
       const detailsResponse = await fetch(
         `/api/sustainability/results?projectId=${selectedProject.id}&type=details`
       );
@@ -188,7 +188,7 @@ export function SustainabilityDashboard() {
         setDetailsResults(detailsData.results);
       }
 
-      // Load diagnostics results
+      
       const diagnosticsResponse = await fetch(
         `/api/sustainability/results?projectId=${selectedProject.id}&type=diagnostics`
       );
@@ -210,7 +210,7 @@ export function SustainabilityDashboard() {
 
   return (
     <div className="flex h-screen bg-gray-50">
-      {/* Sidebar */}
+      {}
       <div className="w-64 border-r border-gray-200 bg-white overflow-hidden flex flex-col">
         <div className="p-6 border-b border-gray-200">
           <h1 className="text-2xl font-bold text-gray-900">Sustainability</h1>
@@ -229,11 +229,11 @@ export function SustainabilityDashboard() {
         </div>
       </div>
 
-      {/* Main Content */}
+      {}
       <div className="flex-1 overflow-hidden flex flex-col">
         {selectedProject ? (
           <>
-            {/* Header */}
+            {}
             <div className="border-b border-gray-200 bg-white px-8 py-6">
               <div className="flex items-center justify-between">
                 <div>
@@ -265,7 +265,7 @@ export function SustainabilityDashboard() {
               </div>
             </div>
 
-            {/* Content */}
+            {}
             <div className="flex-1 overflow-y-auto">
               <div className="px-8 py-6">
                 <Tabs defaultValue="upload" className="w-full">
@@ -279,7 +279,7 @@ export function SustainabilityDashboard() {
                     </TabsTrigger>
                   </TabsList>
 
-                  {/* Upload Tab */}
+                  {}
                   <TabsContent value="upload" className="mt-6">
                     <Card>
                       <CardHeader>
@@ -298,7 +298,7 @@ export function SustainabilityDashboard() {
                     </Card>
                   </TabsContent>
 
-                  {/* Results Tab */}
+                  {}
                   <TabsContent value="results" className="mt-6">
                     {summaryResults.length > 0 ? (
                       <AnalysisResultsView
@@ -317,7 +317,7 @@ export function SustainabilityDashboard() {
                     )}
                   </TabsContent>
 
-                  {/* Details Tab */}
+                  {}
                   <TabsContent value="details" className="mt-6">
                     {detailsResults.length > 0 ? (
                       <AnalysisResultsView
@@ -336,7 +336,7 @@ export function SustainabilityDashboard() {
                     )}
                   </TabsContent>
 
-                  {/* Diagnostics Tab */}
+                  {}
                   {diagnosticsResults.length > 0 && (
                     <TabsContent value="diagnostics" className="mt-6">
                       <AnalysisResultsView

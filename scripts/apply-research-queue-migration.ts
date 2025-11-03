@@ -29,11 +29,11 @@ async function executeSql(sql: string) {
 async function applyMigration() {
   console.log('📦 Applying research queue migration...\n');
 
-  // Read the migration file
+  
   const migrationPath = path.join(__dirname, '..', 'supabase', 'migrations', '20251023070000_add_research_queue.sql');
   const migrationSql = fs.readFileSync(migrationPath, 'utf8');
 
-  // Split into individual statements
+  
   const statements = migrationSql
     .split(';')
     .map(s => s.trim())
@@ -41,14 +41,14 @@ async function applyMigration() {
 
   console.log(`Found ${statements.length} SQL statements\n`);
 
-  // Execute each statement
+  
   for (let i = 0; i < statements.length; i++) {
     const statement = statements[i];
     const preview = statement.substring(0, 80).replace(/\n/g, ' ');
     console.log(`[${i + 1}/${statements.length}] ${preview}...`);
 
     try {
-      // Use raw SQL execution via pg
+      
       const { error } = await supabase.rpc('exec', { sql: statement + ';' });
 
       if (error) {
@@ -63,7 +63,7 @@ async function applyMigration() {
 
   console.log('\n🔧 Disabling RLS for development...\n');
 
-  // Disable RLS for development
+  
   const disableRlsStatements = [
     'ALTER TABLE research_queue DISABLE ROW LEVEL SECURITY',
     'ALTER TABLE research_documents DISABLE ROW LEVEL SECURITY',

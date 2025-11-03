@@ -60,7 +60,6 @@ export function ResultsExplorer({ projectId, onBack }: ResultsExplorerProps) {
   const fetchResults = async () => {
     setIsLoading(true);
     try {
-      // Fetch summary and details results in parallel
       const [summaryRes, detailsRes] = await Promise.all([
         fetch(`/api/sustainability/results?projectId=${projectId}&type=summary`),
         fetch(`/api/sustainability/results?projectId=${projectId}&type=details`),
@@ -181,7 +180,6 @@ export function ResultsExplorer({ projectId, onBack }: ResultsExplorerProps) {
           </div>
 
           <div className="flex-1 overflow-y-auto px-8 py-6">
-            {/* Normalized View */}
             <TabsContent value="normalized" className="mt-0">
               <Card className="border-0 shadow-sm">
                 <CardHeader>
@@ -257,7 +255,6 @@ export function ResultsExplorer({ projectId, onBack }: ResultsExplorerProps) {
               </Card>
             </TabsContent>
 
-            {/* Details View */}
             <TabsContent value="details" className="mt-0">
               <div className="space-y-4">
                 {filteredDetails.length === 0 ? (

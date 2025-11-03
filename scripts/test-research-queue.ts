@@ -1,13 +1,13 @@
 import { createClient } from '@supabase/supabase-js';
 
-// Supabase configuration
+
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || 'http://127.0.0.1:54321';
 const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY || 'sb_publishable_ACJWlzQHlZjBrEguHvfOxg_3BJgxAaH';
 const apiBaseUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000';
 
 const supabase = createClient(supabaseUrl, supabaseKey);
 
-// Test configuration
+
 const TEST_COMPANIES = ['Tesla', 'Apple'];
 const userId = 'b2bbb440-1d79-42fa-81e3-069efd22fae8';
 
@@ -139,7 +139,7 @@ async function testGetResearchDetails(researchId: string) {
 }
 
 async function testDatabaseIntegrity(researchId: string) {
-  // Check research_queue table
+  
   const { data: queueData, error: queueError } = await supabase
     .from('research_queue')
     .select('*')
@@ -154,7 +154,7 @@ async function testDatabaseIntegrity(researchId: string) {
   log(`     - Status: ${queueData.status}`);
   log(`     - Files Generated: ${queueData.files_generated}`);
 
-  // Check research_documents table
+  
   const { data: docsData, error: docsError } = await supabase
     .from('research_documents')
     .select('*')
@@ -166,7 +166,7 @@ async function testDatabaseIntegrity(researchId: string) {
 
   log(`   Research Documents: ${docsData?.length || 0}`);
 
-  // Group by category
+  
   const byCategory = (docsData || []).reduce((acc: any, doc: any) => {
     acc[doc.category] = (acc[doc.category] || 0) + 1;
     return acc;
@@ -197,7 +197,7 @@ async function testStorageFiles(projectId: string) {
 }
 
 async function testSearchSegments(researchId: string) {
-  // First get the research details to get a company name
+  
   const response = await fetch(`${apiBaseUrl}/api/research-queue/${researchId}`);
   const data = await response.json();
 
@@ -208,7 +208,7 @@ async function testSearchSegments(researchId: string) {
 
   const companyName = data.data.companies[0];
 
-  // Search for segments
+  
   try {
     const searchResponse = await fetch(`${apiBaseUrl}/api/research-queue/search`, {
       method: 'POST',
@@ -222,7 +222,7 @@ async function testSearchSegments(researchId: string) {
     const searchData = await searchResponse.json();
 
     if (!searchData.success) {
-      // If no segments exist yet (research not vectorized), that's expected
+      
       log(`   No segments found yet (research not vectorized)`);
       return [];
     }
@@ -234,7 +234,7 @@ async function testSearchSegments(researchId: string) {
 
     return searchData.data;
   } catch (error) {
-    // Segments not yet created is not a failure
+    
     log(`   No segments found yet (research not vectorized)`);
     return [];
   }
@@ -253,7 +253,7 @@ async function testDeleteResearch(researchId: string) {
 
   log(`   Deleted research ID: ${researchId}`);
 
-  // Verify deletion
+  
   const { data: verifyData, error: verifyError } = await supabase
     .from('research_queue')
     .select('id')
@@ -282,35 +282,35 @@ async function main() {
   let researchId: string | null = null;
 
   try {
-    // Test 1: Create Project
+    
     projectId = await runTest('Create Project', testCreateProject);
 
-    // Test 2: Run Research
+    
     researchId = await runTest('Run Research', () => testRunResearch(projectId!));
 
-    // Test 3: Get Research History
+    
     await runTest('Get Research History', testGetResearchHistory);
 
-    // Test 4: Get Research Details
+    
     await runTest('Get Research Details', () => testGetResearchDetails(researchId!));
 
-    // Test 5: Database Integrity
+    
     await runTest('Check Database Integrity', () => testDatabaseIntegrity(researchId!));
 
-    // Test 6: Storage Files
+    
     await runTest('Verify Storage Files', () => testStorageFiles(projectId!));
 
-    // Test 7: Search Segments
+    
     await runTest('Search Research Segments', () => testSearchSegments(researchId!));
 
-    // Test 8: Delete Research (cleanup)
+    
     await runTest('Delete Research Entry', () => testDeleteResearch(researchId!));
 
   } catch (error) {
     log(`\n⚠️  Test suite stopped due to error`);
   }
 
-  // Summary
+  
   logSection('📊 Test Summary');
   const totalDuration = Date.now() - startTime;
   const passed = results.filter(r => r.status === 'success').length;

@@ -71,7 +71,7 @@ export function ProjectManager() {
     }
   }, [selectedProject]);
 
-  // Poll for analysis status updates
+  
   useEffect(() => {
     if (!selectedProject || selectedProject.analysis_status !== 'processing') {
       return;
@@ -98,7 +98,7 @@ export function ProjectManager() {
       } catch (error) {
         console.error('Error polling project status:', error);
       }
-    }, 3000); // Poll every 3 seconds
+    }, 3000); 
 
     return () => clearInterval(pollInterval);
   }, [selectedProject]);
@@ -218,7 +218,7 @@ export function ProjectManager() {
         await fetchProjects();
         if (selectedProject) {
           await fetchProjectFiles(selectedProject.id);
-          // Refresh selected project
+          
           const updated = await fetch(`/api/sustainability/projects?id=${selectedProject.id}`);
           const updatedData = await updated.json();
           if (updatedData.success) {
@@ -278,7 +278,7 @@ export function ProjectManager() {
 
       if (data.success) {
         toast.success('Analysis started. This may take a few minutes.');
-        // Refresh project to get updated status (should be 'processing')
+        
         await fetchProjects();
         if (selectedProject) {
           const updatedProject = projects.find(p => p.id === selectedProject.id);
@@ -332,7 +332,7 @@ export function ProjectManager() {
   if (selectedProject) {
     return (
       <div className="flex-1 overflow-hidden flex flex-col bg-gray-50">
-        {/* Header */}
+        {}
         <div className="border-b border-gray-200 bg-white px-8 py-6">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-4">
@@ -383,7 +383,7 @@ export function ProjectManager() {
           </div>
         </div>
 
-        {/* File Upload Section */}
+        {}
         <div className="flex-1 overflow-y-auto px-8 py-6">
           <Card className="border-0 shadow-sm">
             <CardHeader>
@@ -454,7 +454,7 @@ export function ProjectManager() {
 
   return (
     <div className="flex-1 overflow-hidden flex flex-col bg-gray-50">
-      {/* Header */}
+      {}
       <div className="border-b border-gray-200 bg-white px-8 py-6">
         <div className="flex items-center justify-between">
           <div>
@@ -513,7 +513,7 @@ export function ProjectManager() {
         </div>
       </div>
 
-      {/* Search */}
+      {}
       <div className="border-b border-gray-200 bg-white px-8 py-4">
         <Input
           value={searchTerm}
@@ -523,7 +523,7 @@ export function ProjectManager() {
         />
       </div>
 
-      {/* Projects List */}
+      {}
       <div className="flex-1 overflow-y-auto px-8 py-6">
         {isLoading ? (
           <div className="text-center py-12">

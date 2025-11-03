@@ -10,7 +10,7 @@ async function testVectorization() {
   console.log('🧪 Testing Research Document Vectorization\n');
   console.log('============================================================\n');
 
-  // Step 1: Create a test project
+  
   console.log('📝 Step 1: Creating test project...');
   const projectResponse = await fetch(`${apiBaseUrl}/api/sustainability/projects`, {
     method: 'POST',
@@ -30,7 +30,7 @@ async function testVectorization() {
   const projectId = projectData.project.id;
   console.log(`✅ Project created: ${projectId}\n`);
 
-  // Step 2: Run research (which will create documents and trigger Inngest)
+  
   console.log('🔍 Step 2: Running research for Tesla...');
   const researchResponse = await fetch(`${apiBaseUrl}/api/research-companies`, {
     method: 'POST',
@@ -51,17 +51,17 @@ async function testVectorization() {
   console.log(`✅ Research completed: ${researchId}`);
   console.log(`   Files generated: ${researchData.uploadedFiles}\n`);
 
-  // Step 3: Wait for vectorization to complete
+  
   console.log('⏳ Step 3: Waiting for vectorization (this may take 30-60 seconds)...\n');
 
   let attempts = 0;
-  const maxAttempts = 60; // 60 attempts = 60 seconds
+  const maxAttempts = 60; 
   let allCompleted = false;
 
   while (attempts < maxAttempts && !allCompleted) {
     attempts++;
 
-    // Check research_documents status
+    
     const { data: docs, error } = await supabase
       .from('research_documents')
       .select('id, company_name, category, vectorization_status, segment_count')
@@ -98,7 +98,7 @@ async function testVectorization() {
     console.log('\n\n⏱️  Timeout waiting for vectorization\n');
   }
 
-  // Step 4: Check final results
+  
   console.log('📊 Step 4: Final Results\n');
 
   const { data: finalDocs } = await supabase
@@ -113,7 +113,7 @@ async function testVectorization() {
     console.log(`     Segments: ${doc.segment_count}`);
   });
 
-  // Step 5: Check segments
+  
   const { data: segments } = await supabase
     .from('research_segments')
     .select('id, company_name, category')

@@ -63,7 +63,7 @@ export function FileUploadArea({
     const file = event.target.files?.[0];
     if (!file) return;
 
-    // Validate file type (should be text/plain, .txt, application/json, or .json)
+    
     if (
       file.type !== 'text/plain' &&
       file.type !== 'application/json' &&

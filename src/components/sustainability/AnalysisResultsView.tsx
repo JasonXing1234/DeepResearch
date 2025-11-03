@@ -33,7 +33,7 @@ export function AnalysisResultsView({
   } | null>(null);
 
   const handleDownloadExcel = () => {
-    // Generate CSV format as Excel alternative
+    
     if (resultsType === 'summary' && summaryResults) {
       const headers = [
         'Company',

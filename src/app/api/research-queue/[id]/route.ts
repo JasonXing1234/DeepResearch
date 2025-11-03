@@ -3,10 +3,10 @@ import { createClient } from '@/lib/supabase/server';
 
 export const maxDuration = 60;
 
-/**
- * GET /api/research-queue/[id]
- * Get details of a specific research entry including documents
- */
+
+
+
+
 export async function GET(
   req: NextRequest,
   { params }: { params: Promise<{ id: string }> }
@@ -14,9 +14,9 @@ export async function GET(
   try {
     const { id } = await params;
     const supabase = await createClient();
-    const userId = 'b2bbb440-1d79-42fa-81e3-069efd22fae8'; // Hardcoded dev user
+    const userId = 'b2bbb440-1d79-42fa-81e3-069efd22fae8'; 
 
-    // Get research queue entry
+    
     const { data: queueEntry, error: queueError } = await supabase
       .from('research_queue')
       .select('*')
@@ -31,7 +31,7 @@ export async function GET(
       );
     }
 
-    // Get associated documents
+    
     const { data: documents, error: docsError } = await supabase
       .from('research_documents')
       .select('*')
@@ -57,10 +57,10 @@ export async function GET(
   }
 }
 
-/**
- * DELETE /api/research-queue/[id]
- * Delete a research entry and its associated documents
- */
+
+
+
+
 export async function DELETE(
   req: NextRequest,
   { params }: { params: Promise<{ id: string }> }
@@ -68,9 +68,9 @@ export async function DELETE(
   try {
     const { id } = await params;
     const supabase = await createClient();
-    const userId = 'b2bbb440-1d79-42fa-81e3-069efd22fae8'; // Hardcoded dev user
+    const userId = 'b2bbb440-1d79-42fa-81e3-069efd22fae8'; 
 
-    // Delete research queue entry (cascade will handle documents)
+    
     const { error } = await supabase
       .from('research_queue')
       .delete()

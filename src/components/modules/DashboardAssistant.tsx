@@ -50,7 +50,7 @@ export function DashboardAssistant() {
     const userMessage = input.trim();
     setInput('');
 
-    // Add user message
+    
     const newMessages = [...messages, { role: 'user' as const, content: userMessage }];
     setMessages(newMessages);
     setIsLoading(true);
@@ -73,7 +73,7 @@ export function DashboardAssistant() {
         return;
       }
 
-      // Add assistant message with sources
+      
       setMessages([
         ...newMessages,
         {
@@ -97,7 +97,7 @@ export function DashboardAssistant() {
     }
   };
 
-  // Scroll to bottom when new messages arrive
+  
   useEffect(() => {
     if (scrollRef.current) {
       scrollRef.current.scrollIntoView({ behavior: 'smooth' });
@@ -106,7 +106,7 @@ export function DashboardAssistant() {
 
   return (
     <div className="flex-1 overflow-hidden flex flex-col bg-white">
-      {/* Header */}
+      {}
       <div className="border-b border-gray-200 px-8 py-6">
         <div className="flex items-center gap-3">
           <div className="h-10 w-10 rounded-full bg-gradient-to-br from-purple-500 to-purple-600 flex items-center justify-center">
@@ -124,7 +124,7 @@ export function DashboardAssistant() {
       </div>
 
       <div className="flex-1 overflow-hidden flex flex-col">
-        {/* Messages */}
+        {}
         <ScrollArea className="flex-1 px-8 py-6">
           <div className="space-y-4">
             {messages.length === 0 ? (
@@ -154,7 +154,7 @@ export function DashboardAssistant() {
                     </CardContent>
                   </Card>
 
-                  {/* Input Section - Centered and Prominent */}
+                  {}
                   <div className="w-full flex gap-3 px-4">
                     <Input
                       value={input}
@@ -210,7 +210,7 @@ export function DashboardAssistant() {
                         )}
                       </div>
 
-                      {/* Show sources for assistant messages */}
+                      {}
                       {message.role === 'assistant' && message.sources && message.sources.length > 0 && (
                         <div className="text-xs text-gray-500 space-y-1">
                           <p className="font-medium flex items-center gap-1">
@@ -253,7 +253,7 @@ export function DashboardAssistant() {
           </div>
         </ScrollArea>
 
-        {/* Input - Always visible at bottom when there are messages */}
+        {}
         {messages.length > 0 && (
           <div className="border-t border-gray-200 px-8 py-6 bg-gradient-to-r from-purple-50 to-transparent">
             <div className="flex gap-3">

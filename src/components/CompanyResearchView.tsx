@@ -36,7 +36,7 @@ export function CompanyResearchView({
   };
 
   const handleResearch = async () => {
-    // Filter out empty company names
+    
     const validCompanies = companies
       .map((c) => c.trim())
       .filter((c) => c.length > 0)
@@ -81,7 +81,7 @@ export function CompanyResearchView({
 
   return (
     <div className="flex-1 overflow-hidden flex flex-col bg-white">
-      {/* Header */}
+      {}
       <div className="border-b border-gray-200 px-8 py-6">
         <div className="flex items-center justify-between">
           <div>
@@ -110,7 +110,7 @@ export function CompanyResearchView({
         </div>
       </div>
 
-      {/* Content */}
+      {}
       <div className="flex-1 overflow-y-auto px-8 py-6">
         <Card className="max-w-3xl mx-auto">
           <CardHeader>
@@ -121,7 +121,7 @@ export function CompanyResearchView({
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
-            {/* Company Input Fields */}
+            {}
             <div className="space-y-3">
               {companies.map((company, index) => (
                 <div key={index} className="flex gap-2">
@@ -146,7 +146,7 @@ export function CompanyResearchView({
               ))}
             </div>
 
-            {/* Add More Button */}
+            {}
             <Button
               variant="outline"
               onClick={handleAddCompany}
@@ -157,7 +157,7 @@ export function CompanyResearchView({
               Add Another Company
             </Button>
 
-            {/* Information Box */}
+            {}
             <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mt-6">
               <h4 className="font-semibold text-blue-900 mb-2">What happens next?</h4>
               <ul className="text-sm text-blue-800 space-y-1">
@@ -169,7 +169,7 @@ export function CompanyResearchView({
               </ul>
             </div>
 
-            {/* Research Progress */}
+            {}
             {isResearching && (
               <div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
                 <div className="flex items-center gap-3">

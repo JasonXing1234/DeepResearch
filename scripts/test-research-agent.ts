@@ -1,11 +1,11 @@
-/**
- * Manual Test Script for Company Research Agent
- *
- * Tests researching BASF, Vulcan Materials, Ziegler CAT, and Harsco Metals Group
- *
- * Usage:
- *   npx tsx scripts/test-research-agent.ts
- */
+
+
+
+
+
+
+
+
 
 const TEST_COMPANIES = [
   'BASF',
@@ -286,7 +286,7 @@ async function runTests() {
   log(`Started at: ${new Date().toISOString()}`);
   log(`API Base URL: ${API_BASE_URL}`);
 
-  // Step 1: Create Project
+  
   const projectId = await testCreateProject();
   if (!projectId) {
     log('Cannot continue without project ID. Exiting.');
@@ -294,25 +294,25 @@ async function runTests() {
     process.exit(1);
   }
 
-  // Step 2: Research Companies
+  
   const researchSuccess = await testResearchCompanies(projectId);
   if (!researchSuccess) {
     log('Research failed. Continuing with verification steps...');
   }
 
-  // Step 3: Verify Project
+  
   await testVerifyProject(projectId);
 
-  // Step 4: Verify Files
+  
   await testVerifyFiles(projectId);
 
-  // Print Summary
+  
   const totalDuration = Date.now() - testStartTime;
   await printSummary(projectId);
   log(`\nTotal Test Duration: ${(totalDuration / 1000).toFixed(2)}s\n`);
 }
 
-// Run the tests
+
 runTests().catch((error) => {
   console.error('\n❌ Test script crashed:', error);
   process.exit(1);

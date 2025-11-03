@@ -3,10 +3,10 @@ import { createClient } from '@/lib/supabase/server';
 
 export const maxDuration = 60;
 
-/**
- * GET /api/research-queue
- * Get research history for the current user
- */
+
+
+
+
 export async function GET(req: NextRequest) {
   try {
     const { searchParams } = new URL(req.url);
@@ -14,9 +14,9 @@ export async function GET(req: NextRequest) {
     const offset = parseInt(searchParams.get('offset') || '0');
 
     const supabase = await createClient();
-    const userId = 'b2bbb440-1d79-42fa-81e3-069efd22fae8'; // Hardcoded dev user
+    const userId = 'b2bbb440-1d79-42fa-81e3-069efd22fae8'; 
 
-    // Get research history with document counts
+    
     const { data, error } = await supabase
       .rpc('get_research_history', {
         p_user_id: userId,

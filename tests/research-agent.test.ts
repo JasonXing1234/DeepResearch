@@ -1,12 +1,12 @@
-/**
- * Integration Test for Company Research Agent
- *
- * Tests the end-to-end flow of researching companies:
- * 1. Create a project
- * 2. Research companies
- * 3. Verify file uploads
- * 4. Check database records
- */
+
+
+
+
+
+
+
+
+
 
 import { describe, it, expect, beforeAll, afterAll } from '@jest/globals';
 
@@ -64,7 +64,7 @@ describe('Company Research Agent Integration Test', () => {
     projectId = data.project.id;
 
     console.log(`✅ Project created with ID: ${projectId}\n`);
-  }, 30000); // 30 second timeout
+  }, 30000); 
 
   it('should research all 4 companies and generate reports', async () => {
     console.log('🔍 Step 2: Researching companies...');
@@ -92,15 +92,15 @@ describe('Company Research Agent Integration Test', () => {
     expect(response.ok).toBe(true);
     expect(data.success).toBe(true);
     expect(data.message).toContain('4 companies');
-    expect(data.uploadedFiles).toBe(5); // Should generate 5 report files
+    expect(data.uploadedFiles).toBe(5); 
 
     console.log(`✅ Successfully generated ${data.uploadedFiles} report files\n`);
-  }, 300000); // 5 minute timeout for research
+  }, 300000); 
 
   it('should verify file uploads in storage', async () => {
     console.log('📂 Step 3: Verifying file uploads...');
 
-    // Fetch the project to check file IDs
+    
     const response = await fetch(
       `${API_BASE_URL}/api/sustainability/projects?id=${projectId}`
     );
@@ -113,7 +113,7 @@ describe('Company Research Agent Integration Test', () => {
 
     const project = data.project;
 
-    // Check that file IDs are set
+    
     const fileTypes = [
       'emissions_file_id',
       'investments_file_id',
@@ -176,8 +176,8 @@ describe('Company Research Agent Integration Test', () => {
   it('should download and verify report content', async () => {
     console.log('📥 Step 5: Verifying report content...');
 
-    // Note: This test requires Supabase client access
-    // For now, we'll just verify the structure is correct
+    
+    
     console.log('   Skipping content verification (requires Supabase client)');
     console.log('   Manual verification recommended\n');
 
@@ -210,38 +210,38 @@ describe('Company Research Agent Integration Test', () => {
   });
 });
 
-/**
- * Manual Test Instructions
- * ========================
- *
- * To run this test manually:
- *
- * 1. Ensure your development environment is set up:
- *    - Start Next.js: npm run dev
- *    - Start Supabase: npx supabase start
- *    - Set TAVILY_API_KEY in .env.local
- *
- * 2. Run the test:
- *    npm test tests/research-agent.test.ts
- *
- * 3. The test will:
- *    - Create a new project
- *    - Research BASF, Vulcan Materials, Ziegler CAT, and Harsco Metals Group
- *    - Generate 5 TXT report files
- *    - Upload files to Supabase Storage
- *    - Verify database records
- *    - Print a summary report
- *
- * 4. After the test completes:
- *    - Open http://localhost:3000
- *    - Navigate to the Projects module
- *    - Find the test project (contains "Test Research" in the name)
- *    - Click "Run Analysis" to see the results
- *
- * Expected Duration: 2-5 minutes
- *
- * Troubleshooting:
- * - If test times out: Increase timeout values in test configuration
- * - If API errors: Check that TAVILY_API_KEY is set correctly
- * - If database errors: Ensure Supabase is running and migrations are applied
- */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

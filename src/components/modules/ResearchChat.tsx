@@ -48,7 +48,7 @@ export function ResearchChat({ researchId, companies }: ResearchChatProps) {
     const userMessage = input.trim();
     setInput('');
 
-    // Add user message
+    
     const newMessages = [...messages, { role: 'user' as const, content: userMessage }];
     setMessages(newMessages);
     setIsLoading(true);
@@ -60,7 +60,7 @@ export function ResearchChat({ researchId, companies }: ResearchChatProps) {
         body: JSON.stringify({
           researchId,
           message: userMessage,
-          conversationHistory: messages.slice(1), // Exclude initial greeting
+          conversationHistory: messages.slice(1), 
         }),
       });
 
@@ -68,11 +68,11 @@ export function ResearchChat({ researchId, companies }: ResearchChatProps) {
 
       if (!data.success) {
         toast.error(data.error || 'Failed to get response');
-        setMessages(newMessages); // Keep user message
+        setMessages(newMessages); 
         return;
       }
 
-      // Add assistant message with sources
+      
       setMessages([
         ...newMessages,
         {
@@ -135,7 +135,7 @@ export function ResearchChat({ researchId, companies }: ResearchChatProps) {
                 <p className="text-sm whitespace-pre-wrap">{message.content}</p>
               </div>
 
-              {/* Show sources for assistant messages */}
+              {}
               {message.role === 'assistant' && message.sources && message.sources.length > 0 && (
                 <div className="text-xs text-gray-500 space-y-1">
                   <p className="font-medium flex items-center gap-1">

@@ -16,7 +16,7 @@ export async function GET(req: NextRequest) {
 
     const supabase = await createClient();
 
-    // Get the file record from database
+    
     const { data: fileRecord, error: fileError } = await supabase
       .from('project_files')
       .select('*')
@@ -32,7 +32,7 @@ export async function GET(req: NextRequest) {
       );
     }
 
-    // Download the file from Supabase Storage
+    
     const { data: fileData, error: downloadError } = await supabase
       .storage
       .from(fileRecord.storage_bucket)
@@ -46,7 +46,7 @@ export async function GET(req: NextRequest) {
       );
     }
 
-    // Return the file as a downloadable response
+    
     const headers = new Headers();
     headers.set('Content-Type', fileRecord.mime_type || 'text/plain');
     headers.set('Content-Disposition', `attachment; filename="${fileRecord.original_filename}"`);

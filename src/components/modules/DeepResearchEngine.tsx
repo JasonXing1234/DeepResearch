@@ -26,7 +26,7 @@ export function DeepResearchEngine() {
   const [researchHistory, setResearchHistory] = useState<ResearchQueueEntry[]>([]);
   const [isLoadingHistory, setIsLoadingHistory] = useState(true);
 
-  // Fetch research history on mount
+  
   useEffect(() => {
     fetchResearchHistory();
   }, []);
@@ -69,7 +69,7 @@ export function DeepResearchEngine() {
     toast.info('Starting deep research...');
 
     try {
-      // First create a project to store the results
+      
       const projectResponse = await fetch('/api/sustainability/projects', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -89,7 +89,7 @@ export function DeepResearchEngine() {
 
       const projectId = projectData.project.id;
 
-      // Now run the research
+      
       const researchResponse = await fetch('/api/research-companies', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -105,7 +105,7 @@ export function DeepResearchEngine() {
         setCompanies(['', '', '', '']);
         toast.success(`Research completed! Generated ${researchData.uploadedFiles} report files.`);
 
-        // Refresh research history
+        
         await fetchResearchHistory();
       } else {
         toast.error(researchData.error || 'Research failed');
@@ -122,7 +122,7 @@ export function DeepResearchEngine() {
     try {
       toast.info('Downloading research file...');
 
-      // Map dataset type to file type
+      
       const fileTypeMap: Record<string, string> = {
         'emissions': 'emissions',
         'investments': 'investments',
@@ -133,7 +133,7 @@ export function DeepResearchEngine() {
 
       const fileType = fileTypeMap[datasetType] || datasetType;
 
-      // Fetch the actual JSON file from the API
+      
       const response = await fetch(`/api/sustainability/download-file?projectId=${query.id}&fileType=${fileType}`);
 
       if (!response.ok) {
@@ -203,7 +203,7 @@ export function DeepResearchEngine() {
 
   return (
     <div className="flex-1 overflow-hidden flex flex-col bg-gray-50">
-      {/* Header */}
+      {}
       <div className="border-b border-gray-200 bg-white px-8 py-6">
         <div>
           <h2 className="text-3xl font-bold text-gray-900">Deep Research Engine</h2>
@@ -213,9 +213,9 @@ export function DeepResearchEngine() {
         </div>
       </div>
 
-      {/* Content */}
+      {}
       <div className="flex-1 overflow-y-auto px-8 py-6">
-        {/* Input Section */}
+        {}
         <Card className="mb-8 border-0 shadow-sm">
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
@@ -276,7 +276,7 @@ export function DeepResearchEngine() {
           </CardContent>
         </Card>
 
-        {/* Results Section */}
+        {}
         <div>
           <h3 className="text-lg font-semibold text-gray-900 mb-4">Research History</h3>
           {isLoadingHistory ? (
@@ -343,7 +343,7 @@ export function DeepResearchEngine() {
                   {entry.status === 'completed' && entry.project_id && (
                     <CardContent>
                       <div className="space-y-3">
-                        {/* Download Buttons */}
+                        {}
                         <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
                           {['emissions', 'investments', 'purchases', 'pilots', 'environments'].map((type) => (
                             <Button

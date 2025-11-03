@@ -35,14 +35,14 @@ When users ask about their projects, provide insights based on the data availabl
 Always be helpful and provide actionable insights.`,
   });
 
-  // Scroll to bottom when new messages arrive
+  
   useEffect(() => {
     if (scrollRef.current) {
       scrollRef.current.scrollIntoView({ behavior: 'smooth' });
     }
   }, [messages]);
 
-  // Load project context
+  
   useEffect(() => {
     const loadProjectContext = async () => {
       if (!selectedProjectId) {
@@ -60,7 +60,7 @@ Always be helpful and provide actionable insights.`,
         }
         contextStr += `Status: ${selectedProject.analysis_status}\n`;
 
-        // Load analysis results for context
+        
         if (selectedProject.analysis_status === 'completed') {
           const summaryResponse = await fetch(
             `/api/sustainability/results?projectId=${selectedProjectId}&type=summary`
@@ -104,7 +104,7 @@ Always be helpful and provide actionable insights.`,
 
   return (
     <div className="flex-1 overflow-hidden flex flex-col bg-white">
-      {/* Header */}
+      {}
       <div className="border-b border-gray-200 px-8 py-6">
         <h2 className="text-2xl font-bold text-gray-900">Project Assistant</h2>
         <p className="text-sm text-gray-600 mt-1">
@@ -116,7 +116,7 @@ Always be helpful and provide actionable insights.`,
 
       {selectedProject ? (
         <div className="flex-1 overflow-hidden flex flex-col">
-          {/* Messages */}
+          {}
           <ScrollArea className="flex-1 px-8 py-6">
             <div className="space-y-4">
               {messages.length === 0 ? (
@@ -179,7 +179,7 @@ Always be helpful and provide actionable insights.`,
             </div>
           </ScrollArea>
 
-          {/* Input */}
+          {}
           <div className="border-t border-gray-200 px-8 py-4">
             <form onSubmit={handleSubmit} className="flex gap-3">
               <Input

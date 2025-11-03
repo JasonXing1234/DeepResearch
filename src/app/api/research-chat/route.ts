@@ -14,17 +14,17 @@ interface Message {
   content: string;
 }
 
-/**
- * POST /api/research-chat
- * Chat with research documents using RAG
- *
- * Body:
- * {
- *   researchId: string,        // Research queue ID
- *   message: string,            // User's question
- *   conversationHistory?: Message[]  // Optional conversation history
- * }
- */
+
+
+
+
+
+
+
+
+
+
+
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
@@ -38,9 +38,9 @@ export async function POST(req: NextRequest) {
     }
 
     const supabase = await createClient();
-    const userId = 'b2bbb440-1d79-42fa-81e3-069efd22fae8'; // Hardcoded dev user
+    const userId = 'b2bbb440-1d79-42fa-81e3-069efd22fae8'; 
 
-    // Get research queue entry to verify ownership and get companies
+    
     const { data: researchEntry, error: researchError } = await supabase
       .from('research_queue')
       .select('companies, status')
@@ -62,11 +62,11 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // Generate embedding for the user's question
+    
     const queryEmbedding = await generateSingleEmbedding(message);
 
-    // Search for relevant segments using vector similarity
-    // Get research documents for this research
+    
+    
     const { data: researchDocs } = await supabase
       .from('research_documents')
       .select('id')
@@ -81,7 +81,7 @@ export async function POST(req: NextRequest) {
 
     const docIds = researchDocs.map(d => d.id);
 
-    // Get research segments
+    
     const { data: researchSegments } = await supabase
       .from('research_segments')
       .select('segment_id, company_name, category')
@@ -96,7 +96,7 @@ export async function POST(req: NextRequest) {
 
     const segmentIds = researchSegments.map(s => s.segment_id);
 
-    // Vector similarity search
+    
     const { data: relevantSegments, error: searchError } = await supabase.rpc(
       'match_segments',
       {
@@ -109,7 +109,7 @@ export async function POST(req: NextRequest) {
 
     if (searchError) {
       console.error('Vector search error:', searchError);
-      // Fall back to getting random segments if search fails
+      
       const { data: fallbackSegments } = await supabase
         .from('segments')
         .select('id, content')
@@ -118,7 +118,7 @@ export async function POST(req: NextRequest) {
       return buildChatResponse(message, fallbackSegments || [], researchEntry.companies, conversationHistory);
     }
 
-    // Enrich with company and category info
+    
     const enrichedSegments = relevantSegments?.map(seg => {
       const segmentInfo = researchSegments.find(rs => rs.segment_id === seg.id);
       return {
@@ -152,7 +152,7 @@ async function buildChatResponse(
   companies: string[],
   conversationHistory: Message[]
 ) {
-  // Build context from relevant segments
+  
   const context = relevantSegments
     .map((seg, idx) => {
       const companyLabel = seg.company_name ? `[${seg.company_name}]` : '';
@@ -161,7 +161,7 @@ async function buildChatResponse(
     })
     .join('\n\n');
 
-  // Build system prompt with context
+  
   const systemPrompt = `You are a research assistant helping analyze sustainability and Leads data for the following companies: ${companies.join(', ')}.
 
 You have access to research documents covering:
@@ -183,14 +183,14 @@ Guidelines:
 - If information is missing or unclear, acknowledge it
 - Format numbers and data clearly`;
 
-  // Build messages array
+  
   const messages: Message[] = [
     { role: 'system', content: systemPrompt },
     ...conversationHistory,
     { role: 'user', content: userMessage },
   ];
 
-  // Call OpenAI
+  
   const completion = await openai.chat.completions.create({
     model: 'gpt-4o-mini',
     messages: messages,

@@ -4,7 +4,6 @@ import * as XLSX from 'xlsx';
 
 export const maxDuration = 60;
 
-// Utility functions ported from Python
 function normalizeCompany(name: string): string {
   if (!name) return '';
   return name.normalize('NFKD').replace(/[^\x00-\x7F]/g, '').trim().replace(/\s+/g, ' ');
@@ -92,7 +91,6 @@ function kvJoin(rec: Record<string, any>, keys: string[]): string {
   return out.join('; ');
 }
 
-// Detection functions
 function detectEmissions(rec: Record<string, any>) {
   const commitFields = ['Emissions Reduction Target', 'Target Year', 'Baseline Year', 'Pledge Year', 'Comments'];
   const commitment = hasAnyValue(rec, [...commitFields, 'Source', 'Sources']);
@@ -202,7 +200,6 @@ export async function POST(req: NextRequest) {
     const supabase = await createClient();
     const userId = 'b2bbb440-1d79-42fa-81e3-069efd22fae8';
 
-    // Fetch project and verify ownership
     const { data: project, error: projectError } = await supabase
       .from('sustainability_projects')
       .select('*')
@@ -217,7 +214,6 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // Fetch all file records for this project
     const { data: fileRecords } = await supabase
       .from('project_files')
       .select('*')
@@ -230,7 +226,6 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // Download and parse each file type
     const emissions: any[] = [];
     const investments: any[] = [];
     const purchases: any[] = [];
@@ -250,7 +245,6 @@ export async function POST(req: NextRequest) {
           const json = JSON.parse(text);
           parsed = Array.isArray(json) ? json : [json];
         } catch (e) {
-          // Try to extract JSON from text
           const match = text.match(/\[[\s\S]*\]/);
           if (match) {
             try {
@@ -280,7 +274,6 @@ export async function POST(req: NextRequest) {
       }
     }
 
-    // Build original rows
     const originalRows: any[] = [];
 
     for (const rec of emissions) {
@@ -319,13 +312,11 @@ export async function POST(req: NextRequest) {
       originalRows.push({ Customer: company, Attribute: 'Project environment/constraints', 'Yes/No': det['Project environment/constraints'] ? 'Yes' : 'No', ...det });
     }
 
-    // Sort original rows
     originalRows.sort((a, b) => {
       if (a.Customer !== b.Customer) return a.Customer.localeCompare(b.Customer);
       return a.Attribute.localeCompare(b.Attribute);
     });
 
-    // Build normalized (pivot) view
     const companyMap: Record<string, Record<string, boolean>> = {};
     for (const row of originalRows) {
       if (!companyMap[row.Customer]) {
@@ -353,7 +344,6 @@ export async function POST(req: NextRequest) {
       });
     }
 
-    // Generate Excel
     const wb = XLSX.utils.book_new();
 
     const wsNormalized = XLSX.utils.json_to_sheet(normalizedRows);
@@ -362,10 +352,8 @@ export async function POST(req: NextRequest) {
     const wsOriginal = XLSX.utils.json_to_sheet(originalRows);
     XLSX.utils.book_append_sheet(wb, wsOriginal, 'Original');
 
-    // Write to buffer
     const buffer = XLSX.write(wb, { type: 'buffer', bookType: 'xlsx' });
 
-    // Return as file download
     return new NextResponse(buffer, {
       status: 200,
       headers: {

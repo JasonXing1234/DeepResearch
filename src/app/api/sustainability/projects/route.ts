@@ -1,7 +1,7 @@
 import { createClient } from '@supabase/supabase-js';
 import { NextRequest, NextResponse } from 'next/server';
 
-// Check if Supabase credentials are available
+
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
 const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY;
 
@@ -9,7 +9,7 @@ const supabase = supabaseUrl && supabaseKey
   ? createClient(supabaseUrl, supabaseKey)
   : null;
 
-// GET: List all projects for the user OR get a specific project by ID
+
 export async function GET(request: NextRequest) {
   try {
     if (!supabase) {
@@ -22,15 +22,15 @@ export async function GET(request: NextRequest) {
       );
     }
 
-    // For development, use hardcoded user ID
+    
     const userId = 'b2bbb440-1d79-42fa-81e3-069efd22fae8';
 
-    // Check if requesting a specific project
+    
     const { searchParams } = new URL(request.url);
     const projectId = searchParams.get('id');
 
     if (projectId) {
-      // Get specific project
+      
       const { data: project, error } = await supabase
         .from('sustainability_projects')
         .select('*')
@@ -58,7 +58,7 @@ export async function GET(request: NextRequest) {
       });
     }
 
-    // Get all projects
+    
     const { data: projects, error } = await supabase
       .from('sustainability_projects')
       .select('*')
@@ -85,7 +85,7 @@ export async function GET(request: NextRequest) {
   }
 }
 
-// POST: Create a new project
+
 export async function POST(request: NextRequest) {
   try {
     if (!supabase) {
@@ -107,7 +107,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // For development, use hardcoded user ID
+    
     const userId = 'b2bbb440-1d79-42fa-81e3-069efd22fae8';
 
     const { data: project, error } = await supabase
@@ -143,7 +143,7 @@ export async function POST(request: NextRequest) {
   }
 }
 
-// DELETE: Delete a project
+
 export async function DELETE(request: NextRequest) {
   try {
     if (!supabase) {
@@ -165,10 +165,10 @@ export async function DELETE(request: NextRequest) {
       );
     }
 
-    // For development, use hardcoded user ID
+    
     const userId = 'b2bbb440-1d79-42fa-81e3-069efd22fae8';
 
-    // Verify project belongs to user
+    
     const { data: project } = await supabase
       .from('sustainability_projects')
       .select('user_id')

@@ -23,7 +23,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Validate file type
+    
     const validFileTypes = [
       'emissions',
       'investments',
@@ -42,10 +42,10 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // For development, use hardcoded user ID
+    
     const userId = 'b2bbb440-1d79-42fa-81e3-069efd22fae8';
 
-    // Verify project exists and belongs to user
+    
     const { data: project } = await supabase
       .from('sustainability_projects')
       .select('id, user_id')
@@ -59,14 +59,14 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Create storage path
+    
     const filename = `${Date.now()}_${file.name}`;
     const storagePath = `sustainability/${userId}/${projectId}/${filename}`;
 
-    // Convert file to buffer
+    
     const buffer = await file.arrayBuffer();
 
-    // Upload to Supabase Storage
+    
     const { data: storageData, error: storageError } = await supabase.storage
       .from('sustainability-reports')
       .upload(storagePath, buffer, {
@@ -81,7 +81,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Create project_files record
+    
     const { data: fileRecord, error: dbError } = await supabase
       .from('project_files')
       .insert([
@@ -100,7 +100,7 @@ export async function POST(request: NextRequest) {
       .single();
 
     if (dbError) {
-      // Clean up uploaded file if database insert fails
+      
       await supabase.storage
         .from('sustainability-reports')
         .remove([storagePath]);
@@ -111,7 +111,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Update project file reference
+    
     const fileColumnMap: Record<string, string> = {
       emissions: 'emissions_file_id',
       investments: 'investments_file_id',

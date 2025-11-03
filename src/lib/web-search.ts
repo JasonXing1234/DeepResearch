@@ -8,7 +8,6 @@ interface SearchResult {
 export class WebSearch {
   async search(query: string): Promise<SearchResult[]> {
     try {
-      // Use Tavily API for web search
       const apiKey = process.env.TAVILY_API_KEY;
 
       if (!apiKey) {

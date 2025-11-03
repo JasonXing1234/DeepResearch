@@ -8,15 +8,15 @@ const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS
 async function createTables() {
   console.log('📦 Creating research queue tables...\n');
 
-  // Read the migration file
+  
   const migrationPath = path.join(__dirname, '..', 'supabase', 'migrations', '20251023070000_add_research_queue.sql');
   let migrationSql = fs.readFileSync(migrationPath, 'utf8');
 
-  // Remove RLS enable statements for development
+  
   migrationSql = migrationSql.replace(/ALTER TABLE .* ENABLE ROW LEVEL SECURITY;/g, '-- RLS disabled for development');
   migrationSql = migrationSql.replace(/CREATE POLICY .*/g, '-- Policy disabled for development');
 
-  // Use fetch to execute SQL directly
+  
   const response = await fetch(`${supabaseUrl}/rest/v1/rpc/exec`, {
     method: 'POST',
     headers: {
@@ -34,7 +34,7 @@ async function createTables() {
     const error = await response.text();
     console.error('❌ Error executing migration:', error);
 
-    // Try using psql directly instead
+    
     console.log('\n📝 Writing SQL to temp file and using psql...');
     const tempFile = '/tmp/research_queue_migration.sql';
     fs.writeFileSync(tempFile, migrationSql);

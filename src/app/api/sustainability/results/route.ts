@@ -9,7 +9,7 @@ const supabase = createClient(
 export async function GET(request: NextRequest) {
   try {
     const projectId = request.nextUrl.searchParams.get('projectId');
-    const resultType = request.nextUrl.searchParams.get('type') || 'summary'; // summary, details, diagnostics
+    const resultType = request.nextUrl.searchParams.get('type') || 'summary'; 
 
     if (!projectId) {
       return NextResponse.json(
@@ -18,10 +18,10 @@ export async function GET(request: NextRequest) {
       );
     }
 
-    // For development, use hardcoded user ID
+    
     const userId = 'b2bbb440-1d79-42fa-81e3-069efd22fae8';
 
-    // Verify project exists and belongs to user
+    
     const { data: project } = await supabase
       .from('sustainability_projects')
       .select('id, user_id')

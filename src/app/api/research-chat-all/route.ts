@@ -23,16 +23,16 @@ interface RelevantSegment {
   category?: string;
 }
 
-/**
- * POST /api/research-chat-all
- * Chat with ALL research documents using RAG
- *
- * Body:
- * {
- *   message: string,            // User's question
- *   conversationHistory?: Message[]  // Optional conversation history
- * }
- */
+
+
+
+
+
+
+
+
+
+
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
@@ -46,9 +46,9 @@ export async function POST(req: NextRequest) {
     }
 
     const supabase = await createClient();
-    const userId = 'b2bbb440-1d79-42fa-81e3-069efd22fae8'; // Hardcoded dev user
+    const userId = 'b2bbb440-1d79-42fa-81e3-069efd22fae8'; 
 
-    // Get ALL completed research for this user
+    
     const { data: completedResearch, error: researchError } = await supabase
       .from('research_queue')
       .select('id, companies')
@@ -62,13 +62,13 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // Collect all company names
+    
     const allCompanies = [...new Set(completedResearch.flatMap(r => r.companies))];
 
-    // Generate embedding for the user's question
+    
     const queryEmbedding = await generateSingleEmbedding(message);
 
-    // Get all research document IDs for this user
+    
     const researchIds = completedResearch.map(r => r.id);
     const { data: researchDocs } = await supabase
       .from('research_documents')
@@ -84,7 +84,7 @@ export async function POST(req: NextRequest) {
 
     const docIds = researchDocs.map(d => d.id);
 
-    // Get all research segments
+    
     const { data: researchSegments } = await supabase
       .from('research_segments')
       .select('segment_id, company_name, category')
@@ -99,7 +99,7 @@ export async function POST(req: NextRequest) {
 
     const segmentIds = researchSegments.map(s => s.segment_id);
 
-    // Vector similarity search across ALL segments
+    
     const { data: relevantSegments, error: searchError } = await supabase.rpc(
       'match_segments',
       {
@@ -112,7 +112,7 @@ export async function POST(req: NextRequest) {
 
     if (searchError) {
       console.error('Vector search error:', searchError);
-      // Fall back to getting random segments if search fails
+      
       const { data: fallbackSegments } = await supabase
         .from('segments')
         .select('id, content')
@@ -121,7 +121,7 @@ export async function POST(req: NextRequest) {
       return buildChatResponse(message, fallbackSegments || [], allCompanies, conversationHistory);
     }
 
-    // Enrich with company and category info
+    
     const enrichedSegments = relevantSegments?.map(seg => {
       const segmentInfo = researchSegments.find(rs => rs.segment_id === seg.id);
       return {
@@ -147,7 +147,7 @@ async function buildChatResponse(
   companies: string[],
   conversationHistory: Message[]
 ) {
-  // Build context from relevant segments
+  
   const context = relevantSegments
     .map((seg, idx) => {
       const companyLabel = seg.company_name ? `[${seg.company_name}]` : '';
@@ -156,7 +156,7 @@ async function buildChatResponse(
     })
     .join('\n\n');
 
-  // Build system prompt with context
+  
   const systemPrompt = `You are a research assistant helping analyze sustainability and Leads data across multiple research projects.
 
 You have access to research data for the following companies: ${companies.join(', ')}.
@@ -180,14 +180,14 @@ Guidelines:
 - If information is missing or unclear, acknowledge it
 - Format numbers and data clearly`;
 
-  // Build messages array
+  
   const messages: Message[] = [
     { role: 'system', content: systemPrompt },
     ...conversationHistory,
     { role: 'user', content: userMessage },
   ];
 
-  // Call OpenAI
+  
   const completion = await openai.chat.completions.create({
     model: 'gpt-4o-mini',
     messages: messages,

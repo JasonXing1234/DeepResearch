@@ -30,10 +30,10 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // For development, use hardcoded user ID
+    
     const userId = 'b2bbb440-1d79-42fa-81e3-069efd22fae8';
 
-    // Verify project exists and belongs to user
+    
     const { data: project } = await supabase
       .from('sustainability_projects')
       .select('id, user_id, name')
@@ -47,7 +47,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Fetch all analysis results for context
+    
     const [summaryRes, detailsRes, diagnosticsRes] = await Promise.all([
       supabase
         .from('analysis_results')
@@ -67,7 +67,7 @@ export async function POST(request: NextRequest) {
     const detailsData = detailsRes.data || [];
     const diagnosticsData = diagnosticsRes.data || [];
 
-    // Build context for the AI
+    
     const context = `
 You are an AI assistant helping users analyze sustainability project data for "${project.name}".
 
@@ -113,7 +113,7 @@ Instructions:
 - Keep responses concise but informative
 `;
 
-    // Build messages array for OpenAI
+    
     const messages: ChatMessage[] = [
       {
         role: 'user' as const,
@@ -129,7 +129,7 @@ Instructions:
       },
     ];
 
-    // Call OpenAI
+    
     const completion = await openai.chat.completions.create({
       model: 'gpt-4o',
       messages: messages as any,

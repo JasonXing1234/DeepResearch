@@ -7,15 +7,15 @@ const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY!
 );
 
-// This function is no longer used - kept for reference
+
 async function runAnalysisScriptOld(projectId: string, files: any[]) {
-  // Simulate analysis delay
+  
   await new Promise((resolve) => setTimeout(resolve, 2000));
 
-  // Mock analysis results
+  
   const companies = ['Company A', 'Company B', 'Company C'];
 
-  // Generate summary results
+  
   const summaryResults = companies.map((company) => ({
     company_name: company,
     commitment_to_reduce: Math.random() > 0.5,
@@ -26,7 +26,7 @@ async function runAnalysisScriptOld(projectId: string, files: any[]) {
     project_environment: Math.random() > 0.5,
   }));
 
-  // Generate detailed results
+  
   const attributes = [
     'Commitment to Reduce',
     'Net-zero target',
@@ -51,7 +51,7 @@ async function runAnalysisScriptOld(projectId: string, files: any[]) {
     });
   });
 
-  // Generate diagnostics
+  
   const diagnosticsResults = companies.map((company) => ({
     company_name: company,
     emissions_count: Math.floor(Math.random() * 10),
@@ -61,7 +61,7 @@ async function runAnalysisScriptOld(projectId: string, files: any[]) {
     project_environments_count: Math.floor(Math.random() * 10),
   }));
 
-  // Calculate totals for diagnostics
+  
   diagnosticsResults.forEach((diag) => {
     diag.total_count =
       diag.emissions_count +
@@ -89,10 +89,10 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // For development, use hardcoded user ID
+    
     const userId = 'b2bbb440-1d79-42fa-81e3-069efd22fae8';
 
-    // Verify project exists and belongs to user
+    
     const { data: project } = await supabase
       .from('sustainability_projects')
       .select('*')
@@ -106,7 +106,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Check that at least one file is uploaded
+    
     const fileCount = [
       project.emissions_file_id,
       project.investments_file_id,
@@ -122,13 +122,13 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Update analysis status to processing
+    
     await supabase
       .from('sustainability_projects')
       .update({ analysis_status: 'processing' })
       .eq('id', projectId);
 
-    // Trigger Inngest function for background processing
+    
     await inngest.send({
       name: 'sustainability/analyze.requested',
       data: {

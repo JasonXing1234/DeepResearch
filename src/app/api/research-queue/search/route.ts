@@ -3,10 +3,10 @@ import { createClient } from '@/lib/supabase/server';
 
 export const maxDuration = 60;
 
-/**
- * POST /api/research-queue/search
- * Search research segments by company and optional query embedding
- */
+
+
+
+
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
@@ -20,9 +20,9 @@ export async function POST(req: NextRequest) {
     }
 
     const supabase = await createClient();
-    const userId = 'b2bbb440-1d79-42fa-81e3-069efd22fae8'; // Hardcoded dev user
+    const userId = 'b2bbb440-1d79-42fa-81e3-069efd22fae8'; 
 
-    // Search research segments
+    
     const { data, error } = await supabase.rpc('search_research_segments', {
       p_user_id: userId,
       p_company_name: companyName,

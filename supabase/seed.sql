@@ -1,2 +1,0 @@
--- Seed data for local development and testing
--- Academic tables have been removed - this file is kept for future seed data if needed

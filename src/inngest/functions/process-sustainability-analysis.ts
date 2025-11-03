@@ -1,7 +1,6 @@
 import { inngest } from '../client';
 import { createClient } from '@/lib/supabase/server';
 
-// Utility functions (same as export-excel)
 function normalizeCompany(name: string): string {
   if (!name) return '';
   return name.normalize('NFKD').replace(/[^\x00-\x7F]/g, '').trim().replace(/\s+/g, ' ');
@@ -89,7 +88,6 @@ function kvJoin(rec: Record<string, any>, keys: string[]): string {
   return out.join('; ');
 }
 
-// Detection functions
 function detectEmissions(rec: Record<string, any>) {
   const commitFields = ['Emissions Reduction Target', 'Target Year', 'Baseline Year', 'Pledge Year', 'Comments'];
   const commitment = hasAnyValue(rec, [...commitFields, 'Source', 'Sources']);
@@ -224,7 +222,6 @@ export const processSustainabilityAnalysis = inngest.createFunction(
       return data;
     });
 
-    // Step 2: Download and parse files
     const { emissions, investments, purchases, pilots, environments } = await step.run('parse-files', async () => {
       const emissions: any[] = [];
       const investments: any[] = [];
@@ -245,7 +242,6 @@ export const processSustainabilityAnalysis = inngest.createFunction(
             const json = JSON.parse(text);
             parsed = Array.isArray(json) ? json : [json];
           } catch (e) {
-            // Try to extract JSON from text
             const match = text.match(/\[[\s\S]*\]/);
             if (match) {
               try {
@@ -278,12 +274,10 @@ export const processSustainabilityAnalysis = inngest.createFunction(
       return { emissions, investments, purchases, pilots, environments };
     });
 
-    // Step 3: Process and analyze data
     const { summaryResults, detailsResults, diagnosticsResults } = await step.run('analyze-data', async () => {
       const companyMap: Record<string, Record<string, boolean>> = {};
       const detailsRows: any[] = [];
 
-      // Process emissions
       for (const rec of emissions) {
         const company = normalizeCompany(rec.Company || '');
         if (!company) continue;
@@ -315,7 +309,6 @@ export const processSustainabilityAnalysis = inngest.createFunction(
         });
       }
 
-      // Process investments
       for (const rec of investments) {
         const company = normalizeCompany(rec.Company || '');
         if (!company) continue;
@@ -336,7 +329,6 @@ export const processSustainabilityAnalysis = inngest.createFunction(
         });
       }
 
-      // Process purchases
       for (const rec of purchases) {
         const company = normalizeCompany(rec.Company || '');
         if (!company) continue;
@@ -357,7 +349,6 @@ export const processSustainabilityAnalysis = inngest.createFunction(
         });
       }
 
-      // Process pilots
       for (const rec of pilots) {
         const company = normalizeCompany(rec.Company || '');
         if (!company) continue;
@@ -378,7 +369,6 @@ export const processSustainabilityAnalysis = inngest.createFunction(
         });
       }
 
-      // Process environments
       for (const rec of environments) {
         const company = normalizeCompany(rec.Company || '');
         if (!company) continue;
@@ -399,7 +389,6 @@ export const processSustainabilityAnalysis = inngest.createFunction(
         });
       }
 
-      // Build summary
       const companies = Object.keys(companyMap).sort();
       const summaryResults = companies.map(company => ({
         company_name: company,
@@ -411,7 +400,6 @@ export const processSustainabilityAnalysis = inngest.createFunction(
         project_environment: companyMap[company]['Project environment'] || false,
       }));
 
-      // Build diagnostics
       const countByCompany = (arr: any[]) => {
         const cnt: Record<string, number> = {};
         for (const rec of arr) {
@@ -440,35 +428,29 @@ export const processSustainabilityAnalysis = inngest.createFunction(
       return { summaryResults, detailsResults: detailsRows, diagnosticsResults };
     });
 
-    // Step 4: Save results to database
     await step.run('save-results', async () => {
-      // Clear existing results
       await supabase.from('analysis_results').delete().eq('project_id', projectId);
       await supabase.from('analysis_details').delete().eq('project_id', projectId);
       await supabase.from('analysis_diagnostics').delete().eq('project_id', projectId);
 
-      // Insert summary
       const { error: summaryError } = await supabase
         .from('analysis_results')
         .insert(summaryResults.map(r => ({ project_id: projectId, ...r })));
 
       if (summaryError) throw new Error(`Summary insert failed: ${summaryError.message}`);
 
-      // Insert details
       const { error: detailsError } = await supabase
         .from('analysis_details')
         .insert(detailsResults.map(r => ({ project_id: projectId, ...r })));
 
       if (detailsError) throw new Error(`Details insert failed: ${detailsError.message}`);
 
-      // Insert diagnostics
       const { error: diagnosticsError } = await supabase
         .from('analysis_diagnostics')
         .insert(diagnosticsResults.map(r => ({ project_id: projectId, ...r })));
 
       if (diagnosticsError) throw new Error(`Diagnostics insert failed: ${diagnosticsError.message}`);
 
-      // Update project status
       await supabase
         .from('sustainability_projects')
         .update({ analysis_status: 'completed' })

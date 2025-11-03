@@ -8,7 +8,7 @@ const supabase = createClient(supabaseUrl, supabaseKey);
 async function createBucket() {
   console.log('Creating sustainability-reports bucket...');
 
-  // First, check if bucket already exists
+  
   const { data: existing } = await supabase.storage.listBuckets();
   const bucketExists = existing?.some(b => b.name === 'sustainability-reports');
 
@@ -17,10 +17,10 @@ async function createBucket() {
     return;
   }
 
-  // Create the bucket
+  
   const { data, error } = await supabase.storage.createBucket('sustainability-reports', {
     public: false,
-    fileSizeLimit: 52428800, // 50MB
+    fileSizeLimit: 52428800, 
     allowedMimeTypes: ['text/plain', 'application/json', 'application/octet-stream'],
   });
 

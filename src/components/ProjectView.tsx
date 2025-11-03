@@ -33,8 +33,8 @@ export function ProjectView({
   const [activeTab, setActiveTab] = useState(initialTab);
 
   const handleFileUploaded = () => {
-    // Refresh project details - in a real app, you'd call an API
-    // For now, just update the UI
+    
+    
   };
 
   const handleRunAnalysis = async () => {
@@ -52,7 +52,7 @@ export function ProjectView({
         toast.success('Analysis completed successfully');
         await loadAnalysisResults();
         
-        // Update project with completed status
+        
         const updatedProject = { ...project, analysis_status: 'completed' as const };
         onProjectUpdated(updatedProject);
         setActiveTab('results');
@@ -69,7 +69,7 @@ export function ProjectView({
 
   const loadAnalysisResults = async () => {
     try {
-      // Load summary results
+      
       const summaryResponse = await fetch(
         `/api/sustainability/results?projectId=${project.id}&type=summary`
       );
@@ -78,7 +78,7 @@ export function ProjectView({
         setSummaryResults(summaryData.results);
       }
 
-      // Load details results
+      
       const detailsResponse = await fetch(
         `/api/sustainability/results?projectId=${project.id}&type=details`
       );
@@ -87,7 +87,7 @@ export function ProjectView({
         setDetailsResults(detailsData.results);
       }
 
-      // Load diagnostics results
+      
       const diagnosticsResponse = await fetch(
         `/api/sustainability/results?projectId=${project.id}&type=diagnostics`
       );
@@ -109,7 +109,7 @@ export function ProjectView({
 
   return (
     <div className="flex-1 overflow-hidden flex flex-col bg-white">
-      {/* Header */}
+      {}
       <div className="border-b border-gray-200 px-8 py-6">
         <div className="flex items-center justify-between">
           <div>
@@ -135,7 +135,7 @@ export function ProjectView({
         </div>
       </div>
 
-      {/* Content */}
+      {}
       <div className="flex-1 overflow-y-auto">
         <div className="px-8 py-6">
           <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
@@ -149,7 +149,7 @@ export function ProjectView({
               </TabsTrigger>
             </TabsList>
 
-            {/* Upload Tab */}
+            {}
             <TabsContent value="upload" className="mt-6">
               <Card>
                 <CardHeader>
@@ -168,7 +168,7 @@ export function ProjectView({
               </Card>
             </TabsContent>
 
-            {/* Results Tab */}
+            {}
             <TabsContent value="results" className="mt-6">
               {summaryResults.length > 0 ? (
                 <AnalysisResultsView
@@ -187,7 +187,7 @@ export function ProjectView({
               )}
             </TabsContent>
 
-            {/* Details Tab */}
+            {}
             <TabsContent value="details" className="mt-6">
               {detailsResults.length > 0 ? (
                 <AnalysisResultsView
@@ -206,7 +206,7 @@ export function ProjectView({
               )}
             </TabsContent>
 
-            {/* Diagnostics Tab */}
+            {}
             {diagnosticsResults.length > 0 && (
               <TabsContent value="diagnostics" className="mt-6">
                 <AnalysisResultsView

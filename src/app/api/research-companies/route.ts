@@ -3,7 +3,7 @@ import { createClient } from '@/lib/supabase/server';
 import { WebSearch } from '@/lib/web-search';
 import { inngest } from '@/inngest/client';
 
-export const maxDuration = 300; // Allow up to 5 minutes for research
+export const maxDuration = 300; 
 
 interface CompanyInput {
   name: string;
@@ -39,7 +39,7 @@ interface AnalysisDiagnostic {
 
 export async function POST(req: NextRequest) {
   const supabase = await createClient();
-  const userId = 'b2bbb440-1d79-42fa-81e3-069efd22fae8'; // Hardcoded dev user
+  const userId = 'b2bbb440-1d79-42fa-81e3-069efd22fae8'; 
 
   try {
     const body = await req.json();
@@ -59,7 +59,7 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // Create research queue entry
+    
     const companyNames = companies.map((c: CompanyInput) => c.name);
     const { data: queueEntry, error: queueError } = await supabase
       .from('research_queue')
@@ -83,19 +83,19 @@ export async function POST(req: NextRequest) {
     }
 
     try {
-      // Research each company
+      
       const results = await Promise.all(
         companies.map((company: CompanyInput) => researchCompany(company.name))
       );
 
-    // Generate output files in the same format as uploaded TXT files
+    
     const emissionsReport = generateReport(results, 'emissions');
     const investmentsReport = generateReport(results, 'investments');
     const purchasesReport = generateReport(results, 'purchases');
     const pilotsReport = generateReport(results, 'pilots');
     const environmentsReport = generateReport(results, 'environments');
 
-      // Save reports to Supabase Storage
+      
       const uploadPromises = [
         { type: 'emissions', content: emissionsReport },
         { type: 'investments', content: investmentsReport },
@@ -122,13 +122,13 @@ export async function POST(req: NextRequest) {
       const uploadResults = await Promise.all(uploadPromises);
       const uploadedFiles = uploadResults.filter(Boolean);
 
-    // Create project_files entries and update project with file IDs
+    
     const fileUpdateData: Record<string, string> = {};
 
     for (const file of uploadedFiles) {
       if (!file) continue;
 
-      // Insert into project_files table
+      
       const { data: fileRecord, error: fileError } = await supabase
         .from('project_files')
         .insert({
@@ -137,7 +137,7 @@ export async function POST(req: NextRequest) {
           original_filename: `${file.type}_${Date.now()}.json`,
           storage_bucket: 'sustainability-reports',
           file_path: file.path,
-          file_size_bytes: 0, // We don't have size from upload
+          file_size_bytes: 0, 
           mime_type: 'application/json',
           upload_status: 'completed',
         })
@@ -149,7 +149,7 @@ export async function POST(req: NextRequest) {
         continue;
       }
 
-      // Map to project column name
+      
       fileUpdateData[`${file.type}_file_id`] = fileRecord.id;
     }
 
@@ -162,15 +162,15 @@ export async function POST(req: NextRequest) {
         console.error('Error updating project:', updateError);
       }
 
-      // Store research documents in queue system
+      
       for (const file of uploadedFiles) {
         if (!file) continue;
 
-        // Parse JSON to count companies
+        
         const parsedContent = JSON.parse(file.content);
         const companyCount = Array.isArray(parsedContent) ? parsedContent.length : 0;
 
-        // Create research document entry for each company in the file
+        
         for (let i = 0; i < companyCount; i++) {
           const companyData = parsedContent[i];
           const companyName = companyData?.Company || companyData?.company || `Unknown-${i}`;
@@ -196,17 +196,18 @@ export async function POST(req: NextRequest) {
             continue;
           }
 
-          // Trigger Inngest event to process this document
+          
           await inngest.send({
             name: 'research/document.created',
             data: {
               researchDocumentId: docData.id,
+              userId: userId,
             },
           });
         }
       }
 
-      // Update queue entry to completed
+      
       await supabase
         .from('research_queue')
         .update({
@@ -223,7 +224,7 @@ export async function POST(req: NextRequest) {
         researchId: queueEntry.id,
       });
     } catch (innerError) {
-      // Update queue entry to failed
+      
       await supabase
         .from('research_queue')
         .update({
@@ -248,7 +249,7 @@ async function researchCompany(companyName: string) {
   const searchClient = new WebSearch();
 
   try {
-    // Perform targeted searches for each category
+    
     const [emissionsResults, investmentsResults, purchasesResults, pilotsResults, environmentsResults] =
       await Promise.all([
         searchClient.search(
@@ -300,7 +301,7 @@ function generateReport(
 
     if (searchResults.length === 0) continue;
 
-    // Generate structured data based on category type
+    
     switch (category) {
       case 'emissions':
         reportData.push(generateEmissionsData(result.company, searchResults));
@@ -320,16 +321,16 @@ function generateReport(
     }
   }
 
-  // Return JSON string with pretty formatting
+  
   return JSON.stringify(reportData, null, 2);
 }
 
 function generateEmissionsData(company: string, searchResults: any[]) {
-  // Extract key information from search results
+  
   const topResult = searchResults[0];
   const content = topResult.snippet || topResult.content || '';
 
-  // Parse for emissions data
+  
   const targetMatch = content.match(/(\d+)%\s+(?:reduction|target|by)/i);
   const yearMatch = content.match(/(?:by|target year)\s+(\d{4})/i);
   const netZeroMatch = content.match(/net[\s-]zero/i);
@@ -347,12 +348,12 @@ function generateEmissionsData(company: string, searchResults: any[]) {
 }
 
 function generateInvestmentsData(company: string, searchResults: any[]) {
-  // Combine information from top results into a single entry
+  
   const topResult = searchResults[0];
   const content = topResult?.snippet || topResult?.content || '';
   const title = topResult?.title || '';
 
-  // Try to extract investment information
+  
   const investmentTypes = [
     'renewable energy', 'solar', 'wind', 'electric vehicles',
     'EV', 'charging', 'carbon', 'sustainability', 'clean energy'
@@ -372,11 +373,11 @@ function generateInvestmentsData(company: string, searchResults: any[]) {
 }
 
 function generatePurchasesData(company: string, searchResults: any[]) {
-  // Combine information from top results into a single entry
+  
   const topResult = searchResults[0];
   const content = topResult?.snippet || topResult?.content || '';
 
-  // Try to extract quantity
+  
   const quantityMatch = content.match(/(\d+)\s+(?:new\s+)?(?:truck|vehicle|machine|unit)/i);
 
   return {
@@ -392,7 +393,7 @@ function generatePurchasesData(company: string, searchResults: any[]) {
 }
 
 function generatePilotsData(company: string, searchResults: any[]) {
-  // Combine information from top results into a single entry
+  
   const topResult = searchResults[0];
   const content = topResult?.snippet || topResult?.content || '';
   const title = topResult?.title || '';
@@ -410,7 +411,7 @@ function generatePilotsData(company: string, searchResults: any[]) {
 }
 
 function generateEnvironmentsData(company: string, searchResults: any[]) {
-  // Combine information from top results into a single entry
+  
   const topResult = searchResults[0];
   const content = topResult?.snippet || topResult?.content || '';
   const title = topResult?.title || '';
