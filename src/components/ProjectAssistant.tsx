@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect, useRef } from 'react';
-import { useChat } from '@ai-sdk/react';
+// import { useChat } from '@ai-sdk/react';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
 import { ScrollArea } from './ui/scroll-area';
@@ -22,21 +22,9 @@ export function ProjectAssistant({
 }: ProjectAssistantProps) {
   const [projectContext, setProjectContext] = useState<string>('');
   const [input, setInput] = useState<string>('');
+  const [messages, setMessages] = useState<any[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
-  const { messages, append, isLoading } = useChat({
-    api: '/api/chat',
-    body: {
-      system: `You are a helpful assistant for sustainability data analysis. You have access to analysis results from sustainability projects.
-
-When users ask about their projects, provide insights based on the data available. Be specific about:
-- Companies and their sustainability commitments
-- Analysis results (commitments, net-zero targets, investments, pilots, equipment, environments)
-- Data from specific reports (emissions, investments, machine purchases, pilot projects, project environments)
-- Recommendations based on the data
-
-Always be helpful and provide actionable insights.`,
-    },
-  });
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInput(e.target.value);
@@ -47,7 +35,8 @@ Always be helpful and provide actionable insights.`,
     if (!input.trim()) return;
     const message = input;
     setInput('');
-    await append({ role: 'user', content: message });
+    // TODO: Implement chat functionality with AI SDK v2
+    console.log('Chat message:', message);
   };
 
   
