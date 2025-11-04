@@ -24,7 +24,8 @@ export function ProjectAssistant({
   const scrollRef = useRef<HTMLDivElement>(null);
   const { messages, input, handleInputChange, handleSubmit, isLoading } = useChat({
     api: '/api/chat',
-    system: `You are a helpful assistant for sustainability data analysis. You have access to analysis results from sustainability projects. 
+    body: {
+      system: `You are a helpful assistant for sustainability data analysis. You have access to analysis results from sustainability projects.
 
 When users ask about their projects, provide insights based on the data available. Be specific about:
 - Companies and their sustainability commitments
@@ -33,6 +34,7 @@ When users ask about their projects, provide insights based on the data availabl
 - Recommendations based on the data
 
 Always be helpful and provide actionable insights.`,
+    },
   });
 
   

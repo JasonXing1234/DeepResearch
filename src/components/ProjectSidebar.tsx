@@ -16,7 +16,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from './ui/dialog';
-import type { SustainabilityProject } from '../app/page';
+import type { SustainabilityProject } from './SustainabilityDashboard';
 
 type ProjectSidebarProps = {
   projects: SustainabilityProject[];
