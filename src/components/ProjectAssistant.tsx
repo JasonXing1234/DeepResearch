@@ -22,7 +22,7 @@ export function ProjectAssistant({
 }: ProjectAssistantProps) {
   const [projectContext, setProjectContext] = useState<string>('');
   const [input, setInput] = useState<string>('');
-  const [messages, setMessages] = useState<any[]>([]);
+  const [messages, setMessages] = useState<Array<{id: string; role: 'user' | 'assistant'; content: string}>>([]);
   const [isLoading, setIsLoading] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
 
@@ -32,11 +32,66 @@ export function ProjectAssistant({
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!input.trim()) return;
-    const message = input;
+    if (!input.trim() || isLoading) return;
+
+    const userMessage = input.trim();
+    const userMessageObj = {
+      id: Date.now().toString(),
+      role: 'user' as const,
+      content: userMessage
+    };
+
     setInput('');
-    // TODO: Implement chat functionality with AI SDK v2
-    console.log('Chat message:', message);
+    setMessages(prev => [...prev, userMessageObj]);
+    setIsLoading(true);
+
+    try {
+      // Send message to chat API with project context
+      const response = await fetch('/api/sustainability/chat', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          message: userMessage,
+          projectId: selectedProjectId,
+          conversationHistory: messages.map(m => ({
+            role: m.role,
+            content: m.content
+          }))
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to get response');
+      }
+
+      const data = await response.json();
+
+      if (data.success && data.response) {
+        const assistantMessage = {
+          id: (Date.now() + 1).toString(),
+          role: 'assistant' as const,
+          content: data.response
+        };
+        setMessages(prev => [...prev, assistantMessage]);
+      } else {
+        throw new Error(data.error || 'Failed to get response');
+      }
+    } catch (error) {
+      console.error('Chat error:', error);
+      toast.error('Failed to get response. Please try again.');
+
+      // Add error message to chat
+      const errorMessage = {
+        id: (Date.now() + 1).toString(),
+        role: 'assistant' as const,
+        content: 'Sorry, I encountered an error processing your request. Please try again.'
+      };
+      setMessages(prev => [...prev, errorMessage]);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   
