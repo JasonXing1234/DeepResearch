@@ -138,7 +138,7 @@ export function ProjectView({
       {}
       <div className="flex-1 overflow-y-auto">
         <div className="px-8 py-6">
-          <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
+          <Tabs value={activeTab} onValueChange={(value) => setActiveTab(value as typeof activeTab)} className="w-full">
             <TabsList className="grid w-full max-w-md grid-cols-3">
               <TabsTrigger value="upload">Upload</TabsTrigger>
               <TabsTrigger value="results" disabled={summaryResults.length === 0}>
