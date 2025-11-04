@@ -23,7 +23,7 @@ export function ProjectAssistant({
   const [projectContext, setProjectContext] = useState<string>('');
   const [input, setInput] = useState<string>('');
   const scrollRef = useRef<HTMLDivElement>(null);
-  const { messages, handleSubmit: chatHandleSubmit, isLoading } = useChat({
+  const { messages, append, isLoading } = useChat({
     api: '/api/chat',
     body: {
       system: `You are a helpful assistant for sustainability data analysis. You have access to analysis results from sustainability projects.
@@ -42,11 +42,12 @@ Always be helpful and provide actionable insights.`,
     setInput(e.target.value);
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!input.trim()) return;
-    chatHandleSubmit(e);
+    const message = input;
     setInput('');
+    await append({ role: 'user', content: message });
   };
 
   
