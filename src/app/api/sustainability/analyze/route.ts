@@ -59,9 +59,10 @@ async function runAnalysisScriptOld(projectId: string, files: any[]) {
     machine_purchases_count: Math.floor(Math.random() * 10),
     pilot_projects_count: Math.floor(Math.random() * 10),
     project_environments_count: Math.floor(Math.random() * 10),
+    total_count: 0,
   }));
 
-  
+
   diagnosticsResults.forEach((diag) => {
     diag.total_count =
       diag.emissions_count +
