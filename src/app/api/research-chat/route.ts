@@ -119,7 +119,7 @@ export async function POST(req: NextRequest) {
     }
 
     
-    const enrichedSegments = relevantSegments?.map(seg => {
+    const enrichedSegments = relevantSegments?.map((seg: any) => {
       const segmentInfo = researchSegments.find(rs => rs.segment_id === seg.id);
       return {
         ...seg,
