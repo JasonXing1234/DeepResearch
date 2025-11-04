@@ -6,6 +6,7 @@ import { Button } from '../ui/button';
 import { Input } from '../ui/input';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../ui/card';
 import { toast } from 'sonner';
+import type { ResearchQuery } from '../../contexts/ResearchContext';
 
 interface ResearchQueueEntry {
   id: string;
@@ -118,7 +119,7 @@ export function DeepResearchEngine() {
     }
   };
 
-  const handleExportJSON = async (query: ResearchQuery, datasetType: string) => {
+  const handleExportJSON = async (query: ResearchQueueEntry, datasetType: string) => {
     try {
       toast.info('Downloading research file...');
 
