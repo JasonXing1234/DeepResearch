@@ -9,7 +9,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from './ui/
 import { Send, Loader2 } from 'lucide-react';
 import { toast } from 'sonner';
 import { Markdown } from './markdown';
-import type { SustainabilityProject } from '../app/page';
+import type { SustainabilityProject } from './SustainabilityDashboard';
 
 interface ProjectAssistantProps {
   projects: SustainabilityProject[];
