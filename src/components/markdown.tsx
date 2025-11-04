@@ -21,12 +21,14 @@ export function Markdown({ children, className = '' }: MarkdownProps) {
           ol: ({ node, ...props }) => (
             <ol className="list-decimal list-inside mb-2" {...props} />
           ),
-          code: ({ node, inline, ...props }) =>
-            inline ? (
+          code: ({ node, ...props }: any) => {
+            const inline = !(props.className?.includes('language-'));
+            return inline ? (
               <code className="bg-gray-200 px-1 rounded text-sm" {...props} />
             ) : (
               <code className="block bg-gray-100 p-2 rounded mb-2 overflow-x-auto text-sm" {...props} />
-            ),
+            );
+          },
           a: ({ node, ...props }) => (
             <a className="text-blue-600 hover:underline" {...props} />
           ),
