@@ -13,7 +13,7 @@ import type {
   AnalysisResult,
   AnalysisDetail,
   AnalysisDiagnostic,
-} from '../app/page';
+} from './SustainabilityDashboard';
 
 interface ProjectViewProps {
   project: SustainabilityProject;
