@@ -21,8 +21,9 @@ export function ProjectAssistant({
   selectedProjectId,
 }: ProjectAssistantProps) {
   const [projectContext, setProjectContext] = useState<string>('');
+  const [input, setInput] = useState<string>('');
   const scrollRef = useRef<HTMLDivElement>(null);
-  const { messages, input, handleInputChange, handleSubmit, isLoading } = useChat({
+  const { messages, handleSubmit: chatHandleSubmit, isLoading } = useChat({
     api: '/api/chat',
     body: {
       system: `You are a helpful assistant for sustainability data analysis. You have access to analysis results from sustainability projects.
@@ -36,6 +37,17 @@ When users ask about their projects, provide insights based on the data availabl
 Always be helpful and provide actionable insights.`,
     },
   });
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setInput(e.target.value);
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!input.trim()) return;
+    chatHandleSubmit(e);
+    setInput('');
+  };
 
   
   useEffect(() => {
