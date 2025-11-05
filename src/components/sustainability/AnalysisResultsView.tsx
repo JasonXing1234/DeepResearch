@@ -103,7 +103,7 @@ export function AnalysisResultsView({
 
   const downloadCSV = (
     headers: string[],
-    rows: (string | number)[][][],
+    rows: (string | number)[][],
     filename: string
   ) => {
     const csv = [

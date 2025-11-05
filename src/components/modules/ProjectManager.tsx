@@ -416,7 +416,7 @@ export function ProjectManager() {
                     <div>
                       <input
                         type="file"
-                        ref={el => fileInputRefs.current[fileType.id] = el}
+                        ref={el => { fileInputRefs.current[fileType.id] = el; }}
                         onChange={(e) => {
                           const file = e.target.files?.[0];
                           if (file) {

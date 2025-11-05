@@ -17,7 +17,8 @@ export const processResearchDocument = inngest.createFunction(
     },
     onFailure: async ({ event, error }) => {
       const supabase = createServiceClient();
-      const { researchDocumentId } = event.data as ResearchDocumentEvent;
+      const eventData = event.data.event?.data || event.data;
+      const { researchDocumentId } = eventData as ResearchDocumentEvent;
       await supabase
         .from('research_documents')
         .update({
