@@ -1,5 +1,5 @@
-INSERT INTO storage.buckets (id, name, public, file_size_limit, allowed_mime_types)
-VALUES ('sustainability-reports', 'sustainability-reports', false, 52428800, ARRAY['text/plain']::text[])
+INSERT INTO storage.buckets (id, name)
+VALUES ('sustainability-reports', 'sustainability-reports')
 ON CONFLICT (id) DO NOTHING;
 
 CREATE POLICY "Allow authenticated uploads"

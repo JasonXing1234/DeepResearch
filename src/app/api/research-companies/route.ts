@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { createClient } from '@/lib/supabase/server';
+import { createServiceClient } from '@/lib/supabase/service';
 import { WebSearch } from '@/lib/web-search';
 import { inngest } from '@/inngest/client';
 
@@ -38,7 +38,7 @@ interface AnalysisDiagnostic {
 }
 
 export async function POST(req: NextRequest) {
-  const supabase = await createClient();
+  const supabase = createServiceClient();
   const userId = 'b2bbb440-1d79-42fa-81e3-069efd22fae8'; 
 
   try {
@@ -83,10 +83,16 @@ export async function POST(req: NextRequest) {
     }
 
     try {
-      
+      console.log(`Starting research for ${companies.length} companies:`, companyNames);
+
       const results = await Promise.all(
-        companies.map((company: CompanyInput) => researchCompany(company.name))
+        companies.map((company: CompanyInput) => {
+          console.log(`Researching company: ${company.name}`);
+          return researchCompany(company.name);
+        })
       );
+
+      console.log(`Completed research for all companies`);
 
     
     const emissionsReport = generateReport(results, 'emissions');
@@ -104,10 +110,12 @@ export async function POST(req: NextRequest) {
         { type: 'project_environments', content: environmentsReport },
       ].map(async ({ type, content }) => {
         const fileName = `${userId}/${projectId}/${type}_${Date.now()}.json`;
+        // Convert JSON string to Blob with text/plain MIME type (Supabase Storage doesn't support application/json)
+        const blob = new Blob([content], { type: 'text/plain' });
         const { data, error } = await supabase.storage
           .from('sustainability-reports')
-          .upload(fileName, content, {
-            contentType: 'application/json',
+          .upload(fileName, blob, {
+            contentType: 'text/plain',
             upsert: false,
           });
 
@@ -137,8 +145,8 @@ export async function POST(req: NextRequest) {
           original_filename: `${file.type}_${Date.now()}.json`,
           storage_bucket: 'sustainability-reports',
           file_path: file.path,
-          file_size_bytes: 0, 
-          mime_type: 'application/json',
+          file_size_bytes: 0,
+          mime_type: 'text/plain',
           upload_status: 'completed',
         })
         .select()
@@ -184,7 +192,7 @@ export async function POST(req: NextRequest) {
               storage_bucket: 'sustainability-reports',
               file_path: file.path,
               file_size_bytes: Buffer.byteLength(file.content, 'utf8'),
-              mime_type: 'application/json',
+              mime_type: 'text/plain',
               vectorization_status: 'pending',
               segment_count: 0,
             })
@@ -196,7 +204,13 @@ export async function POST(req: NextRequest) {
             continue;
           }
 
-          
+          console.log('Created research document:', {
+            id: docData.id,
+            company: companyName,
+            category: file.type,
+          });
+
+          // Send Inngest event
           await inngest.send({
             name: 'research/document.created',
             data: {
@@ -204,11 +218,18 @@ export async function POST(req: NextRequest) {
               userId: userId,
             },
           });
+
+          console.log('Sent Inngest event for document:', docData.id);
         }
       }
 
-      
-      await supabase
+
+      console.log('Updating research queue to completed:', {
+        queueId: queueEntry.id,
+        filesGenerated: uploadedFiles.length,
+      });
+
+      const { error: queueUpdateError } = await supabase
         .from('research_queue')
         .update({
           status: 'completed',
@@ -216,6 +237,12 @@ export async function POST(req: NextRequest) {
           files_generated: uploadedFiles.length,
         })
         .eq('id', queueEntry.id);
+
+      if (queueUpdateError) {
+        console.error('Error updating research queue:', queueUpdateError);
+      } else {
+        console.log('Successfully updated research queue to completed');
+      }
 
       return NextResponse.json({
         success: true,

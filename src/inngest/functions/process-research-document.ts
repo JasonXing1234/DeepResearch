@@ -106,7 +106,25 @@ export const processResearchDocument = inngest.createFunction(
     });
 
     const embeddings = await step.run('generate-embeddings', async () => {
-      return await generateEmbeddings(chunks);
+      try {
+        return await generateEmbeddings(chunks);
+      } catch (error: any) {
+        console.error('Failed to generate embeddings:', error);
+
+        // If it's a quota error, update the research queue status and throw
+        if (error.message?.includes('quota exceeded')) {
+          const supabase = createServiceClient();
+          await supabase
+            .from('research_queue')
+            .update({
+              status: 'failed',
+              error_message: 'OpenAI API quota exceeded. Please check your billing.',
+            })
+            .eq('id', researchDocument.research_id);
+        }
+
+        throw error;
+      }
     });
 
     const userId = await step.run('get-user-id', async () => {
@@ -178,6 +196,21 @@ export const processResearchDocument = inngest.createFunction(
     await step.run('link-segments', async () => {
       const supabase = createServiceClient();
 
+      // Verify the research document still exists
+      const { data: docCheck, error: docCheckError } = await supabase
+        .from('research_documents')
+        .select('id')
+        .eq('id', researchDocumentId)
+        .single();
+
+      if (docCheckError || !docCheck) {
+        console.error('Research document not found when linking segments:', {
+          researchDocumentId,
+          error: docCheckError,
+        });
+        throw new Error(`Research document ${researchDocumentId} not found when linking segments`);
+      }
+
       const researchSegments = segmentIds.map((segmentId) => ({
         research_document_id: researchDocumentId,
         segment_id: segmentId,
@@ -190,6 +223,12 @@ export const processResearchDocument = inngest.createFunction(
         .insert(researchSegments);
 
       if (error) {
+        console.error('Failed to insert research_segments:', {
+          researchDocumentId,
+          segmentCount: segmentIds.length,
+          error: error.message,
+          details: error,
+        });
         throw new Error(`Failed to link segments: ${error.message}`);
       }
     });

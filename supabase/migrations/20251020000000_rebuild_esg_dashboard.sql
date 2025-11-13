@@ -1,6 +1,6 @@
 CREATE TABLE IF NOT EXISTS projects (
   id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
-  user_id uuid NOT NULL REFERENCES profiles(id) ON DELETE CASCADE,
+  user_id uuid NOT NULL,
 
   name text NOT NULL,
   description text,
@@ -57,7 +57,7 @@ CREATE INDEX idx_project_files_file_type ON project_files(file_type);
 
 CREATE TABLE IF NOT EXISTS deep_research_queries (
   id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
-  user_id uuid NOT NULL REFERENCES profiles(id) ON DELETE CASCADE,
+  user_id uuid NOT NULL,
 
   company_names text[] NOT NULL,
 

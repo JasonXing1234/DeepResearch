@@ -15,6 +15,46 @@ export type EmbeddingResult = {
   index: number;
 };
 
+async function retryWithBackoff<T>(
+  fn: () => Promise<T>,
+  maxRetries = 3,
+  initialDelay = 1000
+): Promise<T> {
+  let lastError: Error;
+
+  for (let attempt = 0; attempt < maxRetries; attempt++) {
+    try {
+      return await fn();
+    } catch (error: any) {
+      lastError = error;
+
+      // If it's a quota error (429), throw immediately without retrying
+      if (error.status === 429 || error.code === 'insufficient_quota') {
+        throw new Error(
+          `OpenAI API quota exceeded. Please check your billing and quota at https://platform.openai.com/account/billing. Original error: ${error.message}`
+        );
+      }
+
+      // For rate limit errors that aren't quota issues, retry with exponential backoff
+      if (error.status === 429 && attempt < maxRetries - 1) {
+        const delay = initialDelay * Math.pow(2, attempt);
+        console.log(`Rate limit hit, retrying in ${delay}ms (attempt ${attempt + 1}/${maxRetries})...`);
+        await new Promise(resolve => setTimeout(resolve, delay));
+        continue;
+      }
+
+      // For other errors, retry with exponential backoff
+      if (attempt < maxRetries - 1) {
+        const delay = initialDelay * Math.pow(2, attempt);
+        console.log(`Request failed, retrying in ${delay}ms (attempt ${attempt + 1}/${maxRetries})...`);
+        await new Promise(resolve => setTimeout(resolve, delay));
+      }
+    }
+  }
+
+  throw lastError!;
+}
+
 export async function generateEmbeddings(
   chunks: TextChunk[],
   onProgress?: (processed: number, total: number) => void | Promise<void>
@@ -29,16 +69,28 @@ export async function generateEmbeddings(
     const batch = chunks.slice(i, i + MAX_BATCH_SIZE);
     const batchTexts = batch.map((chunk) => chunk.content);
 
-    const response = await openai.embeddings.create({
-      model: EMBEDDING_MODEL,
-      input: batchTexts,
-    });
+    try {
+      const response = await retryWithBackoff(() =>
+        openai.embeddings.create({
+          model: EMBEDDING_MODEL,
+          input: batchTexts,
+        })
+      );
 
-    const batchEmbeddings = response.data.map((item) => item.embedding);
-    allEmbeddings.push(...batchEmbeddings);
+      const batchEmbeddings = response.data.map((item) => item.embedding);
+      allEmbeddings.push(...batchEmbeddings);
 
-    if (onProgress) {
-      await onProgress(Math.min(i + MAX_BATCH_SIZE, chunks.length), chunks.length);
+      if (onProgress) {
+        await onProgress(Math.min(i + MAX_BATCH_SIZE, chunks.length), chunks.length);
+      }
+
+      // Add a small delay between batches to avoid rate limiting
+      if (i + MAX_BATCH_SIZE < chunks.length) {
+        await new Promise(resolve => setTimeout(resolve, 100));
+      }
+    } catch (error: any) {
+      console.error(`Failed to generate embeddings for batch ${i}-${i + batch.length}:`, error.message);
+      throw error;
     }
   }
 
@@ -46,12 +98,19 @@ export async function generateEmbeddings(
 }
 
 export async function generateSingleEmbedding(text: string): Promise<number[]> {
-  const response = await openai.embeddings.create({
-    model: EMBEDDING_MODEL,
-    input: text,
-  });
+  try {
+    const response = await retryWithBackoff(() =>
+      openai.embeddings.create({
+        model: EMBEDDING_MODEL,
+        input: text,
+      })
+    );
 
-  return response.data[0].embedding;
+    return response.data[0].embedding;
+  } catch (error: any) {
+    console.error('Failed to generate single embedding:', error.message);
+    throw error;
+  }
 }
 
 export function cosineSimilarity(a: number[], b: number[]): number {

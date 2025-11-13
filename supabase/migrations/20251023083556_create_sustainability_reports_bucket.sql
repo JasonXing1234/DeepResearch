@@ -1,10 +1,7 @@
-INSERT INTO storage.buckets (id, name, public, file_size_limit, allowed_mime_types)
+INSERT INTO storage.buckets (id, name)
 VALUES (
   'sustainability-reports',
-  'sustainability-reports',
-  false,
-  52428800,
-  ARRAY['text/plain', 'application/json']::text[]
+  'sustainability-reports'
 )
 ON CONFLICT (id) DO NOTHING;
 

@@ -65,20 +65,47 @@ export function ResultsExplorer({ projectId, onBack }: ResultsExplorerProps) {
         fetch(`/api/sustainability/results?projectId=${projectId}&type=details`),
       ]);
 
+      // Check if responses are OK before parsing
+      if (!summaryRes.ok) {
+        console.error('Summary API error:', summaryRes.status, summaryRes.statusText);
+        const text = await summaryRes.text();
+        console.error('Summary response:', text);
+        throw new Error(`Failed to fetch summary results: ${summaryRes.statusText}`);
+      }
+
+      if (!detailsRes.ok) {
+        console.error('Details API error:', detailsRes.status, detailsRes.statusText);
+        const text = await detailsRes.text();
+        console.error('Details response:', text);
+        throw new Error(`Failed to fetch detail results: ${detailsRes.statusText}`);
+      }
+
+      // Parse JSON responses
       const [summaryData, detailsData] = await Promise.all([
-        summaryRes.json(),
-        detailsRes.json(),
+        summaryRes.json().catch(err => {
+          console.error('Error parsing summary JSON:', err);
+          return { success: false, results: [] };
+        }),
+        detailsRes.json().catch(err => {
+          console.error('Error parsing details JSON:', err);
+          return { success: false, results: [] };
+        }),
       ]);
 
       if (summaryData.success) {
         setSummaryResults(summaryData.results || []);
+      } else {
+        console.warn('Summary fetch unsuccessful:', summaryData);
       }
+
       if (detailsData.success) {
         setDetailResults(detailsData.results || []);
+      } else {
+        console.warn('Details fetch unsuccessful:', detailsData);
       }
     } catch (error) {
       console.error('Error fetching results:', error);
-      toast.error('Error loading results');
+      toast.error(error instanceof Error ? error.message : 'Error loading results');
     } finally {
       setIsLoading(false);
     }

@@ -1,26 +1,28 @@
-ALTER TABLE research_queue DISABLE ROW LEVEL SECURITY;
-ALTER TABLE research_documents DISABLE ROW LEVEL SECURITY;
-ALTER TABLE research_segments DISABLE ROW LEVEL SECURITY;
+-- RLS will be disabled right after tables are created, so commenting out policies
+-- ALTER TABLE research_queue DISABLE ROW LEVEL SECURITY;
+-- ALTER TABLE research_documents DISABLE ROW LEVEL SECURITY;
+-- ALTER TABLE research_segments DISABLE ROW LEVEL SECURITY;
 
-INSERT INTO classes (id, user_id, name, class_code, created_at, updated_at)
-VALUES (
-  '00000000-0000-0000-0000-000000000001',
-  'b2bbb440-1d79-42fa-81e3-069efd22fae8',
-  '[Research Placeholder]',
-  'RESEARCH',
-  NOW(),
-  NOW()
-)
-ON CONFLICT (id) DO NOTHING;
-
-INSERT INTO documents (id, user_id, class_id, title, file_path, created_at, updated_at)
-VALUES (
-  '00000000-0000-0000-0000-000000000001',
-  'b2bbb440-1d79-42fa-81e3-069efd22fae8',
-  '00000000-0000-0000-0000-000000000001',
-  '[Research Placeholder]',
-  'research/placeholder',
-  NOW(),
-  NOW()
-)
-ON CONFLICT (id) DO NOTHING;
+-- Commenting out inserts for tables that don't exist
+-- INSERT INTO classes (id, user_id, name, class_code, created_at, updated_at)
+-- VALUES (
+--   '00000000-0000-0000-0000-000000000001',
+--   'b2bbb440-1d79-42fa-81e3-069efd22fae8',
+--   '[Research Placeholder]',
+--   'RESEARCH',
+--   NOW(),
+--   NOW()
+-- )
+-- ON CONFLICT (id) DO NOTHING;
+--
+-- INSERT INTO documents (id, user_id, class_id, title, file_path, created_at, updated_at)
+-- VALUES (
+--   '00000000-0000-0000-0000-000000000001',
+--   'b2bbb440-1d79-42fa-81e3-069efd22fae8',
+--   '00000000-0000-0000-0000-000000000001',
+--   '[Research Placeholder]',
+--   'research/placeholder',
+--   NOW(),
+--   NOW()
+-- )
+-- ON CONFLICT (id) DO NOTHING;
