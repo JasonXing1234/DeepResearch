@@ -342,8 +342,8 @@ function generateEmissionsData(company: string, searchResults: any[]) {
     'Baseline Year': 'Not specified',
     'Pledge Year': 'Not specified',
     'Net-Zero Target': !!netZeroMatch,
-    'Source': searchResults.slice(0, 3).map(r => r.url).filter(Boolean),
-    'Comments': content.substring(0, 200) + '...'
+    'Comments': content.substring(0, 200) + '...',
+    'Source': searchResults.slice(0, 3).map(r => r.url).filter(Boolean)
   };
 }
 
@@ -368,7 +368,8 @@ function generateInvestmentsData(company: string, searchResults: any[]) {
     'Investment Type': matchedType ? (matchedType.charAt(0).toUpperCase() + matchedType.slice(1)) : 'General Sustainability Investment',
     'Announcement Date': 'Not specified',
     'Description': content.substring(0, 300) + '...',
-    'Source URLs': searchResults.slice(0, 3).map(r => r.url).filter(Boolean)
+    'Comments': '',
+    'Source': searchResults.slice(0, 3).map(r => r.url).filter(Boolean)
   };
 }
 
@@ -383,12 +384,12 @@ function generatePurchasesData(company: string, searchResults: any[]) {
   return {
     'Company': company,
     'Manufacturer': 'Not specified',
-    'MachineType': 'Equipment',
+    'Machine Type': 'Equipment',
     'Model': 'Not specified',
     'Quantity': quantityMatch ? parseInt(quantityMatch[1]) : 0,
-    'PurchaseDate': 'Not specified',
-    'SourceURLs': searchResults.slice(0, 3).map(r => r.url).filter(Boolean),
-    'Comments': content.substring(0, 150) + '...'
+    'Purchase Date': 'Not specified',
+    'Comments': content.substring(0, 150) + '...',
+    'Source': searchResults.slice(0, 3).map(r => r.url).filter(Boolean)
   };
 }
 
@@ -406,7 +407,8 @@ function generatePilotsData(company: string, searchResults: any[]) {
     'Lower Emissions Approach': content.substring(0, 200) + '...',
     'Electric Equipment & Manufacturer': 'Not specified',
     'Project Description': content.substring(0, 300) + '...',
-    'Sources': topResult?.url || ''
+    'Comments': '',
+    'Source': topResult?.url || ''
   };
 }
 
@@ -419,9 +421,10 @@ function generateEnvironmentsData(company: string, searchResults: any[]) {
   return {
     'Company': company,
     'Project': title.substring(0, 100) || 'Facility Project',
-    'constraint type': 'Environmental Constraint',
-    'Project date': 'Not specified',
+    'Constraint Type': 'Environmental Constraint',
+    'Project Date': 'Not specified',
     'Description': content.substring(0, 300) + '...',
+    'Comments': '',
     'Source': topResult?.url || ''
   };
 }

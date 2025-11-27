@@ -132,9 +132,9 @@ function detectInvestment(rec: Record<string, any>) {
 }
 
 function detectPurchase(rec: Record<string, any>) {
-  const anyFields = ['Manufacturer', 'MachineType', 'Model', 'Quantity', 'PurchaseDate', 'Comments'];
+  const anyFields = ['Manufacturer', 'Machine Type', 'MachineType', 'Model', 'Quantity', 'Purchase Date', 'PurchaseDate', 'Comments'];
   const has = hasAnyValue(rec, [...anyFields, 'Source', 'Sources']);
-  const text = kvJoin(rec, ['Manufacturer', 'MachineType', 'Model', 'Quantity', 'PurchaseDate', 'Comments']);
+  const text = kvJoin(rec, ['Manufacturer', 'Machine Type', 'MachineType', 'Model', 'Quantity', 'Purchase Date', 'PurchaseDate', 'Comments']);
   const source = collectSourceText(rec);
   const urls = extractUrls(rec).join('; ');
 
@@ -172,9 +172,9 @@ function detectPilot(rec: Record<string, any>) {
 }
 
 function detectEnvironment(rec: Record<string, any>) {
-  const anyFields = ['Project', 'constraint type', 'Project date', 'Description', 'Comments'];
+  const anyFields = ['Project', 'Constraint Type', 'constraint type', 'Project Date', 'Project date', 'Description', 'Comments'];
   const has = hasAnyValue(rec, [...anyFields, 'Source', 'Sources']);
-  const text = kvJoin(rec, ['Project', 'constraint type', 'Project date', 'Description', 'Comments']);
+  const text = kvJoin(rec, ['Project', 'Constraint Type', 'constraint type', 'Project Date', 'Project date', 'Description', 'Comments']);
   const source = collectSourceText(rec);
   const urls = extractUrls(rec).join('; ');
 

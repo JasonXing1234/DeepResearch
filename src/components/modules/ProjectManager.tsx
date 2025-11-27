@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect, useRef } from 'react';
-import { Plus, Trash2, Download, FileUp, FileText, ArrowLeft } from 'lucide-react';
+import { Plus, Trash2, Download, FileUp, FileText, ArrowLeft, Globe, Folder } from 'lucide-react';
 import { Button } from '../ui/button';
 import { Input } from '../ui/input';
 import { Textarea } from '../ui/textarea';
@@ -16,6 +16,7 @@ import {
   DialogTrigger,
 } from '../ui/dialog';
 import { ResultsExplorer } from './ResultsExplorer';
+import { GlobalResultsExplorer } from './GlobalResultsExplorer';
 
 interface Project {
   id: string;
@@ -58,6 +59,7 @@ export function ProjectManager() {
   const [uploadingFileType, setUploadingFileType] = useState<string | null>(null);
   const [isExporting, setIsExporting] = useState(false);
   const [viewResults, setViewResults] = useState(false);
+  const [isGlobalView, setIsGlobalView] = useState(false);
 
   const fileInputRefs = useRef<Record<string, HTMLInputElement | null>>({});
 
@@ -320,6 +322,15 @@ export function ProjectManager() {
     return (bytes / (1024 * 1024)).toFixed(1) + ' MB';
   };
 
+  if (isGlobalView) {
+    return (
+      <GlobalResultsExplorer
+        projects={projects.filter(p => p.analysis_status === 'completed')}
+        onBack={() => setIsGlobalView(false)}
+      />
+    );
+  }
+
   if (selectedProject && viewResults) {
     return (
       <ResultsExplorer
@@ -463,53 +474,65 @@ export function ProjectManager() {
               Manage your Leads analysis projects and upload report files
             </p>
           </div>
-          <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-            <DialogTrigger asChild>
-              <Button className="bg-blue-600 hover:bg-blue-700">
-                <Plus className="h-4 w-4 mr-2" />
-                New Project
+          <div className="flex items-center gap-3">
+            {projects.filter(p => p.analysis_status === 'completed').length > 0 && (
+              <Button
+                variant="outline"
+                onClick={() => setIsGlobalView(true)}
+                className="border-purple-600 text-purple-600 hover:bg-purple-50"
+              >
+                <Globe className="h-4 w-4 mr-2" />
+                Global View
               </Button>
-            </DialogTrigger>
-            <DialogContent>
-              <DialogHeader>
-                <DialogTitle>Create New Project</DialogTitle>
-                <DialogDescription>
-                  Start a new Leads analysis project by providing basic information
-                </DialogDescription>
-              </DialogHeader>
-              <div className="space-y-4">
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Project Name
-                  </label>
-                  <Input
-                    value={projectName}
-                    onChange={(e) => setProjectName(e.target.value)}
-                    placeholder="e.g., Tech Giants Q4 2024"
-                  />
+            )}
+            <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+              <DialogTrigger asChild>
+                <Button className="bg-blue-600 hover:bg-blue-700">
+                  <Plus className="h-4 w-4 mr-2" />
+                  New Project
+                </Button>
+              </DialogTrigger>
+              <DialogContent>
+                <DialogHeader>
+                  <DialogTitle>Create New Project</DialogTitle>
+                  <DialogDescription>
+                    Start a new Leads analysis project by providing basic information
+                  </DialogDescription>
+                </DialogHeader>
+                <div className="space-y-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Project Name
+                    </label>
+                    <Input
+                      value={projectName}
+                      onChange={(e) => setProjectName(e.target.value)}
+                      placeholder="e.g., Tech Giants Q4 2024"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Description (Optional)
+                    </label>
+                    <Textarea
+                      value={projectDescription}
+                      onChange={(e) => setProjectDescription(e.target.value)}
+                      placeholder="Describe the purpose of this project..."
+                      rows={3}
+                    />
+                  </div>
+                  <div className="flex justify-end gap-2 pt-4">
+                    <Button variant="outline" onClick={() => setIsDialogOpen(false)}>
+                      Cancel
+                    </Button>
+                    <Button onClick={handleCreateProject} className="bg-blue-600 hover:bg-blue-700">
+                      Create Project
+                    </Button>
+                  </div>
                 </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Description (Optional)
-                  </label>
-                  <Textarea
-                    value={projectDescription}
-                    onChange={(e) => setProjectDescription(e.target.value)}
-                    placeholder="Describe the purpose of this project..."
-                    rows={3}
-                  />
-                </div>
-                <div className="flex justify-end gap-2 pt-4">
-                  <Button variant="outline" onClick={() => setIsDialogOpen(false)}>
-                    Cancel
-                  </Button>
-                  <Button onClick={handleCreateProject} className="bg-blue-600 hover:bg-blue-700">
-                    Create Project
-                  </Button>
-                </div>
-              </div>
-            </DialogContent>
-          </Dialog>
+              </DialogContent>
+            </Dialog>
+          </div>
         </div>
       </div>
 
