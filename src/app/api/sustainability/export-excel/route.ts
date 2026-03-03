@@ -280,36 +280,78 @@ export async function POST(req: NextRequest) {
       const company = normalizeCompany(rec.Company || '');
       if (!company) continue;
       const det = detectEmissions(rec);
-      originalRows.push({ Customer: company, Attribute: 'Commitment to Reduce', 'Yes/No': det['Commitment to Reduce'] ? 'Yes' : 'No', ...det });
-      originalRows.push({ Customer: company, Attribute: 'Net-zero target', 'Yes/No': det['Net-zero target'] ? 'Yes' : 'No', ...det });
+      originalRows.push({
+        Customer: company,
+        Attribute: 'Commitment to Reduce',
+        'Yes/No': det['Commitment to Reduce'] ? 'Yes' : 'No',
+        Text: det.Text,
+        Source: det.Source,
+        URL: det.URL
+      });
+      originalRows.push({
+        Customer: company,
+        Attribute: 'Net-zero target',
+        'Yes/No': det['Net-zero target'] ? 'Yes' : 'No',
+        Text: det.Text,
+        Source: det.Source,
+        URL: det.URL
+      });
     }
 
     for (const rec of investments) {
       const company = normalizeCompany(rec.Company || '');
       if (!company) continue;
       const det = detectInvestment(rec);
-      originalRows.push({ Customer: company, Attribute: 'Investment announced', 'Yes/No': det['Investment announced'] ? 'Yes' : 'No', ...det });
+      originalRows.push({
+        Customer: company,
+        Attribute: 'Investment announced',
+        'Yes/No': det['Investment announced'] ? 'Yes' : 'No',
+        Text: det.Text,
+        Source: det.Source,
+        URL: det.URL
+      });
     }
 
     for (const rec of purchases) {
       const company = normalizeCompany(rec.Company || '');
       if (!company) continue;
       const det = detectPurchase(rec);
-      originalRows.push({ Customer: company, Attribute: 'Equipment purchased', 'Yes/No': det['Equipment purchased'] ? 'Yes' : 'No', ...det });
+      originalRows.push({
+        Customer: company,
+        Attribute: 'Equipment purchased',
+        'Yes/No': det['Equipment purchased'] ? 'Yes' : 'No',
+        Text: det.Text,
+        Source: det.Source,
+        URL: det.URL
+      });
     }
 
     for (const rec of pilots) {
       const company = normalizeCompany(rec.Company || '');
       if (!company) continue;
       const det = detectPilot(rec);
-      originalRows.push({ Customer: company, Attribute: 'Pilot', 'Yes/No': det.Pilot ? 'Yes' : 'No', ...det });
+      originalRows.push({
+        Customer: company,
+        Attribute: 'Pilot',
+        'Yes/No': det.Pilot ? 'Yes' : 'No',
+        Text: det.Text,
+        Source: det.Source,
+        URL: det.URL
+      });
     }
 
     for (const rec of environments) {
       const company = normalizeCompany(rec.Company || '');
       if (!company) continue;
       const det = detectEnvironment(rec);
-      originalRows.push({ Customer: company, Attribute: 'Project environment/constraints', 'Yes/No': det['Project environment/constraints'] ? 'Yes' : 'No', ...det });
+      originalRows.push({
+        Customer: company,
+        Attribute: 'Project environment/constraints',
+        'Yes/No': det['Project environment/constraints'] ? 'Yes' : 'No',
+        Text: det.Text,
+        Source: det.Source,
+        URL: det.URL
+      });
     }
 
     originalRows.sort((a, b) => {
