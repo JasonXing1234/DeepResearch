@@ -31,7 +31,56 @@ Edit `.env.local` with your actual API keys:
 - OPENAI_API_KEY - OpenAI API key for AI features
 - INNGEST_EVENT_KEY - Inngest event key (optional for local dev)
 - INNGEST_SIGNING_KEY - Inngest signing key (optional for local dev)
-- TAVILY_API_KEY - Tavily API key for web search functionality
+- WEB_SEARCH_PROVIDER - `bedrock` or `tavily` (defaults to `bedrock` when Bedrock env vars are set)
+- AWS_REGION - AWS region where Bedrock is enabled (for example `us-east-1`)
+- BEDROCK_RESEARCH_MODEL_ID - Bedrock model id for ranking/synthesis (for example `amazon.nova-lite-v1:0`)
+- TAVILY_API_KEY - Optional fallback provider key
+
+## SageMaker Studio Quickstart
+
+If you want to run this repo directly in SageMaker Studio (Code Editor or JupyterLab terminal), use this flow:
+
+1. Open a Studio terminal and clone the repo:
+
+```bash
+git clone <your-repo-url>
+cd DeepResearch
+npm install
+```
+
+2. Create your local env file from the included template:
+
+```bash
+cp .env.example .env.local
+```
+
+3. Update `.env.local` with your real values.
+
+4. Start Next.js bound to all interfaces so Studio proxy can route traffic:
+
+```bash
+npm run dev:studio
+```
+
+5. Open the app through Studio's proxied port URL:
+
+```text
+https://<your-studio-domain>/jupyter/default/proxy/3000/
+```
+
+If your domain uses JupyterLab pathing, this variant also works in many setups:
+
+```text
+https://<your-studio-domain>/jupyterlab/default/proxy/3000/
+```
+
+### Studio Networking and IAM Checklist
+
+- The Studio app subnet/security group allows outbound HTTPS (443)
+- DNS resolution is available from the Studio runtime
+- The execution role includes Bedrock permissions (`bedrock:InvokeModel`, `bedrock:Converse`)
+- `AWS_REGION` and `BEDROCK_RESEARCH_MODEL_ID` match an enabled Bedrock model
+- Supabase URL/keys are valid for the environment you want to use
 
 ## Running the Project
 
@@ -106,7 +155,7 @@ The project follows a standard Next.js 15 App Router structure:
 - Storage: Supabase Storage
 - AI: OpenAI GPT models and embeddings
 - Background Jobs: Inngest
-- Web Search: Tavily API
+- Web Search: Bedrock-ranked open web search with optional Tavily fallback
 - UI Components: Radix UI, shadcn/ui
 
 ## Development Commands
