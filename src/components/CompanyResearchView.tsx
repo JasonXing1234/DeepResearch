@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react';
+import { apiUrl } from '@/lib/base-path';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from './ui/card';
@@ -50,7 +51,7 @@ export function CompanyResearchView({
     try {
       setIsResearching(true);
 
-      const response = await fetch('/api/research-companies', {
+      const response = await fetch(apiUrl('/api/research-companies'), {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

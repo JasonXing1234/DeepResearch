@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect, useRef } from 'react';
+import { apiUrl } from '@/lib/base-path';
 import { Plus, Trash2, Download, FileUp, FileText, ArrowLeft, Globe, Folder } from 'lucide-react';
 import { Button } from '../ui/button';
 import { Input } from '../ui/input';
@@ -81,7 +82,7 @@ export function ProjectManager() {
 
     const pollInterval = setInterval(async () => {
       try {
-        const response = await fetch('/api/sustainability/projects');
+        const response = await fetch(apiUrl('/api/sustainability/projects'));
         const data = await response.json();
 
         if (data.success) {
@@ -108,7 +109,7 @@ export function ProjectManager() {
   const fetchProjects = async () => {
     try {
       setIsLoading(true);
-      const response = await fetch('/api/sustainability/projects');
+      const response = await fetch(apiUrl('/api/sustainability/projects'));
       const data = await response.json();
 
       if (data.success) {
@@ -126,7 +127,7 @@ export function ProjectManager() {
 
   const fetchProjectFiles = async (projectId: string) => {
     try {
-      const response = await fetch(`/api/sustainability/files?projectId=${projectId}`);
+      const response = await fetch(apiUrl(`/api/sustainability/files?projectId=${projectId}`));
       const data = await response.json();
 
       if (data.success) {
@@ -144,7 +145,7 @@ export function ProjectManager() {
     }
 
     try {
-      const response = await fetch('/api/sustainability/projects', {
+      const response = await fetch(apiUrl('/api/sustainability/projects'), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -174,7 +175,7 @@ export function ProjectManager() {
     if (!confirm('Are you sure you want to delete this project?')) return;
 
     try {
-      const response = await fetch('/api/sustainability/projects', {
+      const response = await fetch(apiUrl('/api/sustainability/projects'), {
         method: 'DELETE',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ projectId }),
@@ -208,7 +209,7 @@ export function ProjectManager() {
       formData.append('projectId', projectId);
       formData.append('fileType', fileType);
 
-      const response = await fetch('/api/sustainability/upload', {
+      const response = await fetch(apiUrl('/api/sustainability/upload'), {
         method: 'POST',
         body: formData,
       });
@@ -221,7 +222,7 @@ export function ProjectManager() {
         if (selectedProject) {
           await fetchProjectFiles(selectedProject.id);
           
-          const updated = await fetch(`/api/sustainability/projects?id=${selectedProject.id}`);
+          const updated = await fetch(apiUrl(`/api/sustainability/projects?id=${selectedProject.id}`));
           const updatedData = await updated.json();
           if (updatedData.success) {
             setSelectedProject(updatedData.project);
@@ -241,7 +242,7 @@ export function ProjectManager() {
   const handleExportExcel = async (projectId: string) => {
     setIsExporting(true);
     try {
-      const response = await fetch('/api/sustainability/export-excel', {
+      const response = await fetch(apiUrl('/api/sustainability/export-excel'), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ projectId }),
@@ -270,7 +271,7 @@ export function ProjectManager() {
 
   const handleAnalyze = async (projectId: string) => {
     try {
-      const response = await fetch('/api/sustainability/analyze', {
+      const response = await fetch(apiUrl('/api/sustainability/analyze'), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ projectId }),

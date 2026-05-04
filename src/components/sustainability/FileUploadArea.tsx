@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react';
+import { apiUrl } from '@/lib/base-path';
 import { toast } from 'sonner';
 import { Upload, FileText, Check, X, Loader2 } from 'lucide-react';
 import { Button } from '../ui/button';
@@ -81,7 +82,7 @@ export function FileUploadArea({
       formData.append('projectId', projectId);
       formData.append('fileType', fileType);
 
-      const response = await fetch('/api/sustainability/upload', {
+      const response = await fetch(apiUrl('/api/sustainability/upload'), {
         method: 'POST',
         body: formData,
       });

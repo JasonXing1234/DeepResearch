@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect, useRef } from 'react';
+import { apiUrl } from '@/lib/base-path';
 // import { useChat } from '@ai-sdk/react';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
@@ -47,7 +48,7 @@ export function ProjectAssistant({
 
     try {
       // Send message to chat API with project context
-      const response = await fetch('/api/sustainability/chat', {
+      const response = await fetch(apiUrl('/api/sustainability/chat'), {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -122,7 +123,7 @@ export function ProjectAssistant({
         
         if (selectedProject.analysis_status === 'completed') {
           const summaryResponse = await fetch(
-            `/api/sustainability/results?projectId=${selectedProjectId}&type=summary`
+            apiUrl(`/api/sustainability/results?projectId=${selectedProjectId}&type=summary`)
           );
           const summaryData = await summaryResponse.json();
 

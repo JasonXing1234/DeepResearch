@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useRef, useEffect } from 'react';
+import { apiUrl } from '@/lib/base-path';
 import { Send, Loader2, Bot, User, FileText } from 'lucide-react';
 import { Button } from '../ui/button';
 import { Input } from '../ui/input';
@@ -54,7 +55,7 @@ export function ResearchChat({ researchId, companies }: ResearchChatProps) {
     setIsLoading(true);
 
     try {
-      const response = await fetch('/api/research-chat', {
+      const response = await fetch(apiUrl('/api/research-chat'), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

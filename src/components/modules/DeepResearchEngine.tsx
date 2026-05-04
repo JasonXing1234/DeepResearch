@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react';
+import { apiUrl } from '@/lib/base-path';
 import { Search, Trash2, Download, Loader2, Clock, CheckCircle, XCircle } from 'lucide-react';
 import { Button } from '../ui/button';
 import { Input } from '../ui/input';
@@ -35,7 +36,7 @@ export function DeepResearchEngine() {
   const fetchResearchHistory = async () => {
     try {
       setIsLoadingHistory(true);
-      const response = await fetch('/api/research-queue');
+      const response = await fetch(apiUrl('/api/research-queue'));
       const data = await response.json();
 
       if (data.success) {
@@ -71,7 +72,7 @@ export function DeepResearchEngine() {
 
     try {
       
-      const projectResponse = await fetch('/api/sustainability/projects', {
+      const projectResponse = await fetch(apiUrl('/api/sustainability/projects'), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -91,7 +92,7 @@ export function DeepResearchEngine() {
       const projectId = projectData.project.id;
 
       
-      const researchResponse = await fetch('/api/research-companies', {
+      const researchResponse = await fetch(apiUrl('/api/research-companies'), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -135,7 +136,7 @@ export function DeepResearchEngine() {
       const fileType = fileTypeMap[datasetType] || datasetType;
 
       
-      const response = await fetch(`/api/sustainability/download-file?projectId=${query.id}&fileType=${fileType}`);
+      const response = await fetch(apiUrl(`/api/sustainability/download-file?projectId=${query.id}&fileType=${fileType}`));
 
       if (!response.ok) {
         throw new Error('Failed to download file');
@@ -158,7 +159,7 @@ export function DeepResearchEngine() {
 
   const handleDeleteQuery = async (id: string) => {
     try {
-      const response = await fetch(`/api/research-queue/${id}`, {
+      const response = await fetch(apiUrl(`/api/research-queue/${id}`), {
         method: 'DELETE',
       });
 

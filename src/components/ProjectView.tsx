@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react';
+import { apiUrl } from '@/lib/base-path';
 import { toast } from 'sonner';
 import { FileUploadArea } from './sustainability/FileUploadArea';
 import { AnalysisResultsView } from './sustainability/AnalysisResultsView';
@@ -40,7 +41,7 @@ export function ProjectView({
   const handleRunAnalysis = async () => {
     try {
       setIsAnalyzing(true);
-      const response = await fetch('/api/sustainability/analyze', {
+      const response = await fetch(apiUrl('/api/sustainability/analyze'), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ projectId: project.id }),
@@ -71,7 +72,7 @@ export function ProjectView({
     try {
       
       const summaryResponse = await fetch(
-        `/api/sustainability/results?projectId=${project.id}&type=summary`
+        apiUrl(`/api/sustainability/results?projectId=${project.id}&type=summary`)
       );
       const summaryData = await summaryResponse.json();
       if (summaryData.success) {
@@ -80,7 +81,7 @@ export function ProjectView({
 
       
       const detailsResponse = await fetch(
-        `/api/sustainability/results?projectId=${project.id}&type=details`
+        apiUrl(`/api/sustainability/results?projectId=${project.id}&type=details`)
       );
       const detailsData = await detailsResponse.json();
       if (detailsData.success) {
@@ -89,7 +90,7 @@ export function ProjectView({
 
       
       const diagnosticsResponse = await fetch(
-        `/api/sustainability/results?projectId=${project.id}&type=diagnostics`
+        apiUrl(`/api/sustainability/results?projectId=${project.id}&type=diagnostics`)
       );
       const diagnosticsData = await diagnosticsResponse.json();
       if (diagnosticsData.success) {

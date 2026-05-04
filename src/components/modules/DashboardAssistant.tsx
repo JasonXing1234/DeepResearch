@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useMemo, useRef, useState } from 'react';
+import { apiUrl } from '@/lib/base-path';
 import { Button } from '../ui/button';
 import { Input } from '../ui/input';
 import { ScrollArea } from '../ui/scroll-area';
@@ -56,7 +57,7 @@ export function DashboardAssistant() {
     setIsLoading(true);
 
     try {
-      const response = await fetch('/api/research-chat-all', {
+      const response = await fetch(apiUrl('/api/research-chat-all'), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react';
+import { apiUrl } from '@/lib/base-path';
 import { toast } from 'sonner';
 import { Button } from '../ui/button';
 import { Input } from '../ui/input';
@@ -47,7 +48,7 @@ export function ProjectManager({
 
     try {
       setIsCreating(true);
-      const response = await fetch('/api/sustainability/projects', {
+      const response = await fetch(apiUrl('/api/sustainability/projects'), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -77,7 +78,7 @@ export function ProjectManager({
   const handleDeleteProject = async (projectId: string) => {
     try {
       setDeletingId(projectId);
-      const response = await fetch('/api/sustainability/projects', {
+      const response = await fetch(apiUrl('/api/sustainability/projects'), {
         method: 'DELETE',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ projectId }),

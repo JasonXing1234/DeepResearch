@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react';
+import { apiUrl } from '@/lib/base-path';
 import { Download, ExternalLink, ArrowLeft } from 'lucide-react';
 import { Button } from '../ui/button';
 import { Input } from '../ui/input';
@@ -61,8 +62,8 @@ export function ResultsExplorer({ projectId, onBack }: ResultsExplorerProps) {
     setIsLoading(true);
     try {
       const [summaryRes, detailsRes] = await Promise.all([
-        fetch(`/api/sustainability/results?projectId=${projectId}&type=summary`),
-        fetch(`/api/sustainability/results?projectId=${projectId}&type=details`),
+        fetch(apiUrl(`/api/sustainability/results?projectId=${projectId}&type=summary`)),
+        fetch(apiUrl(`/api/sustainability/results?projectId=${projectId}&type=details`)),
       ]);
 
       const [summaryData, detailsData] = await Promise.all([
