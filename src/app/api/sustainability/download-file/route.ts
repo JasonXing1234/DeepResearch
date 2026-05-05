@@ -3,9 +3,8 @@ import { createClient } from '@/lib/supabase/server';
 
 export async function GET(req: NextRequest) {
   try {
-    const { searchParams } = new URL(req.url);
-    const projectId = searchParams.get('projectId');
-    const fileType = searchParams.get('fileType');
+    const projectId = req.nextUrl.searchParams.get('projectId');
+    const fileType = req.nextUrl.searchParams.get('fileType');
 
     if (!projectId || !fileType) {
       return NextResponse.json(

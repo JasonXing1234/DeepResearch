@@ -9,9 +9,8 @@ export const maxDuration = 60;
 
 export async function GET(req: NextRequest) {
   try {
-    const { searchParams } = new URL(req.url);
-    const limit = parseInt(searchParams.get('limit') || '10');
-    const offset = parseInt(searchParams.get('offset') || '0');
+    const limit = parseInt(req.nextUrl.searchParams.get('limit') || '10');
+    const offset = parseInt(req.nextUrl.searchParams.get('offset') || '0');
 
     const supabase = await createClient();
     const userId = 'b2bbb440-1d79-42fa-81e3-069efd22fae8'; 

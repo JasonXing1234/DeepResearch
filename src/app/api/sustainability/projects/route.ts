@@ -26,8 +26,7 @@ export async function GET(request: NextRequest) {
     const userId = 'b2bbb440-1d79-42fa-81e3-069efd22fae8';
 
     
-    const { searchParams } = new URL(request.url);
-    const projectId = searchParams.get('id');
+    const projectId = request.nextUrl.searchParams.get('id');
 
     if (projectId) {
       
