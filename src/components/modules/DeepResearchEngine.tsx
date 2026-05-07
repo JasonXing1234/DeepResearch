@@ -61,7 +61,13 @@ export function DeepResearchEngine() {
   const handleRunResearch = async () => {
     const activeCompanies = companies.filter((c) => c.trim());
 
+    console.log('[DeepResearchEngine] handleRunResearch triggered', {
+      activeCompaniesCount: activeCompanies.length,
+      activeCompanies,
+    });
+
     if (activeCompanies.length === 0) {
+      console.warn('[DeepResearchEngine] No companies provided');
       toast.error('Enter at least one company name');
       return;
     }
@@ -70,6 +76,7 @@ export function DeepResearchEngine() {
     toast.info('Starting deep research...');
 
     try {
+      console.log('[DeepResearchEngine] Creating project...');
       
       const projectResponse = await fetch('/api/sustainability/projects', {
         method: 'POST',
@@ -82,6 +89,8 @@ export function DeepResearchEngine() {
 
       const projectData = await projectResponse.json();
 
+      console.log('[DeepResearchEngine] Project response:', projectData);
+
       if (!projectData.success) {
         toast.error(projectData.error || 'Failed to create project');
         setIsResearching(false);
@@ -90,6 +99,10 @@ export function DeepResearchEngine() {
 
       const projectId = projectData.project.id;
 
+      console.log('[DeepResearchEngine] Calling /api/research-companies', {
+        projectId,
+        companies: activeCompanies,
+      });
       
       const researchResponse = await fetch('/api/research-companies', {
         method: 'POST',
@@ -101,6 +114,12 @@ export function DeepResearchEngine() {
       });
 
       const researchData = await researchResponse.json();
+
+      console.log('[DeepResearchEngine] Research response:', {
+        success: researchData.success,
+        companiesResearched: researchData.companiesResearched,
+        error: researchData.error,
+      });
 
       if (researchData.success) {
         setCompanies(['', '', '', '']);

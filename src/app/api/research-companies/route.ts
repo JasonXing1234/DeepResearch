@@ -8,7 +8,18 @@ export const maxDuration = 300;
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json().catch(() => ({}));
-    const companies = Array.isArray(body?.companies) ? body.companies : [];
+    
+    // Handle both formats: string array or object array with 'name' property
+    let companies: string[] = [];
+    if (Array.isArray(body?.companies)) {
+      companies = body.companies
+        .map((c: string | { name?: string }) => {
+          if (typeof c === 'string') return c;
+          if (typeof c === 'object' && c?.name) return c.name;
+          return null;
+        })
+        .filter(Boolean);
+    }
 
     console.log(`${DEBUG} POST request`, {
       companiesCount: companies.length,
