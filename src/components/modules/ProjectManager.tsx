@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect, useRef } from 'react';
-import { Plus, Trash2, Download, FileUp, FileText, ArrowLeft, Globe, Folder } from 'lucide-react';
+import { Plus, Trash2, Download, FileUp, FileText, ArrowLeft, Globe } from 'lucide-react';
 import { Button } from '../ui/button';
 import { Input } from '../ui/input';
 import { Textarea } from '../ui/textarea';
@@ -37,6 +37,34 @@ interface ProjectFile {
   original_filename: string;
   file_size_bytes: number;
   upload_status: string;
+}
+
+const DEBUG_NS = '[modules/ProjectManager]';
+
+async function parseJsonWithDebug(response: Response, context: string) {
+  const contentType = response.headers.get('content-type');
+  const responseUrl = response.url;
+  const rawText = await response.text();
+
+  console.log(`${DEBUG_NS} ${context} response meta`, {
+    ok: response.ok,
+    status: response.status,
+    statusText: response.statusText,
+    url: responseUrl,
+    contentType,
+  });
+  console.log(`${DEBUG_NS} ${context} response preview`, rawText.slice(0, 500));
+
+  try {
+    const parsed = rawText ? JSON.parse(rawText) : {};
+    console.log(`${DEBUG_NS} ${context} parsed JSON`, parsed);
+    return parsed;
+  } catch (error) {
+    console.error(`${DEBUG_NS} ${context} JSON parse failed`, error);
+    throw new Error(
+      `${context} parse failure. status=${response.status} contentType=${contentType} preview=${rawText.slice(0, 160)}`
+    );
+  }
 }
 
 const FILE_TYPES = [
@@ -107,13 +135,20 @@ export function ProjectManager() {
 
   const fetchProjects = async () => {
     try {
+      console.log(`${DEBUG_NS} fetchProjects:start`);
       setIsLoading(true);
-      const response = await fetch('/api/sustainability/projects');
-      const data = await response.json();
+      const endpoint = '/api/sustainability/projects';
+      console.log(`${DEBUG_NS} fetchProjects:request`, {
+        endpoint,
+        locationHref: typeof window !== 'undefined' ? window.location.href : 'server',
+      });
+      const response = await fetch(endpoint);
+      const data = await parseJsonWithDebug(response, 'fetchProjects');
 
       if (data.success) {
         setProjects(data.projects || []);
       } else {
+        console.error(`${DEBUG_NS} fetchProjects:backend returned failure`, data);
         toast.error('Failed to load projects');
       }
     } catch (error) {
@@ -126,8 +161,11 @@ export function ProjectManager() {
 
   const fetchProjectFiles = async (projectId: string) => {
     try {
-      const response = await fetch(`/api/sustainability/files?projectId=${projectId}`);
-      const data = await response.json();
+      console.log(`${DEBUG_NS} fetchProjectFiles:start`, { projectId });
+      const endpoint = `/api/sustainability/files?projectId=${projectId}`;
+      console.log(`${DEBUG_NS} fetchProjectFiles:request`, { endpoint });
+      const response = await fetch(endpoint);
+      const data = await parseJsonWithDebug(response, 'fetchProjectFiles');
 
       if (data.success) {
         setProjectFiles(data.files || []);
@@ -144,16 +182,20 @@ export function ProjectManager() {
     }
 
     try {
-      const response = await fetch('/api/sustainability/projects', {
+      const endpoint = '/api/sustainability/projects';
+      const payload = {
+        name: projectName,
+        description: projectDescription,
+      };
+      console.log(`${DEBUG_NS} handleCreateProject:request`, { endpoint, payload });
+
+      const response = await fetch(endpoint, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          name: projectName,
-          description: projectDescription,
-        }),
+        body: JSON.stringify(payload),
       });
 
-      const data = await response.json();
+      const data = await parseJsonWithDebug(response, 'handleCreateProject');
 
       if (data.success) {
         toast.success('Project created successfully');
@@ -174,13 +216,17 @@ export function ProjectManager() {
     if (!confirm('Are you sure you want to delete this project?')) return;
 
     try {
-      const response = await fetch('/api/sustainability/projects', {
+      const endpoint = '/api/sustainability/projects';
+      const payload = { projectId };
+      console.log(`${DEBUG_NS} handleDeleteProject:request`, { endpoint, payload });
+
+      const response = await fetch(endpoint, {
         method: 'DELETE',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ projectId }),
+        body: JSON.stringify(payload),
       });
 
-      const data = await response.json();
+      const data = await parseJsonWithDebug(response, 'handleDeleteProject');
 
       if (data.success) {
         toast.success('Project deleted successfully');
@@ -203,6 +249,12 @@ export function ProjectManager() {
     setUploadingFileType(fileType);
 
     try {
+      console.log(`${DEBUG_NS} handleFileUpload:start`, {
+        projectId,
+        fileType,
+        fileName: file.name,
+        fileSize: file.size,
+      });
       const formData = new FormData();
       formData.append('file', file);
       formData.append('projectId', projectId);
@@ -213,7 +265,7 @@ export function ProjectManager() {
         body: formData,
       });
 
-      const data = await response.json();
+      const data = await parseJsonWithDebug(response, 'handleFileUpload');
 
       if (data.success) {
         toast.success(`${fileType} file uploaded successfully`);
@@ -221,8 +273,12 @@ export function ProjectManager() {
         if (selectedProject) {
           await fetchProjectFiles(selectedProject.id);
           
-          const updated = await fetch(`/api/sustainability/projects?id=${selectedProject.id}`);
-          const updatedData = await updated.json();
+          const updatedEndpoint = `/api/sustainability/projects?id=${selectedProject.id}`;
+          console.log(`${DEBUG_NS} handleFileUpload:refreshSelectedProject`, {
+            updatedEndpoint,
+          });
+          const updated = await fetch(updatedEndpoint);
+          const updatedData = await parseJsonWithDebug(updated, 'handleFileUpload.refreshSelectedProject');
           if (updatedData.success) {
             setSelectedProject(updatedData.project);
           }
@@ -270,13 +326,16 @@ export function ProjectManager() {
 
   const handleAnalyze = async (projectId: string) => {
     try {
-      const response = await fetch('/api/sustainability/analyze', {
+      const endpoint = '/api/sustainability/analyze';
+      const payload = { projectId };
+      console.log(`${DEBUG_NS} handleAnalyze:request`, { endpoint, payload });
+      const response = await fetch(endpoint, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ projectId }),
+        body: JSON.stringify(payload),
       });
 
-      const data = await response.json();
+      const data = await parseJsonWithDebug(response, 'handleAnalyze');
 
       if (data.success) {
         toast.success('Analysis started. This may take a few minutes.');

@@ -16,6 +16,34 @@ import {
 } from '../ui/dialog';
 import type { SustainabilityProject } from '../SustainabilityDashboard';
 
+const DEBUG_NS = '[sustainability/ProjectManager]';
+
+async function parseJsonWithDebug(response: Response, context: string) {
+  const contentType = response.headers.get('content-type');
+  const responseUrl = response.url;
+  const rawText = await response.text();
+
+  console.log(`${DEBUG_NS} ${context} response meta`, {
+    ok: response.ok,
+    status: response.status,
+    statusText: response.statusText,
+    url: responseUrl,
+    contentType,
+  });
+  console.log(`${DEBUG_NS} ${context} response preview`, rawText.slice(0, 500));
+
+  try {
+    const parsed = rawText ? JSON.parse(rawText) : {};
+    console.log(`${DEBUG_NS} ${context} parsed JSON`, parsed);
+    return parsed;
+  } catch (error) {
+    console.error(`${DEBUG_NS} ${context} JSON parse failed`, error);
+    throw new Error(
+      `${context} parse failure. status=${response.status} contentType=${contentType} preview=${rawText.slice(0, 160)}`
+    );
+  }
+}
+
 interface ProjectManagerProps {
   projects: SustainabilityProject[];
   selectedProject: SustainabilityProject | null;
@@ -47,16 +75,20 @@ export function ProjectManager({
 
     try {
       setIsCreating(true);
-      const response = await fetch('/api/sustainability/projects', {
+      const endpoint = '/api/sustainability/projects';
+      const payload = {
+        name: name.trim(),
+        description: description.trim() || null,
+      };
+      console.log(`${DEBUG_NS} handleCreateProject:request`, { endpoint, payload });
+
+      const response = await fetch(endpoint, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          name: name.trim(),
-          description: description.trim() || null,
-        }),
+        body: JSON.stringify(payload),
       });
 
-      const data = await response.json();
+      const data = await parseJsonWithDebug(response, 'handleCreateProject');
 
       if (data.success) {
         onProjectCreated(data.project);
@@ -77,13 +109,17 @@ export function ProjectManager({
   const handleDeleteProject = async (projectId: string) => {
     try {
       setDeletingId(projectId);
-      const response = await fetch('/api/sustainability/projects', {
+      const endpoint = '/api/sustainability/projects';
+      const payload = { projectId };
+      console.log(`${DEBUG_NS} handleDeleteProject:request`, { endpoint, payload });
+
+      const response = await fetch(endpoint, {
         method: 'DELETE',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ projectId }),
+        body: JSON.stringify(payload),
       });
 
-      const data = await response.json();
+      const data = await parseJsonWithDebug(response, 'handleDeleteProject');
 
       if (data.success) {
         onProjectDeleted(projectId);
