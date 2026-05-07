@@ -1,207 +1,30 @@
-import { createClient } from '@supabase/supabase-js';
-import { NextRequest, NextResponse } from 'next/server';
-
-
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY;
-
-const supabase = supabaseUrl && supabaseKey
-  ? createClient(supabaseUrl, supabaseKey)
-  : null;
-
+import { NextRequest } from 'next/server';
+import { jsonDisabled, makeMockProject } from '@/lib/backend-disabled';
 
 export async function GET(request: NextRequest) {
-  try {
-    if (!supabase) {
-      return NextResponse.json(
-        {
-          success: false,
-          error: 'Supabase is not configured. Please set NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY environment variables.',
-        },
-        { status: 500 }
-      );
-    }
+  const projectId = request.nextUrl.searchParams.get('id');
 
-    
-    const userId = 'b2bbb440-1d79-42fa-81e3-069efd22fae8';
-
-    
-    const projectId = request.nextUrl.searchParams.get('id');
-
-    if (projectId) {
-      
-      const { data: project, error } = await supabase
-        .from('sustainability_projects')
-        .select('*')
-        .eq('id', projectId)
-        .eq('user_id', userId)
-        .single();
-
-      if (error) {
-        return NextResponse.json(
-          { success: false, error: error.message },
-          { status: 500 }
-        );
-      }
-
-      if (!project) {
-        return NextResponse.json(
-          { success: false, error: 'Project not found' },
-          { status: 404 }
-        );
-      }
-
-      return NextResponse.json({
-        success: true,
-        project,
-      });
-    }
-
-    
-    const { data: projects, error } = await supabase
-      .from('sustainability_projects')
-      .select('*')
-      .eq('user_id', userId)
-      .order('created_at', { ascending: false });
-
-    if (error) {
-      return NextResponse.json(
-        { success: false, error: error.message },
-        { status: 500 }
-      );
-    }
-
-    return NextResponse.json({
-      success: true,
-      projects: projects || [],
+  if (projectId) {
+    return jsonDisabled({
+      project: makeMockProject({ id: projectId }),
     });
-  } catch (error) {
-    console.error('Error fetching projects:', error);
-    return NextResponse.json(
-      { success: false, error: 'Internal server error' },
-      { status: 500 }
-    );
   }
-}
 
+  return jsonDisabled({ projects: [] });
+}
 
 export async function POST(request: NextRequest) {
-  try {
-    if (!supabase) {
-      return NextResponse.json(
-        {
-          success: false,
-          error: 'Supabase is not configured. Please set NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY environment variables.',
-        },
-        { status: 500 }
-      );
-    }
+  const body = await request.json().catch(() => ({}));
 
-    const { name, description } = await request.json();
-
-    if (!name) {
-      return NextResponse.json(
-        { success: false, error: 'Project name is required' },
-        { status: 400 }
-      );
-    }
-
-    
-    const userId = 'b2bbb440-1d79-42fa-81e3-069efd22fae8';
-
-    const { data: project, error } = await supabase
-      .from('sustainability_projects')
-      .insert([
-        {
-          user_id: userId,
-          name,
-          description: description || null,
-          analysis_status: 'pending',
-        },
-      ])
-      .select()
-      .single();
-
-    if (error) {
-      return NextResponse.json(
-        { success: false, error: error.message },
-        { status: 500 }
-      );
-    }
-
-    return NextResponse.json({
-      success: true,
-      project,
-    });
-  } catch (error) {
-    console.error('Error creating project:', error);
-    return NextResponse.json(
-      { success: false, error: 'Internal server error' },
-      { status: 500 }
-    );
-  }
+  return jsonDisabled({
+    project: makeMockProject({
+      id: crypto.randomUUID(),
+      name: typeof body?.name === 'string' && body.name.trim() ? body.name : 'Frontend Only Project',
+      description: typeof body?.description === 'string' ? body.description : '',
+    }),
+  });
 }
 
-
-export async function DELETE(request: NextRequest) {
-  try {
-    if (!supabase) {
-      return NextResponse.json(
-        {
-          success: false,
-          error: 'Supabase is not configured. Please set NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY environment variables.',
-        },
-        { status: 500 }
-      );
-    }
-
-    const { projectId } = await request.json();
-
-    if (!projectId) {
-      return NextResponse.json(
-        { success: false, error: 'Project ID is required' },
-        { status: 400 }
-      );
-    }
-
-    
-    const userId = 'b2bbb440-1d79-42fa-81e3-069efd22fae8';
-
-    
-    const { data: project } = await supabase
-      .from('sustainability_projects')
-      .select('user_id')
-      .eq('id', projectId)
-      .single();
-
-    if (!project || project.user_id !== userId) {
-      return NextResponse.json(
-        { success: false, error: 'Project not found or access denied' },
-        { status: 403 }
-      );
-    }
-
-    const { error } = await supabase
-      .from('sustainability_projects')
-      .delete()
-      .eq('id', projectId);
-
-    if (error) {
-      return NextResponse.json(
-        { success: false, error: error.message },
-        { status: 500 }
-      );
-    }
-
-    return NextResponse.json({
-      success: true,
-      message: 'Project deleted successfully',
-    });
-  } catch (error) {
-    console.error('Error deleting project:', error);
-    return NextResponse.json(
-      { success: false, error: 'Internal server error' },
-      { status: 500 }
-    );
-  }
+export async function DELETE() {
+  return jsonDisabled({ message: 'Project deleted from frontend-only branch.' });
 }

@@ -1,12 +1,17 @@
-import { serve } from 'inngest/next';
-import { inngest } from '@/inngest/client';
-import { processResearchDocument } from '@/inngest/functions/process-research-document';
-import { processSustainabilityAnalysis } from '@/inngest/functions/process-sustainability-analysis';
+import { NextResponse } from 'next/server';
 
-export const { GET, POST, PUT } = serve({
-  client: inngest,
-  functions: [
-    processResearchDocument,
-    processSustainabilityAnalysis,
-  ],
-});
+export async function GET() {
+  return NextResponse.json({
+    success: true,
+    backendDisabled: true,
+    message: 'Backend worker is disabled on this branch.',
+  });
+}
+
+export async function POST() {
+  return NextResponse.json({
+    success: true,
+    backendDisabled: true,
+    message: 'Backend worker is disabled on this branch.',
+  });
+}
