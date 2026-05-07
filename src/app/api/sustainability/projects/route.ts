@@ -28,27 +28,43 @@ export async function GET(request: NextRequest) {
 }
 
 export async function POST(request: NextRequest) {
-  console.log('[api/sustainability/projects][POST] Incoming request', {
-    url: request.url,
-    method: request.method,
-  });
+  try {
+    console.log('[api/sustainability/projects][POST] Incoming request', {
+      url: request.url,
+      method: request.method,
+      contentType: request.headers.get('content-type'),
+    });
 
-  const body = await request.json().catch(() => ({}));
-  console.log('[api/sustainability/projects][POST] Parsed body', body);
+    // Add timeout to body parsing
+    const bodyPromise = request.json().catch(() => ({}));
+    const timeoutPromise = new Promise((_, reject) =>
+      setTimeout(() => reject(new Error('Body parse timeout')), 5000)
+    );
 
-  const payload = {
-    project: makeMockProject({
-      id: crypto.randomUUID(),
-      name: typeof body?.name === 'string' && body.name.trim() ? body.name : 'Frontend Only Project',
-      description: typeof body?.description === 'string' ? body.description : '',
-    }),
-  };
+    const body = await Promise.race([bodyPromise, timeoutPromise]);
+    
+    console.log('[api/sustainability/projects][POST] Parsed body', body);
 
-  console.log('[api/sustainability/projects][POST] Returning payload', payload);
+    const payload = {
+      project: makeMockProject({
+        id: crypto.randomUUID(),
+        name: typeof body?.name === 'string' && body.name.trim() ? body.name : 'Frontend Only Project',
+        description: typeof body?.description === 'string' ? body.description : '',
+      }),
+    };
 
-  return jsonDisabled({
-    project: payload.project,
-  });
+    console.log('[api/sustainability/projects][POST] Returning payload', payload);
+
+    return jsonDisabled({
+      project: payload.project,
+    });
+  } catch (error) {
+    console.error('[api/sustainability/projects][POST] Error:', error);
+    return jsonDisabled({
+      project: makeMockProject({ id: 'error-project' }),
+      error: error instanceof Error ? error.message : 'Unknown error',
+    });
+  }
 }
 
 export async function DELETE(request: NextRequest) {

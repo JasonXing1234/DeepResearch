@@ -78,6 +78,9 @@ export function DeepResearchEngine() {
     try {
       console.log('[DeepResearchEngine] Creating project...');
       
+      const projectAbortController = new AbortController();
+      const projectTimeout = setTimeout(() => projectAbortController.abort(), 10000); // 10s timeout
+      
       const projectResponse = await fetch('/api/sustainability/projects', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -85,9 +88,23 @@ export function DeepResearchEngine() {
           name: `Research: ${activeCompanies.join(', ')}`,
           description: `Automated research for ${activeCompanies.length} companies`,
         }),
+        signal: projectAbortController.signal,
+      }).catch((err) => {
+        clearTimeout(projectTimeout);
+        console.error('[DeepResearchEngine] Project fetch error:', err);
+        throw err;
       });
-
-      const projectData = await projectResponse.json();
+      
+      clearTimeout(projectTimeout);
+      console.log('[DeepResearchEngine] Project response received', {
+        status: projectResponse.status,
+        contentType: projectResponse.headers.get('content-type'),
+      });
+      
+      const projectData = await projectResponse.json().catch((err) => {
+        console.error('[DeepResearchEngine] Failed to parse project JSON:', err);
+        throw err;
+      });
 
       console.log('[DeepResearchEngine] Project response:', projectData);
 
