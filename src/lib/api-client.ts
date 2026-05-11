@@ -1,6 +1,8 @@
 const HOSTED_BASE_PATH_RE = /^(\/.*?\/(?:ports|proxy)\/\d+)(?:\/|$)/;
 const DEFAULT_SAGEMAKER_BASE_PATH = '/codeeditor/default/ports/3000';
 
+let preferredApiBasePath: string | null = null;
+
 function normalizeBasePath(value: string) {
   const trimmed = value.trim();
   if (!trimmed) return '';
@@ -59,7 +61,35 @@ function inferBasePathFromDocumentAssets() {
   return '';
 }
 
+function extractBasePathFromApiUrl(url: string) {
+  try {
+    const parsed = new URL(url, typeof window === 'undefined' ? 'http://localhost' : window.location.origin);
+    const marker = parsed.pathname.indexOf('/api/');
+    if (marker === -1) return '';
+
+    return normalizeBasePath(parsed.pathname.slice(0, marker));
+  } catch {
+    return '';
+  }
+}
+
+function shouldRetryCandidate(response: Response) {
+  if (response.status === 404) {
+    return true;
+  }
+
+  const contentType = (response.headers.get('content-type') || '').toLowerCase();
+  const looksHtml = contentType.includes('text/html');
+
+  // Hosted reverse proxies often emit HTML 5xx pages for wrong prefixes.
+  return response.status >= 500 && looksHtml;
+}
+
 export function getRuntimeBasePath() {
+  if (preferredApiBasePath !== null) {
+    return preferredApiBasePath;
+  }
+
   const envBasePath = normalizeBasePath(process.env.NEXT_PUBLIC_BASE_PATH ?? '');
   if (envBasePath) return envBasePath;
 
@@ -67,15 +97,15 @@ export function getRuntimeBasePath() {
     return '';
   }
 
-  const inferredBasePath = inferBasePathFromLocation(window.location.pathname);
-  if (inferredBasePath) return inferredBasePath;
+  const assetDerivedBasePath = inferBasePathFromDocumentAssets();
+  if (assetDerivedBasePath) return assetDerivedBasePath;
 
   const nextData = (window as Window & { __NEXT_DATA__?: { assetPrefix?: string } }).__NEXT_DATA__;
   const assetPrefix = normalizeBasePath(nextData?.assetPrefix ?? '');
   if (assetPrefix) return assetPrefix;
 
-  const assetDerivedBasePath = inferBasePathFromDocumentAssets();
-  if (assetDerivedBasePath) return assetDerivedBasePath;
+  const inferredBasePath = inferBasePathFromLocation(window.location.pathname);
+  if (inferredBasePath) return inferredBasePath;
 
   const hostFallback = inferBasePathFromHostname(window.location.hostname);
   if (hostFallback) return hostFallback;
@@ -99,16 +129,20 @@ function buildApiCandidates(path: string) {
 
   const normalizedPath = path.startsWith('/') ? path : `/${path}`;
   const candidates: string[] = [];
-  const runtimeBasePath = getRuntimeBasePath();
 
+  if (preferredApiBasePath) {
+    candidates.push(`${preferredApiBasePath}${normalizedPath}`);
+  }
+
+  // Prioritize the known-good SageMaker Studio path form first.
+  candidates.push(`/codeeditor/default/ports/3000${normalizedPath}`);
+
+  const runtimeBasePath = getRuntimeBasePath();
   if (runtimeBasePath) {
     candidates.push(`${runtimeBasePath}${normalizedPath}`);
   }
 
-  // Common hosted IDE proxy forms used by SageMaker Studio and similar environments.
-  candidates.push(`/codeeditor/default/ports/3000${normalizedPath}`);
   candidates.push(`/jupyter/default/proxy/3000${normalizedPath}`);
-
   candidates.push(normalizedPath);
 
   return Array.from(new Set(candidates));
@@ -116,12 +150,23 @@ function buildApiCandidates(path: string) {
 
 export async function apiFetch(input: string, init?: RequestInit) {
   const candidates = buildApiCandidates(input);
+  let lastResponse: Response | null = null;
 
   for (const candidate of candidates) {
     const response = await fetch(candidate, init);
-    if (response.status !== 404) {
-      return response;
+    lastResponse = response;
+
+    if (shouldRetryCandidate(response)) {
+      continue;
     }
+
+    const learnedBase = extractBasePathFromApiUrl(response.url || candidate);
+    preferredApiBasePath = learnedBase || '';
+    return response;
+  }
+
+  if (lastResponse) {
+    return lastResponse;
   }
 
   return fetch(candidates[candidates.length - 1], init);
