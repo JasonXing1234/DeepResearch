@@ -102,6 +102,10 @@ export function DeepResearchEngine() {
         contentType: projectResponse.headers.get('content-type'),
         url: projectResponse.url,
       });
+
+      if (projectResponse.status === 404) {
+        console.error('[DeepResearchEngine] Project request returned 404. API candidate paths attempted in apiFetch.');
+      }
       
       const projectData = await projectResponse.json().catch((err) => {
         console.error('[DeepResearchEngine] Failed to parse project JSON:', err);
