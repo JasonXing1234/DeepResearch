@@ -71,9 +71,10 @@ export async function POST(req: NextRequest) {
         });
       } catch (error) {
         console.error(`${DEBUG} Search failed for ${company}:`, error);
+        const errorMessage = error instanceof Error ? error.message : 'Unknown Bedrock error';
         researchResults[company] = {
           success: false,
-          error: `Search failed for ${company}`,
+          error: `Search failed for ${company}: ${errorMessage}`,
         };
       }
     }

@@ -67,58 +67,32 @@ export class WebSearch {
       .filter((result) => result.url.startsWith('http'));
   }
 
-  private buildFallbackResults(query: string): SearchResult[] {
-    const normalized = query.trim() || 'company research';
-    const slug = encodeURIComponent(normalized.replace(/\s+/g, '-').toLowerCase());
-
-    return [
-      {
-        title: `${normalized} overview`,
-        url: `https://example.com/research/${slug}/overview`,
-        snippet: `Fallback result generated because Bedrock response was empty. Query: ${normalized}.`,
-        content: `Fallback result generated because Bedrock response was empty. Query: ${normalized}.`,
-      },
-      {
-        title: `${normalized} market updates`,
-        url: `https://example.com/research/${slug}/market-updates`,
-        snippet: `Fallback market update result for ${normalized}.`,
-        content: `Fallback market update result for ${normalized}.`,
-      },
-      {
-        title: `${normalized} filings and reports`,
-        url: `https://example.com/research/${slug}/filings-reports`,
-        snippet: `Fallback filing/report result for ${normalized}.`,
-        content: `Fallback filing/report result for ${normalized}.`,
-      },
-    ];
-  }
-
   async search(query: string): Promise<SearchResult[]> {
+    const prompt = `You are a web research assistant. Find real publicly available web sources for this query:\n\n"${query}"\n\nReturn ONLY a JSON array with 5-8 items.\nEach item MUST include:\n- title\n- url (absolute https URL)\n- snippet (1-2 sentences)\n\nDo not include markdown or extra text.`;
+
+    console.log(`${DEBUG} Invoking Bedrock model`, {
+      modelId: this.modelId,
+      queryPreview: query.slice(0, 120),
+    });
+
+    const command = new InvokeModelCommand({
+      modelId: this.modelId,
+      contentType: 'application/json',
+      accept: 'application/json',
+      body: JSON.stringify({
+        anthropic_version: 'bedrock-2023-06-01',
+        max_tokens: 2048,
+        temperature: 0.2,
+        messages: [
+          {
+            role: 'user',
+            content: prompt,
+          },
+        ],
+      }),
+    });
+
     try {
-      const prompt = `You are a web research assistant. Find real publicly available web sources for this query:\n\n"${query}"\n\nReturn ONLY a JSON array with 5-8 items.\nEach item MUST include:\n- title\n- url (absolute https URL)\n- snippet (1-2 sentences)\n\nDo not include markdown or extra text.`;
-
-      console.log(`${DEBUG} Invoking Bedrock model`, {
-        modelId: this.modelId,
-        queryPreview: query.slice(0, 120),
-      });
-
-      const command = new InvokeModelCommand({
-        modelId: this.modelId,
-        contentType: 'application/json',
-        accept: 'application/json',
-        body: JSON.stringify({
-          anthropic_version: 'bedrock-2023-06-01',
-          max_tokens: 2048,
-          temperature: 0.2,
-          messages: [
-            {
-              role: 'user',
-              content: prompt,
-            },
-          ],
-        }),
-      });
-
       const response = await this.client.send(command);
       const responseText = new TextDecoder().decode(response.body);
       const payload = JSON.parse(responseText) as BedrockMessageResponse;
@@ -136,17 +110,18 @@ export class WebSearch {
         count: normalized.length,
       });
 
-      if (normalized.length > 0) {
-        return normalized;
-      }
-
-      console.warn(`${DEBUG} Bedrock returned empty/invalid URL results. Using fallback.`);
-      return this.buildFallbackResults(query);
+      return normalized;
     } catch (error) {
+      const err = error as { name?: string; message?: string; $metadata?: { httpStatusCode?: number } };
       console.error(`${DEBUG} Bedrock search failed`, {
-        error: error instanceof Error ? error.message : String(error),
+        name: err?.name,
+        message: err?.message,
+        httpStatus: err?.$metadata?.httpStatusCode,
       });
-      return this.buildFallbackResults(query);
+
+      throw new Error(
+        `Bedrock search failed: ${err?.name || 'Error'}${err?.message ? ` - ${err.message}` : ''}`
+      );
     }
   }
 }

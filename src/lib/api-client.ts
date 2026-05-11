@@ -74,12 +74,9 @@ function extractBasePathFromApiUrl(url: string) {
 }
 
 function shouldRetryCandidate(response: Response) {
-  if (response.status === 404) {
-    return true;
-  }
-
-  // Retry any 5xx across hosted proxy candidates.
-  return response.status >= 500;
+  // Retry on not found so we can try alternate hosted base-path candidates.
+  // Do not retry 5xx because that can hide the real backend error with a later 404 fallback.
+  return response.status === 404;
 }
 
 export function getRuntimeBasePath() {
