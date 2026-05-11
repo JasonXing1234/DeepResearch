@@ -1,5 +1,3 @@
-import { BedrockRuntimeClient, InvokeModelCommand } from '@aws-sdk/client-bedrock-runtime';
-
 interface SearchResult {
   title: string;
   url: string;
@@ -14,19 +12,20 @@ interface BedrockMessageResponse {
 const DEBUG = '[WebSearch]';
 
 export class WebSearch {
-  private client: BedrockRuntimeClient;
+  private client: unknown | null;
   private modelId: string;
+  private region: string;
 
   constructor() {
-    const region = process.env.AWS_REGION || 'us-east-1';
+    this.region = process.env.AWS_REGION || 'us-east-1';
     this.modelId =
       process.env.BEDROCK_MODEL_ID ||
       process.env.BEDROCK_RESEARCH_MODEL_ID ||
       'anthropic.claude-3-5-sonnet-20241022';
-    this.client = new BedrockRuntimeClient({ region });
+    this.client = null;
 
     console.log(`${DEBUG} Initialized`, {
-      region,
+      region: this.region,
       modelId: this.modelId,
       hasAwsRegion: !!process.env.AWS_REGION,
       hasBedrockModelId: !!process.env.BEDROCK_MODEL_ID,
@@ -34,6 +33,16 @@ export class WebSearch {
       hasBedrockAgentId: !!process.env.BEDROCK_AGENT_ID,
       hasBedrockAgentAliasId: !!process.env.BEDROCK_AGENT_ALIAS_ID,
     });
+  }
+
+  private async getClient() {
+    if (this.client) {
+      return this.client as { send: (command: unknown) => Promise<unknown> };
+    }
+
+    const { BedrockRuntimeClient } = await import('@aws-sdk/client-bedrock-runtime');
+    this.client = new BedrockRuntimeClient({ region: this.region });
+    return this.client as { send: (command: unknown) => Promise<unknown> };
   }
 
   private extractArrayFromText(text: string): unknown[] {
@@ -75,6 +84,7 @@ export class WebSearch {
       queryPreview: query.slice(0, 120),
     });
 
+    const { InvokeModelCommand } = await import('@aws-sdk/client-bedrock-runtime');
     const command = new InvokeModelCommand({
       modelId: this.modelId,
       contentType: 'application/json',
@@ -93,7 +103,11 @@ export class WebSearch {
     });
 
     try {
-      const response = await this.client.send(command);
+      const client = await this.getClient();
+      const response = await client.send(command) as {
+        body: Uint8Array;
+        $metadata?: { httpStatusCode?: number };
+      };
       const responseText = new TextDecoder().decode(response.body);
       const payload = JSON.parse(responseText) as BedrockMessageResponse;
       const content = payload.content?.[0]?.text || '[]';
@@ -113,6 +127,9 @@ export class WebSearch {
       return normalized;
     } catch (error) {
       const err = error as { name?: string; message?: string; $metadata?: { httpStatusCode?: number } };
+      const isCredentialError = err?.name === 'UnrecognizedClientException';
+      const credentialHint =
+        ' Verify AWS credentials: if using temporary credentials, include AWS_SESSION_TOKEN; otherwise remove static AWS_ACCESS_KEY_ID/AWS_SECRET_ACCESS_KEY to use the SageMaker execution role.';
       console.error(`${DEBUG} Bedrock search failed`, {
         name: err?.name,
         message: err?.message,
@@ -120,7 +137,9 @@ export class WebSearch {
       });
 
       throw new Error(
-        `Bedrock search failed: ${err?.name || 'Error'}${err?.message ? ` - ${err.message}` : ''}`
+        `Bedrock search failed: ${err?.name || 'Error'}${err?.message ? ` - ${err.message}` : ''}${
+          isCredentialError ? credentialHint : ''
+        }`
       );
     }
   }
