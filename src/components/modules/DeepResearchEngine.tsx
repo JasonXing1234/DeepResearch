@@ -100,6 +100,7 @@ export function DeepResearchEngine() {
       console.log('[DeepResearchEngine] Project response received', {
         status: projectResponse.status,
         contentType: projectResponse.headers.get('content-type'),
+        url: projectResponse.url,
       });
       
       const projectData = await projectResponse.json().catch((err) => {
