@@ -1,4 +1,5 @@
 const HOSTED_BASE_PATH_RE = /^(\/.*?\/(?:ports|proxy)\/\d+)(?:\/|$)/;
+const DEFAULT_SAGEMAKER_BASE_PATH = '/codeeditor/default/ports/3000';
 
 function normalizeBasePath(value: string) {
   const trimmed = value.trim();
@@ -15,6 +16,15 @@ function inferBasePathFromLocation(pathname: string) {
   return match?.[1] ?? '';
 }
 
+function inferBasePathFromHostname(hostname: string) {
+  const normalizedHost = hostname.toLowerCase();
+  if (normalizedHost.includes('.studio.') || normalizedHost.endsWith('.sagemaker.aws')) {
+    return DEFAULT_SAGEMAKER_BASE_PATH;
+  }
+
+  return '';
+}
+
 export function getRuntimeBasePath() {
   const envBasePath = normalizeBasePath(process.env.NEXT_PUBLIC_BASE_PATH ?? '');
   if (envBasePath) return envBasePath;
@@ -29,6 +39,9 @@ export function getRuntimeBasePath() {
   const nextData = (window as Window & { __NEXT_DATA__?: { assetPrefix?: string } }).__NEXT_DATA__;
   const assetPrefix = normalizeBasePath(nextData?.assetPrefix ?? '');
   if (assetPrefix) return assetPrefix;
+
+  const hostFallback = inferBasePathFromHostname(window.location.hostname);
+  if (hostFallback) return hostFallback;
 
   return '';
 }
