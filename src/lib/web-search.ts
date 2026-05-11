@@ -1,7 +1,4 @@
-/**
- * Bedrock-powered web search via server-side proxy.
- * Uses local loopback first to avoid hosted proxy URL issues in SageMaker Studio.
- */
+import { BedrockRuntimeClient, InvokeModelCommand } from '@aws-sdk/client-bedrock-runtime';
 
 interface SearchResult {
   title: string;
@@ -10,49 +7,64 @@ interface SearchResult {
   content?: string;
 }
 
+interface BedrockMessageResponse {
+  content?: Array<{ text?: string }>;
+}
+
 const DEBUG = '[WebSearch]';
 
 export class WebSearch {
-  private proxyEndpoint: string;
+  private client: BedrockRuntimeClient;
+  private modelId: string;
 
   constructor() {
-    this.proxyEndpoint = '/api/bedrock-search';
+    const region = process.env.AWS_REGION || 'us-east-1';
+    this.modelId =
+      process.env.BEDROCK_MODEL_ID ||
+      process.env.BEDROCK_RESEARCH_MODEL_ID ||
+      'anthropic.claude-3-5-sonnet-20241022';
+    this.client = new BedrockRuntimeClient({ region });
+
+    console.log(`${DEBUG} Initialized`, {
+      region,
+      modelId: this.modelId,
+      hasAwsRegion: !!process.env.AWS_REGION,
+      hasBedrockModelId: !!process.env.BEDROCK_MODEL_ID,
+      hasBedrockResearchModelId: !!process.env.BEDROCK_RESEARCH_MODEL_ID,
+      hasBedrockAgentId: !!process.env.BEDROCK_AGENT_ID,
+      hasBedrockAgentAliasId: !!process.env.BEDROCK_AGENT_ALIAS_ID,
+    });
   }
 
-  private buildEndpointCandidates(): string[] {
-    if (!this.proxyEndpoint.startsWith('/')) {
-      return [this.proxyEndpoint];
+  private extractArrayFromText(text: string): unknown[] {
+    const match = text.match(/\[[\s\S]*\]/);
+    const jsonText = match ? match[0] : text;
+    const parsed = JSON.parse(jsonText);
+
+    if (!Array.isArray(parsed)) {
+      throw new Error('Model response did not contain a JSON array');
     }
 
-    if (typeof window !== 'undefined') {
-      return [this.proxyEndpoint];
-    }
-
-    const bases = [
-      process.env.INTERNAL_API_BASE_URL,
-      // Prefer loopback first in hosted IDE environments.
-      'http://127.0.0.1:3000',
-      'http://localhost:3000',
-      process.env.NEXT_PUBLIC_APP_URL,
-      process.env.NEXTAUTH_URL,
-      process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : undefined,
-    ].filter(Boolean) as string[];
-
-    const candidates = bases.map((base) => new URL(this.proxyEndpoint, base).toString());
-    return Array.from(new Set(candidates));
+    return parsed;
   }
 
-  private parseSearchResponse(raw: string, status: number) {
-    try {
-      return JSON.parse(raw) as { success?: boolean; results?: SearchResult[]; error?: string };
-    } catch (parseError) {
-      console.error(`${DEBUG} Failed to parse JSON response`, {
-        status,
-        parseError: parseError instanceof Error ? parseError.message : String(parseError),
-        responsePreview: raw.slice(0, 300),
-      });
-      return null;
-    }
+  private normalizeResults(items: unknown[]): SearchResult[] {
+    return items
+      .filter((item) => !!item && typeof item === 'object')
+      .map((item) => {
+        const objectItem = item as Record<string, unknown>;
+        const title = typeof objectItem.title === 'string' ? objectItem.title : 'Search Result';
+        const url = typeof objectItem.url === 'string' ? objectItem.url : '';
+        const snippet = typeof objectItem.snippet === 'string' ? objectItem.snippet : '';
+
+        return {
+          title,
+          url,
+          snippet,
+          content: snippet,
+        };
+      })
+      .filter((result) => result.url.startsWith('http'));
   }
 
   private buildFallbackResults(query: string): SearchResult[] {
@@ -63,8 +75,8 @@ export class WebSearch {
       {
         title: `${normalized} overview`,
         url: `https://example.com/research/${slug}/overview`,
-        snippet: `Fallback result generated locally for ${normalized}.`,
-        content: `Fallback result generated locally for ${normalized}.`,
+        snippet: `Fallback result generated because Bedrock response was empty. Query: ${normalized}.`,
+        content: `Fallback result generated because Bedrock response was empty. Query: ${normalized}.`,
       },
       {
         title: `${normalized} market updates`,
@@ -82,55 +94,59 @@ export class WebSearch {
   }
 
   async search(query: string): Promise<SearchResult[]> {
-    const endpoints = this.buildEndpointCandidates();
+    try {
+      const prompt = `You are a web research assistant. Find real publicly available web sources for this query:\n\n"${query}"\n\nReturn ONLY a JSON array with 5-8 items.\nEach item MUST include:\n- title\n- url (absolute https URL)\n- snippet (1-2 sentences)\n\nDo not include markdown or extra text.`;
 
-    console.log(`${DEBUG} search() called`, {
-      query: query.slice(0, 100),
-      endpointCandidates: endpoints,
-    });
+      console.log(`${DEBUG} Invoking Bedrock model`, {
+        modelId: this.modelId,
+        queryPreview: query.slice(0, 120),
+      });
 
-    for (const endpoint of endpoints) {
-      try {
-        const response = await fetch(endpoint, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ query }),
-        });
+      const command = new InvokeModelCommand({
+        modelId: this.modelId,
+        contentType: 'application/json',
+        accept: 'application/json',
+        body: JSON.stringify({
+          anthropic_version: 'bedrock-2023-06-01',
+          max_tokens: 2048,
+          temperature: 0.2,
+          messages: [
+            {
+              role: 'user',
+              content: prompt,
+            },
+          ],
+        }),
+      });
 
-        console.log(`${DEBUG} fetch response received`, {
-          status: response.status,
-          statusText: response.statusText,
-          url: response.url,
-          endpoint,
-        });
+      const response = await this.client.send(command);
+      const responseText = new TextDecoder().decode(response.body);
+      const payload = JSON.parse(responseText) as BedrockMessageResponse;
+      const content = payload.content?.[0]?.text || '[]';
 
-        const raw = await response.text();
-        const data = this.parseSearchResponse(raw, response.status);
-        if (!data) {
-          continue;
-        }
+      console.log(`${DEBUG} Bedrock raw response`, {
+        httpStatus: response.$metadata?.httpStatusCode,
+        contentPreview: content.slice(0, 220),
+      });
 
-        const results = Array.isArray(data.results) ? data.results : [];
+      const parsedItems = this.extractArrayFromText(content);
+      const normalized = this.normalizeResults(parsedItems);
 
-        console.log(`${DEBUG} parsed response`, {
-          success: data.success,
-          resultCount: results.length,
-          error: data.error,
-          endpoint,
-        });
+      console.log(`${DEBUG} Parsed results`, {
+        count: normalized.length,
+      });
 
-        if (response.ok && data.success && results.length > 0) {
-          return results;
-        }
-      } catch (error) {
-        console.error(`${DEBUG} search() endpoint failed`, {
-          endpoint,
-          error: error instanceof Error ? error.message : String(error),
-        });
+      if (normalized.length > 0) {
+        return normalized;
       }
-    }
 
-    console.warn(`${DEBUG} All endpoint candidates failed or returned empty results. Using fallback results.`);
-    return this.buildFallbackResults(query);
+      console.warn(`${DEBUG} Bedrock returned empty/invalid URL results. Using fallback.`);
+      return this.buildFallbackResults(query);
+    } catch (error) {
+      console.error(`${DEBUG} Bedrock search failed`, {
+        error: error instanceof Error ? error.message : String(error),
+      });
+      return this.buildFallbackResults(query);
+    }
   }
 }
