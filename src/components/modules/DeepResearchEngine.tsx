@@ -258,6 +258,17 @@ export function DeepResearchEngine() {
         }),
       });
 
+      console.log('[DeepResearchEngine] research-companies response received', {
+        status: researchResponse.status,
+        contentType: researchResponse.headers.get('content-type'),
+        url: researchResponse.url,
+      });
+      appendDebugLog('info', 'research_companies_response_received', {
+        status: researchResponse.status,
+        contentType: researchResponse.headers.get('content-type'),
+        url: researchResponse.url,
+      });
+
       const researchData = await parseJsonResponse(researchResponse, 'research companies');
 
       console.log('[DeepResearchEngine] Research response:', {

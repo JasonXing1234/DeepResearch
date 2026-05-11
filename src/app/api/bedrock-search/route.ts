@@ -3,6 +3,9 @@ import { BedrockRuntimeClient, InvokeModelCommand } from '@aws-sdk/client-bedroc
 
 const DEBUG = '[api/bedrock-search]';
 
+export const runtime = 'nodejs';
+export const dynamic = 'force-dynamic';
+
 interface SearchResultItem {
   title?: string;
   url?: string;

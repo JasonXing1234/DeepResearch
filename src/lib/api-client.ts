@@ -143,7 +143,9 @@ function buildApiCandidates(path: string) {
     }
   }
 
-  candidates.push(normalizedPath);
+  if (!studioHost) {
+    candidates.push(normalizedPath);
+  }
 
   return Array.from(new Set(candidates));
 }
@@ -152,9 +154,23 @@ export async function apiFetch(input: string, init?: RequestInit) {
   const candidates = buildApiCandidates(input);
   let lastResponse: Response | null = null;
 
+  if (typeof window !== 'undefined') {
+    console.log('[apiFetch] request', { input, candidates });
+  }
+
   for (const candidate of candidates) {
     const response = await fetch(candidate, init);
     lastResponse = response;
+
+    if (typeof window !== 'undefined') {
+      console.log('[apiFetch] response', {
+        input,
+        candidate,
+        status: response.status,
+        url: response.url,
+        contentType: response.headers.get('content-type'),
+      });
+    }
 
     if (shouldRetryCandidate(response)) {
       continue;
