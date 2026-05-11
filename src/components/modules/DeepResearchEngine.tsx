@@ -160,6 +160,14 @@ export function DeepResearchEngine() {
   };
 
   const companyInputs = companies.filter((c) => c.trim()).length;
+  const latestHasAnyResults =
+    latestResearchResults &&
+    Object.values(latestResearchResults as Record<string, any>).some((item: any) => {
+      if (!item || typeof item !== 'object') return false;
+      if (typeof item.resultCount === 'number') return item.resultCount > 0;
+      if (Array.isArray(item.results)) return item.results.length > 0;
+      return false;
+    });
 
   const handleCompanyChange = (index: number, value: string) => {
     const newCompanies = [...companies];
@@ -260,6 +268,7 @@ export function DeepResearchEngine() {
       appendDebugLog('info', 'research_response_received', {
         success: researchData.success,
         companiesResearched: researchData.companiesResearched,
+        hasAnyResults: researchData.hasAnyResults,
         error: researchData.error,
       });
 
@@ -267,7 +276,15 @@ export function DeepResearchEngine() {
         setCompanies(['', '', '', '']);
         setLatestResearchCompanies(activeCompanies);
         setLatestResearchResults(researchData.results || null);
-        toast.success(`Research completed! Generated ${researchData.uploadedFiles} report files.`);
+
+        if (researchData.hasAnyResults === false) {
+          appendDebugLog('warn', 'research_no_results', {
+            companies: activeCompanies,
+          });
+          toast.warning('Research completed, but no sources were found.');
+        } else {
+          toast.success(`Research completed! Generated ${researchData.uploadedFiles} report files.`);
+        }
 
         
         if (ENABLE_RESEARCH_HISTORY) {
@@ -470,6 +487,11 @@ export function DeepResearchEngine() {
                   <p className="text-sm font-medium text-gray-900">
                     Companies: {latestResearchCompanies.join(', ')}
                   </p>
+                  {!latestHasAnyResults && (
+                    <p className="rounded border border-amber-300 bg-amber-50 px-3 py-2 text-sm text-amber-900">
+                      No sources found for this run. Check model configuration and Bedrock/API logs.
+                    </p>
+                  )}
                   <pre className="max-h-80 overflow-auto rounded bg-gray-900 p-3 text-xs text-gray-100">
                     {JSON.stringify(latestResearchResults, null, 2)}
                   </pre>

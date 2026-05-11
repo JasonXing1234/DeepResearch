@@ -39,13 +39,17 @@ export async function POST(req: NextRequest): Promise<NextResponse<SearchRespons
     }
 
     const region = process.env.AWS_REGION || 'us-east-1';
-    const modelId = process.env.BEDROCK_MODEL_ID || 'anthropic.claude-3-5-sonnet-20241022';
+    const modelId =
+      process.env.BEDROCK_MODEL_ID ||
+      process.env.BEDROCK_RESEARCH_MODEL_ID ||
+      'anthropic.claude-3-5-sonnet-20241022';
 
     console.log(`${DEBUG} Bedrock config`, {
       region,
       modelId,
       hasAwsRegion: !!process.env.AWS_REGION,
       hasBedrockModelId: !!process.env.BEDROCK_MODEL_ID,
+      hasBedrockResearchModelId: !!process.env.BEDROCK_RESEARCH_MODEL_ID,
     });
 
     const client = new BedrockRuntimeClient({ region });

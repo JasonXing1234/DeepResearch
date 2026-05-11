@@ -36,6 +36,7 @@ export async function POST(req: NextRequest) {
 
     const webSearch = new WebSearch();
     const researchResults: Record<string, unknown> = {};
+    let hasAnyResults = false;
 
     console.log(`${DEBUG} Starting research for ${companies.length} companies`);
 
@@ -48,15 +49,23 @@ export async function POST(req: NextRequest) {
         const searchQuery = `${company} company profile business information`;
         const results = await webSearch.search(searchQuery);
 
+        const topResults = results.slice(0, 5);
+        const hasCompanyResults = topResults.length > 0;
+
+        if (hasCompanyResults) {
+          hasAnyResults = true;
+        }
+
         researchResults[company] = {
-          success: true,
+          success: hasCompanyResults,
           query: searchQuery,
-          resultCount: results.length,
-          results: results.slice(0, 5), // Top 5 results per company
+          resultCount: topResults.length,
+          results: topResults,
+          warning: hasCompanyResults ? undefined : 'No sources found for this company',
         };
 
         console.log(`${DEBUG} Search results for ${company}:`, {
-          resultCount: results.length,
+          resultCount: topResults.length,
         });
       } catch (error) {
         console.error(`${DEBUG} Search failed for ${company}:`, error);
@@ -74,8 +83,11 @@ export async function POST(req: NextRequest) {
       uploadedFiles: 0,
       researchId: crypto.randomUUID(),
       companiesResearched: companies.length,
+      hasAnyResults,
       results: researchResults,
-      message: `Research completed for ${companies.length} companies`,
+      message: hasAnyResults
+        ? `Research completed for ${companies.length} companies`
+        : `Research completed, but no sources were found for ${companies.length} companies`,
     });
   } catch (error) {
     console.error(`${DEBUG} POST request failed:`, error);
