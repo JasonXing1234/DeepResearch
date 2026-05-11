@@ -22,6 +22,8 @@ interface ResearchQueueEntry {
   segment_count: number;
 }
 
+const ENABLE_RESEARCH_HISTORY = false;
+
 async function parseJsonResponse(response: Response, context: string) {
   const rawText = await response.text();
   const contentType = (response.headers.get('content-type') || '').toLowerCase();
@@ -53,6 +55,11 @@ export function DeepResearchEngine() {
 
   
   useEffect(() => {
+    if (!ENABLE_RESEARCH_HISTORY) {
+      setIsLoadingHistory(false);
+      return;
+    }
+
     fetchResearchHistory();
   }, []);
 
@@ -169,7 +176,9 @@ export function DeepResearchEngine() {
         toast.success(`Research completed! Generated ${researchData.uploadedFiles} report files.`);
 
         
-        await fetchResearchHistory();
+        if (ENABLE_RESEARCH_HISTORY) {
+          await fetchResearchHistory();
+        }
       } else {
         toast.error(researchData.error || 'Research failed');
       }
@@ -228,7 +237,9 @@ export function DeepResearchEngine() {
 
       if (data.success) {
         toast.success('Research entry deleted');
-        await fetchResearchHistory();
+        if (ENABLE_RESEARCH_HISTORY) {
+          await fetchResearchHistory();
+        }
       } else {
         toast.error(data.error || 'Failed to delete research entry');
       }
