@@ -1,65 +1,49 @@
 import { NextRequest } from 'next/server';
 import { jsonDisabled, makeMockProject } from '@/lib/backend-disabled';
 
-export async function GET(request: NextRequest) {
-  console.log('[api/sustainability/projects][GET] Incoming request', {
-    url: request.url,
-    method: request.method,
-    search: request.nextUrl.search,
-  });
+export const runtime = 'nodejs';
 
+function createFallbackId() {
+  return `frontend-${Date.now()}-${Math.random().toString(36).slice(2, 10)}`;
+}
+
+function createProjectId() {
+  try {
+    const randomUUID = globalThis.crypto?.randomUUID;
+    if (typeof randomUUID === 'function') {
+      return randomUUID.call(globalThis.crypto);
+    }
+  } catch {
+    // Fall through to deterministic fallback id.
+  }
+
+  return createFallbackId();
+}
+
+export async function GET(request: NextRequest) {
   const projectId = request.nextUrl.searchParams.get('id');
-  console.log('[api/sustainability/projects][GET] Parsed query params', {
-    projectId,
-  });
 
   if (projectId) {
-    const payload = {
-      project: makeMockProject({ id: projectId }),
-    };
-    console.log('[api/sustainability/projects][GET] Returning single project payload', payload);
     return jsonDisabled({
       project: makeMockProject({ id: projectId }),
     });
   }
 
-  console.log('[api/sustainability/projects][GET] Returning empty projects payload');
   return jsonDisabled({ projects: [] });
 }
 
 export async function POST(request: NextRequest) {
   try {
-    console.log('[api/sustainability/projects][POST] Incoming request', {
-      url: request.url,
-      method: request.method,
-      contentType: request.headers.get('content-type'),
-    });
+    const body = await request.json().catch(() => ({}));
 
-    // Add timeout to body parsing
-    const bodyPromise = request.json().catch(() => ({}));
-    const timeoutPromise = new Promise((_, reject) =>
-      setTimeout(() => reject(new Error('Body parse timeout')), 5000)
-    );
-
-    const body = await Promise.race([bodyPromise, timeoutPromise]);
-    
-    console.log('[api/sustainability/projects][POST] Parsed body', body);
-
-    const payload = {
+    return jsonDisabled({
       project: makeMockProject({
-        id: crypto.randomUUID(),
+        id: createProjectId(),
         name: typeof body?.name === 'string' && body.name.trim() ? body.name : 'Frontend Only Project',
         description: typeof body?.description === 'string' ? body.description : '',
       }),
-    };
-
-    console.log('[api/sustainability/projects][POST] Returning payload', payload);
-
-    return jsonDisabled({
-      project: payload.project,
     });
   } catch (error) {
-    console.error('[api/sustainability/projects][POST] Error:', error);
     return jsonDisabled({
       project: makeMockProject({ id: 'error-project' }),
       error: error instanceof Error ? error.message : 'Unknown error',
@@ -67,15 +51,6 @@ export async function POST(request: NextRequest) {
   }
 }
 
-export async function DELETE(request: NextRequest) {
-  console.log('[api/sustainability/projects][DELETE] Incoming request', {
-    url: request.url,
-    method: request.method,
-  });
-
-  const body = await request.json().catch(() => ({}));
-  console.log('[api/sustainability/projects][DELETE] Parsed body', body);
-  console.log('[api/sustainability/projects][DELETE] Returning frontend-only delete response');
-
+export async function DELETE() {
   return jsonDisabled({ message: 'Project deleted from frontend-only branch.' });
 }

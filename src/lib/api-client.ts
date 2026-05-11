@@ -13,18 +13,18 @@ function normalizeBasePath(value: string) {
     : withLeadingSlash;
 }
 
+function isStudioHost(hostname: string) {
+  const normalizedHost = hostname.toLowerCase();
+  return normalizedHost.includes('.studio.') || normalizedHost.endsWith('.sagemaker.aws');
+}
+
 function inferBasePathFromLocation(pathname: string) {
   const match = pathname.match(HOSTED_BASE_PATH_RE);
   return match?.[1] ?? '';
 }
 
 function inferBasePathFromHostname(hostname: string) {
-  const normalizedHost = hostname.toLowerCase();
-  if (normalizedHost.includes('.studio.') || normalizedHost.endsWith('.sagemaker.aws')) {
-    return DEFAULT_SAGEMAKER_BASE_PATH;
-  }
-
-  return '';
+  return isStudioHost(hostname) ? DEFAULT_SAGEMAKER_BASE_PATH : '';
 }
 
 function inferBasePathFromNextAssetUrl(assetUrl: string) {
@@ -78,11 +78,8 @@ function shouldRetryCandidate(response: Response) {
     return true;
   }
 
-  const contentType = (response.headers.get('content-type') || '').toLowerCase();
-  const looksHtml = contentType.includes('text/html');
-
-  // Hosted reverse proxies often emit HTML 5xx pages for wrong prefixes.
-  return response.status >= 500 && looksHtml;
+  // Retry any 5xx across hosted proxy candidates.
+  return response.status >= 500;
 }
 
 export function getRuntimeBasePath() {
@@ -129,17 +126,21 @@ function buildApiCandidates(path: string) {
 
   const normalizedPath = path.startsWith('/') ? path : `/${path}`;
   const candidates: string[] = [];
+  const runtimeBasePath = getRuntimeBasePath();
+  const studioHost = typeof window !== 'undefined' && isStudioHost(window.location.hostname);
 
   if (preferredApiBasePath) {
     candidates.push(`${preferredApiBasePath}${normalizedPath}`);
   }
 
-  // Prioritize the known-good SageMaker Studio path form first.
+  // Studio primary candidate.
   candidates.push(`/codeeditor/default/ports/3000${normalizedPath}`);
 
-  const runtimeBasePath = getRuntimeBasePath();
   if (runtimeBasePath) {
-    candidates.push(`${runtimeBasePath}${normalizedPath}`);
+    // If runtime path resolves to /proxy/* on Studio, skip it because it consistently 404s.
+    if (!(studioHost && runtimeBasePath.includes('/proxy/'))) {
+      candidates.push(`${runtimeBasePath}${normalizedPath}`);
+    }
   }
 
   candidates.push(`/jupyter/default/proxy/3000${normalizedPath}`);
