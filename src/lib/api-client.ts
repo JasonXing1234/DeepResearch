@@ -143,7 +143,6 @@ function buildApiCandidates(path: string) {
     }
   }
 
-  candidates.push(`/jupyter/default/proxy/3000${normalizedPath}`);
   candidates.push(normalizedPath);
 
   return Array.from(new Set(candidates));

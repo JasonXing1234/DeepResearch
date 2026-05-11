@@ -22,6 +22,29 @@ interface ResearchQueueEntry {
   segment_count: number;
 }
 
+async function parseJsonResponse(response: Response, context: string) {
+  const rawText = await response.text();
+  const contentType = (response.headers.get('content-type') || '').toLowerCase();
+
+  try {
+    return rawText ? JSON.parse(rawText) : {};
+  } catch {
+    console.error('[DeepResearchEngine] non-JSON response', {
+      context,
+      status: response.status,
+      contentType,
+      url: response.url,
+      preview: rawText.slice(0, 200),
+    });
+
+    return {
+      success: false,
+      error: context + ' returned non-JSON response (' + response.status + ')',
+      rawText,
+    };
+  }
+}
+
 export function DeepResearchEngine() {
   const [companies, setCompanies] = useState(['', '', '', '']);
   const [isResearching, setIsResearching] = useState(false);
@@ -37,7 +60,7 @@ export function DeepResearchEngine() {
     try {
       setIsLoadingHistory(true);
       const response = await apiFetch('/api/research-queue');
-      const data = await response.json();
+      const data = await parseJsonResponse(response, 'research history');
 
       if (data.success) {
         setResearchHistory(data.data);
@@ -107,10 +130,7 @@ export function DeepResearchEngine() {
         console.error('[DeepResearchEngine] Project request returned 404. API candidate paths attempted in apiFetch.');
       }
       
-      const projectData = await projectResponse.json().catch((err) => {
-        console.error('[DeepResearchEngine] Failed to parse project JSON:', err);
-        throw err;
-      });
+      const projectData = await parseJsonResponse(projectResponse, 'project creation');
 
       console.log('[DeepResearchEngine] Project response:', projectData);
 
@@ -136,7 +156,7 @@ export function DeepResearchEngine() {
         }),
       });
 
-      const researchData = await researchResponse.json();
+      const researchData = await parseJsonResponse(researchResponse, 'research companies');
 
       console.log('[DeepResearchEngine] Research response:', {
         success: researchData.success,
@@ -204,7 +224,7 @@ export function DeepResearchEngine() {
         method: 'DELETE',
       });
 
-      const data = await response.json();
+      const data = await parseJsonResponse(response, 'delete research entry');
 
       if (data.success) {
         toast.success('Research entry deleted');
