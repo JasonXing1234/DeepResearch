@@ -22,6 +22,16 @@ interface ResearchQueueEntry {
   segment_count: number;
 }
 
+type DebugLogLevel = 'info' | 'warn' | 'error';
+
+type DebugLogEntry = {
+  timestamp: string;
+  level: DebugLogLevel;
+  event: string;
+  details?: unknown;
+};
+
+const MAX_DEBUG_LOGS = 500;
 const ENABLE_RESEARCH_HISTORY = false;
 
 async function parseJsonResponse(response: Response, context: string) {
@@ -52,6 +62,9 @@ export function DeepResearchEngine() {
   const [isResearching, setIsResearching] = useState(false);
   const [researchHistory, setResearchHistory] = useState<ResearchQueueEntry[]>([]);
   const [isLoadingHistory, setIsLoadingHistory] = useState(true);
+  const [latestResearchResults, setLatestResearchResults] = useState<any>(null);
+  const [latestResearchCompanies, setLatestResearchCompanies] = useState<string[]>([]);
+  const [debugLogs, setDebugLogs] = useState<DebugLogEntry[]>([]);
 
   
   useEffect(() => {
@@ -81,6 +94,71 @@ export function DeepResearchEngine() {
     }
   };
 
+  const appendDebugLog = (level: DebugLogLevel, event: string, details?: unknown) => {
+    const entry: DebugLogEntry = {
+      timestamp: new Date().toISOString(),
+      level,
+      event,
+      details,
+    };
+
+    setDebugLogs((prev) => [...prev, entry].slice(-MAX_DEBUG_LOGS));
+
+    if (level === 'error') {
+      console.error('[DeepResearchEngine][debug]', entry);
+    } else if (level === 'warn') {
+      console.warn('[DeepResearchEngine][debug]', entry);
+    } else {
+      console.log('[DeepResearchEngine][debug]', entry);
+    }
+  };
+
+  const printDebugLogsToConsole = () => {
+    console.group('[DeepResearchEngine] Debug Logs');
+    debugLogs.forEach((entry) => console.log(entry));
+    console.groupEnd();
+  };
+
+  const downloadDebugLogs = (format: 'json' | 'txt' = 'json') => {
+    if (debugLogs.length === 0) {
+      toast.info('No debug logs to download yet');
+      return;
+    }
+
+    const stamp = new Date().toISOString().replace(/[:.]/g, '-');
+    const filename = 'deep-research-debug-' + stamp + '.' + format;
+    const payload =
+      format === 'json'
+        ? JSON.stringify(debugLogs, null, 2)
+        : debugLogs
+            .map((entry) => {
+              const details =
+                typeof entry.details === 'string'
+                  ? entry.details
+                  : JSON.stringify(entry.details ?? {});
+              return entry.timestamp + ' [' + entry.level + '] ' + entry.event + ' ' + details;
+            })
+            .join('\n');
+
+    const blob = new Blob([payload], {
+      type: format === 'json' ? 'application/json' : 'text/plain; charset=utf-8',
+    });
+
+    const url = window.URL.createObjectURL(blob);
+    const anchor = document.createElement('a');
+    anchor.href = url;
+    anchor.download = filename;
+    anchor.click();
+    window.URL.revokeObjectURL(url);
+
+    appendDebugLog('info', 'download_debug_logs', {
+      format,
+      count: debugLogs.length,
+      filename,
+    });
+    toast.success('Downloaded ' + filename);
+  };
+
   const companyInputs = companies.filter((c) => c.trim()).length;
 
   const handleCompanyChange = (index: number, value: string) => {
@@ -93,6 +171,10 @@ export function DeepResearchEngine() {
     const activeCompanies = companies.filter((c) => c.trim());
 
     console.log('[DeepResearchEngine] handleRunResearch triggered', {
+      activeCompaniesCount: activeCompanies.length,
+      activeCompanies,
+    });
+    appendDebugLog('info', 'handle_run_research_triggered', {
       activeCompaniesCount: activeCompanies.length,
       activeCompanies,
     });
@@ -128,6 +210,11 @@ export function DeepResearchEngine() {
       
       clearTimeout(projectTimeout);
       console.log('[DeepResearchEngine] Project response received', {
+        status: projectResponse.status,
+        contentType: projectResponse.headers.get('content-type'),
+        url: projectResponse.url,
+      });
+      appendDebugLog('info', 'project_response_received', {
         status: projectResponse.status,
         contentType: projectResponse.headers.get('content-type'),
         url: projectResponse.url,
@@ -170,9 +257,16 @@ export function DeepResearchEngine() {
         companiesResearched: researchData.companiesResearched,
         error: researchData.error,
       });
+      appendDebugLog('info', 'research_response_received', {
+        success: researchData.success,
+        companiesResearched: researchData.companiesResearched,
+        error: researchData.error,
+      });
 
       if (researchData.success) {
         setCompanies(['', '', '', '']);
+        setLatestResearchCompanies(activeCompanies);
+        setLatestResearchResults(researchData.results || null);
         toast.success(`Research completed! Generated ${researchData.uploadedFiles} report files.`);
 
         
@@ -184,6 +278,9 @@ export function DeepResearchEngine() {
       }
     } catch (error) {
       console.error('Error running research:', error);
+      appendDebugLog('error', 'research_exception', {
+        message: error instanceof Error ? error.message : String(error),
+      });
       toast.error('Error running research');
     } finally {
       setIsResearching(false);
@@ -352,8 +449,34 @@ export function DeepResearchEngine() {
 
         {}
         <div>
-          <h3 className="text-lg font-semibold text-gray-900 mb-4">Research History</h3>
-          {isLoadingHistory ? (
+          <div className="mb-4 flex items-center justify-between gap-3">
+            <h3 className="text-lg font-semibold text-gray-900">Research History</h3>
+            <div className="flex items-center gap-2">
+              <Button variant="outline" size="sm" onClick={printDebugLogsToConsole}>
+                Print Logs
+              </Button>
+              <Button variant="outline" size="sm" onClick={() => downloadDebugLogs('json')}>
+                Download Logs
+              </Button>
+            </div>
+          </div>
+          {!ENABLE_RESEARCH_HISTORY && latestResearchResults ? (
+            <Card className="border-0 shadow-sm">
+              <CardContent className="pt-6 pb-6">
+                <div className="space-y-3">
+                  <p className="text-sm text-gray-600">
+                    Showing latest agent output. Queue/history endpoints are disabled.
+                  </p>
+                  <p className="text-sm font-medium text-gray-900">
+                    Companies: {latestResearchCompanies.join(', ')}
+                  </p>
+                  <pre className="max-h-80 overflow-auto rounded bg-gray-900 p-3 text-xs text-gray-100">
+                    {JSON.stringify(latestResearchResults, null, 2)}
+                  </pre>
+                </div>
+              </CardContent>
+            </Card>
+          ) : isLoadingHistory ? (
             <Card className="border-0 shadow-sm">
               <CardContent className="pt-12 pb-12">
                 <div className="flex items-center justify-center">
@@ -366,7 +489,9 @@ export function DeepResearchEngine() {
             <Card className="border-0 shadow-sm">
               <CardContent className="pt-12">
                 <p className="text-center text-gray-500">
-                  No research queries yet. Start by entering companies above.
+                  {ENABLE_RESEARCH_HISTORY
+                    ? 'No research queries yet. Start by entering companies above.'
+                    : 'Queue/history is disabled for isolation mode. Run Deep Research to view latest output above.'}
                 </p>
               </CardContent>
             </Card>
