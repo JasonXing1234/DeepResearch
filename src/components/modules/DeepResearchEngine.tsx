@@ -7,6 +7,7 @@ import { Input } from '../ui/input';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../ui/card';
 import { toast } from 'sonner';
 import type { ResearchQuery } from '../../contexts/ResearchContext';
+import { apiFetch } from '@/lib/api-client';
 
 interface ResearchQueueEntry {
   id: string;
@@ -35,7 +36,7 @@ export function DeepResearchEngine() {
   const fetchResearchHistory = async () => {
     try {
       setIsLoadingHistory(true);
-      const response = await fetch('/api/research-queue');
+      const response = await apiFetch('/api/research-queue');
       const data = await response.json();
 
       if (data.success) {
@@ -81,7 +82,7 @@ export function DeepResearchEngine() {
       const projectAbortController = new AbortController();
       const projectTimeout = setTimeout(() => projectAbortController.abort(), 10000); // 10s timeout
       
-      const projectResponse = await fetch('/api/sustainability/projects', {
+      const projectResponse = await apiFetch('/api/sustainability/projects', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -121,7 +122,7 @@ export function DeepResearchEngine() {
         companies: activeCompanies,
       });
       
-      const researchResponse = await fetch('/api/research-companies', {
+      const researchResponse = await apiFetch('/api/research-companies', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -171,7 +172,7 @@ export function DeepResearchEngine() {
       const fileType = fileTypeMap[datasetType] || datasetType;
 
       
-      const response = await fetch(`/api/sustainability/download-file?projectId=${query.id}&fileType=${fileType}`);
+      const response = await apiFetch(`/api/sustainability/download-file?projectId=${query.id}&fileType=${fileType}`);
 
       if (!response.ok) {
         throw new Error('Failed to download file');
@@ -194,7 +195,7 @@ export function DeepResearchEngine() {
 
   const handleDeleteQuery = async (id: string) => {
     try {
-      const response = await fetch(`/api/research-queue/${id}`, {
+      const response = await apiFetch(`/api/research-queue/${id}`, {
         method: 'DELETE',
       });
 

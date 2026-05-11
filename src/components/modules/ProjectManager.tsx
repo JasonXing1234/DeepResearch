@@ -7,6 +7,7 @@ import { Input } from '../ui/input';
 import { Textarea } from '../ui/textarea';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../ui/card';
 import { toast } from 'sonner';
+import { apiFetch } from '@/lib/api-client';
 import {
   Dialog,
   DialogContent,
@@ -109,7 +110,7 @@ export function ProjectManager() {
 
     const pollInterval = setInterval(async () => {
       try {
-        const response = await fetch('/api/sustainability/projects');
+        const response = await apiFetch('/api/sustainability/projects');
         const data = await response.json();
 
         if (data.success) {
@@ -142,7 +143,7 @@ export function ProjectManager() {
         endpoint,
         locationHref: typeof window !== 'undefined' ? window.location.href : 'server',
       });
-      const response = await fetch(endpoint);
+      const response = await apiFetch(endpoint);
       const data = await parseJsonWithDebug(response, 'fetchProjects');
 
       if (data.success) {
@@ -164,7 +165,7 @@ export function ProjectManager() {
       console.log(`${DEBUG_NS} fetchProjectFiles:start`, { projectId });
       const endpoint = `/api/sustainability/files?projectId=${projectId}`;
       console.log(`${DEBUG_NS} fetchProjectFiles:request`, { endpoint });
-      const response = await fetch(endpoint);
+      const response = await apiFetch(endpoint);
       const data = await parseJsonWithDebug(response, 'fetchProjectFiles');
 
       if (data.success) {
@@ -189,7 +190,7 @@ export function ProjectManager() {
       };
       console.log(`${DEBUG_NS} handleCreateProject:request`, { endpoint, payload });
 
-      const response = await fetch(endpoint, {
+      const response = await apiFetch(endpoint, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),
@@ -220,7 +221,7 @@ export function ProjectManager() {
       const payload = { projectId };
       console.log(`${DEBUG_NS} handleDeleteProject:request`, { endpoint, payload });
 
-      const response = await fetch(endpoint, {
+      const response = await apiFetch(endpoint, {
         method: 'DELETE',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),
@@ -260,7 +261,7 @@ export function ProjectManager() {
       formData.append('projectId', projectId);
       formData.append('fileType', fileType);
 
-      const response = await fetch('/api/sustainability/upload', {
+      const response = await apiFetch('/api/sustainability/upload', {
         method: 'POST',
         body: formData,
       });
@@ -277,7 +278,7 @@ export function ProjectManager() {
           console.log(`${DEBUG_NS} handleFileUpload:refreshSelectedProject`, {
             updatedEndpoint,
           });
-          const updated = await fetch(updatedEndpoint);
+          const updated = await apiFetch(updatedEndpoint);
           const updatedData = await parseJsonWithDebug(updated, 'handleFileUpload.refreshSelectedProject');
           if (updatedData.success) {
             setSelectedProject(updatedData.project);
@@ -297,7 +298,7 @@ export function ProjectManager() {
   const handleExportExcel = async (projectId: string) => {
     setIsExporting(true);
     try {
-      const response = await fetch('/api/sustainability/export-excel', {
+      const response = await apiFetch('/api/sustainability/export-excel', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ projectId }),
@@ -329,7 +330,7 @@ export function ProjectManager() {
       const endpoint = '/api/sustainability/analyze';
       const payload = { projectId };
       console.log(`${DEBUG_NS} handleAnalyze:request`, { endpoint, payload });
-      const response = await fetch(endpoint, {
+      const response = await apiFetch(endpoint, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),

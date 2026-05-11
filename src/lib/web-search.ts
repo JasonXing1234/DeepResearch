@@ -18,14 +18,35 @@ export class WebSearch {
     this.proxyEndpoint = '/api/bedrock-search';
   }
 
+  private resolveEndpoint(): string {
+    // Node.js fetch requires absolute URLs for server-side calls.
+    if (!this.proxyEndpoint.startsWith('/')) {
+      return this.proxyEndpoint;
+    }
+
+    if (typeof window !== 'undefined') {
+      return this.proxyEndpoint;
+    }
+
+    const envBase =
+      process.env.INTERNAL_API_BASE_URL ||
+      process.env.NEXT_PUBLIC_APP_URL ||
+      process.env.NEXTAUTH_URL ||
+      (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 'http://localhost:3000');
+
+    return new URL(this.proxyEndpoint, envBase).toString();
+  }
+
   async search(query: string): Promise<SearchResult[]> {
     try {
+      const endpoint = this.resolveEndpoint();
+
       console.log('[WebSearch] search() called', {
         query: query.slice(0, 100),
-        endpoint: this.proxyEndpoint,
+        endpoint,
       });
 
-      const response = await fetch(this.proxyEndpoint, {
+      const response = await fetch(endpoint, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ query }),
@@ -37,7 +58,19 @@ export class WebSearch {
         url: response.url,
       });
 
-      const data = await response.json();
+      const raw = await response.text();
+      let data: { success?: boolean; results?: SearchResult[]; error?: string };
+
+      try {
+        data = JSON.parse(raw);
+      } catch (parseError) {
+        console.error('[WebSearch] Failed to parse JSON response', {
+          status: response.status,
+          parseError: parseError instanceof Error ? parseError.message : String(parseError),
+          responsePreview: raw.slice(0, 300),
+        });
+        return [];
+      }
 
       console.log('[WebSearch] parsed response', {
         success: data.success,
@@ -45,7 +78,7 @@ export class WebSearch {
         error: data.error,
       });
 
-      if (data.success && Array.isArray(data.results)) {
+      if (response.ok && data.success && Array.isArray(data.results)) {
         return data.results;
       }
 
