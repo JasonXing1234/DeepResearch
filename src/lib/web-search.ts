@@ -11,6 +11,12 @@ interface BedrockMessageResponse {
 
 const DEBUG = '[WebSearch]';
 
+function maskAccessKeyId(value?: string) {
+  if (!value) return '<missing>';
+  if (value.length <= 8) return `${value.slice(0, 2)}...${value.slice(-2)}`;
+  return `${value.slice(0, 4)}...${value.slice(-4)}`;
+}
+
 export class WebSearch {
   private client: unknown | null;
   private modelId: string;
@@ -32,6 +38,14 @@ export class WebSearch {
       hasBedrockResearchModelId: !!process.env.BEDROCK_RESEARCH_MODEL_ID,
       hasBedrockAgentId: !!process.env.BEDROCK_AGENT_ID,
       hasBedrockAgentAliasId: !!process.env.BEDROCK_AGENT_ALIAS_ID,
+      // Credential source diagnostics (safe: no secret values logged)
+      awsAccessKeyIdMasked: maskAccessKeyId(process.env.AWS_ACCESS_KEY_ID),
+      hasAwsSecretAccessKey: !!process.env.AWS_SECRET_ACCESS_KEY,
+      hasAwsSessionToken: !!process.env.AWS_SESSION_TOKEN,
+      awsProfile: process.env.AWS_PROFILE || null,
+      awsDefaultProfile: process.env.AWS_DEFAULT_PROFILE || null,
+      hasContainerCredentialsRelativeUri: !!process.env.AWS_CONTAINER_CREDENTIALS_RELATIVE_URI,
+      hasContainerCredentialsFullUri: !!process.env.AWS_CONTAINER_CREDENTIALS_FULL_URI,
     });
   }
 
