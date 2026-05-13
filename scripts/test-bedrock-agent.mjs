@@ -92,18 +92,48 @@ async function main() {
   }
 
   let finalText = '';
+  let chunkCount = 0;
+  const timeoutMs = 30000;
+  let timedOut = false;
+  let startTime = Date.now();
 
-  for await (const event of response.completion) {
-    if (event.chunk?.bytes) {
-      finalText += new TextDecoder().decode(event.chunk.bytes);
-    }
+  const timeoutPromise = new Promise((_, reject) => {
+    setTimeout(() => {
+      timedOut = true;
+      reject(new Error(`Agent invocation timed out after ${timeoutMs}ms. No response received.`));
+    }, timeoutMs);
+  });
 
-    if (enableTrace && event.trace) {
-      const trace = event.trace.trace;
-      const traceType = trace ? Object.keys(trace)[0] : 'unknown';
-      console.log(`[trace] ${traceType}`);
+  try {
+    const streamPromise = (async () => {
+      for await (const event of response.completion) {
+        chunkCount += 1;
+        const elapsed = Date.now() - startTime;
+        process.stderr.write(`[${elapsed}ms] Received chunk #${chunkCount}\r`);
+
+        if (event.chunk?.bytes) {
+          finalText += new TextDecoder().decode(event.chunk.bytes);
+        }
+
+        if (enableTrace && event.trace) {
+          const trace = event.trace.trace;
+          const traceType = trace ? Object.keys(trace)[0] : 'unknown';
+          console.log(`[trace] ${traceType}`);
+        }
+      }
+    })();
+
+    await Promise.race([streamPromise, timeoutPromise]);
+  } catch (error) {
+    if (timedOut) {
+      console.error(`\n\nAgent timed out after ${Date.now() - startTime}ms (received ${chunkCount} chunks).`);
+      console.error('The agent may be blocked waiting for external service responses or credentials.');
+      throw error;
     }
+    throw error;
   }
+
+  process.stderr.write('\n');
 
   if (!finalText.trim()) {
     console.log('Agent completed without text output.');
