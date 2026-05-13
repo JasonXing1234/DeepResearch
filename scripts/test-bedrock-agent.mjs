@@ -84,7 +84,15 @@ async function main() {
     enableTrace,
   });
 
-  const response = await client.send(command);
+  const invokeTimeoutMs = 30000;
+  const response = await Promise.race([
+    client.send(command),
+    new Promise((_, reject) => {
+      setTimeout(() => {
+        reject(new Error(`InvokeAgent timed out after ${invokeTimeoutMs}ms before stream start.`));
+      }, invokeTimeoutMs);
+    }),
+  ]);
 
   if (!response.completion) {
     console.error('No completion stream returned from Bedrock Agent Runtime.');
