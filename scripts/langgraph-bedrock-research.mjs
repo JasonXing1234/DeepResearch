@@ -85,6 +85,8 @@ const GENERIC_RESULT_PATTERNS = [
   /ibm\.com\/think\/topics\/data\/?$/i,
 ];
 
+const LOW_SIGNAL_QUERY_TOKENS = new Set(['data', 'info', 'information', 'overview', 'guide']);
+
 function tokenize(value) {
   return String(value || '')
     .toLowerCase()
@@ -94,19 +96,32 @@ function tokenize(value) {
 }
 
 function filterRelevantResults(results, query, maxResults, trace, sourceName) {
+  const prefiltered = results.filter(
+    (item) => !GENERIC_RESULT_PATTERNS.some((pattern) => pattern.test(item.url || ''))
+  );
+
   const queryTokens = new Set(tokenize(query));
+  const focusedQueryTokens = new Set(
+    [...queryTokens].filter((token) => !LOW_SIGNAL_QUERY_TOKENS.has(token))
+  );
+  const relaxedTokenSet = focusedQueryTokens.size ? focusedQueryTokens : queryTokens;
+
   if (!queryTokens.size) {
-    return results.slice(0, maxResults);
+    return prefiltered.slice(0, maxResults);
   }
 
-  const scored = results.map((item) => {
+  const scored = prefiltered.map((item) => {
     const haystack = `${item.title || ''} ${item.snippet || ''} ${item.url || ''}`;
     const tokens = new Set(tokenize(haystack));
     let overlap = 0;
+    let relaxedOverlap = 0;
     for (const token of queryTokens) {
       if (tokens.has(token)) overlap += 1;
     }
-    return { item, overlap };
+    for (const token of relaxedTokenSet) {
+      if (tokens.has(token)) relaxedOverlap += 1;
+    }
+    return { item, overlap, relaxedOverlap };
   });
 
   const minOverlap = Math.min(2, queryTokens.size);
@@ -124,8 +139,8 @@ function filterRelevantResults(results, query, maxResults, trace, sourceName) {
   }
 
   const relaxed = scored
-    .filter((row) => row.overlap >= 1)
-    .sort((a, b) => b.overlap - a.overlap)
+    .filter((row) => row.relaxedOverlap >= 1)
+    .sort((a, b) => b.relaxedOverlap - a.relaxedOverlap || b.overlap - a.overlap)
     .map((row) => row.item)
     .slice(0, maxResults);
 
@@ -138,7 +153,6 @@ function filterRelevantResults(results, query, maxResults, trace, sourceName) {
 
   const bestEffort = scored
     .map((row) => row.item)
-    .filter((item) => !GENERIC_RESULT_PATTERNS.some((pattern) => pattern.test(item.url || '')))
     .slice(0, maxResults);
 
   if (trace) {
