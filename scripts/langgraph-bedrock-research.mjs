@@ -116,9 +116,11 @@ const DEALER_OR_SHOPPING_PATTERNS = [
   /dealer/i,
   /dealership/i,
   /inventory/i,
+  /buy/i,
   /new[-/]?vehicles?/i,
   /used[-/]?vehicles?/i,
   /cars?-for-sale/i,
+  /\/buy\//i,
   /\/new\//i,
   /\/used\//i,
   /\/inventory\//i,
@@ -233,7 +235,11 @@ function filterRelevantResults(results, query, maxResults, trace, sourceName) {
   }
 
   const bestEffort = scored
-    .filter((row) => row.relaxedOverlap >= 1)
+    .filter((row) =>
+      row.relaxedOverlap >= 1 &&
+      row.signalScore >= 2 &&
+      !row.lowValue
+    )
     .sort((a, b) => rankingScore(b) - rankingScore(a))
     .map((row) => row.item)
     .slice(0, maxResults);
@@ -250,11 +256,31 @@ function buildBingQueryVariants(query) {
   const trimmed = String(query || '').trim();
   if (!trimmed) return variants;
 
+  const companyMatch = trimmed.match(/^([A-Za-z0-9&.\- ]+?)\s+(scope|net zero|carbon|ghg|sustainability|emissions)/i);
+  const companyName = companyMatch?.[1]?.trim();
+  const normalizedCompanyDomain = companyName
+    ? companyName.toLowerCase().replace(/[^a-z0-9]/g, '')
+    : '';
+
+  const officialVariants = companyName
+    ? [
+        `${trimmed} site:${normalizedCompanyDomain}.com sustainability`,
+        ...(companyName.toLowerCase() === 'ford'
+          ? [
+              `${trimmed} site:corporate.ford.com`,
+              `${trimmed} site:sustainability.ford.com`,
+              `${trimmed} site:media.ford.com`,
+            ]
+          : []),
+      ]
+    : [];
+
   const withPhrase = /data center/i.test(trimmed)
     ? trimmed.replace(/data center/gi, '"data center"')
     : trimmed;
 
   const prioritized = [
+    ...officialVariants,
     withPhrase,
     `${withPhrase} ESG energy water emissions`,
     `${withPhrase} sustainability report pdf`,
