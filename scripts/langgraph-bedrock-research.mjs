@@ -35,12 +35,15 @@ function usage() {
   node scripts/langgraph-bedrock-research.mjs --prompt "What are sustainability risks for data centers?"
 
 Optional args:
+  --company <name>        Company for structured category research
+  --category <id>         emissions|investments|equipment|pilots|constraints
   --region <region>       Defaults to AWS_REGION or us-east-1
   --model-id <id>         Defaults to BEDROCK_MODEL_ID or BEDROCK_RESEARCH_MODEL_ID
   --rounds <n>            Research rounds (default: 2)
   --queries <n>           Queries per round (default: 3)
   --results <n>           Results per query (default: 3)
   --self-test-web         Skip Bedrock and only test web search/fetch path
+  --self-test-category    Structured open-web search for one company/category
   --self-test-query <q>   Query used by --self-test-web (default: prompt)
   --trace                 Enable verbose logs
 `);
@@ -217,6 +220,99 @@ function buildGoogleNewsQueryVariants(query) {
   }
 
   return variants;
+}
+
+const CATEGORY_CONFIG = {
+  emissions: {
+    id: 'emissions',
+    label: 'Emissions Reductions',
+    templates: [
+      '{company} scope 1 scope 2 scope 3 emissions target',
+      '{company} net zero target year sustainability report pdf',
+      '{company} carbon emissions reduction program',
+      '{company} ghg emissions disclosure',
+    ],
+  },
+  investments: {
+    id: 'investments',
+    label: 'Investments & Commitments',
+    templates: [
+      '{company} sustainability investment commitment',
+      '{company} climate capital expenditure announcement',
+      '{company} renewable energy procurement deal',
+      '{company} ESG commitment press release',
+    ],
+  },
+  equipment: {
+    id: 'equipment',
+    label: 'Machine/Equipment Purchases',
+    templates: [
+      '{company} purchased equipment for efficiency or decarbonization',
+      '{company} clean technology procurement',
+      '{company} energy efficient machinery upgrade',
+      '{company} vendor contract sustainability equipment',
+    ],
+  },
+  pilots: {
+    id: 'pilots',
+    label: 'Pilot Projects',
+    templates: [
+      '{company} sustainability pilot project',
+      '{company} decarbonization pilot launch',
+      '{company} trial project emissions reduction',
+      '{company} demonstration project climate initiative',
+    ],
+  },
+  constraints: {
+    id: 'constraints',
+    label: 'Environmental Constraints',
+    templates: [
+      '{company} sustainability risk water stress regulation',
+      '{company} environmental compliance challenge',
+      '{company} climate risk physical transition risk',
+      '{company} environmental permit constraints operations',
+    ],
+  },
+};
+
+function normalizeCategory(input) {
+  const raw = String(input || '').trim().toLowerCase();
+  if (!raw) return null;
+
+  if (CATEGORY_CONFIG[raw]) return CATEGORY_CONFIG[raw];
+  if (raw === 'emission' || raw === 'emissions_reductions') return CATEGORY_CONFIG.emissions;
+  if (raw === 'investment' || raw === 'commitments') return CATEGORY_CONFIG.investments;
+  if (raw === 'machine' || raw === 'machine_purchases' || raw === 'purchases') return CATEGORY_CONFIG.equipment;
+  if (raw === 'pilot' || raw === 'pilot_projects') return CATEGORY_CONFIG.pilots;
+  if (raw === 'environment' || raw === 'environmental' || raw === 'environmental_constraints') return CATEGORY_CONFIG.constraints;
+
+  return null;
+}
+
+function buildCompanyCategoryQueries(company, categoryConfig) {
+  const companyName = String(company || '').trim();
+  if (!companyName || !categoryConfig) return [];
+
+  const baseQueries = categoryConfig.templates.map((template) =>
+    template.replaceAll('{company}', companyName)
+  );
+
+  // Include long-tail terms to improve recall for smaller/private companies.
+  const longTail = [
+    `${companyName} ${categoryConfig.label} local news`,
+    `${companyName} ${categoryConfig.label} supplier customer case study`,
+  ];
+
+  const seen = new Set();
+  const out = [];
+  for (const query of [...baseQueries, ...longTail]) {
+    const key = query.toLowerCase();
+    if (seen.has(key)) continue;
+    seen.add(key);
+    out.push(query);
+  }
+
+  return out;
 }
 
 function extractJsonObject(text) {
@@ -813,8 +909,16 @@ async function main() {
     return;
   }
 
-  const prompt = args.prompt || args.p;
-  if (!prompt) {
+  const company = args.company || '';
+  const categoryConfig = normalizeCategory(args.category);
+  const selfTestCategory = args['self-test-category'] === 'true';
+
+  let prompt = args.prompt || args.p;
+  if (!prompt && company && categoryConfig) {
+    prompt = `Research ${company} for ${categoryConfig.label} with evidence and sources`;
+  }
+
+  if (!prompt && !selfTestCategory) {
     console.error('Missing required --prompt argument.');
     usage();
     process.exit(2);
@@ -831,12 +935,87 @@ async function main() {
   const queriesPerRound = safeParseInt(args.queries, 3);
   const resultsPerQuery = safeParseInt(args.results, 3);
   const selfTestWeb = args['self-test-web'] === 'true';
-  const selfTestQuery = args['self-test-query'] || prompt;
+  const selfTestQuery = args['self-test-query'] || prompt || '';
   const trace = args.trace === 'true';
   const sessionId = `lg-${randomUUID().slice(0, 8)}`;
 
   const httpsProxy = process.env.HTTPS_PROXY || process.env.https_proxy;
   await configureFetchProxy(httpsProxy, trace);
+
+  if (selfTestCategory) {
+    if (!company) {
+      console.error('Missing required --company for --self-test-category mode.');
+      usage();
+      process.exit(2);
+    }
+
+    if (!categoryConfig) {
+      console.error('Missing or invalid --category for --self-test-category mode.');
+      usage();
+      process.exit(2);
+    }
+
+    const categoryQueries = buildCompanyCategoryQueries(company, categoryConfig);
+    const aggregate = [];
+
+    for (const query of categoryQueries) {
+      const hits = await webSearch(query, resultsPerQuery, trace);
+      for (const hit of hits) {
+        aggregate.push({
+          ...hit,
+          query,
+        });
+      }
+      await sleep(150);
+    }
+
+    const seen = new Set();
+    const deduped = [];
+    for (const item of aggregate) {
+      if (!item?.url || seen.has(item.url)) continue;
+      seen.add(item.url);
+      deduped.push(item);
+      if (deduped.length >= resultsPerQuery * 4) break;
+    }
+
+    const focusedQuery = `${company} ${categoryConfig.label}`;
+    const filtered = filterRelevantResults(
+      deduped,
+      focusedQuery,
+      resultsPerQuery,
+      trace,
+      `Category self-test (${categoryConfig.id})`
+    );
+
+    console.log(JSON.stringify({
+      mode: 'langgraph-category-self-test',
+      company,
+      category: categoryConfig.id,
+      categoryLabel: categoryConfig.label,
+      queryCount: categoryQueries.length,
+      hitCount: filtered.length,
+      proxyConfigured: !!httpsProxy,
+    }, null, 2));
+
+    if (!filtered.length) {
+      console.log('\n--- structured self-test sources ---\n');
+      console.log('No sources retrieved.');
+      return;
+    }
+
+    console.log('\n--- structured self-test sources ---\n');
+    for (const [index, hit] of filtered.entries()) {
+      const summary = await fetchPageSummary(hit.url, trace);
+      console.log(`[${index + 1}] ${hit.title} | ${hit.url}`);
+      if (hit.query) {
+        console.log(`    query: ${hit.query}`);
+      }
+      if (summary) {
+        console.log(`    summary: ${summary.slice(0, 160)}${summary.length > 160 ? '...' : ''}`);
+      }
+    }
+    return;
+  }
 
   if (selfTestWeb) {
     const hits = await webSearch(selfTestQuery, resultsPerQuery, trace);
