@@ -7,7 +7,8 @@
     "build": "next build --turbopack",
     "start": "next start",
     "lint": "eslint",
-    "bedrock:agent:test": "node scripts/test-bedrock-agent.mjs"
+    "bedrock:agent:test": "node scripts/test-bedrock-agent.mjs",
+    "bedrock:deep-search": "node scripts/test-bedrock-agent-deep-search.mjs"
   },
   "dependencies": {
     "@ai-sdk/openai": "^2.0.52",
