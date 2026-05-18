@@ -359,6 +359,42 @@ function extractBingRssResults(xml, maxResults) {
   return results;
 }
 
+async function wikipediaSearch(query, maxResults, trace, signal) {
+  try {
+    if (trace) {
+      console.error('[trace] trying Wikipedia API fallback');
+    }
+
+    const url = `https://en.wikipedia.org/w/api.php?action=query&list=search&srsearch=${encodeURIComponent(query)}&utf8=1&format=json&srlimit=${Math.max(maxResults * 3, 10)}`;
+    const response = await fetch(url, {
+      signal,
+      headers: {
+        accept: 'application/json',
+        'user-agent': 'langgraph-bedrock-research/1.0',
+      },
+    });
+
+    if (!response.ok) {
+      return [];
+    }
+
+    const payload = await response.json();
+    const entries = Array.isArray(payload?.query?.search) ? payload.query.search : [];
+
+    const mapped = entries
+      .filter((entry) => typeof entry?.title === 'string' && entry.title.trim())
+      .map((entry) => ({
+        title: entry.title,
+        url: `https://en.wikipedia.org/wiki/${encodeURIComponent(entry.title.replace(/\s+/g, '_'))}`,
+        snippet: String(entry?.snippet || '').replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim(),
+      }));
+
+    return filterRelevantResults(mapped, query, maxResults, trace, 'Wikipedia API');
+  } catch {
+    return [];
+  }
+}
+
 async function webSearch(query, maxResults, trace) {
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), 12000);
@@ -467,7 +503,12 @@ async function webSearch(query, maxResults, trace) {
       bingResults.push(item);
     }
 
-    return filterRelevantResults(bingResults, query, maxResults, trace, 'Bing RSS');
+    const filteredBing = filterRelevantResults(bingResults, query, maxResults, trace, 'Bing RSS');
+    if (filteredBing.length) {
+      return filteredBing;
+    }
+
+    return wikipediaSearch(query, maxResults, trace, controller.signal);
   } catch (error) {
     if (trace) {
       console.error('[trace] search failed', {
