@@ -74,6 +74,49 @@ function decodeHtmlEntities(value) {
     .replace(/&gt;/g, '>');
 }
 
+const STOP_WORDS = new Set([
+  'a', 'an', 'and', 'are', 'as', 'at', 'be', 'by', 'for', 'from', 'how',
+  'in', 'is', 'it', 'of', 'on', 'or', 'that', 'the', 'to', 'what', 'with',
+]);
+
+function tokenize(value) {
+  return String(value || '')
+    .toLowerCase()
+    .replace(/[^a-z0-9\s]/g, ' ')
+    .split(/\s+/)
+    .filter((token) => token.length >= 3 && !STOP_WORDS.has(token));
+}
+
+function filterRelevantResults(results, query, maxResults, trace, sourceName) {
+  const queryTokens = new Set(tokenize(query));
+  if (!queryTokens.size) {
+    return results.slice(0, maxResults);
+  }
+
+  const scored = results.map((item) => {
+    const haystack = `${item.title || ''} ${item.snippet || ''} ${item.url || ''}`;
+    const tokens = new Set(tokenize(haystack));
+    let overlap = 0;
+    for (const token of queryTokens) {
+      if (tokens.has(token)) overlap += 1;
+    }
+    return { item, overlap };
+  });
+
+  const minOverlap = Math.min(2, queryTokens.size);
+  const filtered = scored
+    .filter((row) => row.overlap >= minOverlap)
+    .sort((a, b) => b.overlap - a.overlap)
+    .map((row) => row.item)
+    .slice(0, maxResults);
+
+  if (trace) {
+    console.error(`[trace] ${sourceName} relevance filter kept ${filtered.length}/${results.length} results`);
+  }
+
+  return filtered;
+}
+
 function extractJsonObject(text) {
   const start = text.indexOf('{');
   const end = text.lastIndexOf('}');
@@ -279,7 +322,10 @@ async function webSearch(query, maxResults, trace) {
         if (deduped.length >= maxResults) break;
       }
 
-      if (deduped.length) return deduped;
+      if (deduped.length) {
+        const filtered = filterRelevantResults(deduped, query, maxResults, trace, 'DuckDuckGo instant');
+        if (filtered.length) return filtered;
+      }
     }
 
     if (trace) {
@@ -297,7 +343,10 @@ async function webSearch(query, maxResults, trace) {
     if (htmlResponse.ok) {
       const html = await htmlResponse.text();
       const htmlResults = extractDuckDuckGoHtmlResults(html, maxResults);
-      if (htmlResults.length) return htmlResults;
+      if (htmlResults.length) {
+        const filtered = filterRelevantResults(htmlResults, query, maxResults, trace, 'DuckDuckGo HTML');
+        if (filtered.length) return filtered;
+      }
     }
 
     if (trace) {
@@ -314,7 +363,8 @@ async function webSearch(query, maxResults, trace) {
 
     if (!bingResponse.ok) return [];
     const bingXml = await bingResponse.text();
-    return extractBingRssResults(bingXml, maxResults);
+    const bingResults = extractBingRssResults(bingXml, maxResults * 3);
+    return filterRelevantResults(bingResults, query, maxResults, trace, 'Bing RSS');
   } catch (error) {
     if (trace) {
       console.error('[trace] search failed', {
