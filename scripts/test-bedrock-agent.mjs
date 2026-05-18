@@ -5,6 +5,8 @@ import {
   BedrockAgentRuntimeClient,
   InvokeAgentCommand,
 } from '@aws-sdk/client-bedrock-agent-runtime';
+import { NodeHttpHandler } from '@smithy/node-http-handler';
+import { HttpsProxyAgent } from 'https-proxy-agent';
 
 function parseArgs(argv) {
   const args = {};
@@ -37,6 +39,7 @@ Optional args:
   --alias-id <id>         Defaults to BEDROCK_AGENT_ALIAS_ID
   --region <region>       Defaults to AWS_REGION or us-east-1
   --endpoint-url <url>    Optional custom Bedrock Agent Runtime endpoint URL
+  --https-proxy <url>     Optional HTTPS proxy URL (defaults to HTTPS_PROXY env)
   --session-id <id>       Defaults to br-cli-<random>
   --invoke-timeout-ms <n> Timeout for InvokeAgent request (default: 30000)
   --stream-timeout-ms <n> Timeout waiting for next stream event (default: 30000)
@@ -79,6 +82,7 @@ async function main() {
   const agentAliasId = args['alias-id'] || process.env.BEDROCK_AGENT_ALIAS_ID;
   const region = args.region || process.env.AWS_REGION || 'us-east-1';
   const endpoint = args['endpoint-url'] || process.env.BEDROCK_AGENT_ENDPOINT_URL;
+  const httpsProxy = args['https-proxy'] || process.env.HTTPS_PROXY || process.env.https_proxy;
   const sessionId = args['session-id'] || `br-cli-${randomUUID().slice(0, 12)}`;
   const invokeTimeoutMs = parsePositiveInt(args['invoke-timeout-ms'], 30000);
   const streamTimeoutMs = parsePositiveInt(args['stream-timeout-ms'], 30000);
@@ -90,11 +94,19 @@ async function main() {
   }
 
   const clientConfig = endpoint ? { region, endpoint } : { region };
+  if (httpsProxy) {
+    clientConfig.requestHandler = new NodeHttpHandler({
+      connectionTimeout: 10000,
+      requestTimeout: invokeTimeoutMs + 5000,
+      httpsAgent: new HttpsProxyAgent(httpsProxy),
+    });
+  }
   const client = new BedrockAgentRuntimeClient(clientConfig);
 
   console.log(JSON.stringify({
     region,
     endpoint: endpoint || null,
+    httpsProxy: httpsProxy || null,
     agentId,
     agentAliasId,
     sessionId,
