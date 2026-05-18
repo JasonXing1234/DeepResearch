@@ -7,6 +7,7 @@ import {
 } from '@aws-sdk/client-bedrock-runtime';
 import { NodeHttpHandler } from '@smithy/node-http-handler';
 import { HttpsProxyAgent } from 'https-proxy-agent';
+import { ProxyAgent, setGlobalDispatcher } from 'undici';
 import { Annotation, END, START, StateGraph } from '@langchain/langgraph';
 
 function parseArgs(argv) {
@@ -313,14 +314,22 @@ async function webSearch(query, maxResults, trace) {
     if (!bingResponse.ok) return [];
     const bingXml = await bingResponse.text();
     return extractBingRssResults(bingXml, maxResults);
-  } catch {
+  } catch (error) {
+    if (trace) {
+      console.error('[trace] search failed', {
+        query,
+        name: error?.name,
+        message: error?.message,
+        cause: error?.cause?.message,
+      });
+    }
     return [];
   } finally {
     clearTimeout(timeout);
   }
 }
 
-async function fetchPageSummary(url) {
+async function fetchPageSummary(url, trace) {
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), 7000);
 
@@ -343,7 +352,15 @@ async function fetchPageSummary(url) {
 
     const raw = await response.text();
     return stripHtml(raw).slice(0, 900);
-  } catch {
+  } catch (error) {
+    if (trace) {
+      console.error('[trace] page fetch failed', {
+        url,
+        name: error?.name,
+        message: error?.message,
+        cause: error?.cause?.message,
+      });
+    }
     return '';
   } finally {
     clearTimeout(timeout);
@@ -455,7 +472,7 @@ function buildGraph(client) {
         const hits = await webSearch(query, state.resultsPerQuery, state.trace);
 
         for (const hit of hits) {
-          const pageSummary = await fetchPageSummary(hit.url);
+          const pageSummary = await fetchPageSummary(hit.url, state.trace);
           roundSources.push({
             query,
             title: hit.title,
@@ -571,6 +588,10 @@ async function main() {
   const sessionId = `lg-${randomUUID().slice(0, 8)}`;
 
   const httpsProxy = process.env.HTTPS_PROXY || process.env.https_proxy;
+  if (httpsProxy) {
+    setGlobalDispatcher(new ProxyAgent(httpsProxy));
+  }
+
   const clientConfig = { region };
   if (httpsProxy) {
     clientConfig.requestHandler = new NodeHttpHandler({
