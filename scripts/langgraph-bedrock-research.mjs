@@ -79,6 +79,12 @@ const STOP_WORDS = new Set([
   'in', 'is', 'it', 'of', 'on', 'or', 'that', 'the', 'to', 'what', 'with',
 ]);
 
+const GENERIC_RESULT_PATTERNS = [
+  /wikipedia\.org\/wiki\/data\/?$/i,
+  /^https?:\/\/data\.gov\/?$/i,
+  /ibm\.com\/think\/topics\/data\/?$/i,
+];
+
 function tokenize(value) {
   return String(value || '')
     .toLowerCase()
@@ -104,17 +110,42 @@ function filterRelevantResults(results, query, maxResults, trace, sourceName) {
   });
 
   const minOverlap = Math.min(2, queryTokens.size);
-  const filtered = scored
+  const strict = scored
     .filter((row) => row.overlap >= minOverlap)
     .sort((a, b) => b.overlap - a.overlap)
     .map((row) => row.item)
     .slice(0, maxResults);
 
-  if (trace) {
-    console.error(`[trace] ${sourceName} relevance filter kept ${filtered.length}/${results.length} results`);
+  if (strict.length) {
+    if (trace) {
+      console.error(`[trace] ${sourceName} relevance filter kept ${strict.length}/${results.length} results (strict)`);
+    }
+    return strict;
   }
 
-  return filtered;
+  const relaxed = scored
+    .filter((row) => row.overlap >= 1)
+    .sort((a, b) => b.overlap - a.overlap)
+    .map((row) => row.item)
+    .slice(0, maxResults);
+
+  if (relaxed.length) {
+    if (trace) {
+      console.error(`[trace] ${sourceName} relevance filter kept ${relaxed.length}/${results.length} results (relaxed)`);
+    }
+    return relaxed;
+  }
+
+  const bestEffort = scored
+    .map((row) => row.item)
+    .filter((item) => !GENERIC_RESULT_PATTERNS.some((pattern) => pattern.test(item.url || '')))
+    .slice(0, maxResults);
+
+  if (trace) {
+    console.error(`[trace] ${sourceName} relevance fallback kept ${bestEffort.length}/${results.length} results (best-effort)`);
+  }
+
+  return bestEffort;
 }
 
 function extractJsonObject(text) {
