@@ -36,6 +36,7 @@ Optional args:
   --agent-id <id>         Defaults to BEDROCK_AGENT_ID
   --alias-id <id>         Defaults to BEDROCK_AGENT_ALIAS_ID
   --region <region>       Defaults to AWS_REGION or us-east-1
+  --endpoint-url <url>    Optional custom Bedrock Agent Runtime endpoint URL
   --session-id <id>       Defaults to br-cli-<random>
   --invoke-timeout-ms <n> Timeout for InvokeAgent request (default: 30000)
   --stream-timeout-ms <n> Timeout waiting for next stream event (default: 30000)
@@ -77,6 +78,7 @@ async function main() {
   const agentId = args['agent-id'] || process.env.BEDROCK_AGENT_ID;
   const agentAliasId = args['alias-id'] || process.env.BEDROCK_AGENT_ALIAS_ID;
   const region = args.region || process.env.AWS_REGION || 'us-east-1';
+  const endpoint = args['endpoint-url'] || process.env.BEDROCK_AGENT_ENDPOINT_URL;
   const sessionId = args['session-id'] || `br-cli-${randomUUID().slice(0, 12)}`;
   const invokeTimeoutMs = parsePositiveInt(args['invoke-timeout-ms'], 30000);
   const streamTimeoutMs = parsePositiveInt(args['stream-timeout-ms'], 30000);
@@ -87,10 +89,12 @@ async function main() {
     process.exit(2);
   }
 
-  const client = new BedrockAgentRuntimeClient({ region });
+  const clientConfig = endpoint ? { region, endpoint } : { region };
+  const client = new BedrockAgentRuntimeClient(clientConfig);
 
   console.log(JSON.stringify({
     region,
+    endpoint: endpoint || null,
     agentId,
     agentAliasId,
     sessionId,
