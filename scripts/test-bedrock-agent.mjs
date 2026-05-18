@@ -37,8 +37,25 @@ Optional args:
   --alias-id <id>         Defaults to BEDROCK_AGENT_ALIAS_ID
   --region <region>       Defaults to AWS_REGION or us-east-1
   --session-id <id>       Defaults to br-cli-<random>
+  --invoke-timeout-ms <n> Timeout for InvokeAgent request (default: 30000)
+  --stream-timeout-ms <n> Timeout waiting for next stream event (default: 30000)
   --trace                 Enable agent trace output
 `);
+}
+
+function parsePositiveInt(value, fallback) {
+  const parsed = Number.parseInt(String(value ?? ''), 10);
+  if (!Number.isFinite(parsed) || parsed <= 0) return fallback;
+  return parsed;
+}
+
+function withTimeout(promise, timeoutMs, timeoutMessage) {
+  let timer;
+  const timeoutPromise = new Promise((_, reject) => {
+    timer = setTimeout(() => reject(new Error(timeoutMessage)), timeoutMs);
+  });
+
+  return Promise.race([promise, timeoutPromise]).finally(() => clearTimeout(timer));
 }
 
 
@@ -61,6 +78,8 @@ async function main() {
   const agentAliasId = args['alias-id'] || process.env.BEDROCK_AGENT_ALIAS_ID;
   const region = args.region || process.env.AWS_REGION || 'us-east-1';
   const sessionId = args['session-id'] || `br-cli-${randomUUID().slice(0, 12)}`;
+  const invokeTimeoutMs = parsePositiveInt(args['invoke-timeout-ms'], 30000);
+  const streamTimeoutMs = parsePositiveInt(args['stream-timeout-ms'], 30000);
   const enableTrace = args.trace === 'true';
 
   if (!agentId || !agentAliasId) {
@@ -75,6 +94,8 @@ async function main() {
     agentId,
     agentAliasId,
     sessionId,
+    invokeTimeoutMs,
+    streamTimeoutMs,
     trace: enableTrace,
   }, null, 2));
 
@@ -86,7 +107,15 @@ async function main() {
     enableTrace,
   });
 
-  const response = await client.send(command);
+  if (enableTrace) {
+    console.log(`[trace] sending InvokeAgent request (timeout ${invokeTimeoutMs}ms)`);
+  }
+
+  const response = await withTimeout(
+    client.send(command),
+    invokeTimeoutMs,
+    `InvokeAgent request timed out after ${invokeTimeoutMs}ms`
+  );
 
   if (!response.completion) {
     console.error('No completion stream returned from Bedrock Agent Runtime.');
@@ -94,10 +123,27 @@ async function main() {
   }
 
   let finalText = '';
+  let chunkCount = 0;
+  const streamIterator = response.completion[Symbol.asyncIterator]();
 
-  for await (const event of response.completion) {
+  while (true) {
+    const next = await withTimeout(
+      streamIterator.next(),
+      streamTimeoutMs,
+      `Timed out waiting for stream event after ${streamTimeoutMs}ms`
+    );
+
+    if (next.done) {
+      break;
+    }
+
+    const event = next.value;
     if (event.chunk?.bytes) {
       finalText += new TextDecoder().decode(event.chunk.bytes);
+      chunkCount += 1;
+      if (enableTrace) {
+        console.log(`[trace] chunk ${chunkCount} received`);
+      }
     }
 
     if (enableTrace && event.trace) {
