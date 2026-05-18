@@ -84,6 +84,7 @@ const STOP_WORDS = new Set([
 
 const GENERIC_RESULT_PATTERNS = [
   /wikipedia\.org\/wiki\/data\/?$/i,
+  /wikipedia\.org\/wiki\//i,
   /^https?:\/\/data\.gov\/?$/i,
   /ibm\.com\/think\/topics\/data\/?$/i,
   /merriam-webster\.com\/dictionary\/data\/?$/i,
@@ -95,12 +96,48 @@ const GENERIC_RESULT_PATTERNS = [
 
 const LOW_SIGNAL_QUERY_TOKENS = new Set(['data', 'info', 'information', 'overview', 'guide']);
 
+const SUSTAINABILITY_SIGNAL_TOKENS = new Set([
+  'sustainability', 'esg', 'emissions', 'carbon', 'climate', 'scope', 'ghg',
+  'net', 'zero', 'decarbonization', 'renewable', 'water', 'energy', 'target',
+  'report', 'disclosure', 'commitment', 'compliance', 'risk', 'regulatory',
+]);
+
+const LOW_VALUE_HOST_PATTERNS = [
+  /(^|\.)wikipedia\.org$/i,
+  /(^|\.)yahoo\.com$/i,
+  /(^|\.)marketwatch\.com$/i,
+  /(^|\.)stockanalysis\.com$/i,
+  /(^|\.)tradingview\.com$/i,
+  /(^|\.)nasdaq\.com$/i,
+  /(^|\.)finance\.yahoo\.com$/i,
+];
+
 function tokenize(value) {
   return String(value || '')
     .toLowerCase()
     .replace(/[^a-z0-9\s]/g, ' ')
     .split(/\s+/)
     .filter((token) => token.length >= 3 && !STOP_WORDS.has(token));
+}
+
+function isLowValueResultUrl(url) {
+  try {
+    const parsed = new URL(String(url || ''));
+    const host = parsed.hostname.toLowerCase();
+    const path = (parsed.pathname || '/').toLowerCase();
+
+    if (LOW_VALUE_HOST_PATTERNS.some((pattern) => pattern.test(host))) {
+      return true;
+    }
+
+    if (/\/quote\//i.test(path) || /\/stocks?\//i.test(path) || /\/investing\//i.test(path)) {
+      return true;
+    }
+
+    return false;
+  } catch {
+    return false;
+  }
 }
 
 function filterRelevantResults(results, query, maxResults, trace, sourceName) {
@@ -123,19 +160,29 @@ function filterRelevantResults(results, query, maxResults, trace, sourceName) {
     const tokens = new Set(tokenize(haystack));
     let overlap = 0;
     let relaxedOverlap = 0;
+    let signalScore = 0;
+    const lowValue = isLowValueResultUrl(item.url);
+
     for (const token of queryTokens) {
       if (tokens.has(token)) overlap += 1;
     }
     for (const token of relaxedTokenSet) {
       if (tokens.has(token)) relaxedOverlap += 1;
     }
-    return { item, overlap, relaxedOverlap };
+    for (const token of SUSTAINABILITY_SIGNAL_TOKENS) {
+      if (tokens.has(token)) signalScore += 1;
+    }
+    return { item, overlap, relaxedOverlap, signalScore, lowValue };
   });
 
   const minOverlap = Math.min(2, queryTokens.size);
+  const rankingScore = (row) => (
+    row.overlap * 4 + row.relaxedOverlap * 2 + row.signalScore * 3 - (row.lowValue ? 6 : 0)
+  );
+
   const strict = scored
-    .filter((row) => row.overlap >= minOverlap)
-    .sort((a, b) => b.overlap - a.overlap)
+    .filter((row) => row.overlap >= minOverlap && (!row.lowValue || row.signalScore >= 2))
+    .sort((a, b) => rankingScore(b) - rankingScore(a))
     .map((row) => row.item)
     .slice(0, maxResults);
 
@@ -148,7 +195,7 @@ function filterRelevantResults(results, query, maxResults, trace, sourceName) {
 
   const relaxed = scored
     .filter((row) => row.relaxedOverlap >= 1)
-    .sort((a, b) => b.relaxedOverlap - a.relaxedOverlap || b.overlap - a.overlap)
+    .sort((a, b) => rankingScore(b) - rankingScore(a))
     .map((row) => row.item)
     .slice(0, maxResults);
 
@@ -161,6 +208,7 @@ function filterRelevantResults(results, query, maxResults, trace, sourceName) {
 
   const bestEffort = scored
     .filter((row) => row.relaxedOverlap >= 1)
+    .sort((a, b) => rankingScore(b) - rankingScore(a))
     .map((row) => row.item)
     .slice(0, maxResults);
 
