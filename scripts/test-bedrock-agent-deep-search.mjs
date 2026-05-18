@@ -5,6 +5,8 @@ import {
   BedrockRuntimeClient,
   InvokeModelCommand,
 } from '@aws-sdk/client-bedrock-runtime';
+import { NodeHttpHandler } from '@smithy/node-http-handler';
+import { HttpsProxyAgent } from 'https-proxy-agent';
 
 function parseArgs(argv) {
   const args = {};
@@ -266,7 +268,18 @@ async function main() {
   const resultsPerQuery = safeParseInt(args.results, 3);
   const enableTrace = args.trace === 'true';
 
-  const client = new BedrockRuntimeClient({ region });
+  const httpsProxy = process.env.HTTPS_PROXY || process.env.https_proxy;
+  
+  const clientConfig = { region };
+  if (httpsProxy) {
+    clientConfig.requestHandler = new NodeHttpHandler({
+      connectionTimeout: 10000,
+      requestTimeout: 60000,
+      httpsAgent: new HttpsProxyAgent(httpsProxy),
+    });
+  }
+
+  const client = new BedrockRuntimeClient(clientConfig);
 
   console.log(JSON.stringify({
     region,
