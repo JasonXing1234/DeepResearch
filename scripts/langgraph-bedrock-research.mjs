@@ -7,7 +7,6 @@ import {
 } from '@aws-sdk/client-bedrock-runtime';
 import { NodeHttpHandler } from '@smithy/node-http-handler';
 import { HttpsProxyAgent } from 'https-proxy-agent';
-import { ProxyAgent, setGlobalDispatcher } from 'undici';
 import { Annotation, END, START, StateGraph } from '@langchain/langgraph';
 
 function parseArgs(argv) {
@@ -41,6 +40,8 @@ Optional args:
   --rounds <n>            Research rounds (default: 2)
   --queries <n>           Queries per round (default: 3)
   --results <n>           Results per query (default: 3)
+  --self-test-web         Skip Bedrock and only test web search/fetch path
+  --self-test-query <q>   Query used by --self-test-web (default: prompt)
   --trace                 Enable verbose logs
 `);
 }
@@ -367,6 +368,27 @@ async function fetchPageSummary(url, trace) {
   }
 }
 
+async function configureFetchProxy(httpsProxy, trace) {
+  if (!httpsProxy) {
+    return;
+  }
+
+  try {
+    const undici = await import('undici');
+    undici.setGlobalDispatcher(new undici.ProxyAgent(httpsProxy));
+    if (trace) {
+      console.error('[trace] configured undici global proxy dispatcher');
+    }
+  } catch (error) {
+    if (trace) {
+      console.error('[trace] unable to configure undici proxy dispatcher', {
+        name: error?.name,
+        message: error?.message,
+      });
+    }
+  }
+}
+
 function buildPlannerPrompt(question, findings, roundIndex, queriesPerRound) {
   const findingsBlock = findings.length
     ? findings.map((item, idx) => `${idx + 1}. ${item}`).join('\n')
@@ -584,12 +606,38 @@ async function main() {
   const rounds = safeParseInt(args.rounds, 2);
   const queriesPerRound = safeParseInt(args.queries, 3);
   const resultsPerQuery = safeParseInt(args.results, 3);
+  const selfTestWeb = args['self-test-web'] === 'true';
+  const selfTestQuery = args['self-test-query'] || prompt;
   const trace = args.trace === 'true';
   const sessionId = `lg-${randomUUID().slice(0, 8)}`;
 
   const httpsProxy = process.env.HTTPS_PROXY || process.env.https_proxy;
-  if (httpsProxy) {
-    setGlobalDispatcher(new ProxyAgent(httpsProxy));
+  await configureFetchProxy(httpsProxy, trace);
+
+  if (selfTestWeb) {
+    const hits = await webSearch(selfTestQuery, resultsPerQuery, trace);
+    console.log(JSON.stringify({
+      mode: 'langgraph-web-self-test',
+      query: selfTestQuery,
+      hitCount: hits.length,
+      proxyConfigured: !!httpsProxy,
+    }, null, 2));
+
+    if (!hits.length) {
+      console.log('\n--- self-test sources ---\n');
+      console.log('No sources retrieved.');
+      return;
+    }
+
+    console.log('\n--- self-test sources ---\n');
+    for (const [index, hit] of hits.entries()) {
+      const summary = await fetchPageSummary(hit.url, trace);
+      console.log(`[${index + 1}] ${hit.title} | ${hit.url}`);
+      if (summary) {
+        console.log(`    summary: ${summary.slice(0, 160)}${summary.length > 160 ? '...' : ''}`);
+      }
+    }
+    return;
   }
 
   const clientConfig = { region };
