@@ -71,34 +71,75 @@ function extractJsonObject(text) {
   return JSON.parse(text.slice(start, end + 1));
 }
 
+function isNovaModel(modelId) {
+  return modelId.startsWith('amazon.nova-');
+}
+
+function buildInvokeModelBody({ modelId, prompt, maxTokens, temperature }) {
+  if (isNovaModel(modelId)) {
+    return {
+      messages: [
+        {
+          role: 'user',
+          content: [{ text: prompt }],
+        },
+      ],
+      inferenceConfig: {
+        maxTokens,
+        temperature,
+      },
+    };
+  }
+
+  return {
+    anthropic_version: 'bedrock-2023-06-01',
+    max_tokens: maxTokens,
+    temperature,
+    messages: [
+      {
+        role: 'user',
+        content: prompt,
+      },
+    ],
+  };
+}
+
+function extractModelText({ modelId, payload }) {
+  if (isNovaModel(modelId)) {
+    const text = payload?.output?.message?.content?.find((item) => typeof item?.text === 'string')?.text;
+    if (text) return text;
+  }
+
+  const anthropicText = payload?.content?.[0]?.text;
+  if (anthropicText && typeof anthropicText === 'string') {
+    return anthropicText;
+  }
+
+  const fallbackText = payload?.outputText;
+  if (fallbackText && typeof fallbackText === 'string') {
+    return fallbackText;
+  }
+
+  throw new Error('InvokeModel returned an unexpected payload (missing text).');
+}
+
 async function invokeModel({ client, modelId, prompt, maxTokens = 1500, temperature = 0.2 }) {
   const command = new InvokeModelCommand({
     modelId,
     contentType: 'application/json',
     accept: 'application/json',
-    body: JSON.stringify({
-      anthropic_version: 'bedrock-2023-06-01',
-      max_tokens: maxTokens,
+    body: JSON.stringify(buildInvokeModelBody({
+      modelId,
+      prompt,
+      maxTokens,
       temperature,
-      messages: [
-        {
-          role: 'user',
-          content: prompt,
-        },
-      ],
-    }),
+    })),
   });
 
   const response = await client.send(command);
   const payloadText = new TextDecoder().decode(response.body);
   const payload = JSON.parse(payloadText);
-  const text = payload?.content?.[0]?.text;
-
-  if (!text || typeof text !== 'string') {
-    throw new Error('InvokeModel returned an unexpected payload (missing text).');
-  }
-
-  return text;
+  return extractModelText({ modelId, payload });
 }
 
 function flattenRelatedTopics(relatedTopics) {
