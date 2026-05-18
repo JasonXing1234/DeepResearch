@@ -164,6 +164,50 @@ function flattenRelatedTopics(relatedTopics) {
   return out;
 }
 
+function decodeHtmlEntities(value) {
+  return value
+    .replace(/&amp;/g, '&')
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;/g, "'")
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>');
+}
+
+function extractDuckDuckGoHtmlResults(html, maxResults) {
+  const results = [];
+  const seen = new Set();
+  const resultRegex = /<article[^>]*class="[^"]*result[^"]*"[\s\S]*?<\/article>/gi;
+  const titleRegex = /<h2[^>]*>\s*<a[^>]*href="([^"]+)"[^>]*>([\s\S]*?)<\/a>\s*<\/h2>/i;
+  const snippetRegex = /<div[^>]*class="[^"]*result__snippet[^"]*"[^>]*>([\s\S]*?)<\/div>/i;
+
+  for (const block of html.match(resultRegex) || []) {
+    const titleMatch = block.match(titleRegex);
+    if (!titleMatch) continue;
+
+    const url = decodeHtmlEntities(titleMatch[1]);
+    if (!url.startsWith('http') || seen.has(url)) continue;
+
+    seen.add(url);
+    const rawTitle = titleMatch[2].replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
+    const snippetMatch = block.match(snippetRegex);
+    const rawSnippet = snippetMatch
+      ? snippetMatch[1].replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim()
+      : '';
+
+    results.push({
+      title: decodeHtmlEntities(rawTitle) || 'DuckDuckGo Result',
+      url,
+      snippet: decodeHtmlEntities(rawSnippet),
+    });
+
+    if (results.length >= maxResults) {
+      break;
+    }
+  }
+
+  return results;
+}
+
 async function duckDuckGoSearch(query, maxResults, trace) {
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), 8000);
@@ -208,7 +252,29 @@ async function duckDuckGoSearch(query, maxResults, trace) {
       if (deduped.length >= maxResults) break;
     }
 
-    return deduped;
+    if (deduped.length) {
+      return deduped;
+    }
+
+    if (trace) {
+      console.error('[trace] DuckDuckGo instant API returned no hits, falling back to HTML results page');
+    }
+
+    const htmlResponse = await fetch(`https://html.duckduckgo.com/html/?q=${encodeURIComponent(query)}`, {
+      signal: controller.signal,
+      headers: {
+        'accept': 'text/html',
+        'user-agent': 'deepresearch-test-agent/1.0',
+      },
+    });
+
+    if (!htmlResponse.ok) {
+      return [];
+    }
+
+    const html = await htmlResponse.text();
+    return extractDuckDuckGoHtmlResults(html, maxResults);
+
   } catch {
     return [];
   } finally {
