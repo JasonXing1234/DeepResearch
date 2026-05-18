@@ -180,10 +180,35 @@ function buildBingQueryVariants(query) {
   const prioritized = [
     withPhrase,
     `${withPhrase} ESG energy water emissions`,
+    `${withPhrase} sustainability report pdf`,
+    `${withPhrase} annual sustainability report`,
+    `${withPhrase} climate risk scope 1 scope 2 scope 3`,
     trimmed,
   ];
 
   const seen = new Set();
+  for (const item of prioritized) {
+    const key = item.toLowerCase();
+    if (seen.has(key)) continue;
+    seen.add(key);
+    variants.push(item);
+  }
+
+  return variants;
+}
+
+function buildGoogleNewsQueryVariants(query) {
+  const trimmed = String(query || '').trim();
+  if (!trimmed) return [];
+
+  const prioritized = [
+    `${trimmed} sustainability report`,
+    `${trimmed} ESG`,
+    `${trimmed} emissions climate risk`,
+  ];
+
+  const seen = new Set();
+  const variants = [];
   for (const item of prioritized) {
     const key = item.toLowerCase();
     if (seen.has(key)) continue;
@@ -359,42 +384,6 @@ function extractBingRssResults(xml, maxResults) {
   return results;
 }
 
-async function wikipediaSearch(query, maxResults, trace, signal) {
-  try {
-    if (trace) {
-      console.error('[trace] trying Wikipedia API fallback');
-    }
-
-    const url = `https://en.wikipedia.org/w/api.php?action=query&list=search&srsearch=${encodeURIComponent(query)}&utf8=1&format=json&srlimit=${Math.max(maxResults * 3, 10)}`;
-    const response = await fetch(url, {
-      signal,
-      headers: {
-        accept: 'application/json',
-        'user-agent': 'langgraph-bedrock-research/1.0',
-      },
-    });
-
-    if (!response.ok) {
-      return [];
-    }
-
-    const payload = await response.json();
-    const entries = Array.isArray(payload?.query?.search) ? payload.query.search : [];
-
-    const mapped = entries
-      .filter((entry) => typeof entry?.title === 'string' && entry.title.trim())
-      .map((entry) => ({
-        title: entry.title,
-        url: `https://en.wikipedia.org/wiki/${encodeURIComponent(entry.title.replace(/\s+/g, '_'))}`,
-        snippet: String(entry?.snippet || '').replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim(),
-      }));
-
-    return filterRelevantResults(mapped, query, maxResults, trace, 'Wikipedia API');
-  } catch {
-    return [];
-  }
-}
-
 async function webSearch(query, maxResults, trace) {
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), 12000);
@@ -508,7 +497,48 @@ async function webSearch(query, maxResults, trace) {
       return filteredBing;
     }
 
-    return wikipediaSearch(query, maxResults, trace, controller.signal);
+    if (trace) {
+      console.error('[trace] Bing RSS had no hits, trying Google News RSS fallback');
+    }
+
+    const googleNewsQueries = buildGoogleNewsQueryVariants(query);
+    const aggregateGoogleResults = [];
+
+    for (const newsQuery of googleNewsQueries) {
+      if (trace) {
+        console.error(`[trace] Google News RSS query variant: ${newsQuery}`);
+      }
+
+      const newsResponse = await fetch(`https://news.google.com/rss/search?q=${encodeURIComponent(newsQuery)}&hl=en-US&gl=US&ceid=US:en`, {
+        signal: controller.signal,
+        headers: {
+          accept: 'application/rss+xml, application/xml, text/xml;q=0.9, */*;q=0.8',
+          'user-agent': 'langgraph-bedrock-research/1.0',
+        },
+      });
+
+      if (!newsResponse.ok) {
+        continue;
+      }
+
+      const newsXml = await newsResponse.text();
+      const parsed = extractBingRssResults(newsXml, maxResults * 3);
+      aggregateGoogleResults.push(...parsed);
+
+      if (aggregateGoogleResults.length >= maxResults * 5) {
+        break;
+      }
+    }
+
+    const googleSeen = new Set();
+    const googleResults = [];
+    for (const item of aggregateGoogleResults) {
+      if (!item?.url || googleSeen.has(item.url)) continue;
+      googleSeen.add(item.url);
+      googleResults.push(item);
+    }
+
+    return filterRelevantResults(googleResults, query, maxResults, trace, 'Google News RSS');
   } catch (error) {
     if (trace) {
       console.error('[trace] search failed', {
