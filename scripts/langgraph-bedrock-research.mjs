@@ -112,6 +112,23 @@ const LOW_VALUE_HOST_PATTERNS = [
   /(^|\.)finance\.yahoo\.com$/i,
 ];
 
+const DEALER_OR_SHOPPING_PATTERNS = [
+  /dealer/i,
+  /dealership/i,
+  /inventory/i,
+  /new[-/]?vehicles?/i,
+  /used[-/]?vehicles?/i,
+  /cars?-for-sale/i,
+  /\/new\//i,
+  /\/used\//i,
+  /\/inventory\//i,
+  /\/specials?\//i,
+  /\/service\//i,
+  /\/parts\//i,
+  /\/sales\//i,
+  /forddealer/i,
+];
+
 function tokenize(value) {
   return String(value || '')
     .toLowerCase()
@@ -125,12 +142,17 @@ function isLowValueResultUrl(url) {
     const parsed = new URL(String(url || ''));
     const host = parsed.hostname.toLowerCase();
     const path = (parsed.pathname || '/').toLowerCase();
+    const combined = `${host}${path}`;
 
     if (LOW_VALUE_HOST_PATTERNS.some((pattern) => pattern.test(host))) {
       return true;
     }
 
     if (/\/quote\//i.test(path) || /\/stocks?\//i.test(path) || /\/investing\//i.test(path)) {
+      return true;
+    }
+
+    if (DEALER_OR_SHOPPING_PATTERNS.some((pattern) => pattern.test(combined))) {
       return true;
     }
 
@@ -194,7 +216,11 @@ function filterRelevantResults(results, query, maxResults, trace, sourceName) {
   }
 
   const relaxed = scored
-    .filter((row) => row.relaxedOverlap >= 1)
+    .filter((row) =>
+      row.relaxedOverlap >= 2 &&
+      row.signalScore >= 1 &&
+      !row.lowValue
+    )
     .sort((a, b) => rankingScore(b) - rankingScore(a))
     .map((row) => row.item)
     .slice(0, maxResults);
