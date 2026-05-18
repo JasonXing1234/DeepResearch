@@ -274,6 +274,11 @@ function buildReviewerPrompt(question, roundSources) {
 }
 
 function buildFinalPrompt(question, findings, sources) {
+  if (!sources.length) {
+    const findingLines = findings.map((f, idx) => `${idx + 1}. ${f}`);
+    return `You are writing a concise deep-research summary.\nQuestion: "${question}"\n\nPreliminary findings:\n${findingLines.join('\n') || 'None'}\n\nNo external web sources were successfully retrieved in this run.\n\nWrite:\n1) Executive summary (3-5 bullets)\n2) Key risks and rationale\n3) Open questions\n4) A short limitations note explaining that no external sources were retrieved\n\nImportant:\n- Do not include numeric citations like [1], [2]\n- Do not imply external evidence was verified\n- Keep claims cautious and clearly marked as model-generated synthesis.`;
+  }
+
   const sourceLines = sources.map(
     (s, idx) => `[${idx + 1}] ${s.title} | ${s.url} | ${s.snippet || ''}`
   );
@@ -443,6 +448,12 @@ async function main() {
 
   console.log('\n--- deep search response ---\n');
   console.log(finalText.trim());
+
+  if (!dedupedSources.length) {
+    console.log('\n--- sources ---\n');
+    console.log('No sources retrieved.');
+    return;
+  }
 
   console.log('\n--- sources ---\n');
   dedupedSources.forEach((source, idx) => {
