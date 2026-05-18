@@ -208,6 +208,40 @@ function extractDuckDuckGoHtmlResults(html, maxResults) {
   return results;
 }
 
+function extractXmlTag(block, tagName) {
+  const match = block.match(new RegExp(`<${tagName}>([\\s\\S]*?)</${tagName}>`, 'i'));
+  if (!match) return '';
+  return match[1]
+    .replace(/^<!\[CDATA\[/, '')
+    .replace(/\]\]>$/, '')
+    .trim();
+}
+
+function extractBingRssResults(xml, maxResults) {
+  const results = [];
+  const seen = new Set();
+  const itemRegex = /<item>([\s\S]*?)<\/item>/gi;
+
+  for (const match of xml.matchAll(itemRegex)) {
+    const itemBlock = match[1] || '';
+    const url = decodeHtmlEntities(extractXmlTag(itemBlock, 'link'));
+    if (!url || !url.startsWith('http') || seen.has(url)) {
+      continue;
+    }
+
+    seen.add(url);
+    const title = decodeHtmlEntities(extractXmlTag(itemBlock, 'title')) || 'Bing Result';
+    const snippet = decodeHtmlEntities(extractXmlTag(itemBlock, 'description'));
+
+    results.push({ title, url, snippet });
+    if (results.length >= maxResults) {
+      break;
+    }
+  }
+
+  return results;
+}
+
 async function duckDuckGoSearch(query, maxResults, trace) {
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), 8000);
@@ -273,7 +307,29 @@ async function duckDuckGoSearch(query, maxResults, trace) {
     }
 
     const html = await htmlResponse.text();
-    return extractDuckDuckGoHtmlResults(html, maxResults);
+    const htmlResults = extractDuckDuckGoHtmlResults(html, maxResults);
+    if (htmlResults.length) {
+      return htmlResults;
+    }
+
+    if (trace) {
+      console.error('[trace] DuckDuckGo HTML fallback returned no hits, trying Bing RSS fallback');
+    }
+
+    const bingResponse = await fetch(`https://www.bing.com/search?format=rss&q=${encodeURIComponent(query)}`, {
+      signal: controller.signal,
+      headers: {
+        'accept': 'application/rss+xml, application/xml, text/xml;q=0.9, */*;q=0.8',
+        'user-agent': 'deepresearch-test-agent/1.0',
+      },
+    });
+
+    if (!bingResponse.ok) {
+      return [];
+    }
+
+    const bingXml = await bingResponse.text();
+    return extractBingRssResults(bingXml, maxResults);
 
   } catch {
     return [];
