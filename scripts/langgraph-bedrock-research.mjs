@@ -37,7 +37,6 @@ function usage() {
 Optional args:
   --region <region>       Defaults to AWS_REGION or us-east-1
   --model-id <id>         Defaults to BEDROCK_MODEL_ID or BEDROCK_RESEARCH_MODEL_ID
-  --search-provider <p>   auto | tavily | web (default: auto)
   --rounds <n>            Research rounds (default: 2)
   --queries <n>           Queries per round (default: 3)
   --results <n>           Results per query (default: 3)
@@ -238,85 +237,7 @@ function extractBingRssResults(xml, maxResults) {
   return results;
 }
 
-async function tavilySearch(query, maxResults, trace, tavilyApiKey) {
-  if (!tavilyApiKey) {
-    return [];
-  }
-
-  const controller = new AbortController();
-  const timeout = setTimeout(() => controller.abort(), 12000);
-
-  try {
-    if (trace) {
-      console.error('[trace] trying Tavily search API');
-    }
-
-    const response = await fetch('https://api.tavily.com/search', {
-      method: 'POST',
-      signal: controller.signal,
-      headers: {
-        accept: 'application/json',
-        'content-type': 'application/json',
-        'user-agent': 'langgraph-bedrock-research/1.0',
-      },
-      body: JSON.stringify({
-        api_key: tavilyApiKey,
-        query,
-        max_results: maxResults,
-        search_depth: 'basic',
-        include_answer: false,
-        include_images: false,
-        include_raw_content: false,
-      }),
-    });
-
-    if (!response.ok) {
-      if (trace) {
-        console.error(`[trace] Tavily returned status ${response.status}`);
-      }
-      return [];
-    }
-
-    const data = await response.json();
-    const results = Array.isArray(data?.results)
-      ? data.results
-          .filter((item) => typeof item?.url === 'string' && item.url.startsWith('http'))
-          .slice(0, maxResults)
-          .map((item) => ({
-            title: item?.title || 'Tavily Result',
-            url: item.url,
-            snippet: item?.content || '',
-          }))
-      : [];
-
-    if (trace) {
-      console.error(`[trace] Tavily hits: ${results.length}`);
-    }
-
-    return results;
-  } catch {
-    return [];
-  } finally {
-    clearTimeout(timeout);
-  }
-}
-
-async function webSearch(query, maxResults, trace, options) {
-  const { searchProvider, tavilyApiKey } = options;
-
-  if (searchProvider === 'tavily' || (searchProvider === 'auto' && tavilyApiKey)) {
-    const tavilyResults = await tavilySearch(query, maxResults, trace, tavilyApiKey);
-    if (tavilyResults.length) {
-      return tavilyResults;
-    }
-    if (searchProvider === 'tavily') {
-      return [];
-    }
-    if (trace) {
-      console.error('[trace] Tavily had no hits, falling back to web search');
-    }
-  }
-
+async function webSearch(query, maxResults, trace) {
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), 12000);
 
@@ -485,7 +406,7 @@ const ResearchState = Annotation.Root({
   finalText: Annotation(),
 });
 
-function buildGraph(client, options) {
+function buildGraph(client) {
   const graph = new StateGraph(ResearchState)
     .addNode('plan', async (state) => {
       const roundNumber = state.currentRound + 1;
@@ -531,7 +452,7 @@ function buildGraph(client, options) {
       const roundSources = [];
 
       for (const query of state.plannedQueries) {
-        const hits = await webSearch(query, state.resultsPerQuery, state.trace, options);
+        const hits = await webSearch(query, state.resultsPerQuery, state.trace);
 
         for (const hit of hits) {
           const pageSummary = await fetchPageSummary(hit.url);
@@ -646,8 +567,6 @@ async function main() {
   const rounds = safeParseInt(args.rounds, 2);
   const queriesPerRound = safeParseInt(args.queries, 3);
   const resultsPerQuery = safeParseInt(args.results, 3);
-  const searchProvider = args['search-provider'] || process.env.WEB_SEARCH_PROVIDER || 'auto';
-  const tavilyApiKey = process.env.TAVILY_API_KEY || '';
   const trace = args.trace === 'true';
   const sessionId = `lg-${randomUUID().slice(0, 8)}`;
 
@@ -662,14 +581,12 @@ async function main() {
   }
 
   const client = new BedrockRuntimeClient(clientConfig);
-  const app = buildGraph(client, { searchProvider, tavilyApiKey });
+  const app = buildGraph(client);
 
   console.log(JSON.stringify({
     mode: 'langgraph',
     region,
     modelId,
-    searchProvider,
-    hasTavilyApiKey: !!tavilyApiKey,
     sessionId,
     rounds,
     queriesPerRound,
