@@ -83,6 +83,11 @@ const GENERIC_RESULT_PATTERNS = [
   /wikipedia\.org\/wiki\/data\/?$/i,
   /^https?:\/\/data\.gov\/?$/i,
   /ibm\.com\/think\/topics\/data\/?$/i,
+  /merriam-webster\.com\/dictionary\/data\/?$/i,
+  /geeksforgeeks\.org\/data-analysis\/what-is-data\/?$/i,
+  /mygreatlearning\.com\/blog\/what-is-data/i,
+  /\/what-is-data\/?$/i,
+  /\/definition\/data\/?$/i,
 ];
 
 const LOW_SIGNAL_QUERY_TOKENS = new Set(['data', 'info', 'information', 'overview', 'guide']);
@@ -152,6 +157,7 @@ function filterRelevantResults(results, query, maxResults, trace, sourceName) {
   }
 
   const bestEffort = scored
+    .filter((row) => row.relaxedOverlap >= 1)
     .map((row) => row.item)
     .slice(0, maxResults);
 
@@ -160,6 +166,32 @@ function filterRelevantResults(results, query, maxResults, trace, sourceName) {
   }
 
   return bestEffort;
+}
+
+function buildBingQueryVariants(query) {
+  const variants = [];
+  const trimmed = String(query || '').trim();
+  if (!trimmed) return variants;
+
+  const withPhrase = /data center/i.test(trimmed)
+    ? trimmed.replace(/data center/gi, '"data center"')
+    : trimmed;
+
+  const prioritized = [
+    withPhrase,
+    `${withPhrase} ESG energy water emissions`,
+    trimmed,
+  ];
+
+  const seen = new Set();
+  for (const item of prioritized) {
+    const key = item.toLowerCase();
+    if (seen.has(key)) continue;
+    seen.add(key);
+    variants.push(item);
+  }
+
+  return variants;
 }
 
 function extractJsonObject(text) {
@@ -398,17 +430,43 @@ async function webSearch(query, maxResults, trace) {
       console.error('[trace] DuckDuckGo HTML had no hits, trying Bing RSS fallback');
     }
 
-    const bingResponse = await fetch(`https://www.bing.com/search?format=rss&q=${encodeURIComponent(query)}`, {
-      signal: controller.signal,
-      headers: {
-        accept: 'application/rss+xml, application/xml, text/xml;q=0.9, */*;q=0.8',
-        'user-agent': 'langgraph-bedrock-research/1.0',
-      },
-    });
+    const bingQueries = buildBingQueryVariants(query);
+    const aggregateBingResults = [];
 
-    if (!bingResponse.ok) return [];
-    const bingXml = await bingResponse.text();
-    const bingResults = extractBingRssResults(bingXml, maxResults * 3);
+    for (const bingQuery of bingQueries) {
+      if (trace) {
+        console.error(`[trace] Bing RSS query variant: ${bingQuery}`);
+      }
+
+      const bingResponse = await fetch(`https://www.bing.com/search?format=rss&q=${encodeURIComponent(bingQuery)}`, {
+        signal: controller.signal,
+        headers: {
+          accept: 'application/rss+xml, application/xml, text/xml;q=0.9, */*;q=0.8',
+          'user-agent': 'langgraph-bedrock-research/1.0',
+        },
+      });
+
+      if (!bingResponse.ok) {
+        continue;
+      }
+
+      const bingXml = await bingResponse.text();
+      const parsed = extractBingRssResults(bingXml, maxResults * 3);
+      aggregateBingResults.push(...parsed);
+
+      if (aggregateBingResults.length >= maxResults * 5) {
+        break;
+      }
+    }
+
+    const seenUrls = new Set();
+    const bingResults = [];
+    for (const item of aggregateBingResults) {
+      if (!item?.url || seenUrls.has(item.url)) continue;
+      seenUrls.add(item.url);
+      bingResults.push(item);
+    }
+
     return filterRelevantResults(bingResults, query, maxResults, trace, 'Bing RSS');
   } catch (error) {
     if (trace) {
