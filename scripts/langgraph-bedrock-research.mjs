@@ -100,6 +100,7 @@ const LOW_SIGNAL_QUERY_TOKENS = new Set(['data', 'info', 'information', 'overvie
 const COMPANY_STOP_TOKENS = new Set([
   'company', 'corporation', 'corp', 'co', 'inc', 'incorporated', 'ltd', 'llc',
   'plc', 'holdings', 'group', 'international', 'products', 'services', 'cat',
+  'concrete',
 ]);
 
 const SUSTAINABILITY_SIGNAL_TOKENS = new Set([
@@ -196,6 +197,33 @@ const CATEGORY_EVIDENCE_PATTERNS = {
   ],
 };
 
+const EMISSIONS_STRONG_PATTERNS = [
+  /scope\s*1/i,
+  /scope\s*2/i,
+  /scope\s*3/i,
+  /\bghg\b/i,
+  /greenhouse gas/i,
+  /carbon emissions/i,
+  /emissions reduction/i,
+  /net[-\s]?zero/i,
+  /carbon neutral/i,
+  /science[-\s]?based target/i,
+];
+
+const EMISSIONS_ACTION_PATTERNS = [
+  /energy efficiency/i,
+  /renewable energy/i,
+  /solar/i,
+  /electric equipment/i,
+  /battery electric/i,
+  /alternative fuel/i,
+  /renewable diesel/i,
+  /idle reduction/i,
+  /fuel efficiency/i,
+  /fleet efficiency/i,
+  /low[-\s]?emission/i,
+];
+
 const BAD_SOURCE_PATTERNS = [
   /linkedin\.com/i,
   /\/contact/i,
@@ -220,7 +248,15 @@ function tokenize(value) {
 }
 
 function extractCompanyTokens(value) {
-  return tokenize(value).filter((token) => !COMPANY_STOP_TOKENS.has(token));
+  const seen = new Set();
+
+  return tokenize(value)
+    .filter((token) => !COMPANY_STOP_TOKENS.has(token))
+    .filter((token) => {
+      if (seen.has(token)) return false;
+      seen.add(token);
+      return true;
+    });
 }
 
 function buildOfficialDomainCandidates(companyName) {
@@ -228,19 +264,19 @@ function buildOfficialDomainCandidates(companyName) {
   if (!tokens.length) return [];
 
   const candidates = new Set();
-  const first = tokens[0];
-  const firstTwo = tokens.slice(0, 2).join('');
-  const all = tokens.join('');
+  candidates.add(`${tokens[0]}.com`);
 
-  candidates.add(`${first}.com`);
-  if (firstTwo) candidates.add(`${firstTwo}.com`);
-  if (all) candidates.add(`${all}.com`);
-
-  if (tokens.length >= 2) {
-    candidates.add(`${tokens[0]}${tokens[tokens.length - 1]}.com`);
+  if (tokens.length >= 2 && tokens[0] !== tokens[1]) {
+    candidates.add(`${tokens[0]}${tokens[1]}.com`);
+    candidates.add(`${tokens[0]}-${tokens[1]}.com`);
   }
 
-  return [...candidates].slice(0, 4);
+  const capped = tokens.slice(0, 3).join('');
+  if (capped) {
+    candidates.add(`${capped}.com`);
+  }
+
+  return [...candidates].slice(0, 5);
 }
 
 function inferCompanyHintFromQuery(query) {
@@ -276,8 +312,10 @@ function isLowValueResultUrl(url) {
 }
 
 function hasCategoryEvidence(item, categoryId) {
-  const patterns = CATEGORY_EVIDENCE_PATTERNS[categoryId] || [];
+  return classifyCategoryEvidence(item, categoryId) !== 'none';
+}
 
+function classifyEmissionsEvidence(item) {
   const text = [
     item.title,
     item.url,
@@ -289,11 +327,43 @@ function hasCategoryEvidence(item, categoryId) {
     .join(' ')
     .toLowerCase();
 
-  if (BAD_SOURCE_PATTERNS.some((pattern) => pattern.test(item.url || ''))) {
-    return false;
+  if (EMISSIONS_STRONG_PATTERNS.some((pattern) => pattern.test(text))) {
+    return 'strong';
   }
 
-  return patterns.some((pattern) => pattern.test(text));
+  if (EMISSIONS_ACTION_PATTERNS.some((pattern) => pattern.test(text))) {
+    return 'action_related';
+  }
+
+  return 'none';
+}
+
+function classifyCategoryEvidence(item, categoryId) {
+  if (BAD_SOURCE_PATTERNS.some((pattern) => pattern.test(item.url || ''))) {
+    return 'none';
+  }
+
+  if (categoryId === 'emissions') {
+    return classifyEmissionsEvidence(item);
+  }
+
+  const patterns = CATEGORY_EVIDENCE_PATTERNS[categoryId] || [];
+  const text = [
+    item.title,
+    item.url,
+    item.snippet,
+    item.pageSummary,
+    item.summary,
+  ]
+    .filter(Boolean)
+    .join(' ')
+    .toLowerCase();
+
+  if (patterns.some((pattern) => pattern.test(text))) {
+    return 'strong';
+  }
+
+  return 'none';
 }
 
 function filterRelevantResults(results, query, maxResults, trace, sourceName) {
@@ -418,26 +488,38 @@ function buildBingQueryVariants(query) {
   const companyName = inferCompanyHintFromQuery(trimmed);
   const officialDomains = buildOfficialDomainCandidates(companyName);
   const officialVariants = officialDomains.flatMap((domain) => [
+    `${trimmed} site:${domain}`,
     `${trimmed} site:${domain} sustainability`,
-    `${trimmed} site:${domain} ESG`,
+    `${trimmed} site:${domain} environmental`,
   ]);
 
   const withPhrase = /data center/i.test(trimmed)
     ? trimmed.replace(/data center/gi, '"data center"')
     : trimmed;
 
-  const prioritized = [
-    ...officialVariants,
+  const broadVariants = [
+    trimmed,
     withPhrase,
-    `${withPhrase} ESG energy water emissions`,
+    companyName ? `"${companyName}" sustainability` : '',
+    companyName ? `"${companyName}" emissions` : '',
+    companyName ? `"${companyName}" "greenhouse gas"` : '',
+    companyName ? `"${companyName}" "carbon"` : '',
+    companyName ? `"${companyName}" "energy efficiency"` : '',
+    companyName ? `"${companyName}" "renewable energy"` : '',
+    companyName ? `"${companyName}" filetype:pdf sustainability` : '',
+    companyName ? `"${companyName}" site:.gov environmental` : '',
+    companyName ? `"${companyName}" site:.org sustainability` : '',
+    companyName ? `"${companyName}" case study emissions` : '',
+    companyName ? `"${companyName}" utility rebate energy efficiency` : '',
     `${withPhrase} sustainability report pdf`,
     `${withPhrase} annual sustainability report`,
+    `${withPhrase} ESG energy water emissions`,
     `${withPhrase} climate risk scope 1 scope 2 scope 3`,
-    trimmed,
   ];
 
   const seen = new Set();
-  for (const item of prioritized) {
+  for (const item of [...officialVariants, ...broadVariants]) {
+    if (!item) continue;
     const key = item.toLowerCase();
     if (seen.has(key)) continue;
     seen.add(key);
@@ -474,10 +556,21 @@ const CATEGORY_CONFIG = {
     id: 'emissions',
     label: 'Emissions Reductions',
     templates: [
-      '{company} scope 1 scope 2 scope 3 emissions target',
-      '{company} net zero target year sustainability report pdf',
-      '{company} carbon emissions reduction program',
-      '{company} ghg emissions disclosure',
+      '{company} sustainability',
+      '{company} environmental sustainability',
+      '{company} carbon emissions',
+      '{company} greenhouse gas',
+      '{company} GHG',
+      '{company} climate',
+      '{company} renewable energy',
+      '{company} energy efficiency',
+      '{company} alternative fuels',
+      '{company} fleet emissions',
+      '{company} emissions reduction',
+      '{company} net zero',
+      '{company} sustainability report pdf',
+      '{company} annual report sustainability',
+      '{company} environmental report',
     ],
   },
   investments: {
@@ -734,7 +827,9 @@ function normalizeSearchProvider(value) {
   return 'auto';
 }
 
-async function runBingRssSearch(query, maxResults, trace) {
+async function runBingRssSearch(query, maxResults, trace, options = {}) {
+  const broadDiscovery = options?.broadDiscovery === true;
+
   if (trace) {
     console.error('[trace] using Bing RSS search mode');
   }
@@ -775,10 +870,15 @@ async function runBingRssSearch(query, maxResults, trace) {
     bingResults.push(item);
   }
 
+  if (broadDiscovery) {
+    return bingResults.slice(0, maxResults);
+  }
+
   return filterRelevantResults(bingResults, query, maxResults, trace, 'Bing RSS');
 }
 
-async function webSearch(query, maxResults, trace, searchProvider = 'auto') {
+async function webSearch(query, maxResults, trace, searchProvider = 'auto', options = {}) {
+  const broadDiscovery = options?.broadDiscovery === true;
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), 12000);
 
@@ -788,7 +888,7 @@ async function webSearch(query, maxResults, trace, searchProvider = 'auto') {
     }
 
     if (searchProvider === 'bing-rss') {
-      return await runBingRssSearch(query, maxResults, trace);
+      return await runBingRssSearch(query, maxResults, trace, options);
     }
 
     const apiResponse = await fetch(`https://api.duckduckgo.com/?q=${encodeURIComponent(query)}&format=json&no_html=1&skip_disambig=1`, {
@@ -823,6 +923,10 @@ async function webSearch(query, maxResults, trace, searchProvider = 'auto') {
       }
 
       if (deduped.length) {
+        if (broadDiscovery) {
+          return deduped.slice(0, maxResults);
+        }
+
         const filtered = filterRelevantResults(deduped, query, maxResults, trace, 'DuckDuckGo instant');
         if (filtered.length) return filtered;
       }
@@ -844,6 +948,10 @@ async function webSearch(query, maxResults, trace, searchProvider = 'auto') {
       const html = await htmlResponse.text();
       const htmlResults = extractDuckDuckGoHtmlResults(html, maxResults);
       if (htmlResults.length) {
+        if (broadDiscovery) {
+          return htmlResults.slice(0, maxResults);
+        }
+
         const filtered = filterRelevantResults(htmlResults, query, maxResults, trace, 'DuckDuckGo HTML');
         if (filtered.length) return filtered;
       }
@@ -890,9 +998,15 @@ async function webSearch(query, maxResults, trace, searchProvider = 'auto') {
       bingResults.push(item);
     }
 
-    const filteredBing = filterRelevantResults(bingResults, query, maxResults, trace, 'Bing RSS');
-    if (filteredBing.length) {
-      return filteredBing;
+    if (broadDiscovery) {
+      if (bingResults.length) {
+        return bingResults.slice(0, maxResults);
+      }
+    } else {
+      const filteredBing = filterRelevantResults(bingResults, query, maxResults, trace, 'Bing RSS');
+      if (filteredBing.length) {
+        return filteredBing;
+      }
     }
 
     if (trace) {
@@ -934,6 +1048,10 @@ async function webSearch(query, maxResults, trace, searchProvider = 'auto') {
       if (!item?.url || googleSeen.has(item.url)) continue;
       googleSeen.add(item.url);
       googleResults.push(item);
+    }
+
+    if (broadDiscovery) {
+      return googleResults.slice(0, maxResults);
     }
 
     return filterRelevantResults(googleResults, query, maxResults, trace, 'Google News RSS');
@@ -1261,9 +1379,12 @@ async function main() {
 
     const categoryQueries = buildCompanyCategoryQueries(company, categoryConfig);
     const aggregate = [];
+    const discoveryResults = Math.max(resultsPerQuery * 6, 20);
 
     for (const query of categoryQueries) {
-      const hits = await webSearch(query, resultsPerQuery, trace, searchProvider);
+      const hits = await webSearch(query, discoveryResults, trace, searchProvider, {
+        broadDiscovery: true,
+      });
       for (const hit of hits) {
         aggregate.push({
           ...hit,
@@ -1279,14 +1400,14 @@ async function main() {
       if (!item?.url || seen.has(item.url)) continue;
       seen.add(item.url);
       deduped.push(item);
-      if (deduped.length >= resultsPerQuery * 4) break;
+      if (deduped.length >= discoveryResults * 3) break;
     }
 
     const focusedQuery = `${company} ${categoryConfig.label}`;
     const shallowFiltered = filterRelevantResults(
       deduped,
       focusedQuery,
-      resultsPerQuery * 4,
+      Math.max(resultsPerQuery * 8, 20),
       trace,
       `Category self-test (${categoryConfig.id}) shallow`
     );
@@ -1303,7 +1424,15 @@ async function main() {
     }
 
     const filtered = enriched
+      .map((hit) => ({
+        ...hit,
+        evidenceLevel: classifyCategoryEvidence(hit, categoryConfig.id),
+      }))
       .filter((hit) => hasCategoryEvidence(hit, categoryConfig.id))
+      .sort((a, b) => {
+        const score = { strong: 2, action_related: 1, none: 0 };
+        return (score[b.evidenceLevel] || 0) - (score[a.evidenceLevel] || 0);
+      })
       .slice(0, resultsPerQuery);
 
     console.log(JSON.stringify({
@@ -1327,6 +1456,9 @@ async function main() {
       console.log(`[${index + 1}] ${hit.title} | ${hit.url}`);
       if (hit.query) {
         console.log(`    query: ${hit.query}`);
+      }
+      if (hit.evidenceLevel) {
+        console.log(`    evidence_level: ${hit.evidenceLevel}`);
       }
       if (hit.pageSummary) {
         console.log(`    summary: ${hit.pageSummary.slice(0, 160)}${hit.pageSummary.length > 160 ? '...' : ''}`);
