@@ -480,12 +480,12 @@ function filterRelevantResults(results, query, maxResults, trace, sourceName) {
   return bestEffort;
 }
 
-function buildBingQueryVariants(query) {
+function buildBingQueryVariants(query, explicitCompany = '') {
   const variants = [];
   const trimmed = String(query || '').trim();
   if (!trimmed) return variants;
 
-  const companyName = inferCompanyHintFromQuery(trimmed);
+  const companyName = String(explicitCompany || '').trim() || inferCompanyHintFromQuery(trimmed);
   const officialDomains = buildOfficialDomainCandidates(companyName);
   const officialVariants = officialDomains.flatMap((domain) => [
     `${trimmed} site:${domain}`,
@@ -829,12 +829,13 @@ function normalizeSearchProvider(value) {
 
 async function runBingRssSearch(query, maxResults, trace, options = {}) {
   const broadDiscovery = options?.broadDiscovery === true;
+  const explicitCompany = options?.explicitCompany || '';
 
   if (trace) {
     console.error('[trace] using Bing RSS search mode');
   }
 
-  const bingQueries = buildBingQueryVariants(query);
+  const bingQueries = buildBingQueryVariants(query, explicitCompany);
   const aggregateBingResults = [];
 
   for (const bingQuery of bingQueries) {
@@ -879,6 +880,7 @@ async function runBingRssSearch(query, maxResults, trace, options = {}) {
 
 async function webSearch(query, maxResults, trace, searchProvider = 'auto', options = {}) {
   const broadDiscovery = options?.broadDiscovery === true;
+  const explicitCompany = options?.explicitCompany || '';
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), 12000);
 
@@ -961,7 +963,7 @@ async function webSearch(query, maxResults, trace, searchProvider = 'auto', opti
       console.error('[trace] DuckDuckGo HTML had no hits, trying Bing RSS fallback');
     }
 
-    const bingQueries = buildBingQueryVariants(query);
+    const bingQueries = buildBingQueryVariants(query, explicitCompany);
     const aggregateBingResults = [];
 
     for (const bingQuery of bingQueries) {
@@ -1384,6 +1386,7 @@ async function main() {
     for (const query of categoryQueries) {
       const hits = await webSearch(query, discoveryResults, trace, searchProvider, {
         broadDiscovery: true,
+        explicitCompany: company,
       });
       for (const hit of hits) {
         aggregate.push({
@@ -1403,14 +1406,7 @@ async function main() {
       if (deduped.length >= discoveryResults * 3) break;
     }
 
-    const focusedQuery = `${company} ${categoryConfig.label}`;
-    const shallowFiltered = filterRelevantResults(
-      deduped,
-      focusedQuery,
-      Math.max(resultsPerQuery * 8, 20),
-      trace,
-      `Category self-test (${categoryConfig.id}) shallow`
-    );
+    const shallowFiltered = deduped.slice(0, Math.max(resultsPerQuery * 10, 50));
 
     const enriched = [];
 
