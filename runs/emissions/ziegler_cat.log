@@ -1,0 +1,19 @@
+
+> redo-hackathon@0.1.0 bedrock:langgraph
+> node scripts/langgraph-bedrock-research.mjs --self-test-category --company ZIEGLER CAT --category emissions --results 5 --trace
+
+{
+  "mode": "langgraph-category-self-test",
+  "company": "ZIEGLER CAT",
+  "category": "emissions",
+  "categoryLabel": "Emissions Reductions",
+  "queryCount": 6,
+  "hitCount": 1,
+  "proxyConfigured": true
+}
+
+--- structured self-test sources ---
+
+[1] Home – Ziegler CAT | https://www.zieglercat.com/
+    query: ZIEGLER CAT scope 1 scope 2 scope 3 emissions target
+    summary: Home &ndash; Ziegler CAT construction agriculture rental power trucks energy sitech Careers Online Tools Shop Shop Payments Online Billing Equipment New CAT® Eq...

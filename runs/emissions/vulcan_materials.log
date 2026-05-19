@@ -1,0 +1,19 @@
+
+> redo-hackathon@0.1.0 bedrock:langgraph
+> node scripts/langgraph-bedrock-research.mjs --self-test-category --company VULCAN MATERIALS --category emissions --results 5 --trace
+
+{
+  "mode": "langgraph-category-self-test",
+  "company": "VULCAN MATERIALS",
+  "category": "emissions",
+  "categoryLabel": "Emissions Reductions",
+  "queryCount": 6,
+  "hitCount": 1,
+  "proxyConfigured": true
+}
+
+--- structured self-test sources ---
+
+[1] Vulcan Materials Company | https://www.vulcanmaterials.com/
+    query: VULCAN MATERIALS scope 1 scope 2 scope 3 emissions target
+    summary: Vulcan Materials Company Our Company Construction Materials Investor Relations Work for Vulcan Search BUILT ON ESSENTIALS Facilities near you Value Proposition ...

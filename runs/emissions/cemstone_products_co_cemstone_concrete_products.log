@@ -1,0 +1,29 @@
+
+> redo-hackathon@0.1.0 bedrock:langgraph
+> node scripts/langgraph-bedrock-research.mjs --self-test-category --company CEMSTONE PRODUCTS CO. (CEMSTONE CONCRETE PRODUCTS) --category emissions --results 5 --trace
+
+{
+  "mode": "langgraph-category-self-test",
+  "company": "CEMSTONE PRODUCTS CO. (CEMSTONE CONCRETE PRODUCTS)",
+  "category": "emissions",
+  "categoryLabel": "Emissions Reductions",
+  "queryCount": 6,
+  "hitCount": 5,
+  "proxyConfigured": true
+}
+
+--- structured self-test sources ---
+
+[1] Cemstone | https://cemstone.com/
+    query: CEMSTONE PRODUCTS CO. (CEMSTONE CONCRETE PRODUCTS) scope 1 scope 2 scope 3 emissions target
+    summary: State of the Art Source for Ready-Mix Concrete | Concrete Supplier Top Performing Concrete Mixtures When quality, expertise and precision matter for your next p...
+[2] Concrete, Landscape and Masonry Supplies - Cemstone Supply | https://cemstonesupply.com/catalog/cemstone-supply/
+    query: CEMSTONE PRODUCTS CO. (CEMSTONE CONCRETE PRODUCTS) scope 1 scope 2 scope 3 emissions target
+    summary: Concrete, Landscape and Masonry Supplies Skip to main content Locations Services Instagram YouTube Cemstone Supply Welcomes All Customers &#8211; Open To The Pu...
+[3] Cemstone - Facebook | https://www.facebook.com/Cemstone1927/
+    query: CEMSTONE PRODUCTS CO. (CEMSTONE CONCRETE PRODUCTS) scope 1 scope 2 scope 3 emissions target
+[4] Ready Mixed Concrete in Chisago Lake, MN - The Real Yellow Pages | https://www.yellowpages.com/chisago-lake-mn/ready-mixed-concrete
+    query: CEMSTONE PRODUCTS CO. (CEMSTONE CONCRETE PRODUCTS) scope 1 scope 2 scope 3 emissions target
+[5] WELCOME TO OUR ONLINE CATALOG - Cemstone Supply | https://cemstonesupply.com/catalog/
+    query: CEMSTONE PRODUCTS CO. (CEMSTONE CONCRETE PRODUCTS) scope 1 scope 2 scope 3 emissions target
+    summary: Catalog: The Upper Midwest’s leader in supplying essential construction-related products | Cemstone Skip to main content [breadcrumbs] WELCOME TO OUR ONLINE CAT...
