@@ -37,6 +37,7 @@ function usage() {
 Optional args:
   --company <name>        Company for structured category research
   --category <id>         emissions|investments|equipment|pilots|constraints
+  --search-provider <id>  auto|bing-rss (default: auto)
   --region <region>       Defaults to AWS_REGION or us-east-1
   --model-id <id>         Defaults to BEDROCK_MODEL_ID or BEDROCK_RESEARCH_MODEL_ID
   --rounds <n>            Research rounds (default: 2)
@@ -96,6 +97,11 @@ const GENERIC_RESULT_PATTERNS = [
 
 const LOW_SIGNAL_QUERY_TOKENS = new Set(['data', 'info', 'information', 'overview', 'guide']);
 
+const COMPANY_STOP_TOKENS = new Set([
+  'company', 'corporation', 'corp', 'co', 'inc', 'incorporated', 'ltd', 'llc',
+  'plc', 'holdings', 'group', 'international', 'products', 'services', 'cat',
+]);
+
 const SUSTAINABILITY_SIGNAL_TOKENS = new Set([
   'sustainability', 'esg', 'emissions', 'carbon', 'climate', 'scope', 'ghg',
   'net', 'zero', 'decarbonization', 'renewable', 'water', 'energy', 'target',
@@ -139,6 +145,37 @@ function tokenize(value) {
     .filter((token) => token.length >= 3 && !STOP_WORDS.has(token));
 }
 
+function extractCompanyTokens(value) {
+  return tokenize(value).filter((token) => !COMPANY_STOP_TOKENS.has(token));
+}
+
+function buildOfficialDomainCandidates(companyName) {
+  const tokens = extractCompanyTokens(companyName);
+  if (!tokens.length) return [];
+
+  const candidates = new Set();
+  const first = tokens[0];
+  const firstTwo = tokens.slice(0, 2).join('');
+  const all = tokens.join('');
+
+  candidates.add(`${first}.com`);
+  if (firstTwo) candidates.add(`${firstTwo}.com`);
+  if (all) candidates.add(`${all}.com`);
+
+  if (tokens.length >= 2) {
+    candidates.add(`${tokens[0]}${tokens[tokens.length - 1]}.com`);
+  }
+
+  return [...candidates].slice(0, 4);
+}
+
+function inferCompanyHintFromQuery(query) {
+  const match = String(query || '').match(
+    /^([A-Za-z0-9&.\- ()]+?)\s+(scope|net zero|carbon|ghg|sustainability|emissions|esg|climate)/i
+  );
+  return match?.[1]?.trim() || '';
+}
+
 function isLowValueResultUrl(url) {
   try {
     const parsed = new URL(String(url || ''));
@@ -170,6 +207,8 @@ function filterRelevantResults(results, query, maxResults, trace, sourceName) {
   );
 
   const queryTokens = new Set(tokenize(query));
+  const companyHint = inferCompanyHintFromQuery(query);
+  const companyTokens = new Set(extractCompanyTokens(companyHint));
   const focusedQueryTokens = new Set(
     [...queryTokens].filter((token) => !LOW_SIGNAL_QUERY_TOKENS.has(token))
   );
@@ -185,6 +224,8 @@ function filterRelevantResults(results, query, maxResults, trace, sourceName) {
     let overlap = 0;
     let relaxedOverlap = 0;
     let signalScore = 0;
+    let companyScore = 0;
+    let urlSignalScore = 0;
     const lowValue = isLowValueResultUrl(item.url);
 
     for (const token of queryTokens) {
@@ -196,16 +237,36 @@ function filterRelevantResults(results, query, maxResults, trace, sourceName) {
     for (const token of SUSTAINABILITY_SIGNAL_TOKENS) {
       if (tokens.has(token)) signalScore += 1;
     }
-    return { item, overlap, relaxedOverlap, signalScore, lowValue };
+
+    for (const token of companyTokens) {
+      if (tokens.has(token)) companyScore += 1;
+    }
+
+    const urlLower = String(item.url || '').toLowerCase();
+    if (/sustainability|esg|climate|carbon|ghg|net-?zero|responsibility|report/i.test(urlLower)) {
+      urlSignalScore += 1;
+    }
+
+    return { item, overlap, relaxedOverlap, signalScore, companyScore, urlSignalScore, lowValue };
   });
 
+  const requireCompanySignal = companyTokens.size > 0;
   const minOverlap = Math.min(2, queryTokens.size);
   const rankingScore = (row) => (
-    row.overlap * 4 + row.relaxedOverlap * 2 + row.signalScore * 3 - (row.lowValue ? 6 : 0)
+    row.overlap * 4 +
+    row.relaxedOverlap * 2 +
+    row.signalScore * 3 +
+    row.companyScore * 4 +
+    row.urlSignalScore * 2 -
+    (row.lowValue ? 6 : 0)
   );
 
   const strict = scored
-    .filter((row) => row.overlap >= minOverlap && (!row.lowValue || row.signalScore >= 2))
+    .filter((row) =>
+      row.overlap >= minOverlap &&
+      (!row.lowValue || row.signalScore >= 2) &&
+      (!requireCompanySignal || row.companyScore >= 1)
+    )
     .sort((a, b) => rankingScore(b) - rankingScore(a))
     .map((row) => row.item)
     .slice(0, maxResults);
@@ -221,7 +282,8 @@ function filterRelevantResults(results, query, maxResults, trace, sourceName) {
     .filter((row) =>
       row.relaxedOverlap >= 2 &&
       row.signalScore >= 1 &&
-      !row.lowValue
+      !row.lowValue &&
+      (!requireCompanySignal || row.companyScore >= 1)
     )
     .sort((a, b) => rankingScore(b) - rankingScore(a))
     .map((row) => row.item)
@@ -238,7 +300,8 @@ function filterRelevantResults(results, query, maxResults, trace, sourceName) {
     .filter((row) =>
       row.relaxedOverlap >= 1 &&
       row.signalScore >= 2 &&
-      !row.lowValue
+      !row.lowValue &&
+      (!requireCompanySignal || row.companyScore >= 1)
     )
     .sort((a, b) => rankingScore(b) - rankingScore(a))
     .map((row) => row.item)
@@ -256,24 +319,12 @@ function buildBingQueryVariants(query) {
   const trimmed = String(query || '').trim();
   if (!trimmed) return variants;
 
-  const companyMatch = trimmed.match(/^([A-Za-z0-9&.\- ]+?)\s+(scope|net zero|carbon|ghg|sustainability|emissions)/i);
-  const companyName = companyMatch?.[1]?.trim();
-  const normalizedCompanyDomain = companyName
-    ? companyName.toLowerCase().replace(/[^a-z0-9]/g, '')
-    : '';
-
-  const officialVariants = companyName
-    ? [
-        `${trimmed} site:${normalizedCompanyDomain}.com sustainability`,
-        ...(companyName.toLowerCase() === 'ford'
-          ? [
-              `${trimmed} site:corporate.ford.com`,
-              `${trimmed} site:sustainability.ford.com`,
-              `${trimmed} site:media.ford.com`,
-            ]
-          : []),
-      ]
-    : [];
+  const companyName = inferCompanyHintFromQuery(trimmed);
+  const officialDomains = buildOfficialDomainCandidates(companyName);
+  const officialVariants = officialDomains.flatMap((domain) => [
+    `${trimmed} site:${domain} sustainability`,
+    `${trimmed} site:${domain} ESG`,
+  ]);
 
   const withPhrase = /data center/i.test(trimmed)
     ? trimmed.replace(/data center/gi, '"data center"')
@@ -580,13 +631,68 @@ function extractBingRssResults(xml, maxResults) {
   return results;
 }
 
-async function webSearch(query, maxResults, trace) {
+function normalizeSearchProvider(value) {
+  const raw = String(value || '').trim().toLowerCase();
+  if (!raw || raw === 'auto') return 'auto';
+  if (raw === 'bing-rss' || raw === 'bing') return 'bing-rss';
+  return 'auto';
+}
+
+async function runBingRssSearch(query, maxResults, trace) {
+  if (trace) {
+    console.error('[trace] using Bing RSS search mode');
+  }
+
+  const bingQueries = buildBingQueryVariants(query);
+  const aggregateBingResults = [];
+
+  for (const bingQuery of bingQueries) {
+    if (trace) {
+      console.error(`[trace] Bing RSS query variant: ${bingQuery}`);
+    }
+
+    const bingResponse = await fetch(`https://www.bing.com/search?format=rss&q=${encodeURIComponent(bingQuery)}`, {
+      headers: {
+        accept: 'application/rss+xml, application/xml, text/xml;q=0.9, */*;q=0.8',
+        'user-agent': 'langgraph-bedrock-research/1.0',
+      },
+    });
+
+    if (!bingResponse.ok) {
+      continue;
+    }
+
+    const bingXml = await bingResponse.text();
+    const parsed = extractBingRssResults(bingXml, maxResults * 3);
+    aggregateBingResults.push(...parsed);
+
+    if (aggregateBingResults.length >= maxResults * 5) {
+      break;
+    }
+  }
+
+  const seenUrls = new Set();
+  const bingResults = [];
+  for (const item of aggregateBingResults) {
+    if (!item?.url || seenUrls.has(item.url)) continue;
+    seenUrls.add(item.url);
+    bingResults.push(item);
+  }
+
+  return filterRelevantResults(bingResults, query, maxResults, trace, 'Bing RSS');
+}
+
+async function webSearch(query, maxResults, trace, searchProvider = 'auto') {
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), 12000);
 
   try {
     if (trace) {
       console.error(`[trace] search query: ${query}`);
+    }
+
+    if (searchProvider === 'bing-rss') {
+      return await runBingRssSearch(query, maxResults, trace);
     }
 
     const apiResponse = await fetch(`https://api.duckduckgo.com/?q=${encodeURIComponent(query)}&format=json&no_html=1&skip_disambig=1`, {
@@ -845,6 +951,7 @@ function buildFinalPrompt(question, findings, sources) {
 const ResearchState = Annotation.Root({
   question: Annotation(),
   modelId: Annotation(),
+  searchProvider: Annotation(),
   rounds: Annotation(),
   queriesPerRound: Annotation(),
   resultsPerQuery: Annotation(),
@@ -911,7 +1018,7 @@ function buildGraph(client) {
       const roundSources = [];
 
       for (const query of state.plannedQueries) {
-        const hits = await webSearch(query, state.resultsPerQuery, state.trace);
+        const hits = await webSearch(query, state.resultsPerQuery, state.trace, state.searchProvider || 'auto');
 
         for (const hit of hits) {
           const pageSummary = await fetchPageSummary(hit.url, state.trace);
@@ -1025,6 +1132,7 @@ async function main() {
   }
 
   const region = args.region || process.env.AWS_REGION || 'us-east-1';
+  const searchProvider = normalizeSearchProvider(args['search-provider']);
   const modelId =
     args['model-id'] ||
     process.env.BEDROCK_MODEL_ID ||
@@ -1059,7 +1167,7 @@ async function main() {
     const aggregate = [];
 
     for (const query of categoryQueries) {
-      const hits = await webSearch(query, resultsPerQuery, trace);
+      const hits = await webSearch(query, resultsPerQuery, trace, searchProvider);
       for (const hit of hits) {
         aggregate.push({
           ...hit,
@@ -1118,7 +1226,7 @@ async function main() {
   }
 
   if (selfTestWeb) {
-    const hits = await webSearch(selfTestQuery, resultsPerQuery, trace);
+    const hits = await webSearch(selfTestQuery, resultsPerQuery, trace, searchProvider);
     console.log(JSON.stringify({
       mode: 'langgraph-web-self-test',
       query: selfTestQuery,
@@ -1159,6 +1267,7 @@ async function main() {
     mode: 'langgraph',
     region,
     modelId,
+    searchProvider,
     sessionId,
     rounds,
     queriesPerRound,
@@ -1173,6 +1282,7 @@ async function main() {
     queriesPerRound,
     resultsPerQuery,
     trace,
+    searchProvider,
     currentRound: 0,
   });
 
