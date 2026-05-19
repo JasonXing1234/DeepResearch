@@ -137,6 +137,80 @@ const DEALER_OR_SHOPPING_PATTERNS = [
   /forddealer/i,
 ];
 
+const CATEGORY_EVIDENCE_PATTERNS = {
+  emissions: [
+    /scope\s*1/i,
+    /scope\s*2/i,
+    /scope\s*3/i,
+    /\bghg\b/i,
+    /greenhouse gas/i,
+    /carbon emissions/i,
+    /emissions reduction/i,
+    /reduce(?:d|s|ing)? emissions/i,
+    /net[-\s]?zero/i,
+    /carbon neutral/i,
+    /climate target/i,
+    /science[-\s]?based target/i,
+  ],
+
+  investments: [
+    /invest(?:ed|ment|ing)?/i,
+    /capital expenditure/i,
+    /renewable energy/i,
+    /solar/i,
+    /wind/i,
+    /battery/i,
+    /electrification/i,
+    /alternative fuel/i,
+    /low[-\s]?carbon/i,
+  ],
+
+  equipment: [
+    /purchased/i,
+    /procured/i,
+    /fleet/i,
+    /electric equipment/i,
+    /hybrid equipment/i,
+    /energy[-\s]?efficient/i,
+    /machine upgrade/i,
+    /equipment upgrade/i,
+  ],
+
+  pilots: [
+    /pilot/i,
+    /trial/i,
+    /demonstration/i,
+    /demo project/i,
+    /launched/i,
+    /tested/i,
+  ],
+
+  constraints: [
+    /environmental compliance/i,
+    /permit/i,
+    /water stress/i,
+    /regulation/i,
+    /climate risk/i,
+    /emissions regulation/i,
+    /air quality/i,
+  ],
+};
+
+const BAD_SOURCE_PATTERNS = [
+  /linkedin\.com/i,
+  /\/contact/i,
+  /\/locations?/i,
+  /\/about-us/i,
+  /\/careers?/i,
+  /\/products?/i,
+  /usedequipment/i,
+  /\/used/i,
+  /\/inventory/i,
+  /\/shop/i,
+  /\/parts/i,
+  /\/service/i,
+];
+
 function tokenize(value) {
   return String(value || '')
     .toLowerCase()
@@ -199,6 +273,27 @@ function isLowValueResultUrl(url) {
   } catch {
     return false;
   }
+}
+
+function hasCategoryEvidence(item, categoryId) {
+  const patterns = CATEGORY_EVIDENCE_PATTERNS[categoryId] || [];
+
+  const text = [
+    item.title,
+    item.url,
+    item.snippet,
+    item.pageSummary,
+    item.summary,
+  ]
+    .filter(Boolean)
+    .join(' ')
+    .toLowerCase();
+
+  if (BAD_SOURCE_PATTERNS.some((pattern) => pattern.test(item.url || ''))) {
+    return false;
+  }
+
+  return patterns.some((pattern) => pattern.test(text));
 }
 
 function filterRelevantResults(results, query, maxResults, trace, sourceName) {
@@ -264,6 +359,7 @@ function filterRelevantResults(results, query, maxResults, trace, sourceName) {
   const strict = scored
     .filter((row) =>
       row.overlap >= minOverlap &&
+      (row.signalScore >= 1 || row.urlSignalScore >= 1) &&
       (!row.lowValue || row.signalScore >= 2) &&
       (!requireCompanySignal || row.companyScore >= 1)
     )
@@ -1187,13 +1283,28 @@ async function main() {
     }
 
     const focusedQuery = `${company} ${categoryConfig.label}`;
-    const filtered = filterRelevantResults(
+    const shallowFiltered = filterRelevantResults(
       deduped,
       focusedQuery,
-      resultsPerQuery,
+      resultsPerQuery * 4,
       trace,
-      `Category self-test (${categoryConfig.id})`
+      `Category self-test (${categoryConfig.id}) shallow`
     );
+
+    const enriched = [];
+
+    for (const hit of shallowFiltered) {
+      const summary = await fetchPageSummary(hit.url, trace);
+
+      enriched.push({
+        ...hit,
+        pageSummary: summary,
+      });
+    }
+
+    const filtered = enriched
+      .filter((hit) => hasCategoryEvidence(hit, categoryConfig.id))
+      .slice(0, resultsPerQuery);
 
     console.log(JSON.stringify({
       mode: 'langgraph-category-self-test',
@@ -1213,13 +1324,12 @@ async function main() {
 
     console.log('\n--- structured self-test sources ---\n');
     for (const [index, hit] of filtered.entries()) {
-      const summary = await fetchPageSummary(hit.url, trace);
       console.log(`[${index + 1}] ${hit.title} | ${hit.url}`);
       if (hit.query) {
         console.log(`    query: ${hit.query}`);
       }
-      if (summary) {
-        console.log(`    summary: ${summary.slice(0, 160)}${summary.length > 160 ? '...' : ''}`);
+      if (hit.pageSummary) {
+        console.log(`    summary: ${hit.pageSummary.slice(0, 160)}${hit.pageSummary.length > 160 ? '...' : ''}`);
       }
     }
     return;
