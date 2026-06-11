@@ -1,0 +1,168 @@
+[
+  {
+    "Company": "CRH AMAT",
+    "Country": "Ireland",
+    "Project Name": "Low-Carbon Asphalt Project",
+    "Project Type": "Infrastructure",
+    "Involvement": "Owner (through subsidiary Roadstone)",
+    "Lower Emissions Approach": "Reclaimed materials, warm-mix technology, bio-based fuels",
+    "Electric Equipment & Manufacturer": "",
+    "Project Description": "Pilot project using innovative low-carbon asphalt achieving 90%+ CO₂ reduction",
+    "Comments": "Demonstration project by Roadstone (CRH subsidiary) showcasing sustainable materials",
+    "Source": [
+      "https://www.crh.com/sustainability/decarbonisation"
+    ]
+  },
+  {
+    "Company": "ZIEGLER CAT",
+    "Country": "",
+    "Project Name": "SunZia Wind and Transmission",
+    "Project Type": "Wind energy generation and transmission",
+    "Involvement": "Equipment supplier",
+    "Lower Emissions Approach": "Delivers renewable wind energy to replace fossil fuel generation",
+    "Electric Equipment & Manufacturer": "GE and Vestas wind turbines; HVDC transmission technology",
+    "Project Description": "3.5 GW wind farm paired with 550-mile HVDC transmission line to deliver clean energy",
+    "Comments": "Project still under construction with 2026 target completion date",
+    "Source": [
+      "https://en.wikipedia.org/wiki/SunZia_Wind_and_Transmission"
+    ]
+  },
+  {
+    "Company": "HARSCO METALS GROUP",
+    "Country": "United States",
+    "Project Name": "LMEL Integrated Steel Plant Project",
+    "Project Type": "Metal recovery and slag processing facility",
+    "Involvement": "Design, build, and operate metal recovery plant",
+    "Lower Emissions Approach": "Resource efficiency and industrial by-product recycling",
+    "Electric Equipment & Manufacturer": "",
+    "Project Description": "Harsco Environmental's 10-year project with Lloyds Metals for metal recovery and slag processing in Maharashtra, India",
+    "Comments": "Focuses on circular economy principles but electric equipment details not specified",
+    "Source": [
+      "https://www.harsco-environmental.com/about-us/history/",
+      "https://www.enviri.com/news/harsco-environmental-secures-new-10-year-contract-with-lloyds-metals-and-energy-limited/"
+    ]
+  },
+  {
+    "Company": "CEMSTONE PRODUCTS CO.",
+    "Country": "United States",
+    "Project Name": "Moraine Sands Wind Farm",
+    "Project Type": "Wind energy project",
+    "Involvement": "Supplied concrete",
+    "Lower Emissions Approach": "Reduced carbon footprint through efficient concrete production",
+    "Electric Equipment & Manufacturer": "",
+    "Project Description": "Cemstone's portable concrete plants provided on-site concrete production for wind turbine foundations",
+    "Comments": "Project completed in 2023",
+    "Source": [
+      "https://www.cemstone.com/projects/moraine-sands-wind-energy-project/"
+    ]
+  },
+  {
+    "Company": "VULCAN MATERIALS",
+    "Country": "USA",
+    "Project Name": "California Battery Storage Project",
+    "Project Type": "Battery Energy Storage System",
+    "Involvement": "Partner with Enel X",
+    "Lower Emissions Approach": "Integration with solar energy systems",
+    "Electric Equipment & Manufacturer": "",
+    "Project Description": "Vulcan's partnership involves battery storage systems that enhance solar energy sustainability",
+    "Comments": "Specific electric equipment details not available in search results",
+    "Source": [
+      "https://www.vulcanmaterials.com/sustainability/environmental-product-declarations"
+    ]
+  },
+  {
+    "Company": "MICHELS CORPORATION",
+    "Country": "United States",
+    "Project Name": "South Fork Wind",
+    "Project Type": "Offshore Wind Farm",
+    "Involvement": "Cable installation and horizontal directional drilling",
+    "Lower Emissions Approach": "Provides clean renewable energy",
+    "Electric Equipment & Manufacturer": "",
+    "Project Description": "First utility-scale offshore wind project in the U.S., powering 70,000 homes",
+    "Comments": "Recognized as Project of the Year in 2024",
+    "Source": [
+      "https://www.michels.us/projects/south-fork-wind/",
+      "https://www.michels.us/news/south-fork-wind-named-project-of-the-year/"
+    ]
+  },
+  {
+    "Company": "MICHELS CORPORATION",
+    "Country": "United States",
+    "Project Name": "Coastal Virginia Offshore Wind",
+    "Project Type": "Offshore Wind Farm",
+    "Involvement": "Direct Pipe installations for electrical conduits",
+    "Lower Emissions Approach": "Generates renewable energy to power 660,000 homes",
+    "Electric Equipment & Manufacturer": "",
+    "Project Description": "Largest wind project in the U.S., generating 2,500-3,000 MW",
+    "Comments": "Honorable mention in multiple industry awards",
+    "Source": [
+      "https://www.michels.us/news/coastal-virginia-offshore-wind-honored-with-three-industry-awards/",
+      "https://www.michels.us/news/coastal-virginia-offshore-wind-project-spotlight/"
+    ]
+  },
+  {
+    "Company": "MANATTS INC",
+    "Country": "",
+    "Project Name": "",
+    "Project Type": "",
+    "Involvement": "",
+    "Lower Emissions Approach": "",
+    "Electric Equipment & Manufacturer": "",
+    "Project Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "EMERY SAPP & SONS INC",
+    "Country": "United States",
+    "Project Name": "Arkansas Solar Farm",
+    "Project Type": "Solar Farm",
+    "Involvement": "Contractor",
+    "Lower Emissions Approach": "Infrastructure for 200 MW solar energy",
+    "Electric Equipment & Manufacturer": "",
+    "Project Description": "Provided grading, excavation, and underground utilities for a 200 MW solar farm",
+    "Comments": "Reduces fossil fuel reliance through clean solar power generation",
+    "Source": [
+      "https://emerysapp.com/news/emery-sapp-sons-wins-three-abc-arkansas-excellence-in-construction-awards/",
+      "https://emerysapp.com/news/powering-through-solar-energy-project-team/"
+    ]
+  },
+  {
+    "Company": "EMERY SAPP & SONS INC",
+    "Country": "United States",
+    "Project Name": "Empire Wind",
+    "Project Type": "Offshore Wind Farm",
+    "Involvement": "Contractor",
+    "Lower Emissions Approach": "Onshore infrastructure for 904 MW offshore wind",
+    "Electric Equipment & Manufacturer": "GE Haliade-X 13 MW turbines",
+    "Project Description": "Constructed onshore facilities for 904 MW offshore wind farm in New York Bight",
+    "Comments": "Large-scale carbon emissions reduction project",
+    "Source": [
+      "https://emerysapp.com/news/emery-sapp-sons-wins-three-abc-arkansas-excellence-in-construction-awards/"
+    ]
+  },
+  {
+    "Company": "FABICK CAT",
+    "Country": "",
+    "Project Name": "",
+    "Project Type": "",
+    "Involvement": "",
+    "Lower Emissions Approach": "",
+    "Electric Equipment & Manufacturer": "",
+    "Project Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "THE ANDERSONS AGRISERVICES",
+    "Country": "",
+    "Project Name": "",
+    "Project Type": "",
+    "Involvement": "",
+    "Lower Emissions Approach": "",
+    "Electric Equipment & Manufacturer": "",
+    "Project Description": "",
+    "Comments": "",
+    "Source": []
+  }
+]

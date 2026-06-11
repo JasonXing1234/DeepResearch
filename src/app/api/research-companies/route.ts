@@ -24,13 +24,14 @@ const CATEGORIES = {
   emissions: {
     label: 'Emissions Reductions',
     file: 'emissions_reductions',
+    itemLabel: 'emissions reduction pledge',
     searchQuery: (c: string) =>
       `"${c}" carbon emissions reduction commitment net zero climate pledge science-based targets 2024 2025`,
     enrichQuery: (c: string) => `"${c}" headquarters country location founded`,
     dataEnrichQuery: (c: string) =>
       `"${c}" GHG greenhouse gas emissions target reduction sustainability report SBTi`,
     keyFields: ['Emissions Reduction Target', 'Target Year'],
-    schema: `{
+    schema: `[{
   "Company": "<company name>",
   "Country": "<country where company is headquartered, e.g. United States>",
   "Emissions Reduction Target": "<e.g. 30% reduction in Scope 1 and 2 emissions>",
@@ -40,7 +41,7 @@ const CATEGORIES = {
   "Net-Zero Target": <true if ANY emissions reduction goal, target, or sustainability commitment is found — false only if absolutely no goal exists>,
   "Comments": "<detailed summary of commitments, initiatives, and context>",
   "Source": ["<url1>", "<url2>"]
-}`,
+}]`,
     emptyRecord: (company: string) => ({
       Company: company,
       Country: '',
@@ -57,13 +58,14 @@ const CATEGORIES = {
   investments: {
     label: 'Investments & Commitments',
     file: 'investments_commitments',
+    itemLabel: 'electrification infrastructure investment',
     searchQuery: (c: string) =>
-      `"${c}" electrification infrastructure investment charging electric vehicles building renovation announced`,
+      `"${c}" electric vehicle EV fleet charging infrastructure electrification investment sustainability capital announced`,
     enrichQuery: (c: string) => `"${c}" headquarters country location founded`,
     dataEnrichQuery: (c: string) =>
-      `"${c}" EV charging station electric vehicle fleet building renovation electrification investment announcement`,
-    keyFields: ['Investment Type', 'Description'],
-    schema: `{
+      `"${c}" electric vehicle fleet EV charging station building renovation electrification investment sustainability announcement`,
+    keyFields: ['Investment Type', 'Announcement Date'],
+    schema: `[{
   "Company": "<company name>",
   "Country": "<country where company is headquartered>",
   "Investment Type": "<type of electrification infrastructure investment, e.g. Charging Infrastructure, Electric Vehicles, Building Renovation>",
@@ -71,7 +73,7 @@ const CATEGORIES = {
   "Description": "<full detailed description of the electrification infrastructure investment>",
   "Comments": "<additional context, amounts, partners, outcomes>",
   "Source": ["<url1>", "<url2>"]
-}`,
+}]`,
     emptyRecord: (company: string) => ({
       Company: company,
       Country: '',
@@ -86,13 +88,14 @@ const CATEGORIES = {
   purchases: {
     label: 'Machine Purchases',
     file: 'machine_purchases',
+    itemLabel: 'battery-powered machine purchase',
     searchQuery: (c: string) =>
-      `"${c}" battery powered electric construction equipment purchase`,
+      `"${c}" battery electric zero-emission construction equipment excavator loader dozer compactor machine purchase fleet`,
     enrichQuery: (c: string) => `"${c}" headquarters country location founded`,
     dataEnrichQuery: (c: string) =>
-      `"${c}" battery electric excavator loader dozer compactor paver construction machine purchase order`,
+      `"${c}" electric battery zero emission excavator loader dozer grader compactor paver scraper drill machine order purchase`,
     keyFields: ['Machine Type', 'Manufacturer'],
-    schema: `{
+    schema: `[{
   "Company": "<company name>",
   "Country": "<country where company is headquartered>",
   "Manufacturer": "<battery powered construction equipment manufacturer, e.g. Caterpillar, Komatsu, Volvo>",
@@ -102,7 +105,7 @@ const CATEGORIES = {
   "Purchase Date": "<date or year>",
   "Comments": "<context about the purchase or fleet electrification goals>",
   "Source": ["<url1>", "<url2>"]
-}`,
+}]`,
     emptyRecord: (company: string) => ({
       Company: company,
       Country: '',
@@ -119,13 +122,14 @@ const CATEGORIES = {
   pilots: {
     label: 'Pilot Projects',
     file: 'pilot_projects',
+    itemLabel: 'lower-emission construction project',
     searchQuery: (c: string) =>
       `"${c}" solar wind renewable energy electric clean low-emission project construction 2024 2025`,
     enrichQuery: (c: string) => `"${c}" headquarters country location founded`,
     dataEnrichQuery: (c: string) =>
       `"${c}" clean energy renewable infrastructure project involvement contractor`,
-    keyFields: ['Project Name', 'Project Type'],
-    schema: `{
+    keyFields: ['Project Name'],
+    schema: `[{
   "Company": "<company name>",
   "Country": "<country where company is headquartered>",
   "Project Name": "<name or short title of the pilot project>",
@@ -136,7 +140,7 @@ const CATEGORIES = {
   "Project Description": "<detailed description of the project>",
   "Comments": "<timeline, outcomes, partners, scale>",
   "Source": ["<url1>", "<url2>"]
-}`,
+}]`,
     emptyRecord: (company: string) => ({
       Company: company,
       Country: '',
@@ -154,13 +158,14 @@ const CATEGORIES = {
   environments: {
     label: 'Environmental Constraints',
     file: 'environmental_constraints',
+    itemLabel: 'construction or mining project with environmental constraints',
     searchQuery: (c: string) =>
       `"${c}" construction project air quality indoor underground tunnel noise sensitive hospital school wildlife`,
     enrichQuery: (c: string) => `"${c}" headquarters country location founded`,
     dataEnrichQuery: (c: string) =>
       `"${c}" project air quality standards enclosed underground tunnel noise curfew sensitive area contractor`,
-    keyFields: ['Project', 'Description'],
-    schema: `{
+    keyFields: ['Project'],
+    schema: `[{
   "Company": "<company name>",
   "Country": "<country where company is headquartered>",
   "Project": "<name of the construction or mining project>",
@@ -169,7 +174,7 @@ const CATEGORIES = {
   "Description": "<description of the constraint: air quality standards, enclosed/underground site details, or noise-sensitive surroundings>",
   "Comments": "<company role (contractor/partner/subcontractor), mitigation measures, any other relevant context>",
   "Source": ["<url1>", "<url2>"]
-}`,
+}]`,
     emptyRecord: (company: string) => ({
       Company: company,
       Country: '',
@@ -197,20 +202,38 @@ function stripThinking(text: string): string {
     .trim();
 }
 
-function extractJsonObject(text: string): Record<string, unknown> | null {
-  // Try fenced code block first
+function extractJsonArray(text: string): Record<string, unknown>[] | null {
   const fenced = text.match(/```(?:json)?\s*([\s\S]*?)```/);
   if (fenced) {
-    try { return JSON.parse(fenced[1].trim()); } catch {}
+    try {
+      const parsed = JSON.parse(fenced[1].trim());
+      return Array.isArray(parsed) ? parsed : [parsed];
+    } catch {}
   }
-  const start = text.indexOf('{');
-  const end   = text.lastIndexOf('}');
-  if (start === -1 || end === -1 || end <= start) return null;
-  try { return JSON.parse(text.slice(start, end + 1)); } catch { return null; }
+  const arrStart = text.indexOf('[');
+  const arrEnd = text.lastIndexOf(']');
+  if (arrStart !== -1 && arrEnd !== -1 && arrEnd > arrStart) {
+    try {
+      const parsed = JSON.parse(text.slice(arrStart, arrEnd + 1));
+      return Array.isArray(parsed) ? parsed : [parsed];
+    } catch {}
+  }
+  // Fallback: single object → wrap in array
+  const objStart = text.indexOf('{');
+  const objEnd = text.lastIndexOf('}');
+  if (objStart !== -1 && objEnd !== -1 && objEnd > objStart) {
+    try { return [JSON.parse(text.slice(objStart, objEnd + 1))]; } catch {}
+  }
+  return null;
 }
 
 function getDomain(url: string): string {
   try { return new URL(url).hostname.replace(/^www\./, ''); } catch { return ''; }
+}
+
+function isAggregatorDomain(url: string): boolean {
+  const domain = getDomain(url);
+  return [...AGGREGATOR_DOMAINS].some(d => domain === d || domain.endsWith('.' + d));
 }
 
 // Returns true when the domain appears to belong to a DIFFERENT similarly-named entity.
@@ -259,6 +282,9 @@ function verifySourcesBySnippet(
     sourcesWithSnippets.map(s => [s.url, `${s.title} ${s.snippet}`.toLowerCase()])
   );
   obj['Source'] = (obj['Source'] as string[]).filter((url: string) => {
+    // Pre-filter: remove spam domains outright
+    if (isSpamDomain(url)) return false;
+
     const snippetText = snippetMap.get(url) ?? '';
     if (!snippetText) return true; // Tier 1: no snippet → keep (benefit of the doubt)
     let urlPath = '';
@@ -267,8 +293,11 @@ function verifySourcesBySnippet(
     if (keywords.some(kw => urlPath.includes(kw.replace(/ /g, '')))) return true;
     // Tier 2b: keyword in domain AND domain unambiguously belongs to this company
     if (keywords.some(kw => getDomain(url).includes(kw)) && !isAmbiguousDomain(url, company)) return true;
-    // Tier 3: keyword appears in snippet/title text
-    return keywords.some(kw => snippetText.includes(kw));
+    // Tier 3: whole-word match in snippet/title so "andersons" ≠ "anderson"
+    return keywords.some(kw => {
+      const pattern = new RegExp(`\\b${kw.replace(/ /g, '[\\s\\-]+')}\\b`);
+      return pattern.test(snippetText);
+    });
   });
 }
 
@@ -350,6 +379,27 @@ const AGGREGATOR_DOMAINS = new Set([
   'globaldata.com', 'manta.com', 'marketscreener.com',
 ]);
 
+const SPAM_DOMAIN_PATTERNS = [
+  /rolex/i, /luxury/i, /casino/i, /poker/i, /\bslot[s]?\b/i, /\bbet[s]?\b/i,
+  /\bfashion\b/i, /\bjewel/i, /\bwatch(?:es)?\b/i, /\bperfume/i,
+];
+
+function isSpamDomain(url: string): boolean {
+  try {
+    const domain = new URL(url).hostname;
+    return SPAM_DOMAIN_PATTERNS.some(p => p.test(domain));
+  } catch { return false; }
+}
+
+const NA_PATTERN = /^\s*(not\s+(?:specified|stated|available|found|disclosed|mentioned|provided|applicable|known)|n\/?a|none|unknown|unspecified|not\s+applicable|not\s+given|tbd|tba|-+)[.\s]*$/i;
+
+function sanitizeFieldValues(obj: Record<string, unknown>): void {
+  for (const [k, v] of Object.entries(obj)) {
+    if (k === 'Net-Zero Target' || k === 'Company' || Array.isArray(v)) continue;
+    if (typeof v === 'string' && NA_PATTERN.test(v)) obj[k] = '';
+  }
+}
+
 function extractDollarClaims(obj: Record<string, unknown>): Array<{ num: string; scale: string; raw: string }> {
   const claims: Array<{ num: string; scale: string; raw: string }> = [];
   for (const [k, v] of Object.entries(obj)) {
@@ -394,7 +444,7 @@ async function verifyFinancialClaims(obj: Record<string, unknown>, company: stri
   if (claims.length === 0) return;
 
   const credibleSources = (obj['Source'] as string[]).filter(
-    url => !AGGREGATOR_DOMAINS.has(getDomain(url))
+    url => !isAggregatorDomain(url)
   );
   if (credibleSources.length === 0) {
     console.log(`${DEBUG} [${company}] Financial sources are aggregators — wiping`);
@@ -428,41 +478,32 @@ async function verifyFinancialClaims(obj: Record<string, unknown>, company: stri
 
 // ── Nova grounding search ─────────────────────────────────────────────────────
 
-// Per-category system prompts for Nova grounding — tells Nova exactly what to look for
+// Per-category system prompts for Nova grounding — exact content from prompts/ folder (minus the opening "Here is a list of lists" line)
 const NOVA_SYSTEM_PROMPTS: Record<string, string> = {
   'Emissions Reductions':
-    'You are researching greenhouse gas emission reduction pledges made by companies. ' +
-    'Look for: emissions reduction targets (%, absolute), target years, baseline years, net-zero commitments, ' +
-    'SBTi validation, CDP disclosures, and sustainability report commitments. ' +
-    'Focus on the named company as a business — not law firms, financial advisors, or similarly-named organizations.',
+    `Each element in the list has a sublist with the company's name and the country that the company is in. Can you find me information on greenhouse gas emission reduction pledges from each of the companies in the following list of lists.
+Only use the company name and country for your search. If you find information, tell me what the target emissions reduction is, the target year at which the emissions reductions need to be achieved, what is the baseline year, and the year the pledge was made. Put the results into a table in JSON format. Each item in the table needs to have an string entry called "Company" for the company doing the pledge written exactly like in the list, a string entry called "Country" with the country exactly like in the input list, a string entry called "Emissions Reduction Target" for the emissions reduction target, a string entry called "Target Year" for the target year, a string entry called "Baseline Year" for the baseline year, a string entry called "Pledge Year" for the pledge year, an entry called "Net-Zero Target" with a boolean value that tells whether the company has a net-zero emissions target, a string entry called "Comments" where you can include any relevant comments, and a column called "Source" in the format of a list of strings for the URL or URLs for the source or sources that you used. If there are no sources, return an empty list for the "Source" column. The table should have one row for each pledge you can find. There can be multiple pledges for a single customer. If you do not find information for a customer, add a row with the customer name, and an empty string for all the other fields. I do not want any freeform text around the tables. Just give me back the table and the list of sources you used to populate it. You can add a column for comments or any other information you think is relevant. Be thorough in your search`,
 
   'Investments & Commitments':
-    'You are researching electrification infrastructure investments announced by companies. ' +
-    'Look for: investments in EV charging infrastructure, electric vehicle fleet purchases, ' +
-    'building electrification or renovation, and related announced amounts and dates. ' +
-    'Focus on the named company as a business — not law firms, financial advisors, or similarly-named organizations.',
+    `Each element in the list has a sublist with the company's name and the country that the company is in. Can you find me information on electrification infrastructure investments announced by each of the companies in the list of lists.
+If you find information, tell me about the kind of electrification infrastructure investments (charging infrastructure, electric vehicles, building renovation), when the investment was announced, the amount invested and give me a summary of what you can find about the electrification infrastructure investments. Put the results into a table in JSON format. Each item in the table needs to have a string entry called "Company" for the name of the company doing the electrification infrastructure investments with the company name written exactly like in the list, a string entry called "Country" with the country exactly like in the input list, a string entry called "Investment Type" for the type of electrification infrastructure investments, a string entry called "Announcement Date" for the electrification infrastructure investments announcement date, a string entry called "Description" with a short description of the electrification infrastructure investment, a string entry called "Comments" where you can include any relevant comments and an entry called "Source" in the format of a list of strings for the URL or URLs for the source or sources that you used. If there are no sources, return an empty list for the "Source" column. The table should have one row for each electrification infrastructure investments you can find. If you do not find information for a customer, add a row with the customer name, and an empty string for all the other fields. I do not want any freeform text around the tables. Just give me back the table and the list of sources you used to populate it. You can add a column for comments or any other information you think is relevant. Be thorough in your search`,
 
   'Machine Purchases':
-    'You are researching purchases of battery powered or electric construction equipment by companies. ' +
-    'Look for: electric excavators, electric loaders, battery-powered dozers, electric compactors, ' +
-    'electric pavers, or any zero-emission construction machinery — including manufacturer, model, quantity, and purchase date. ' +
-    'Only use public online sources. ' +
-    'Focus on the named company as a business — not law firms, financial advisors, or similarly-named organizations.',
+    `Each element in the list has a sublist with the company's name and the country that the company is in. Can you find me information on purchases of battery powered construction equipment by each of the companies in the list of lists.
+Don't use internal Caterpillar data. Only use material you find online on public pages. If you find information, tell me how many battery powered construction machines were bought, from what manufacturer and what model. Put the results into a table in JSON format. Each item needs to have a string field called "Company" for the name of the company doing the purchase written exactly like in the list, a string entry called "Country" with the name of the country typed exactly like in the input list, a string field called "Manufacturer" for the battery powered construction machine manufacturer, a string field called "Machine Type" for the battery powered construction machine type, a string field called "Model" the battery powered construction machine model, a string field called "Quantity" for the number of purchased battery powered construction machines, a string field called "Purchase Date" for the date of the purchase, a string field called "Comments" where you can include any relevant comments, and a field called "Source" in the format of a list of strings for the URL or URLs for the source or sources that you used. If there are no sources, return an empty list for the "Source" column. The table should have one row for each purchase. If you do not find information for a customer, add a row with the customer name, and an empty string for all the other fields. I do not want any freeform text around the tables. Just give me back the table and the list of sources you used to populate it. You can add a column for comments or any other information you think is relevant. Be thorough in your search.`,
 
   'Pilot Projects':
-    'You are researching lower emission construction projects involving companies as owner, contractor, partner, or subcontractor. ' +
-    'Look for: projects using electric equipment, solar or wind energy on-site, carbon capture, alternative fuels, ' +
-    'or other approaches to reduce construction emissions. Only use public online sources. ' +
-    'Focus on the named company as a business — not law firms, financial advisors, or similarly-named organizations.',
+    `Each element in the list has a sublist with the company's name and the country that the company is in. Can you find me information on lower emission construction projects involving each of the companies in the list of lists.
+Don't use internal Caterpillar data. Only use material you find online on public pages. If you find information, tell me the name of the lower emissions construction project, the type of lower emissions construction project, how the company is involved, how the company intends to achieve lower emissions during the construction project, the type and manufacturer of the electric equipment involved in the lower emissions project and a short description of the lower emissions construction project. Put the results into a table in JSON format. Each entry in the table needs to have a string entry called "Company" for the company name written exactly like in the list, a string entry called "Country" with the name of the country typed exactly like in the input list, a string entry called "Project Name" for the name of the lower emissions construction project, a string entry called "Project Type" for the type of lower emissions construction project, a string entry called "Involvement" for the role the company had in the pilot project, a string entry called "Lower Emissions Approach" for how the company intends to achieve lower emissions during the construction project, a string entry called "Electric Equipment & Manufacturer" for the type and manufacturer of the electric equipment involved in the lower emissions project, a string entry called "Project Description" for a short description of the lower emissions construction project, a string entry called "Comments" where you can include any relevant comments and an entry called "Source" in the format of a list of strings for the URL or URLs for the source or sources that you used. If there are no sources, return an empty list for the "Source" column. The table should have one row for each project you can find. If you do not find information for a customer, add a row with the customer name, and an empty string for all the other fields. I do not want any freeform text around the tables. Just give me back the table and the list of sources you used to populate it. You can add a column for comments or any other information you think is relevant. Be thorough in your search`,
 
   'Environmental Constraints':
-    'You are researching construction or mining projects involving companies that had any of these environmental constraints: ' +
-    '(1) Areas with strict air quality standards or low-emission zones; ' +
-    '(2) Indoor, enclosed, or underground sites such as tunnels, parking garages, building interiors, basements, mines, or warehouses; ' +
-    '(3) Noise-sensitive areas such as near hospitals, schools, offices, projects with noise curfews, overnight/early morning work, wildlife preserves, or dairy farms. ' +
-    'Include past, current, and planned projects. Include projects where the company is a partner, contractor, or subcontractor. ' +
-    'Only use public online sources. ' +
-    'Focus on the named company as a business — not law firms, financial advisors, or similarly-named organizations.',
+    `Each element in the list has a sublist with the company's name and the country code for the country that the company is in.
+Can you tell me if this company has worked, is working or is planning to work on construction or mining projects with any of the following constraints:
+- Areas with strict air quality standards
+- Indoor, enclosed or underground sites. For example tunnels, parking garages, building interiors, basements, mines, warehouses
+- Noise sensitive areas. For example near hospitals, schools, offices, projects in areas with noise curfews, overnight or early morning work, wildlife preserves, dairy farms and other areas in proximity to animals
+Don't use internal Caterpillar data. Only use material you find online on public pages. Look at past, current and announced projects. Don't focus on any particular geographical region or time period. Include projects where the company is a partner, contractor or subcontractor.
+Please return the results in the form of a json file with one item for each example that you can find. For each example, create a "Company" string field with the name of the company written exactly like in the list, a string entry called "Country" with the name of the country typed exactly like in the input list, a "Project" string field with a name for the project, a "Constraint Type" string field describing the type of constraint this particular project was in, a "Project Date" string field with information about when the project started or will start, a "Description" string field with a description of the project's constraints from the list above, a "Comments" string field where you can include relevant comments, and a "Source" field in the format of a list of strings, with the URL or URLs to the source that you found about this project. If there are no sources, return an empty list for the "Source" column. The json file can have multiple entries for a single project. If a project was under multiple of the constraints above, add one item for each constraint. If you don't find information for a company, create a record in the json file with only the "Company" field populated and put an empty string for the other fields. Only look at public information online. Do not look at any internal files. Do not use files on my computer or internal network. Do not look at Caterpillar files. Only look at public material online. Only return the json file. Don't return freeform text.`,
 };
 
 async function novaGroundingSearch(
@@ -542,22 +583,33 @@ const CATEGORY_INSTRUCTIONS: Record<string, string> = {
   'Emissions Reductions':
     '- Extract greenhouse gas emission reduction pledges: target reduction amount, target year, baseline year, year pledge was made\n' +
     '   - Set Net-Zero Target to true if ANY emissions reduction goal or sustainability commitment is found\n' +
-    '   - Be thorough: check sustainability reports, SBTi commitments, CDP disclosures, annual reports',
+    '   - Be thorough: check sustainability reports, SBTi commitments, CDP disclosures, annual reports\n' +
+    '   - INCLUDE pledges by the company\'s parent or operating division if the company is clearly a subsidiary or brand name of a larger group\n' +
+    '   - REJECT: pledges by a completely unrelated company that happens to share a word or abbreviation in its name (e.g. "AMAT" meaning Applied Materials Inc ≠ a building materials company)',
 
   'Investments & Commitments':
     '- Focus ONLY on electrification infrastructure investments: EV charging infrastructure, electric vehicle fleet, building renovation/electrification\n' +
     '   - Extract investment type, announcement date, amount invested if available, and a summary description\n' +
-    '   - Do NOT include general sustainability or renewables investments unless they are specifically electrification infrastructure',
+    '   - INCLUDE strategic agreements and partnerships that have a concrete, named electrification deliverable (e.g. developing and deploying EV trucks for quarry operations)\n' +
+    '   - REJECT: general sustainability goals, carbon reduction pledges, renewable energy purchases for own operations, carbon offsets with no electrification component\n' +
+    '   - REJECT: investments by a completely unrelated company that shares a word or abbreviation in its name',
 
   'Machine Purchases':
     '- Focus ONLY on battery powered / electric construction equipment purchases — not diesel, hybrid, or general fleet\n' +
     '   - Do NOT use internal Caterpillar data — only public online sources\n' +
-    '   - Extract manufacturer, machine type, model, quantity, and purchase date for each purchase found',
+    '   - Extract manufacturer, machine type, model, quantity, and purchase date for each purchase found\n' +
+    '   - INCLUDE confirmed orders, deliveries, and pilot deployments of electric equipment\n' +
+    '   - REJECT: results where ALL sources are equipment manufacturer product/spec pages (e.g. only cat.com/products/ pages with no mention of the company buying it) — these describe the machine specs, not who bought it\n' +
+    '   - REJECT: results from a completely unrelated company that shares a word or abbreviation in its name',
 
   'Pilot Projects':
     '- Focus on lower emission construction projects where the company is involved as owner, contractor, partner, or subcontractor\n' +
     '   - Do NOT use internal Caterpillar data — only public online sources\n' +
-    '   - Extract the project name, type, company\'s role, how lower emissions are achieved, and any electric equipment used',
+    '   - Extract the project name, type, company\'s role, how lower emissions are achieved, and any electric equipment used\n' +
+    '   - INCLUDE projects where the company supplies materials AND is also performing construction or site work\n' +
+    '   - REJECT: general sustainability programs or energy efficiency upgrades to the company\'s own office/plant with no construction project element\n' +
+    '   - REJECT: projects where the research text makes clear the company\'s only role was supplying raw materials (concrete, aggregate, grain) with no on-site construction involvement\n' +
+    '   - The project must describe a lower-emission construction approach (electric equipment, alternative fuels, solar/wind on-site, carbon capture, etc.)',
 
   'Environmental Constraints':
     '- Look for construction or mining projects with ANY of these three constraint types:\n' +
@@ -567,7 +619,10 @@ const CATEGORY_INSTRUCTIONS: Record<string, string> = {
     '   - Include past, current, and planned projects. Include projects where the company is a partner, contractor, or subcontractor\n' +
     '   - Do not restrict to any particular region or time period\n' +
     '   - If a project qualifies under multiple constraint types, use all that apply in the Constraint Type array\n' +
-    '   - Do NOT use internal Caterpillar data — only public online sources',
+    '   - Do NOT use internal Caterpillar data — only public online sources\n' +
+    '   - REJECT: equipment product pages, dealer inventory pages, or general company profile pages — these describe products for sale, not a specific project the company worked on\n' +
+    '   - REJECT: projects that share a geographic or common noun name with the company but are clearly unrelated (verify the text actually links the company to the project)\n' +
+    '   - The source must describe the company as performing, managing, or partnering on the specific project',
 };
 
 function buildExtractionPrompt(
@@ -581,7 +636,7 @@ function buildExtractionPrompt(
   const categoryInstructions = CATEGORY_INSTRUCTIONS[subjectLabel] ?? '';
   return `You are a data extraction assistant. Extract structured information about "${company}" from the research text below.
 
-Output ONLY a valid JSON object matching this schema exactly:
+Output ONLY a valid JSON array. Each element must match this schema — include one element per ${(catConfig as Record<string, unknown>).itemLabel} found. If multiple found, include all as separate elements:
 ${catConfig.schema}
 
 CATEGORY-SPECIFIC INSTRUCTIONS for ${subjectLabel}:
@@ -596,19 +651,21 @@ CRITICAL RULES — read carefully:
    - Numbers of units/machines/equipment ALWAYS go in Quantity, not Comments
 
 2. NO-INFO RULE: If the research text does NOT contain ANY evidence of "${subjectLabel}" for this company:
-   - Set ALL fields to empty ("", false, or []) EXCEPT Company and Country
-   - Do NOT write explanatory notes like "no data found" into Comments
-   - Set Source to [] (empty array)
-   - Only apply this rule if the text is truly irrelevant or about a different company
+   - Return an empty array []
+   - Do NOT write explanatory notes or filler records
 
-3. SOURCE RULE: Include ALL Available URLs that contain relevant information about ${subjectLabel} for this company.
-   Only exclude URLs entirely unrelated to the company or ${subjectLabel}.
+3. SOURCE RULE: In the Source field, ONLY include URLs from the "Available URLs" list below.
+   Do NOT add any URL that does not appear in the Available URLs list — any URL you invent will be removed automatically.
+   Be inclusive — if a listed URL's page discusses the company's ${subjectLabel} activity even partially, include it.
+   Only exclude listed URLs that are entirely unrelated to the company or ${subjectLabel}.
 
 4. Country: infer from HQ location, state mentions, or context (e.g. "Iowa-based" → "United States")
 
 5. Do NOT invent or hallucinate any data. Do NOT include explanations outside the JSON.
 
 6. DATES: Use only specific dates or years explicitly stated. Do NOT fabricate date ranges.
+
+7. COMPANY MATCH: Every record must be grounded in source text that connects "${company}" (or a recognizable short form, ticker, or parent/subsidiary name) to the specific activity. Discard records where the only connection is a coincidental name match (e.g. a project or place that shares a word with the company name but isn't about the company), or where all sources are about a completely different organization that happens to share an abbreviation or word. When in doubt about identity, keep the record but note the uncertainty in Comments.
 
 Available URLs (only use ones with direct evidence):
 ${sourceUrls || '(none)'}
@@ -618,7 +675,39 @@ Research text:
 ${fullText.slice(0, 6000)}
 ---
 
-Respond with ONLY the JSON object.`;
+Respond with ONLY the JSON array. If nothing found, return [].`;
+}
+
+function normalizeRecords(
+  records: Record<string, unknown>[],
+  company: string,
+  catConfig: CatConfig,
+  sourcesWithSnippets: SearchResult[]
+): Record<string, unknown>[] {
+  const emptyRecord = catConfig.emptyRecord(company) as Record<string, unknown>;
+  return records
+    .filter(obj => obj && typeof obj === 'object')
+    .map(obj => {
+      obj['Company'] = company;
+      if (!obj['Country']) obj['Country'] = '';
+      if (typeof obj['Source'] === 'string') obj['Source'] = obj['Source'] ? [obj['Source']] : [];
+      if (!Array.isArray(obj['Source'])) obj['Source'] = [];
+      if ('Constraint Type' in obj) {
+        if (typeof obj['Constraint Type'] === 'string') {
+          obj['Constraint Type'] = obj['Constraint Type'] ? [obj['Constraint Type']] : [];
+        }
+        if (!Array.isArray(obj['Constraint Type'])) obj['Constraint Type'] = [];
+      }
+      for (const [k, v] of Object.entries(obj)) {
+        if (k === 'Net-Zero Target') continue;
+        if ((v === false || v === null) && !Array.isArray(emptyRecord[k])) obj[k] = '';
+      }
+      sanitizeFieldValues(obj);
+      verifySourcesBySnippet(company, obj, sourcesWithSnippets);
+      cleanupRecord(obj, catConfig);
+      return obj;
+    })
+    .filter(obj => hasRealDataFields(obj));
 }
 
 async function extractWithLLM(
@@ -629,9 +718,8 @@ async function extractWithLLM(
   sourcesWithSnippets: SearchResult[],
   modelId: string,
   region: string
-): Promise<Record<string, unknown>> {
-  const emptyRecord = catConfig.emptyRecord(company) as Record<string, unknown>;
-  if (!fullText.trim()) return emptyRecord;
+): Promise<Record<string, unknown>[]> {
+  if (!fullText.trim()) return [];
 
   const prompt = buildExtractionPrompt(company, catConfig, fullText, sources);
 
@@ -646,7 +734,7 @@ async function extractWithLLM(
       accept: 'application/json',
       body: JSON.stringify({
         messages: [{ role: 'user', content: [{ text: prompt }] }],
-        inferenceConfig: { maxTokens: 1500, temperature: 0.1 },
+        inferenceConfig: { maxTokens: 2048, temperature: 0.1 },
       }),
     });
 
@@ -658,33 +746,13 @@ async function extractWithLLM(
       i => typeof i?.text === 'string'
     )?.text || '';
 
-    const obj = extractJsonObject(stripThinking(rawText));
-    if (!obj) return emptyRecord;
+    const records = extractJsonArray(stripThinking(rawText));
+    if (!records || records.length === 0) return [];
 
-    obj['Company'] = company;
-    if (typeof obj['Source'] === 'string') obj['Source'] = obj['Source'] ? [obj['Source']] : [];
-    if (!Array.isArray(obj['Source'])) obj['Source'] = [];
-
-    // Normalize Constraint Type for environments category
-    if ('Constraint Type' in obj) {
-      if (typeof obj['Constraint Type'] === 'string') {
-        obj['Constraint Type'] = obj['Constraint Type'] ? [obj['Constraint Type']] : [];
-      }
-      if (!Array.isArray(obj['Constraint Type'])) obj['Constraint Type'] = [];
-    }
-
-    // Normalize booleans in string fields to ''
-    for (const [k, v] of Object.entries(obj)) {
-      if (k === 'Net-Zero Target') continue;
-      if ((v === false || v === null) && !Array.isArray(emptyRecord[k])) obj[k] = '';
-    }
-
-    verifySourcesBySnippet(company, obj, sourcesWithSnippets);
-    cleanupRecord(obj, catConfig);
-    return obj;
+    return normalizeRecords(records, company, catConfig, sourcesWithSnippets);
   } catch (error) {
     console.error(`${DEBUG} LLM extraction failed for ${company}/${catConfig.label}:`, error);
-    return emptyRecord;
+    return [];
   }
 }
 
@@ -697,30 +765,26 @@ async function researchOne(
   numRuns: number,
   modelId: string,
   region: string
-): Promise<Record<string, unknown>> {
+): Promise<Record<string, unknown>[]> {
   const catConfig = CATEGORIES[catKey];
-  const emptyRecord = catConfig.emptyRecord(company) as Record<string, unknown>;
 
-  const attempt = async (): Promise<Record<string, unknown>> => {
-    // Step 1: search
+  const attempt = async (): Promise<Record<string, unknown>[]> => {
     let searchOut: SearchOutput;
     try {
       searchOut = await novaGroundingSearch(catConfig.searchQuery(company), industry, modelId, region, catConfig.label);
     } catch {
-      return emptyRecord;
+      return [];
     }
 
-    // Step 2: extract
     let extracted = await extractWithLLM(
       company, catConfig, searchOut.fullText, searchOut.sources, searchOut.sourcesWithSnippets, modelId, region
     );
 
-    // Step 3: enrich if Country missing or no data fields found
-    const needsEnrichment = !extracted['Country'] || !hasRealDataFields(extracted);
+    const needsEnrichment = extracted.length === 0 || !extracted[0]?.['Country'];
     if (needsEnrichment) {
-      const enrichQuery = !extracted['Country']
-        ? catConfig.enrichQuery(company)
-        : catConfig.dataEnrichQuery(company);
+      const enrichQuery = extracted.length === 0
+        ? catConfig.dataEnrichQuery(company)
+        : catConfig.enrichQuery(company);
       try {
         const enrichOut = await novaGroundingSearch(enrichQuery, industry, modelId, region, catConfig.label);
         if (enrichOut.fullText.trim()) {
@@ -744,39 +808,56 @@ async function researchOne(
     return extracted;
   };
 
-  if (numRuns <= 1) {
-    const result = await attempt();
-    await verifyFinancialClaims(result, company);
-    return result;
-  }
+  const allAttemptResults = await Promise.all(Array.from({ length: Math.max(1, numRuns) }, attempt));
+  const allRecords = allAttemptResults.flat();
 
-  // Run all attempts in parallel for non-determinism coverage
-  const attempts = await Promise.all(Array.from({ length: numRuns }, attempt));
+  if (allRecords.length === 0) return [catConfig.emptyRecord(company) as Record<string, unknown>];
 
-  // Pick highest-scoring result as base; backfill empty fields from other sourced runs
-  const sorted = [...attempts].sort((a, b) => scoreResult(b) - scoreResult(a));
-  const best: Record<string, unknown> = { ...sorted[0] };
+  const DEDUP_FILLER = new Set([
+    'the','a','an','and','or','of','in','at','for','to','on','by','with','from',
+    'project','program','initiative','plan','pilot','phase','stage','scheme',
+    'farm','park','plant','facility','complex','site','centre','center',
+    'inc','llc','corp','ltd','group','co',
+  ]);
+  const normalizeKey = (val: unknown): string =>
+    String(val || '').toLowerCase()
+      .replace(/[^a-z0-9\s]/g, ' ')
+      .split(/\s+/)
+      .filter(w => w.length > 1 && !DEDUP_FILLER.has(w))
+      .sort()
+      .join(' ');
 
-  for (const candidate of sorted.slice(1)) {
-    if (!((candidate['Source'] as string[] | undefined)?.length)) continue;
-    for (const [k, v] of Object.entries(candidate)) {
-      if (k === 'Company' || k === 'Country') continue;
-      if (k === 'Source') {
-        const existing = new Set(best['Source'] as string[]);
-        for (const url of (v as string[] | undefined) ?? []) {
-          if (!existing.has(url)) (best['Source'] as string[]).push(url);
-        }
-        continue;
+  const primaryKey = (r: Record<string, unknown>) => catConfig.keyFields
+    .map(f => normalizeKey(r[f]))
+    .join('||');
+
+  const seen = new Map<string, Record<string, unknown>>();
+  for (const r of allRecords) {
+    const key = primaryKey(r);
+    if (!key.replace(/\|/g, '').trim()) continue;
+    const existing = seen.get(key);
+    if (!existing || scoreResult(r) > scoreResult(existing)) {
+      seen.set(key, { ...r });
+    }
+    if (existing) {
+      const existingSources = new Set(existing['Source'] as string[]);
+      for (const url of (r['Source'] as string[] | undefined) ?? []) {
+        if (!existingSources.has(url)) { (existing['Source'] as string[]).push(url); existingSources.add(url); }
       }
-      const bestVal = best[k];
-      const isEmpty = bestVal === '' || bestVal === false || bestVal === null ||
-                      bestVal === undefined || (Array.isArray(bestVal) && bestVal.length === 0);
-      if (isEmpty && v && v !== '' && v !== false) best[k] = v;
+      // For env constraints: union Constraint Type arrays across runs for the same project
+      if (Array.isArray(existing['Constraint Type']) && Array.isArray(r['Constraint Type'])) {
+        const ct = new Set(existing['Constraint Type'] as string[]);
+        for (const c of r['Constraint Type'] as string[]) ct.add(c);
+        existing['Constraint Type'] = [...ct];
+      }
     }
   }
 
-  await verifyFinancialClaims(best, company);
-  return best;
+  const deduped = [...seen.values()];
+  if (deduped.length === 0) return [catConfig.emptyRecord(company) as Record<string, unknown>];
+
+  for (const r of deduped) await verifyFinancialClaims(r, company);
+  return deduped;
 }
 
 // ── HTTP handler ──────────────────────────────────────────────────────────────
@@ -832,16 +913,17 @@ export async function POST(req: NextRequest) {
     const results = await Promise.all(
       tasks.map(({ company, catKey }) =>
         researchOne(company, catKey, industry, numRuns, modelId, region)
-          .catch(() => CATEGORIES[catKey].emptyRecord(company) as Record<string, unknown>)
+          .catch(() => [CATEGORIES[catKey].emptyRecord(company) as Record<string, unknown>])
       )
     );
 
-    // Group results back by category
+    // Group results back by category — each company contributes an array of flat records
     const reports: Record<Category, object[]> = {
       emissions: [], investments: [], purchases: [], pilots: [], environments: [],
     };
-    results.forEach((record, i) => {
-      reports[tasks[i].catKey].push(record);
+    results.forEach((records, i) => {
+      const arr = Array.isArray(records) ? records : [records];
+      arr.forEach(r => reports[tasks[i].catKey].push(r));
     });
 
     const hasAnyResults = categories.some(cat =>

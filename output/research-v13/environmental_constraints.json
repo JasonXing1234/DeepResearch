@@ -1,0 +1,311 @@
+[
+  {
+    "Company": "CRH AMAT",
+    "Country": "Ireland",
+    "Project": "Truist Park Underground Rainwater Detention System",
+    "Constraint Type": [
+      "Indoor/Enclosed/Underground"
+    ],
+    "Project Date": "2018",
+    "Description": "Underground rainwater detention system requiring specialized materials",
+    "Comments": "CRH supplied materials for underground construction at baseball stadium",
+    "Source": [
+      "https://www.crh.com/what-we-do/our-projects/featured-projects"
+    ]
+  },
+  {
+    "Company": "CRH AMAT",
+    "Country": "Ireland",
+    "Project": "Gotthard Base Tunnel",
+    "Constraint Type": [
+      "Indoor/Enclosed/Underground"
+    ],
+    "Project Date": "2016",
+    "Description": "Materials supply for underground railway tunnel requiring air quality management",
+    "Comments": "CRH subsidiary Jura Materials involved; project required dust control solutions",
+    "Source": [
+      "https://www.crh.com/projects/tunneling-through-a-mountain-to-keep-road-users-safe/"
+    ]
+  },
+  {
+    "Company": "ZIEGLER CAT",
+    "Country": "United States",
+    "Project": "Underground Mining Trucks",
+    "Constraint Type": [
+      "Indoor/Enclosed/Underground",
+      "Air Quality"
+    ],
+    "Project Date": "",
+    "Description": "Specialized trucks for underground mines with EU Stage V engines for reduced emissions",
+    "Comments": "Product designed for enclosed underground environments with strict air quality requirements",
+    "Source": [
+      "https://www.zieglercat.com/equipment/new/underground-hard-rock/underground-mining-trucks/104983/"
+    ]
+  },
+  {
+    "Company": "ZIEGLER CAT",
+    "Country": "United States",
+    "Project": "Sound Attenuated Enclosures",
+    "Constraint Type": [
+      "Noise Sensitive"
+    ],
+    "Project Date": null,
+    "Description": "Enclosures reducing noise levels to 74-79 dBA at 7m",
+    "Comments": "For use in noise-restricted areas like hospitals or schools",
+    "Source": [
+      "https://www.zieglercat.com/attachments/electric-power-genset-enclosures/enclosures/3516c-60hz-sound-attenuated-enclosure/"
+    ]
+  },
+  {
+    "Company": "ZIEGLER CAT",
+    "Country": "United States",
+    "Project": "Electric Generator Enclosures",
+    "Constraint Type": [
+      "Noise Sensitive"
+    ],
+    "Project Date": "",
+    "Description": "Sound-attenuated enclosures for generators to minimize noise in sensitive areas",
+    "Comments": "Designed for use near noise-sensitive locations like hospitals or schools",
+    "Source": [
+      "https://www.zieglercat.com/attachments/electric-power-genset-enclosures/enclosures/24-220-kva-sa-lvl-2-enclosure/"
+    ]
+  },
+  {
+    "Company": "ZIEGLER CAT",
+    "Country": "United States",
+    "Project": "Cat AD45 Underground Mining Trucks",
+    "Constraint Type": [
+      "Indoor/Enclosed/Underground",
+      "Air Quality"
+    ],
+    "Project Date": "Ongoing",
+    "Description": "Underground mining operations in enclosed mine shafts with strict air quality standards",
+    "Comments": "Features EU Stage V compliant engines to reduce emissions",
+    "Source": [
+      "https://www.zieglercat.com/new-equipment/underground-hard-rock/underground-mining-trucks/ad30/",
+      "https://www.zieglercat.com/equipment/new/underground-hard-rock/underground-mining-trucks/104983/"
+    ]
+  },
+  {
+    "Company": "ZIEGLER CAT",
+    "Country": "United States",
+    "Project": "C15 High Ambient Acoustic Enclosures",
+    "Constraint Type": [
+      "Noise Sensitive"
+    ],
+    "Project Date": "Ongoing",
+    "Description": "Sound-dampening enclosures for generator sets used in noise-sensitive environments",
+    "Comments": "Includes residential-level silencers for noise reduction",
+    "Source": [
+      "https://www.zieglercat.com/attachments/electric-power-genset-enclosures/enclosures/c15-high-ambient-acoustic-enclosure/"
+    ]
+  },
+  {
+    "Company": "HARSCO METALS GROUP",
+    "Country": "United Kingdom",
+    "Project": "LMEL Integrated Steel Plant",
+    "Constraint Type": [
+      "Indoor/Enclosed/Underground"
+    ],
+    "Project Date": "2027",
+    "Description": "Slag processing operations at enclosed industrial facility in Maharashtra, India",
+    "Comments": "Harsco Environmental role as contractor; enclosed processing facilities require dust control measures",
+    "Source": [
+      "https://www.globenewswire.com/news-release/2026/02/18/3240128/0/en/Harsco-Environmental-Secures-New-10-Year-Contract-With-Lloyds-Metals-and-Energy-Limited.html",
+      "https://www.enviri.com/harsco-environmental-secures-new-10-year-contract-with-lloyds-metals-and-energy-limited/"
+    ]
+  },
+  {
+    "Company": "HARSCO METALS GROUP",
+    "Country": "United Kingdom",
+    "Project": "Tata Steel Scunthorpe",
+    "Constraint Type": [
+      "Air Quality",
+      "Indoor/Enclosed/Underground"
+    ],
+    "Project Date": "",
+    "Description": "The Tata Steel Scunthorpe site has specific air quality standards for suspended particulate matter and manganese emissions.",
+    "Comments": "Harsco operates under site-specific air quality standards and has faced regulatory actions for dust emissions.",
+    "Source": [
+      "https://www.gov.uk/government/publications/harsco-metals-environmental-permit-application-advertisement",
+      "https://www.triblive.com/local/allegheny/allegheny-county-health-department-fines-natrona-slag-processor-100k-for-dust-emissions/"
+    ]
+  },
+  {
+    "Company": "HARSCO METALS GROUP",
+    "Country": "United Kingdom",
+    "Project": "Natrona Heights Slag Processing",
+    "Constraint Type": [
+      "Noise Sensitive"
+    ],
+    "Project Date": "",
+    "Description": "The facility faced complaints about dust pollution affecting a nearby residential neighborhood.",
+    "Comments": "Fined for dust emissions in a noise-sensitive residential zone.",
+    "Source": [
+      "https://www.triblive.com/local/allegheny/allegheny-county-health-department-fines-natrona-slag-processor-100k-for-dust-emissions/"
+    ]
+  },
+  {
+    "Company": "CEMSTONE PRODUCTS CO.",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "VULCAN MATERIALS",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "MICHELS CORPORATION",
+    "Country": "US",
+    "Project": "St. Croix Crossing",
+    "Constraint Type": [
+      "Indoor/Enclosed/Underground"
+    ],
+    "Project Date": "2023",
+    "Description": "Installed a 36-inch steel natural gas pipeline using trenchless technology beneath the St. Croix River",
+    "Comments": "Underground construction in environmentally sensitive waterbody area",
+    "Source": [
+      "https://www.michels.us/projects/st-croix-crossing/"
+    ]
+  },
+  {
+    "Company": "MICHELS CORPORATION",
+    "Country": "US",
+    "Project": "Fox River State Recreational Trail",
+    "Constraint Type": [
+      "Noise Sensitive"
+    ],
+    "Project Date": "2020",
+    "Description": "Constructed a 3.5 mile multi-use recreational trail through an urban area with noise curfews",
+    "Comments": "Adhered to strict noise ordinances near residential areas and schools",
+    "Source": [
+      "https://www.michels.us/projects/fox-river-state-recreational-trail/"
+    ]
+  },
+  {
+    "Company": "MICHELS CORPORATION",
+    "Country": "United States",
+    "Project": "Fiber Optic Network Installation",
+    "Constraint Type": [
+      "Air Quality"
+    ],
+    "Project Date": "",
+    "Description": "Provided fiber-optic network construction services in urban environments with strict emissions regulations.",
+    "Comments": "Urban projects often require adherence to strict environmental standards.",
+    "Source": [
+      "https://www.michels.us/services/communications/"
+    ]
+  },
+  {
+    "Company": "MICHELS CORPORATION",
+    "Country": "United States",
+    "Project": "Line 5 Tunnel Project",
+    "Constraint Type": [
+      "Noise Sensitive"
+    ],
+    "Project Date": "2020-Present",
+    "Description": "Constructing a 5-mile tunnel under the Straits of Mackinac for oil pipeline replacement.",
+    "Comments": "Requires underwater construction techniques to protect the Great Lakes environment.",
+    "Source": [
+      "https://www.bridgemi.com/michigan-environment-watch/michigan-approves-controversial-oil-pipeline-tunnel-under-straits-mackinac"
+    ]
+  },
+  {
+    "Company": "MANATTS INC",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "EMERY SAPP & SONS INC",
+    "Country": "USA",
+    "Project": "National Bio and Agro-Defense Facility (NBAF)",
+    "Constraint Type": [
+      "Indoor/Enclosed/Underground"
+    ],
+    "Project Date": "2015-2022",
+    "Description": "Built BSL-4 lab requiring specialized containment systems",
+    "Comments": "Provided underground utilities and containment infrastructure",
+    "Source": [
+      "https://emerysapp.com/project/national-bio-agro-defense-facility-nbaf/"
+    ]
+  },
+  {
+    "Company": "EMERY SAPP & SONS INC",
+    "Country": "USA",
+    "Project": "CPS Southwest Elementary School",
+    "Constraint Type": [
+      "Noise Sensitive",
+      "Indoor/Enclosed/Underground"
+    ],
+    "Project Date": "April 2024",
+    "Description": "Constructed new school adjacent to existing middle school requiring noise management",
+    "Comments": "Project near educational facility required adherence to noise regulations",
+    "Source": [
+      "https://www.emerysapp.com/projects/cps-southwest-elementary-school/"
+    ]
+  },
+  {
+    "Company": "EMERY SAPP & SONS INC",
+    "Country": "USA",
+    "Project": "Aspen Heights Springfield",
+    "Constraint Type": [
+      "Indoor/Enclosed/Underground"
+    ],
+    "Project Date": "2023",
+    "Description": "Included construction of a parking garage",
+    "Comments": "The project involved infrastructure for a student housing development with an adjacent parking garage",
+    "Source": [
+      "https://www.emerysapp.com/projects/aspen-heights-springfield/"
+    ]
+  },
+  {
+    "Company": "EMERY SAPP & SONS INC",
+    "Country": "USA",
+    "Project": "Mercy Orthopedic Hospital",
+    "Constraint Type": [
+      "Noise Sensitive"
+    ],
+    "Project Date": "2023",
+    "Description": "Required environmental stewardship near adjacent populations",
+    "Comments": "Project located in Springfield, Missouri with noise considerations for hospital vicinity",
+    "Source": [
+      "https://www.emerysapp.com/projects/mercy-orthopedic-hospital/"
+    ]
+  },
+  {
+    "Company": "FABICK CAT",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "THE ANDERSONS AGRISERVICES",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  }
+]

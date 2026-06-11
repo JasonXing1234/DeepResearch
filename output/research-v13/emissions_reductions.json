@@ -1,0 +1,157 @@
+[
+  {
+    "Company": "CRH AMAT",
+    "Country": "Ireland",
+    "Emissions Reduction Target": "30% reduction in absolute carbon emissions",
+    "Target Year": "2030",
+    "Baseline Year": "2021",
+    "Pledge Year": "2022",
+    "Net-Zero Target": true,
+    "Comments": "CRH has a net zero ambition by 2050.",
+    "Source": [
+      "https://www.crh.com/sustainability/decarbonisation"
+    ]
+  },
+  {
+    "Company": "CRH AMAT",
+    "Country": "Ireland",
+    "Emissions Reduction Target": "25% reduction in absolute GHG emissions (Scope 1 and 2)",
+    "Target Year": "2030",
+    "Baseline Year": "2018",
+    "Pledge Year": "2021",
+    "Net-Zero Target": true,
+    "Comments": "The company has committed to a near-term target validated by SBTi.",
+    "Source": [
+      "https://www.crh.com/sustainability/a-sustainable-future/climate-action"
+    ]
+  },
+  {
+    "Company": "CRH AMAT",
+    "Country": "United States",
+    "Emissions Reduction Target": "50% reduction in Scope 1 and Scope 2 greenhouse gas emissions",
+    "Target Year": "2030",
+    "Baseline Year": "2019",
+    "Pledge Year": "2021",
+    "Net-Zero Target": true,
+    "Comments": "AMAT has committed to net zero emissions by 2050.",
+    "Source": [
+      "https://www.appliedmaterials.com/us/en/about/sustainability/environmental-policy-and-performance.html"
+    ]
+  },
+  {
+    "Company": "CRH AMAT",
+    "Country": "United States",
+    "Emissions Reduction Target": "30% reduction in Scope 1 and 2 GHG emissions",
+    "Target Year": "2030",
+    "Baseline Year": "2019",
+    "Pledge Year": "2021",
+    "Net-Zero Target": true,
+    "Comments": "Targets aligned with 1.5°C warming limit.",
+    "Source": [
+      "https://www.appliedmaterials.com/us/en/about/sustainability/environmental-social-governance.html"
+    ]
+  },
+  {
+    "Company": "ZIEGLER CAT",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "HARSCO METALS GROUP",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "CEMSTONE PRODUCTS CO.",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "VULCAN MATERIALS",
+    "Country": "United States",
+    "Emissions Reduction Target": "27% reduction in GHG intensity",
+    "Target Year": "2030",
+    "Baseline Year": "2018",
+    "Pledge Year": "2021",
+    "Net-Zero Target": true,
+    "Comments": "Target is based on GHG intensity reduction from 2018 levels. No explicit net-zero target found in available data.",
+    "Source": [
+      "https://www.transitionpathwayinitiative.org/companies/vulcan-materials"
+    ]
+  },
+  {
+    "Company": "MICHELS CORPORATION",
+    "Country": "United States",
+    "Emissions Reduction Target": "20% reduction in greenhouse gas intensity (gCO2e/revenue)",
+    "Target Year": "2028",
+    "Baseline Year": "2023",
+    "Pledge Year": "2023",
+    "Net-Zero Target": true,
+    "Comments": "Commitment through U.S. Department of Energy Better Plants Program with 18.5% progress reported in 2023",
+    "Source": [
+      "https://www.michels.us/mi-tech/commitment/sustainability/"
+    ]
+  },
+  {
+    "Company": "MANATTS INC",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "EMERY SAPP & SONS INC",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "FABICK CAT",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "THE ANDERSONS AGRISERVICES",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  }
+]

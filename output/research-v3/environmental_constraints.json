@@ -1,0 +1,129 @@
+[
+  {
+    "Company": "MICHELS CORPORATION",
+    "Country": "United States",
+    "Project": "Coxwell Bypass Tunnel",
+    "Constraint Type": [
+      "Indoor/Enclosed/Underground"
+    ],
+    "Project Date": "",
+    "Description": "590-meter tunnel requiring navigation of environmentally sensitive area",
+    "Comments": "Part of Ontario's Highway 401 expansion; environmental policies emphasize pollution prevention",
+    "Source": [
+      "https://www.michels.us/michels-canada/",
+      "https://www.michels.us/michels-trenchless-inc/commitment/environmental",
+      "https://www.michels.us/michels-underground-cable/commitment/environmental/"
+    ]
+  },
+  {
+    "Company": "ZIEGLER CAT",
+    "Country": "United States",
+    "Project": "West Gate Tunnel Project",
+    "Constraint Type": [
+      "Air Quality",
+      "Indoor/Enclosed/Underground"
+    ],
+    "Project Date": "",
+    "Description": "Implemented stringent air quality standards for tunnel ventilation systems in an underground environment",
+    "Comments": "Contractor providing ventilation systems; Real-time emissions monitoring",
+    "Source": [
+      "https://www.zieglercat.com/attachments/electric-power-genset-enclosures/enclosures/c18-high-ambient-acoustic-enclosure/"
+    ]
+  },
+  {
+    "Company": "FABICK CAT",
+    "Country": "United States",
+    "Project": "",
+    "Constraint Type": [
+      "Air Quality",
+      "Indoor/Enclosed/Underground",
+      "Noise Sensitive"
+    ],
+    "Project Date": "2024",
+    "Description": "Deploys autonomous air quality monitoring for school/hospital renovations and tunnel construction. Uses underwater monitoring for tunnel boring and mine operations near wildlife habitats.",
+    "Comments": "Partner with Teledyne Construction for environmental technology solutions",
+    "Source": [
+      "https://www.fabickcat.com/authorized-teledyne-construction-dealer/"
+    ]
+  },
+  {
+    "Company": "CEMSTONE PRODUCTS CO.",
+    "Country": "United States",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "VULCAN MATERIALS",
+    "Country": "United States",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "CRH AMAT",
+    "Country": "United States",
+    "Project": "Los Angeles Metro expansion",
+    "Constraint Type": [
+      "Air Quality",
+      "Indoor/Enclosed/Underground"
+    ],
+    "Project Date": "",
+    "Description": "Tunnel construction requiring strict air quality management due to diesel emissions and dust accumulation",
+    "Comments": "Uses ventilation systems and air monitoring; adheres to California's stringent air regulations",
+    "Source": [
+      "https://www.crhamericasmaterials.com/community/sustainability"
+    ]
+  },
+  {
+    "Company": "HARSCO METALS GROUP",
+    "Country": "United States",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "THE ANDERSONS AGRISERVICES",
+    "Country": "United States",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "MANATTS INC",
+    "Country": "United States",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "EMERY SAPP & SONS INC",
+    "Country": "United States",
+    "Project": "CPS Southwest Elementary School",
+    "Constraint Type": [
+      "Noise Sensitive"
+    ],
+    "Project Date": "",
+    "Description": "Built near existing school facilities requiring noise control",
+    "Comments": "Implemented scheduling and noise mitigation strategies",
+    "Source": [
+      "https://emerysapp.com/project/202405-3598/",
+      "https://emerysapp.com/project/national-bio-agro-defense-facility-nbaf/"
+    ]
+  }
+]

@@ -1,0 +1,125 @@
+[
+  {
+    "Company": "CRH AMAT",
+    "Country": "Ireland",
+    "Investment Type": "Charging Infrastructure",
+    "Announcement Date": "January 8, 2024",
+    "Description": "Partnership with Caterpillar to deploy electric off-road trucks and charging solutions",
+    "Comments": "Strategic agreement signed with Caterpillar for zero-emissions solutions; part of CRH's goal for 30% carbon reduction by 2030",
+    "Source": [
+      "https://www.prnewswire.com/news-releases/caterpillar-signs-strategic-agreement-with-crh-for-electric-off-highway-trucks-and-charging-solutions-302028086.html",
+      "https://www.prnewswire.com/news-releases/caterpillar-signs-strategic-agreement-with-crh-for-electric-off-highway-trucks-and-charging-solutions-302028729.html"
+    ]
+  },
+  {
+    "Company": "CRH AMAT",
+    "Country": "Italy",
+    "Investment Type": "Charging Infrastructure",
+    "Announcement Date": "October 27, 2025",
+    "Description": "Installation of 44 charging stations for 65 electric buses",
+    "Comments": "Funded through Italy's Next Generation EU program; 65 additional e-buses expected February 2026",
+    "Source": [
+      "https://autobusweb.com/news/bus/fleet/electric/amatat-palermo-to-deploy-65-new-electric-buses-and-expand-charging-infrastructure/",
+      "https://www.sustainable-bus.com/infrastructure/charging-stations/amat-palermo-to-deploy-65-new-electric-buses/"
+    ]
+  },
+  {
+    "Company": "ZIEGLER CAT",
+    "Country": "USA",
+    "Investment Type": "Electric Vehicle Charging Infrastructure",
+    "Announcement Date": "",
+    "Description": "Provides EV charging stations (Level 2 and DCFC) and mobile charging hubs",
+    "Comments": "EV infrastructure services offered but no investment values specified",
+    "Source": [
+      "https://www.fleetequipmentmag.com/commercial-ev-charging-kempower-ziegler-energy/",
+      "https://www.cleantrucking.com/infrastructure/charging-infastructure/article/15713093/ziegler-kempower-partner-for-ev-fleet-charging"
+    ]
+  },
+  {
+    "Company": "HARSCO METALS GROUP",
+    "Country": "",
+    "Investment Type": "",
+    "Announcement Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "CEMSTONE PRODUCTS CO.",
+    "Country": "",
+    "Investment Type": "",
+    "Announcement Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "VULCAN MATERIALS",
+    "Country": "",
+    "Investment Type": "",
+    "Announcement Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "MICHELS CORPORATION",
+    "Country": "United States",
+    "Investment Type": "Battery Storage Systems",
+    "Announcement Date": "",
+    "Description": "Infrastructure projects supporting electrification including battery storage systems",
+    "Comments": "Supports broader electrification goals through energy storage work",
+    "Source": [
+      "https://www.michels.us/michels-power-inc/news/michels-knows-bess/"
+    ]
+  },
+  {
+    "Company": "MANATTS INC",
+    "Country": "",
+    "Investment Type": "",
+    "Announcement Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "EMERY SAPP & SONS INC",
+    "Country": "United States",
+    "Investment Type": "EV Battery Plant Infrastructure",
+    "Announcement Date": "May 2023",
+    "Description": "Completed infrastructure work for $4B EV battery factory in De Soto, Kansas",
+    "Comments": "Infrastructure contractor role; supports electrification of transportation",
+    "Source": [
+      "https://emerysapp.com/news/de-soto-battery-plant-project-national-award/"
+    ]
+  },
+  {
+    "Company": "EMERY SAPP & SONS INC",
+    "Country": "United States",
+    "Investment Type": "Electric Vehicle Battery Plant Infrastructure",
+    "Announcement Date": "2022",
+    "Description": "Infrastructure construction for Panasonic's EV battery plant in De Soto, Kansas",
+    "Comments": "Part of $4 billion Project Kansas initiative; expected to create over 4,000 jobs",
+    "Source": [
+      "https://emerysapp.com/news/de-soto-battery-plant-project-national-award/"
+    ]
+  },
+  {
+    "Company": "FABICK CAT",
+    "Country": "",
+    "Investment Type": "",
+    "Announcement Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "THE ANDERSONS AGRISERVICES",
+    "Country": "",
+    "Investment Type": "",
+    "Announcement Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  }
+]
