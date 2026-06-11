@@ -3,6 +3,7 @@
 import { randomUUID } from 'node:crypto';
 import {
   BedrockRuntimeClient,
+  ConverseCommand,
   InvokeModelCommand,
 } from '@aws-sdk/client-bedrock-runtime';
 import { NodeHttpHandler } from '@smithy/node-http-handler';
@@ -37,7 +38,7 @@ function usage() {
 Optional args:
   --company <name>        Company for structured category research
   --category <id>         emissions|investments|equipment|pilots|constraints
-  --search-provider <id>  auto|bing-rss (default: auto)
+  --search-provider <id>  auto|nova-grounding|bing-rss (default: auto)
   --region <region>       Defaults to AWS_REGION or us-east-1
   --model-id <id>         Defaults to BEDROCK_MODEL_ID or BEDROCK_RESEARCH_MODEL_ID
   --rounds <n>            Research rounds (default: 2)
@@ -665,7 +666,7 @@ function extractJsonObject(text) {
 }
 
 function isNovaModel(modelId) {
-  return modelId.startsWith('amazon.nova-');
+  return /(?:^|\.)amazon\.nova-/.test(modelId);
 }
 
 function buildInvokeModelBody({ modelId, prompt, maxTokens, temperature }) {
@@ -824,7 +825,105 @@ function normalizeSearchProvider(value) {
   const raw = String(value || '').trim().toLowerCase();
   if (!raw || raw === 'auto') return 'auto';
   if (raw === 'bing-rss' || raw === 'bing') return 'bing-rss';
+  if (raw === 'nova-grounding' || raw === 'nova' || raw === 'grounding') return 'nova-grounding';
   return 'auto';
+}
+
+function extractNovaGroundingResults(response, query) {
+  const contentItems = response?.output?.message?.content || [];
+  let answerText = '';
+  const raw = [];
+
+  for (const item of contentItems) {
+    if (typeof item?.text === 'string') {
+      answerText += item.text + ' ';
+    }
+
+    const citations = item?.citationsContent?.citations || [];
+    for (const citation of citations) {
+      const url = citation?.location?.web?.url;
+      if (!url || !url.startsWith('http')) continue;
+
+      const title =
+        citation?.location?.web?.title ||
+        citation?.location?.web?.domain ||
+        url;
+
+      const snippet =
+        citation?.sourceContent?.text ||
+        citation?.generatedResponsePart?.textResponsePart?.text ||
+        '';
+
+      raw.push({ title, url, snippet });
+    }
+  }
+
+  // Deduplicate by URL
+  const seen = new Set();
+  const results = [];
+  for (const item of raw) {
+    if (seen.has(item.url)) continue;
+    seen.add(item.url);
+    results.push({
+      title: item.title || item.url,
+      url: item.url,
+      snippet: item.snippet || answerText.slice(0, 200) || '',
+      query,
+      source: 'nova-grounding',
+    });
+  }
+
+  return results;
+}
+
+async function runNovaGroundingSearch({ client, modelId, query, maxResults, trace }) {
+  if (trace) {
+    console.error('[trace] using Nova Web Grounding search mode');
+  }
+
+  try {
+    const command = new ConverseCommand({
+      modelId,
+      messages: [
+        {
+          role: 'user',
+          content: [
+            {
+              text: `Search the public web for sources about this query. Return cited sources only. Query: ${query}`,
+            },
+          ],
+        },
+      ],
+      toolConfig: {
+        tools: [
+          {
+            systemTool: {
+              name: 'nova_grounding',
+            },
+          },
+        ],
+      },
+    });
+
+    const response = await client.send(command);
+    const results = extractNovaGroundingResults(response, query).slice(0, maxResults);
+
+    if (trace) {
+      console.error(`[trace] Nova grounding returned ${results.length} cited URLs`);
+    }
+
+    return results;
+  } catch (error) {
+    if (trace) {
+      console.error('[trace] Nova grounding failed', {
+        name: error?.name,
+        message: error?.message,
+        code: error?.code,
+        statusCode: error?.$metadata?.httpStatusCode,
+      });
+    }
+    return [];
+  }
 }
 
 async function runBingRssSearch(query, maxResults, trace, options = {}) {
@@ -881,12 +980,29 @@ async function runBingRssSearch(query, maxResults, trace, options = {}) {
 async function webSearch(query, maxResults, trace, searchProvider = 'auto', options = {}) {
   const broadDiscovery = options?.broadDiscovery === true;
   const explicitCompany = options?.explicitCompany || '';
+  const bedrockSearchContext = options?.bedrockSearchContext || {};
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), 12000);
 
   try {
     if (trace) {
       console.error(`[trace] search query: ${query}`);
+    }
+
+    if (searchProvider === 'nova-grounding') {
+      const hits = await runNovaGroundingSearch({
+        client: bedrockSearchContext.client,
+        modelId: bedrockSearchContext.modelId,
+        query,
+        maxResults,
+        trace,
+      });
+
+      if (hits.length) return hits;
+
+      if (trace) {
+        console.error('[trace] Nova grounding had no hits, falling back to existing web search');
+      }
     }
 
     if (searchProvider === 'bing-rss') {
@@ -1234,7 +1350,9 @@ function buildGraph(client) {
       const roundSources = [];
 
       for (const query of state.plannedQueries) {
-        const hits = await webSearch(query, state.resultsPerQuery, state.trace, state.searchProvider || 'auto');
+        const hits = await webSearch(query, state.resultsPerQuery, state.trace, state.searchProvider || 'auto', {
+          bedrockSearchContext: { client, modelId: state.modelId },
+        });
 
         for (const hit of hits) {
           const pageSummary = await fetchPageSummary(hit.url, state.trace);
@@ -1335,13 +1453,14 @@ async function main() {
   const company = args.company || '';
   const categoryConfig = normalizeCategory(args.category);
   const selfTestCategory = args['self-test-category'] === 'true';
+  const selfTestWeb = args['self-test-web'] === 'true';
 
   let prompt = args.prompt || args.p;
   if (!prompt && company && categoryConfig) {
     prompt = `Research ${company} for ${categoryConfig.label} with evidence and sources`;
   }
 
-  if (!prompt && !selfTestCategory) {
+  if (!prompt && !selfTestCategory && !selfTestWeb) {
     console.error('Missing required --prompt argument.');
     usage();
     process.exit(2);
@@ -1358,13 +1477,27 @@ async function main() {
   const rounds = safeParseInt(args.rounds, 2);
   const queriesPerRound = safeParseInt(args.queries, 3);
   const resultsPerQuery = safeParseInt(args.results, 3);
-  const selfTestWeb = args['self-test-web'] === 'true';
   const selfTestQuery = args['self-test-query'] || prompt || '';
   const trace = args.trace === 'true';
   const sessionId = `lg-${randomUUID().slice(0, 8)}`;
 
   const httpsProxy = process.env.HTTPS_PROXY || process.env.https_proxy;
   await configureFetchProxy(httpsProxy, trace);
+
+  // Create the Bedrock client early when Nova Grounding is the search provider
+  // (self-test flows also need it), or always for the regular research flow.
+  let client = null;
+  if (searchProvider === 'nova-grounding' || (!selfTestWeb && !selfTestCategory)) {
+    const clientConfig = { region };
+    if (httpsProxy) {
+      clientConfig.requestHandler = new NodeHttpHandler({
+        connectionTimeout: 10000,
+        requestTimeout: 60000,
+        httpsAgent: new HttpsProxyAgent(httpsProxy),
+      });
+    }
+    client = new BedrockRuntimeClient(clientConfig);
+  }
 
   if (selfTestCategory) {
     if (!company) {
@@ -1387,6 +1520,7 @@ async function main() {
       const hits = await webSearch(query, discoveryResults, trace, searchProvider, {
         broadDiscovery: true,
         explicitCompany: company,
+        bedrockSearchContext: { client, modelId },
       });
       for (const hit of hits) {
         aggregate.push({
@@ -1449,22 +1583,28 @@ async function main() {
 
     console.log('\n--- structured self-test sources ---\n');
     for (const [index, hit] of filtered.entries()) {
-      console.log(`[${index + 1}] ${hit.title} | ${hit.url}`);
+      const label = hit.source ? `[${hit.source}]` : '';
+      console.log(`[${index + 1}] ${label} ${hit.title} | ${hit.url}`);
       if (hit.query) {
         console.log(`    query: ${hit.query}`);
       }
       if (hit.evidenceLevel) {
         console.log(`    evidence_level: ${hit.evidenceLevel}`);
       }
+      if (hit.snippet) {
+        console.log(`    grounding: ${hit.snippet.slice(0, 200)}${hit.snippet.length > 200 ? '...' : ''}`);
+      }
       if (hit.pageSummary) {
-        console.log(`    summary: ${hit.pageSummary.slice(0, 160)}${hit.pageSummary.length > 160 ? '...' : ''}`);
+        console.log(`    page_summary: ${hit.pageSummary.slice(0, 160)}${hit.pageSummary.length > 160 ? '...' : ''}`);
       }
     }
     return;
   }
 
   if (selfTestWeb) {
-    const hits = await webSearch(selfTestQuery, resultsPerQuery, trace, searchProvider);
+    const hits = await webSearch(selfTestQuery, resultsPerQuery, trace, searchProvider, {
+      bedrockSearchContext: { client, modelId },
+    });
     console.log(JSON.stringify({
       mode: 'langgraph-web-self-test',
       query: selfTestQuery,
@@ -1481,24 +1621,18 @@ async function main() {
     console.log('\n--- self-test sources ---\n');
     for (const [index, hit] of hits.entries()) {
       const summary = await fetchPageSummary(hit.url, trace);
-      console.log(`[${index + 1}] ${hit.title} | ${hit.url}`);
+      const label = hit.source ? `[${hit.source}]` : '';
+      console.log(`[${index + 1}] ${label} ${hit.title} | ${hit.url}`);
+      if (hit.snippet) {
+        console.log(`    grounding: ${hit.snippet.slice(0, 200)}${hit.snippet.length > 200 ? '...' : ''}`);
+      }
       if (summary) {
-        console.log(`    summary: ${summary.slice(0, 160)}${summary.length > 160 ? '...' : ''}`);
+        console.log(`    page_summary: ${summary.slice(0, 160)}${summary.length > 160 ? '...' : ''}`);
       }
     }
     return;
   }
 
-  const clientConfig = { region };
-  if (httpsProxy) {
-    clientConfig.requestHandler = new NodeHttpHandler({
-      connectionTimeout: 10000,
-      requestTimeout: 60000,
-      httpsAgent: new HttpsProxyAgent(httpsProxy),
-    });
-  }
-
-  const client = new BedrockRuntimeClient(clientConfig);
   const app = buildGraph(client);
 
   console.log(JSON.stringify({

@@ -11,10 +11,24 @@ interface BedrockMessageResponse {
 
 const DEBUG = '[WebSearch]';
 
+/** Strip <thinking>...</thinking> reasoning blocks that some models (e.g. Nova Premier) emit. */
+function stripThinkingTags(text: string): string {
+  return text.replace(/<thinking>[\s\S]*?<\/thinking>/gi, '').trim();
+}
+
 function maskAccessKeyId(value?: string) {
   if (!value) return '<missing>';
   if (value.length <= 8) return `${value.slice(0, 2)}...${value.slice(-2)}`;
   return `${value.slice(0, 4)}...${value.slice(-4)}`;
+}
+
+function isNovaModel(modelId: string): boolean {
+  return /(?:^|\.)(amazon\.nova-|nova-)/.test(modelId);
+}
+
+function toNovaInferenceProfileId(modelId: string): string {
+  // Ensure cross-region inference prefix (us./eu./ap.) for on-demand Nova invocations
+  return /^(us|eu|ap)\./.test(modelId) ? modelId : `us.${modelId}`;
 }
 
 export class WebSearch {
@@ -25,9 +39,9 @@ export class WebSearch {
   constructor() {
     this.region = process.env.AWS_REGION || 'us-east-1';
     this.modelId =
-      process.env.BEDROCK_MODEL_ID ||
       process.env.BEDROCK_RESEARCH_MODEL_ID ||
-      'anthropic.claude-3-5-sonnet-20241022';
+      process.env.BEDROCK_MODEL_ID ||
+      'amazon.nova-premier-v1:0'; // nova_grounding requires nova-premier; lite/pro return ValidationException
     this.client = null;
 
     console.log(`${DEBUG} Initialized`, {
@@ -57,6 +71,98 @@ export class WebSearch {
     const { BedrockRuntimeClient } = await import('@aws-sdk/client-bedrock-runtime');
     this.client = new BedrockRuntimeClient({ region: this.region });
     return this.client as { send: (command: unknown) => Promise<unknown> };
+  }
+
+  private extractNovaGroundingResults(response: unknown, query: string): SearchResult[] {
+    const resp = response as { output?: { message?: { content?: unknown[] } } };
+    const contentItems = resp?.output?.message?.content || [];
+    let answerText = '';
+    const raw: Array<{ title: string; url: string; snippet: string }> = [];
+
+    for (const item of contentItems as Array<Record<string, unknown>>) {
+      if (typeof item?.text === 'string') {
+        answerText += item.text + ' ';
+      }
+
+      const citations = (item?.citationsContent as { citations?: unknown[] })?.citations || [];
+      for (const citation of citations as Array<Record<string, unknown>>) {
+        const loc = citation?.location as Record<string, unknown> | undefined;
+        const web = loc?.web as Record<string, unknown> | undefined;
+        const url = web?.url as string | undefined;
+        if (!url || !url.startsWith('http')) continue;
+
+        const title = (web?.title || web?.domain || url) as string;
+        const srcContent = citation?.sourceContent as Record<string, unknown> | undefined;
+        const genPart = citation?.generatedResponsePart as Record<string, unknown> | undefined;
+        const textPart = genPart?.textResponsePart as Record<string, unknown> | undefined;
+        const snippet = stripThinkingTags((srcContent?.text || textPart?.text || '') as string);
+        raw.push({ title, url, snippet });
+      }
+    }
+
+    answerText = stripThinkingTags(answerText);
+
+    const seen = new Set<string>();
+    const results: SearchResult[] = [];
+    for (const item of raw) {
+      if (seen.has(item.url)) continue;
+      seen.add(item.url);
+      results.push({
+        title: item.title || item.url,
+        url: item.url,
+        snippet: item.snippet || answerText.slice(0, 200) || '',
+        content: item.snippet || answerText.slice(0, 200) || '',
+      });
+    }
+
+    // If no citations, use the answer text as a single synthetic result
+    if (results.length === 0 && answerText.trim()) {
+      results.push({
+        title: `Web search results for: ${query}`,
+        url: `https://search.example.com?q=${encodeURIComponent(query)}`,
+        snippet: answerText.trim().slice(0, 300),
+        content: answerText.trim().slice(0, 300),
+      });
+    }
+
+    return results;
+  }
+
+  private async searchWithNovaGrounding(query: string): Promise<SearchResult[]> {
+    const { BedrockRuntimeClient, ConverseCommand } = await import('@aws-sdk/client-bedrock-runtime');
+    const client = new BedrockRuntimeClient({ region: this.region });
+    const profileId = toNovaInferenceProfileId(this.modelId);
+
+    console.log(`${DEBUG} Using Nova web grounding`, { modelId: profileId, query: query.slice(0, 120) });
+
+    const command = new ConverseCommand({
+      modelId: profileId,
+      messages: [
+        {
+          role: 'user',
+          content: [
+            {
+              text: `Search the public web for sources about this query. Return cited sources only. Query: ${query}`,
+            },
+          ],
+        },
+      ],
+      toolConfig: {
+        tools: [
+          {
+            systemTool: {
+              name: 'nova_grounding',
+            },
+          },
+        ],
+      },
+    });
+
+    const response = await client.send(command);
+    const results = this.extractNovaGroundingResults(response, query);
+
+    console.log(`${DEBUG} Nova grounding returned ${results.length} results`);
+    return results;
   }
 
   private extractArrayFromText(text: string): unknown[] {
@@ -91,6 +197,19 @@ export class WebSearch {
   }
 
   async search(query: string): Promise<SearchResult[]> {
+    // Use Nova web grounding for real results when a Nova model is configured
+    if (isNovaModel(this.modelId)) {
+      try {
+        return await this.searchWithNovaGrounding(query);
+      } catch (error) {
+        const err = error as { name?: string; message?: string };
+        console.warn(`${DEBUG} Nova grounding failed, falling back to prompt-based search`, {
+          name: err?.name,
+          message: err?.message,
+        });
+      }
+    }
+
     const prompt = `You are a web research assistant. Find real publicly available web sources for this query:\n\n"${query}"\n\nReturn ONLY a JSON array with 5-8 items.\nEach item MUST include:\n- title\n- url (absolute https URL)\n- snippet (1-2 sentences)\n\nDo not include markdown or extra text.`;
 
     console.log(`${DEBUG} Invoking Bedrock model`, {
@@ -124,7 +243,7 @@ export class WebSearch {
       };
       const responseText = new TextDecoder().decode(response.body);
       const payload = JSON.parse(responseText) as BedrockMessageResponse;
-      const content = payload.content?.[0]?.text || '[]';
+      const content = stripThinkingTags(payload.content?.[0]?.text || '[]');
 
       console.log(`${DEBUG} Bedrock raw response`, {
         httpStatus: response.$metadata?.httpStatusCode,

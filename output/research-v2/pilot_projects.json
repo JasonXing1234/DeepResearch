@@ -1,0 +1,151 @@
+[
+  {
+    "Company": "MICHELS CORPORATION",
+    "Country": "United States",
+    "Project Name": "South Fork Wind",
+    "Project Type": "Offshore Wind Farm",
+    "Involvement": "Contractor",
+    "Lower Emissions Approach": "Utility-scale offshore wind energy",
+    "Electric Equipment & Manufacturer": "",
+    "Project Description": "First US utility-scale offshore wind farm off Long Island, NY, powering 70,000 homes with cable installation and trenchless conduit work by Michels subsidiaries",
+    "Comments": "Completed in 2024",
+    "Source": [
+      "https://www.michels.us/news/south-fork-wind-named-project-of-the-year",
+      "https://www.michels.us/michels-trenchless-gmbh-co/news/offshore-wind-projects-show-off-our-capabilities",
+      "https://www.michels.us/michels-preconstruction-services-inc/experience/projects/coastal-virginia-offshore-wind/",
+      "https://www.michels.us/news/earth-air-water/",
+      "https://www.michels.us/michels-power-inc/"
+    ]
+  },
+  {
+    "Company": "ZIEGLER CAT",
+    "Country": "United States",
+    "Project Name": "Iowa Great Lakes Solar Array",
+    "Project Type": "Solar Farm",
+    "Involvement": "Contractor",
+    "Lower Emissions Approach": "Solar photovoltaic systems",
+    "Electric Equipment & Manufacturer": "Cat®-branded solar modules",
+    "Project Description": "Completed 500kW solar array using US-made Cat® solar modules with 25-year warranties",
+    "Comments": "Completed project example from 2024-2025 portfolio",
+    "Source": [
+      "https://www.zieglercat.com/power-systems/solar/",
+      "https://www.zieglercat.com/new-equipment-category/electric-power/battery-energy-storage-systems"
+    ]
+  },
+  {
+    "Company": "FABICK CAT",
+    "Country": "United States",
+    "Project Name": "",
+    "Project Type": "",
+    "Involvement": "",
+    "Lower Emissions Approach": "",
+    "Electric Equipment & Manufacturer": "",
+    "Project Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "CEMSTONE PRODUCTS CO.",
+    "Country": "United States",
+    "Project Name": "Moraine Sands Wind Energy Project",
+    "Project Type": "Wind Farm",
+    "Involvement": "Concrete Supplier",
+    "Lower Emissions Approach": "Low-carbon concrete production",
+    "Electric Equipment & Manufacturer": "",
+    "Project Description": "Supplied ready-mixed concrete using portable plants to reduce carbon footprint for wind farm construction",
+    "Comments": "Completed in 2023; demonstrates alignment with renewable energy infrastructure through sustainable materials",
+    "Source": [
+      "https://cemstone.com/moraine-sands-wind-energy-project/",
+      "https://cemstone.com/sustainability-at-cemstone/",
+      "https://cemstone.com/sustainability/"
+    ]
+  },
+  {
+    "Company": "VULCAN MATERIALS",
+    "Country": "United States",
+    "Project Name": "Battery Storage Partnerships",
+    "Project Type": "Battery Storage",
+    "Involvement": "Partner",
+    "Lower Emissions Approach": "Energy storage integration with solar power",
+    "Electric Equipment & Manufacturer": "Battery systems by Enel X",
+    "Project Description": "Collaboration with Enel X to install battery energy storage systems at California facilities for peak demand reduction and solar integration",
+    "Comments": "Operate 4 systems with 3 more planned; paired with existing solar installations",
+    "Source": [
+      "https://www.enelnorthamerica.com/solutions/case-studies/vulcan-battery-storage"
+    ]
+  },
+  {
+    "Company": "CRH AMAT",
+    "Country": "Ireland",
+    "Project Name": "Romania Wind Farm",
+    "Project Type": "Wind Farm",
+    "Involvement": "Owner",
+    "Lower Emissions Approach": "Wind energy generation",
+    "Electric Equipment & Manufacturer": "Wind turbines (manufacturer unspecified)",
+    "Project Description": "A 30MW wind farm with 5 turbines that produces approximately 80GWh annually to power the Medgidia cement plant, reducing CO₂ emissions by 40,000 tons per year",
+    "Comments": "Completed in 2024 as part of CRH's renewable energy initiatives",
+    "Source": [
+      "https://www.powerengineeringint.com/renewables/wind/crh-builds-wind-farm-to-power-cement-plant-in-romania/",
+      "https://www.businesswire.com/news/home/20241101943296/en/CRH-Develops-Wind-Farm-to-Power-Cement-Plant-in-Romania?",
+      "https://www.afp.com/en/infos/crh-develops-wind-farm-power-cement-plant-romania",
+      "https://www.crh.com/media/press-releases/2024/crh-develops-wind-farm-to-power-cement-plant-in-romania"
+    ]
+  },
+  {
+    "Company": "HARSCO METALS GROUP",
+    "Country": "United States",
+    "Project Name": "",
+    "Project Type": "",
+    "Involvement": "",
+    "Lower Emissions Approach": "",
+    "Electric Equipment & Manufacturer": "",
+    "Project Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "THE ANDERSONS AGRISERVICES",
+    "Country": "United States",
+    "Project Name": "Indiana Ethanol Plant Expansion",
+    "Project Type": "Ethanol Production",
+    "Involvement": "Owner",
+    "Lower Emissions Approach": "Process improvements for reduced energy/carbon intensity",
+    "Electric Equipment & Manufacturer": "",
+    "Project Description": "A $60 million expansion of the Indiana ethanol plant to increase production capacity by 50% to 30 million gallons per year by mid-2027",
+    "Comments": "Scheduled for completion mid-2027; part of broader ethanol production network",
+    "Source": [
+      "https://news.andersonsinc.com/2025-02-18-The-Andersons,-Inc-Reports-Fourth-Quarter-and-Full-Year-Results",
+      "https://www.hoosieragtoday.com/2026/01/15/the-andersons-clymers/"
+    ]
+  },
+  {
+    "Company": "MANATTS INC",
+    "Country": "United States",
+    "Project Name": "Diamond Trail Wind Farm",
+    "Project Type": "Wind Farm",
+    "Involvement": "Concrete Supplier",
+    "Lower Emissions Approach": "Wind energy generation",
+    "Electric Equipment & Manufacturer": "",
+    "Project Description": "Provided concrete for turbine bases and pedestals",
+    "Comments": "Completed 2018-2020 with 3 Iowa projects totaling 319 turbines",
+    "Source": [
+      "https://www.manatts.com/projects/wind-farm-projects/"
+    ]
+  },
+  {
+    "Company": "EMERY SAPP & SONS INC",
+    "Country": "United States",
+    "Project Name": "Arkansas Solar Farm",
+    "Project Type": "Solar Farm",
+    "Involvement": "Contractor",
+    "Lower Emissions Approach": "Solar energy generation",
+    "Electric Equipment & Manufacturer": "",
+    "Project Description": "180-megawatt solar farm in Arkansas with NextEra Energy and Entergy, providing grading and excavation services",
+    "Comments": "Completed 96,000 cubic yards of grading and road construction for 200MW confidential project",
+    "Source": [
+      "https://emerysapp.com/project/202307-1706/",
+      "https://emerysapp.com/news/powering-through-solar-energy/",
+      "https://emerysapp.com/project/202405-3664/"
+    ]
+  }
+]

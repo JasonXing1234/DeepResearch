@@ -1,0 +1,128 @@
+[
+  {
+    "Company": "MICHELS CORPORATION",
+    "Country": "United States",
+    "Project": "Pipeline Installation",
+    "Constraint Type": [
+      "Air Quality"
+    ],
+    "Project Date": "November 2025",
+    "Description": "Release of natural gas during pipeline installation activities",
+    "Comments": "Warning letter issued by Canada's Energy Regulator",
+    "Source": [
+      "https://cer-rec.gc.ca/en/safety-environment/industry-performance/reports-compliance-enforcement/warning-letter/warning-letter-michels-canada.html"
+    ]
+  },
+  {
+    "Company": "ZIEGLER CAT",
+    "Country": "United States",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "FABICK CAT",
+    "Country": "United States",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "CEMSTONE PRODUCTS CO.",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "VULCAN MATERIALS",
+    "Country": "United States",
+    "Project": "California New Dredging Project",
+    "Constraint Type": [
+      "Environmental Compliance"
+    ],
+    "Project Date": "2025",
+    "Description": "Received final Negative Declaration under CEQA in June 2025 after environmental review, indicating no significant environmental impacts requiring full EIR.",
+    "Comments": "Demonstrates adherence to coastal regulatory requirements",
+    "Source": [
+      "https://www.slc.ca.gov/ceqa/vulcan-materials-new-dredging-project/",
+      "https://www.slc.ca.gov/content-types/vulcan-materials-new-dredging-project/"
+    ]
+  },
+  {
+    "Company": "CRH AMAT",
+    "Country": "United States",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "HARSCO METALS GROUP",
+    "Country": "United Kingdom",
+    "Project": "",
+    "Constraint Type": [
+      "Industrial Emissions Directive"
+    ],
+    "Project Date": "",
+    "Description": "Operates under Industrial Emissions Directive permits with periodic renewal requirements",
+    "Comments": "Redcar Site surrendered permit in Nov 2021; current 2024-25 status pending public registry updates",
+    "Source": [
+      "https://www.gov.uk/government/publications/dn16-1bp-harsco-metals-group-limited-environmental-permit-issued",
+      "https://www.gov.uk/government/publications/s60-1dr-harsco-metals-group-limited-environmental-permit-issued",
+      "https://www.gov.uk/government/publications/ts10-5qw-harsco-metals-group-limited-permit-surrender-issued-eprpp3338mts007"
+    ]
+  },
+  {
+    "Company": "THE ANDERSONS AGRISERVICES",
+    "Country": "United States",
+    "Project": "Four ethanol plants; Missouri construction site",
+    "Constraint Type": [
+      "Air Quality",
+      "Water Permit"
+    ],
+    "Project Date": "2022; 2017",
+    "Description": "Fined $1.7M for Clean Air Act violations (improper TRI reporting) at ethanol plants; EPA notice for Clean Water Act violations (unpermitted stormwater discharges)",
+    "Comments": "Largest EPCRA penalty issued by EPA at time; No noise violations found",
+    "Source": [
+      "https://www.feedandgrain.com/news/andersons-fined-1-7m-for-caa-violations-at-4-ethanol-plants"
+    ]
+  },
+  {
+    "Company": "MANATTS INC",
+    "Country": "United States",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "EMERY SAPP & SONS INC",
+    "Country": "United States",
+    "Project": "Asphalt facility",
+    "Constraint Type": [
+      "Air Quality"
+    ],
+    "Project Date": "2024-2025",
+    "Description": "Violations of General Air Permit conditions including failure to conduct initial emissions testing by October 2023 and report results within 30 days",
+    "Comments": "Company cited weather delays for testing delays; ongoing regulatory challenges with emissions compliance",
+    "Source": [
+      "https://dnr.mo.gov/air/business-industry/air-permits/emery-sapp-sons-port-0232-0795-026ca",
+      "https://dnr.mo.gov/air/business-industry/air-permits/emery-sapp-sons-port-0441-062001-002ay",
+      "https://dnr.mo.gov/air/business-industry/air-permits/emery-sapp-sons-port-0784-042019-007c"
+    ]
+  }
+]

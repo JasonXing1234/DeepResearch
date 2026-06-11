@@ -1,0 +1,135 @@
+[
+  {
+    "Company": "MICHELS CORPORATION",
+    "Country": "United States",
+    "Emissions Reduction Target": "20% reduction in Greenhouse Gas Intensity",
+    "Target Year": "2028",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": true,
+    "Comments": "Participating in DOE Better Plants Program with intensity-based goals; no net-zero commitment found",
+    "Source": [
+      "https://www.michels.us/commitment/sustainability/",
+      "https://www.michels.us/mi-tech/commitment/sustainability/",
+      "https://www.michels.us/michels-power-inc/commitment/sustainability/",
+      "https://www.michels.us/who-we-are/sustainability/"
+    ]
+  },
+  {
+    "Company": "ZIEGLER CAT",
+    "Country": "United States",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "FABICK CAT",
+    "Country": "United States",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "CEMSTONE PRODUCTS CO.",
+    "Country": "United States",
+    "Emissions Reduction Target": "Net-zero CO₂ by 2050",
+    "Target Year": "2050",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": true,
+    "Comments": "Committed to carbon neutrality by 2050 with 2030 interim targets validated by SBTi. Participates in CO2nstructZero for industry-wide carbon neutrality in concrete. Uses low-carbon materials and follows SBTi principles in operations.",
+    "Source": [
+      "https://cemstone.com/sustainability/",
+      "https://cemstone.com/sustainability-at-cemstone/"
+    ]
+  },
+  {
+    "Company": "VULCAN MATERIALS",
+    "Country": "United States",
+    "Emissions Reduction Target": "10% reduction in Scopes 1 and 2 greenhouse gas emissions intensity",
+    "Target Year": "2030",
+    "Baseline Year": "2021",
+    "Pledge Year": "",
+    "Net-Zero Target": true,
+    "Comments": "Company has committed to emissions intensity reduction but lacks verified net-zero targets or SBTi commitments as of 2024",
+    "Source": [
+      "https://uk.marketscreener.com/quote/stock/VULCAN-MATERIALS-COMPANY-14815/news/Vulcan-Materials-2024-Sustainability-Report-Data-Appendix-50240181/",
+      "http://www.marketscreener.com/quote/stock/VULCAN-MATERIALS-COMPANY-14815/news/Vulcan-Materials-2024-Sustainability-Report-Data-Appendix-50240181/",
+      "https://netzeroportal.org/profile/vulcan-materials/",
+      "https://ditchcarbon.com/organizations/vulcan-materials",
+      "https://sustainabilityreports.com/reports/vulcan-materials-company-2021-esg-report-pdf/"
+    ]
+  },
+  {
+    "Company": "CRH AMAT",
+    "Country": "Ireland",
+    "Emissions Reduction Target": "30% absolute reduction in group-wide CO₂ emissions",
+    "Target Year": "2030",
+    "Baseline Year": "2021",
+    "Pledge Year": "2023",
+    "Net-Zero Target": true,
+    "Comments": "Includes all Scope 1, 2 and 3 emissions; validated by SBTi as 1.5°C-aligned",
+    "Source": [
+      "https://www.crh.com/news-and-insights/innovation/crh-leads-on-decarbonisation-with-revised-sbti-approved-targets/"
+    ]
+  },
+  {
+    "Company": "HARSCO METALS GROUP",
+    "Country": "United States",
+    "Emissions Reduction Target": "15% reduction in carbon intensity",
+    "Target Year": "2025",
+    "Baseline Year": "2019",
+    "Pledge Year": "",
+    "Net-Zero Target": true,
+    "Comments": "Commitment applies to Scope 1 and 2 emissions. No net-zero pledge found for 2024/2025. 2025 goals not science-based targets validated.",
+    "Source": [
+      "https://ditchcarbon.com/organizations/harsco",
+      "https://ditchcarbon.com/organizations/harsco-corporation"
+    ]
+  },
+  {
+    "Company": "THE ANDERSONS AGRISERVICES",
+    "Country": "United States",
+    "Emissions Reduction Target": "",
+    "Target Year": "2045",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": true,
+    "Comments": "Committed to net-zero emissions by 2045 but lacks published 2024/2025 targets. Focuses on carbon credits and supply chain sustainability without near-term SBTi targets.",
+    "Source": [
+      "https://ditchcarbon.com/organizations/andersons",
+      "https://www.andersonsinc.com/sustainability/",
+      "https://www.andersonsinc.com/products-services/ag-supply-chain/carbon/"
+    ]
+  },
+  {
+    "Company": "MANATTS INC",
+    "Country": "United States",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "EMERY SAPP & SONS INC",
+    "Country": "United States",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  }
+]

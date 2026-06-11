@@ -1,0 +1,128 @@
+[
+  {
+    "Company": "MICHELS CORPORATION",
+    "Country": "United States",
+    "Emissions Reduction Target": "20% greenhouse gas intensity reduction",
+    "Target Year": "2028",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": true,
+    "Comments": "Committed to 20% GHG intensity reduction by 2028 through U.S. DOE Better Plants Program. Achieved 18.5% progress toward this goal as of latest reporting.",
+    "Source": [
+      "https://www.michels.us/mi-tech/commitment/sustainability/",
+      "https://www.michels.us/commitment/sustainability/",
+      "https://www.michels.us/who-we-are/sustainability/"
+    ]
+  },
+  {
+    "Company": "ZIEGLER CAT",
+    "Country": "United States",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "FABICK CAT",
+    "Country": "United States",
+    "Emissions Reduction Target": "45% reduction in Scope 1+2 emissions and 25% reduction in Scope 3 emissions",
+    "Target Year": "2024",
+    "Baseline Year": "2019",
+    "Pledge Year": "2023",
+    "Net-Zero Target": true,
+    "Comments": "Committed to net zero carbon emissions by 2050 across all operations. 2025 target validation pending with SBTi.",
+    "Source": [
+      "https://en.wikipedia.org/wiki/Fabick_Caterpillar"
+    ]
+  },
+  {
+    "Company": "CEMSTONE PRODUCTS CO.",
+    "Country": "United States",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "VULCAN MATERIALS",
+    "Country": "United States",
+    "Emissions Reduction Target": "25% reduction in Scope 1 and 2 emissions",
+    "Target Year": "2030",
+    "Baseline Year": "2018",
+    "Pledge Year": "",
+    "Net-Zero Target": true,
+    "Comments": "Near-term target of 15% reduction by 2024 exists but primary focus is 25% by 2030. No net-zero commitment found.",
+    "Source": [
+      "https://www.transitionpathwayinitiative.org/companies/vulcan-materials",
+      "https://www.transitionpathwayinitiative.org/companies/vulcan-materials-construction-and-materials",
+      "https://rockproducts.com/2024/06/26/vulcan-materials-releases-its-latest-sustainability-report/"
+    ]
+  },
+  {
+    "Company": "CRH AMAT",
+    "Country": "Ireland",
+    "Emissions Reduction Target": "30% absolute reduction in Scope 1, 2, and 3 emissions",
+    "Target Year": "2030",
+    "Baseline Year": "2021",
+    "Pledge Year": "2024",
+    "Net-Zero Target": true,
+    "Comments": "CRH has validated near-term targets under SBTi's 1.5°C framework and a long-term net zero pledge by 2050. Subsidiary Tarmac specifically targets 45% CO₂ reduction per tonne by 2030.",
+    "Source": [
+      "https://www.crh.com/news-and-insights/innovation/crh-leads-on-decarbonisation-with-revised-sbti-approved-targets/",
+      "https://www.crh.com/sustainability/our-sustainability-framework/decarbonization",
+      "https://www.crh.com/media/net-zero-concrete-how-our-industry-plans-to-get-there/"
+    ]
+  },
+  {
+    "Company": "HARSCO METALS GROUP",
+    "Country": "United States",
+    "Emissions Reduction Target": "15% carbon/energy intensity reduction",
+    "Target Year": "2025",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": true,
+    "Comments": "Company has set a 15% carbon intensity reduction target by 2025 but lacks validated SBTi targets for Scope 1+2 or 3 emissions",
+    "Source": [
+      "https://www.enviri.com/harsco-releases-2020-environmental-social-governance-report/"
+    ]
+  },
+  {
+    "Company": "THE ANDERSONS AGRISERVICES",
+    "Country": "United States",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "MANATTS INC",
+    "Country": "United States",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "EMERY SAPP & SONS INC",
+    "Country": "United States",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  }
+]

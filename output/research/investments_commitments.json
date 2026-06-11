@@ -1,0 +1,114 @@
+[
+  {
+    "Company": "MICHELS CORPORATION",
+    "Country": "United States",
+    "Investment Type": "Renewable Energy",
+    "Announcement Date": "2024",
+    "Description": "Major investments in renewable infrastructure including solar, wind, hydrogen, and battery storage systems",
+    "Comments": "Strategic alignment with UN SDGs and multi-year environmental targets",
+    "Source": [
+      "https://www.michels.us/commitment/sustainability/",
+      "https://www.michels.us/michels-canada/commitment/sustainability/"
+    ]
+  },
+  {
+    "Company": "ZIEGLER CAT",
+    "Country": "United States",
+    "Investment Type": "",
+    "Announcement Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "FABICK CAT",
+    "Country": "",
+    "Investment Type": "",
+    "Announcement Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "CEMSTONE PRODUCTS CO.",
+    "Country": "United States",
+    "Investment Type": "Renewable Energy",
+    "Announcement Date": "2024",
+    "Description": "$15 million allocated to renewable energy projects in both 2024 and 2025",
+    "Comments": "Total capital expenditures projected at $45M (2024) and $50M (2025). Includes $10M climate adaptation fund through 2025 and 15% R&D spending increase",
+    "Source": [
+      "https://cemstone.com/sustainability/",
+      "https://cemstone.com/sustainability-at-cemstone/"
+    ]
+  },
+  {
+    "Company": "VULCAN MATERIALS",
+    "Country": "United States",
+    "Investment Type": "Clean Energy Projects",
+    "Announcement Date": "2024-2025",
+    "Description": "Partnership with Enel on battery storage systems and solar installations to reduce greenhouse gas emissions and energy consumption",
+    "Comments": "Targets $2.9M in energy savings over 10 years and 10% emissions intensity reduction by 2030",
+    "Source": [
+      "https://www.vulcanmaterials.com/news/news-details/2026-environmental-challenge-launches-companywide",
+      "https://www.enelnorthamerica.com/solutions/case-studies/vulcan-battery-storage"
+    ]
+  },
+  {
+    "Company": "CRH AMAT",
+    "Country": "United States",
+    "Investment Type": "Renewable Energy, Carbon Credits",
+    "Announcement Date": "2024",
+    "Description": "Allocated $3.2 billion for sustainability projects in 2024, increasing to $3.5 billion in 2025. $500 million dedicated to renewable energy projects (solar panels, energy efficiency) and $1.8 billion committed to climate funds by 2025.",
+    "Comments": "Targets 25% CO₂ reduction in cement and 15% in aggregates by 2030",
+    "Source": [
+      "https://www.crh.com/media/press-releases/2026/crh-reports-q4-and-fy-2025-results/",
+      "https://www.crh.com/media/press-releases/2025/crh-2024-full-year-results/",
+      "https://www.crh.com/our-sustainability/decarbonization/"
+    ]
+  },
+  {
+    "Company": "HARSCO METALS GROUP",
+    "Country": "United States",
+    "Investment Type": "",
+    "Announcement Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "THE ANDERSONS AGRISERVICES",
+    "Country": "United States",
+    "Investment Type": "Carbon Credits",
+    "Announcement Date": "2025",
+    "Description": "Investment in sustainability initiatives including carbon management strategies and participation in carbon credit markets",
+    "Comments": "Includes $10M investment in Phospholutions through Maumee Ventures; LEED Silver certification for Overland Park office",
+    "Source": [
+      "https://www.andersonsinc.com/sustainability/",
+      "https://www.andersonsinc.com/products-services/ag-supply-chain/carbon/",
+      "https://www.no-tillfarmer.com/articles/14305-the-andersons-new-phosphorus-investment-product-advancement-and-distribution",
+      "https://uk.investing.com/news/company-news/the-andersons-q1-2025-slides-renewables-strength-offsets-agribusiness-challenges-93CH-4071236"
+    ]
+  },
+  {
+    "Company": "MANATTS INC",
+    "Country": "United States",
+    "Investment Type": "",
+    "Announcement Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "EMERY SAPP & SONS INC",
+    "Country": "United States",
+    "Investment Type": "Renewable Energy, Solar",
+    "Announcement Date": "2024",
+    "Description": "Partnered on a 200MW Arkansas solar farm creating renewable energy infrastructure",
+    "Comments": "Also invested $36M in Kansas highway project with environmental focus",
+    "Source": [
+      "https://emerysapp.com/project/202405-3685/",
+      "https://emerysapp.com/project/202405-3664/",
+      "https://emerysapp.com/project/202307-1706/"
+    ]
+  }
+]

@@ -162,10 +162,13 @@ export function DeepResearchEngine() {
   const companyInputs = companies.filter((c) => c.trim()).length;
   const latestHasAnyResults =
     latestResearchResults &&
-    Object.values(latestResearchResults as Record<string, any>).some((item: any) => {
-      if (!item || typeof item !== 'object') return false;
-      if (typeof item.resultCount === 'number') return item.resultCount > 0;
-      if (Array.isArray(item.results)) return item.results.length > 0;
+    Object.values(latestResearchResults as Record<string, unknown>).some((item) => {
+      if (Array.isArray(item)) return item.length > 0;
+      if (item && typeof item === 'object') {
+        const obj = item as Record<string, unknown>;
+        if (typeof obj.resultCount === 'number') return obj.resultCount > 0;
+        if (Array.isArray(obj.results)) return obj.results.length > 0;
+      }
       return false;
     });
 
@@ -489,26 +492,41 @@ export function DeepResearchEngine() {
             </div>
           </div>
           {!ENABLE_RESEARCH_HISTORY && latestResearchResults ? (
-            <Card className="border-0 shadow-sm">
-              <CardContent className="pt-6 pb-6">
-                <div className="space-y-3">
-                  <p className="text-sm text-gray-600">
-                    Showing latest agent output. Queue/history endpoints are disabled.
-                  </p>
-                  <p className="text-sm font-medium text-gray-900">
-                    Companies: {latestResearchCompanies.join(', ')}
-                  </p>
-                  {!latestHasAnyResults && (
-                    <p className="rounded border border-amber-300 bg-amber-50 px-3 py-2 text-sm text-amber-900">
-                      No sources found for this run. Check model configuration and Bedrock/API logs.
-                    </p>
-                  )}
-                  <pre className="max-h-80 overflow-auto rounded bg-gray-900 p-3 text-xs text-gray-100">
-                    {JSON.stringify(latestResearchResults, null, 2)}
-                  </pre>
-                </div>
-              </CardContent>
-            </Card>
+            <div className="space-y-4">
+              <p className="text-sm text-gray-600">
+                Results for: <span className="font-medium text-gray-900">{latestResearchCompanies.join(', ')}</span>
+              </p>
+              {!latestHasAnyResults && (
+                <p className="rounded border border-amber-300 bg-amber-50 px-3 py-2 text-sm text-amber-900">
+                  No sources found for this run. Check model configuration and Bedrock/API logs.
+                </p>
+              )}
+              {(['emissions', 'investments', 'purchases', 'pilots', 'environments'] as const).map((category) => {
+                const categoryLabels: Record<string, string> = {
+                  emissions:    'Emissions Reductions',
+                  investments:  'Investments & Commitments',
+                  purchases:    'Machine/Equipment Purchases',
+                  pilots:       'Pilot Projects',
+                  environments: 'Environmental Constraints',
+                };
+                const rows: object[] = (latestResearchResults as Record<string, object[]>)[category] || [];
+                return (
+                  <Card key={category} className="border-0 shadow-sm">
+                    <CardHeader className="pb-3">
+                      <CardTitle className="text-base capitalize">{categoryLabels[category]}</CardTitle>
+                      <p className="text-xs text-gray-500">{rows.length} entr{rows.length === 1 ? 'y' : 'ies'}</p>
+                    </CardHeader>
+                    {rows.length > 0 && (
+                      <CardContent>
+                        <pre className="max-h-64 overflow-auto rounded bg-gray-900 p-3 text-xs text-gray-100">
+                          {JSON.stringify(rows, null, 2)}
+                        </pre>
+                      </CardContent>
+                    )}
+                  </Card>
+                );
+              })}
+            </div>
           ) : isLoadingHistory ? (
             <Card className="border-0 shadow-sm">
               <CardContent className="pt-12 pb-12">

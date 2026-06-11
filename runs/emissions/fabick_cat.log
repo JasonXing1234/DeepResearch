@@ -7,23 +7,11 @@
   "company": "FABICK CAT",
   "category": "emissions",
   "categoryLabel": "Emissions Reductions",
-  "queryCount": 6,
-  "hitCount": 5,
+  "queryCount": 17,
+  "hitCount": 0,
   "proxyConfigured": true
 }
 
 --- structured self-test sources ---
 
-[1] Fabick Cat | https://www.fabickcat.com/
-    query: FABICK CAT scope 1 scope 2 scope 3 emissions target
-    summary: Caterpillar Dealer & Rentals: Bulldozers & Backhoes: IL, MI, MO, WI &times; Locations Products New Cat Equipment Articulated Trucks Asphalt Pavers Backhoe Loade...
-[2] Cat Certified Used | Fabick Cat | Used Cat Equipment, Engines & More | https://www.fabickusedequipment.com/cat-certified-used/
-    query: FABICK CAT scope 1 scope 2 scope 3 emissions target
-[3] Missouri, Wisconsin, Illinois, & Michigan - Fabick Cat | https://www.fabickcat.com/locations/
-    query: FABICK CAT scope 1 scope 2 scope 3 emissions target
-    summary: Our Locations | Missouri, Wisconsin, Illinois, & Michigan | Fabick Cat &times; Locations Products New Cat Equipment Articulated Trucks Asphalt Pavers Backhoe Lo...
-[4] Fabick Cat - Contact Us | https://www.fabickusedequipment.com/contact-us/
-    query: FABICK CAT scope 1 scope 2 scope 3 emissions target
-[5] Caterpillar Equipment | New & Used Equipment | Fabick Cat | https://www.fabickcat.com/products/
-    query: FABICK CAT scope 1 scope 2 scope 3 emissions target
-    summary: Caterpillar Equipment | New & Used Equipment | Fabick Cat &times; Locations Products New Cat Equipment Articulated Trucks Asphalt Pavers Backhoe Loaders Cold Pl...
+No sources retrieved.

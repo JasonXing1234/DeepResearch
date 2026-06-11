@@ -1,0 +1,134 @@
+[
+  {
+    "Company": "MICHELS CORPORATION",
+    "Country": "United States",
+    "Manufacturer": "Caterpillar, Komatsu, Volvo",
+    "Machine Type": "Excavators, Articulated haulers",
+    "Model": "",
+    "Quantity": "",
+    "Purchase Date": "",
+    "Comments": "Added both diesel and electric machines for infrastructure projects",
+    "Source": [
+      "https://www.michels.us/"
+    ]
+  },
+  {
+    "Company": "ZIEGLER CAT",
+    "Country": "United States",
+    "Manufacturer": "Caterpillar",
+    "Machine Type": "Rebuilt units, Mining machines",
+    "Model": "",
+    "Quantity": "155+",
+    "Purchase Date": "",
+    "Comments": "Fleet modernization through rebuilds and selective acquisitions",
+    "Source": [
+      "https://www.zieglercat.com/the-dirt/2025-year-in-review/",
+      "https://www.zieglercat.com/specials/0-for-60/"
+    ]
+  },
+  {
+    "Company": "FABICK CAT",
+    "Country": "United States",
+    "Manufacturer": "Caterpillar",
+    "Machine Type": "Excavators, Track loaders, Hydraulic excavators, Mini excavators",
+    "Model": "Cat 320, Cat 963K, Cat 336DL, Cat 301.9",
+    "Quantity": "95",
+    "Purchase Date": "2024-2025",
+    "Comments": "Expansion into electric machinery with mini excavators",
+    "Source": [
+      "https://www.fabickcat.com/take-control-of-your-fleet-with-visionlink/",
+      "https://cbinsights.com/company/fabick-cat",
+      "https://www.fabickcat.com/products/",
+      "https://www.fabickcat.com/products/industry-applications/construction/"
+    ]
+  },
+  {
+    "Company": "CEMSTONE PRODUCTS CO.",
+    "Country": "United States",
+    "Manufacturer": "",
+    "Machine Type": "",
+    "Model": "",
+    "Quantity": "",
+    "Purchase Date": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "VULCAN MATERIALS",
+    "Country": "United States",
+    "Manufacturer": "",
+    "Machine Type": "",
+    "Model": "",
+    "Quantity": "",
+    "Purchase Date": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "CRH AMAT",
+    "Country": "United States",
+    "Manufacturer": "Caterpillar, Volvo",
+    "Machine Type": "Electric off-highway trucks, excavators",
+    "Model": "",
+    "Quantity": "",
+    "Purchase Date": "2024",
+    "Comments": "Strategic partnerships for electric trucks and decarbonization efforts with Caterpillar and Volvo. Focus on battery-electric construction equipment but no specific purchase numbers disclosed.",
+    "Source": [
+      "https://www.arcweb.com/blog/caterpillar-signs-strategic-agreement-crh-electric-highway-trucks-charging-solutions",
+      "https://www.crh.com/news-and-insights/innovation/crh-and-caterpillar-partnering-to-develop-electric-off-road-vehicles/",
+      "https://www.crh.com/news-and-insights/innovation/crh-and-volvo-group-agree-partnership-to-accelerate-decarbonisation/"
+    ]
+  },
+  {
+    "Company": "HARSCO METALS GROUP",
+    "Country": "United States",
+    "Manufacturer": "",
+    "Machine Type": "",
+    "Model": "",
+    "Quantity": "",
+    "Purchase Date": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "THE ANDERSONS AGRISERVICES",
+    "Country": "United States",
+    "Manufacturer": "",
+    "Machine Type": "",
+    "Model": "",
+    "Quantity": "",
+    "Purchase Date": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "MANATTS INC",
+    "Country": "United States",
+    "Manufacturer": "GOMACO",
+    "Machine Type": "Paver",
+    "Model": "GHP-2800",
+    "Quantity": "275+",
+    "Purchase Date": "2024-2025",
+    "Comments": "Part of major equipment investments for modernizing asphalt/concrete capabilities",
+    "Source": [
+      "https://www.manatts.com/why-we-build/timeline/asasasas/",
+      "https://www.manatts.com/how-we-build/delivery-aggregates/",
+      "https://www.manatts.com/how-we-build/ready-mix/"
+    ]
+  },
+  {
+    "Company": "EMERY SAPP & SONS INC",
+    "Country": "United States",
+    "Manufacturer": "",
+    "Machine Type": "Grinders/Groovers, Support trucks",
+    "Model": "",
+    "Quantity": "242+",
+    "Purchase Date": "2024",
+    "Comments": "Acquired from Penhall Company's Highway Services Group",
+    "Source": [
+      "https://acppubs.com/CN/article/C2CD9460-emery-sapp-sons-acquires-equipment-of-the-highway-services-group-from-penhall-company",
+      "https://emerysapp.com/news/ess-expands-grinding-grooving-horsepower/",
+      "https://www.arizcc.com/post/emery-sapp-sons-acquires-the-equipment-of-the-highway-services-group-from-penhall-company-expandi"
+    ]
+  }
+]

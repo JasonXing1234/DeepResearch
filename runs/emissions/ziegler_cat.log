@@ -7,13 +7,14 @@
   "company": "ZIEGLER CAT",
   "category": "emissions",
   "categoryLabel": "Emissions Reductions",
-  "queryCount": 6,
+  "queryCount": 17,
   "hitCount": 1,
   "proxyConfigured": true
 }
 
 --- structured self-test sources ---
 
-[1] Home – Ziegler CAT | https://www.zieglercat.com/
-    query: ZIEGLER CAT scope 1 scope 2 scope 3 emissions target
-    summary: Home &ndash; Ziegler CAT construction agriculture rental power trucks energy sitech Careers Online Tools Shop Shop Payments Online Billing Equipment New CAT® Eq...
+[1] Specialty Investment Bank | Ziegler | https://www.ziegler.com/
+    query: ZIEGLER CAT sustainability
+    evidence_level: action_related
+    summary: Specialty Investment Bank | Ziegler Skip to main content Skip to footer Ziegler Menu What We Do Expand sub pages What We Do Investment Banking Expand sub pages ...
