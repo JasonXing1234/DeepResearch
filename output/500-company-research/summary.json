@@ -1,0 +1,29 @@
+{
+  "csvFile": "/home/sagemaker-user/DeepResearch/customer_names.csv",
+  "total": 479,
+  "succeeded": 477,
+  "failed": 2,
+  "throttledErrors": 0,
+  "totalDurationMs": 2277250,
+  "avgDurationPerCompanyMs": 92089,
+  "wallClockSpeedupVsBatch": "~19.4x",
+  "concurrency": 20,
+  "maxRetries": 3,
+  "model": "amazon.nova-premier-v1:0",
+  "runs": 1,
+  "ts": "2026-06-17T16:05:06.045Z",
+  "failures": [
+    {
+      "company": "Tarmac",
+      "error": "killed by signal SIGTERM",
+      "throttled": false,
+      "attempt": 0
+    },
+    {
+      "company": "BRIVEL - Britas e BetÃµes de Vila Real",
+      "error": "killed by signal SIGTERM",
+      "throttled": false,
+      "attempt": 0
+    }
+  ]
+}

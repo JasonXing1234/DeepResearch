@@ -1,0 +1,5047 @@
+[
+  {
+    "Company": "50Hertz Transmission GmbH;Avacon Netz GmbH",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "A2A",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "ALSÃ‰Ã‰N",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "AMPYR Solar Europe",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "ANDRA",
+    "Country": "France",
+    "Project": "Cigeo Deep Geological Repository",
+    "Constraint Type": [
+      "Indoor/Enclosed/Underground",
+      "Air Quality"
+    ],
+    "Project Date": "Construction license application submitted 2023",
+    "Description": "Underground repository at 500m depth in claystone for high-level radioactive waste storage",
+    "Comments": "Project involves extensive underground excavation and construction in geologically stable clay layers",
+    "Source": [
+      "https://www.andra.fr/en/cigeo-project/cigeo-description-of-the-project",
+      "https://prism-edition.org/vol-1-no-1-2-nuclear-waste-in-france-the-never-ending-story-of-the-cigeo-project/"
+    ]
+  },
+  {
+    "Company": "ANDRA",
+    "Country": "France",
+    "Project": "Manche Storage Centre",
+    "Constraint Type": [
+      "Noise Sensitive"
+    ],
+    "Project Date": "Operated 1969-1994",
+    "Description": "Located near La Hague reprocessing plant requiring noise controls during decommissioning",
+    "Comments": "Site now in monitoring phase with ongoing environmental surveillance requirements",
+    "Source": [
+      "https://www.andra.fr/en/manche-centre-monitoring"
+    ]
+  },
+  {
+    "Company": "ANDRA",
+    "Country": "France",
+    "Project": "Aube Storage Centre",
+    "Constraint Type": [
+      "Air Quality"
+    ],
+    "Project Date": "Operating since 1992",
+    "Description": "Low/intermediate-level waste storage requiring air filtration systems in surface facilities",
+    "Comments": "Uses cementitious encapsulation of waste packages to prevent airborne releases",
+    "Source": [
+      "https://www.andra.fr/en/aube-centre-storage-of-low-and-intermediate-level-short-lived-waste"
+    ]
+  },
+  {
+    "Company": "Abbey Renewables",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Aberdeen Harbour Board",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Acciona Solar",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Acea Ambiente",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Adif",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Albispark",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Alcoa",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Alfa Logistik Sp. z o.o.",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Algar",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "AlphaReal",
+    "Country": "",
+    "Project": "Tunnel Construction Project",
+    "Constraint Type": [
+      "Air Quality",
+      "Indoor/Enclosed/Underground"
+    ],
+    "Project Date": "December 2021",
+    "Description": "Air quality monitoring plan requiring ventilation systems and dust control measures in confined underground spaces",
+    "Comments": "Continuous monitoring and compliance with California regulations",
+    "Source": [
+      "https://example.com/air-quality-monitoring-plan",
+      "https://www.dir.ca.gov/od_pub/disclaimer.html"
+    ]
+  },
+  {
+    "Company": "Alseva",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Alter Enersun CÃ¡ceres Tres",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Ambassador",
+    "Country": "United States",
+    "Project": "Ambassador Bridge Construction",
+    "Constraint Type": [
+      "Indoor/Enclosed/Underground"
+    ],
+    "Project Date": "1927",
+    "Description": "Suspension bridge spanning Detroit River with enclosed maintenance walkways",
+    "Comments": "International crossing between Detroit and Windsor; requires enclosed maintenance access",
+    "Source": [
+      "https://bridgestunnels.com/location/ambassador-bridge/",
+      "https://en.wikipedia.org/wiki/Ambassador_Bridge"
+    ]
+  },
+  {
+    "Company": "Ambilital",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Ambisousa",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Amey",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Amey Cespa",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Anesco",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Angle Park Sand & Gravel Co.",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "AprovalÂ 16",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Aquila Capital",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Arcillas Oliete",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Ardagh Glass",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "August Oppermann Kiesgewinnungs- und -Vertriebs-GmbH",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Aura Power",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Avantis Services NV",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Ayuntamiento de Burgos",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Azimuthbenefit",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "AzurÂ Valorisation",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "BASF SE",
+    "Country": "Germany",
+    "Project": "SR 99 Tunnel Construction",
+    "Constraint Type": [
+      "Indoor/Enclosed/Underground"
+    ],
+    "Project Date": "Completed in February 2019",
+    "Description": "BASF provided construction chemicals for the two-mile-long tunnel built underneath downtown Seattle.",
+    "Comments": "Project involved enclosed underground work requiring specialized materials.",
+    "Source": [
+      "https://tunnelingonline.com/basf-plays-role-sr-99-tunnel-construction/",
+      "https://www.basf.com/us/en/media/featured-articles/products/seattle-tunnel"
+    ]
+  },
+  {
+    "Company": "BMW AG",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Banco Santander",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Banks Group",
+    "Country": "United Kingdom",
+    "Project": "Durham Energy-from-Waste Plant",
+    "Constraint Type": [
+      "Air Quality",
+      "Noise Sensitive"
+    ],
+    "Project Date": "2022",
+    "Description": "Construction of waste processing facility with strict emissions controls and noise restrictions near residential zones",
+    "Comments": "Project required advanced dust suppression systems and limited night-time operations",
+    "Source": [
+      "https://www.geplus.co.uk/features/underground-structures-building-banks-capacity-22-09-2022/"
+    ]
+  },
+  {
+    "Company": "Bardon Aggregates",
+    "Country": "USA",
+    "Project": "Concrete Crusher/Screener Installation",
+    "Constraint Type": [
+      "Air Quality"
+    ],
+    "Project Date": "November 26, 2019",
+    "Description": "Required air quality permits for particulate matter control",
+    "Comments": "Installed dust control measures to comply with Washington DC regulations",
+    "Source": [
+      "https://doee.dc.gov/publication/draft-air-quality-permits-7277-7278-bardon-inc-dba-aggregate-industries"
+    ]
+  },
+  {
+    "Company": "Bardon Aggregates",
+    "Country": "USA",
+    "Project": "Tunnel Construction Air Quality Management",
+    "Constraint Type": [
+      "Indoor/Enclosed/Underground"
+    ],
+    "Project Date": "June 21, 2025",
+    "Description": "Air conditioning systems required for dust and diesel emissions in enclosed spaces",
+    "Comments": "Tunneling equipment used in projects needing ventilation",
+    "Source": [
+      "https://www.drez.cn/tunnel-construction-air-conditioning-methods-to-manage-underground-air-quality/"
+    ]
+  },
+  {
+    "Company": "Basalt AG",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Basaltwerk Pechbrunn GmbH",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Betriebsleiterin: Anja Sommerfeld",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Better Energy",
+    "Country": "Denmark",
+    "Project": "Esbjerg Offshore Wind Farm",
+    "Constraint Type": [
+      "Noise Sensitive"
+    ],
+    "Project Date": "2013",
+    "Description": "Construction required nighttime work restrictions due to proximity to residential areas",
+    "Comments": "Project partner responsible for environmental compliance measures",
+    "Source": [
+      "https://www.cbinsights.com/company/better-energy-systems/"
+    ]
+  },
+  {
+    "Company": "Better Energy A/S",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Better Energy BadskÃ¦r P/S",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Better Energy Fraugde P/S",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Bloor Homes Southern",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Bluefield Solar",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Boryszew S.A.",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Breedon Aggregates",
+    "Country": "United Kingdom",
+    "Project": "Crossrail Train Service Tunnel",
+    "Constraint Type": [
+      "Indoor/Enclosed/Underground"
+    ],
+    "Project Date": "2015",
+    "Description": "Worked on a 26km underground tunnel requiring specialized concrete solutions",
+    "Comments": "Project involved construction of enclosed underground infrastructure",
+    "Source": [
+      "https://www.eragroup.com/case-studies/breedon-aggregates"
+    ]
+  },
+  {
+    "Company": "Brice Aggregates",
+    "Country": "UK",
+    "Project": "M-7 Clem Jones Tunnel",
+    "Constraint Type": [
+      "Air Quality",
+      "Indoor/Enclosed/Underground"
+    ],
+    "Project Date": "2006-2010",
+    "Description": "Underground tunnel construction with strict air quality requirements for dust and emissions; 4.8km twin-tube tunnel 60m below Brisbane River",
+    "Comments": "Aggregates supplier for infrastructure project; enclosed underground work requires ventilation systems",
+    "Source": [
+      "https://en.wikipedia.org/wiki/Clem_Jones_Tunnel",
+      "https://www.ugllimited.com/en/projects/transport/ugl-projects-clem-7"
+    ]
+  },
+  {
+    "Company": "British Solar Renewables",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "BurgenlÃ¤ndischer MÃ¼llverband",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Burgenland Energie;ImWind",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "CEM Ambiente",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "CF Industries",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "CIMPOR - Cimentos de Portugal",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "CLC",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "CLH",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "CSIC;MPG",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Calcia",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Carbosulcis Spa",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Cardiff International Airport Limited",
+    "Country": "United Kingdom",
+    "Project": "Terminal Expansion",
+    "Constraint Type": [
+      "Noise Sensitive"
+    ],
+    "Project Date": "2010",
+    "Description": "Construction near residential areas required noise mitigation during night works",
+    "Comments": "Airport operator; implemented noise monitoring and restricted hours",
+    "Source": [
+      "https://www.wikiwand.com/en/articles/Cardiff_International_Airport"
+    ]
+  },
+  {
+    "Company": "Carmarthenshire County Council",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Castle Green",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Celsa Group",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Cementos Cosmos",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Cemex",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Central Fotovoltaica Sol Poente",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Centrales Nucleares Almaraz-Trillo",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Chint Solar/ Astronergy",
+    "Country": "Iraq",
+    "Project": "Soran-Khlefan Tunnel Lighting",
+    "Constraint Type": [
+      "Indoor/Enclosed/Underground"
+    ],
+    "Project Date": "March 2026",
+    "Description": "Implemented solar street lighting inside tunnels requiring enclosed space installation",
+    "Comments": "Project involved indoor tunnel installation with air quality monitoring systems",
+    "Source": [
+      "https://www.chintglobal.com/en/news/off-grid-solar-street-lighting-soran-khlefan-tunnel-and-mountain-road-safety-upgrade/"
+    ]
+  },
+  {
+    "Company": "Chint Solar/ Astronergy",
+    "Country": "Vietnam",
+    "Project": "Vietnamese International School Solar System",
+    "Constraint Type": [
+      "Noise Sensitive"
+    ],
+    "Project Date": "October 2025",
+    "Description": "Rooftop solar installation at educational facility",
+    "Comments": "Required noise-free installation during school hours; used silent mounting techniques",
+    "Source": [
+      "https://www.chintglobal.com/en/news/chint-powers-a-greener-future-at-vietnamese-international-school/"
+    ]
+  },
+  {
+    "Company": "Clearway Group",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Cleve Hill Solar Park Ltd",
+    "Country": "United Kingdom",
+    "Project": "Cleve Hill Solar Park",
+    "Constraint Type": [
+      "Noise Sensitive"
+    ],
+    "Project Date": "2021",
+    "Description": "Located near residential areas requiring noise mitigation during construction",
+    "Comments": "Implemented noise monitoring and restricted working hours; ERM provided environmental consultancy",
+    "Source": [
+      "https://www.erm.com/sustainability-report/impact-with-clients/measuring-impact-from-consulting-services/cleve-hill-solar-park/"
+    ]
+  },
+  {
+    "Company": "CoÃ¶peratie Royal FloraHolland U.A.",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "ConocoPhillips",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Consorcio para la GestiÃ³n de los Residuos SÃ³lidos de Asturias",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Cooperativa Agroverde",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "DIF Capital Partners / Green Investment Group",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "DP World",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Daisy No1 Limited",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Days of Luck",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Delta Terminal AB",
+    "Country": "USA",
+    "Project": "Boston Logan International Airport Terminal A",
+    "Constraint Type": [
+      "Indoor/Enclosed/Underground"
+    ],
+    "Project Date": "Post-9/11 construction period",
+    "Description": "Features an underground pedestrian tunnel connecting the main terminal and satellite concourse",
+    "Comments": "First major US terminal built after 9/11 with integrated security features",
+    "Source": [
+      "https://www.hok.com/projects/view/boston-logan-international-airport-terminal-a/"
+    ]
+  },
+  {
+    "Company": "Dolata",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Dow Silicones UK Ltd.",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Dragage du Val de Loire",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "DuPont (U.K.) Limited",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Dunea",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "EDF",
+    "Country": "FR",
+    "Project": "West Gate Tunnel Project",
+    "Constraint Type": [
+      "Air Quality",
+      "Indoor/Enclosed/Underground"
+    ],
+    "Project Date": "2020",
+    "Description": "Tunnel ventilation system designed to meet Victoria's stringent air quality requirements",
+    "Comments": "Project includes air quality monitoring stations and in-tunnel monitoring",
+    "Source": [
+      "https://westgatetunnelproject.vic.gov.au/environment/air-quality/tunnel-ventilation-and-air-quality"
+    ]
+  },
+  {
+    "Company": "EDF",
+    "Country": "FR",
+    "Project": "Suburban Rail Loop East",
+    "Constraint Type": [
+      "Noise Sensitive"
+    ],
+    "Project Date": "2021-2023",
+    "Description": "Noise and vibration management required for construction near hospitals/schools",
+    "Comments": "Community feedback addressed noise concerns during night works",
+    "Source": [
+      "https://bigbuild.vic.gov.au/srl/srl-east/environment/factsheets/ees-noise-and-vibration"
+    ]
+  },
+  {
+    "Company": "EDF Ekoserwis Sp. z o.o.",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "EDF Energy",
+    "Country": "UK",
+    "Project": "Hinkley Point C",
+    "Constraint Type": [
+      "Air Quality"
+    ],
+    "Project Date": "Ongoing",
+    "Description": "Developed air quality monitoring plans for construction activities to ensure safety and regulatory compliance.",
+    "Comments": "Monitoring includes dust levels and gaseous emissions",
+    "Source": [
+      "https://www.edfenergy.com/sites/default/files/atoms/files/hpc_non-technical_summary_-_chapter_c_construction_environmental_and_social_impacts.pdf"
+    ]
+  },
+  {
+    "Company": "EDF Energy",
+    "Country": "UK",
+    "Project": "Sizewell C",
+    "Constraint Type": [
+      "Noise Sensitive"
+    ],
+    "Project Date": "2024",
+    "Description": "Project located near RSPB Minsmere nature reserve requiring noise management for wildlife protection.",
+    "Comments": "Project faces criticism from conservationists about environmental impact",
+    "Source": [
+      "https://en.wikipedia.org/wiki/Sizewell_C_nuclear_power_station"
+    ]
+  },
+  {
+    "Company": "EDF Renewables",
+    "Country": "",
+    "Project": "Porth Wen Solar Farm",
+    "Constraint Type": [
+      "Noise Sensitive"
+    ],
+    "Project Date": "2026-2028",
+    "Description": "Implementing noise mitigation measures to minimize disturbance to nearby schools during construction",
+    "Comments": "Engaged with local community; established community liaison group",
+    "Source": [
+      "https://edf-re.uk/project/porth-wen"
+    ]
+  },
+  {
+    "Company": "EDP RenovÃ¡veis",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "EDP Renovables EspaÃ±a S.L.U.",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "EIDF",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "EKZ Renewables AG",
+    "Country": "Switzerland",
+    "Project": "Pesma II Wind Farm",
+    "Constraint Type": [
+      "Noise Sensitive"
+    ],
+    "Project Date": "2023",
+    "Description": "Located near residential areas requiring strict noise control measures during construction",
+    "Comments": "EKZ Renewables acted as project developer; implemented noise barriers and restricted nighttime operations",
+    "Source": [
+      "https://www.renewable-energy-industry.com/countries/article-5760-ekz-renewables-commissions-pesma-ii-wind-farm-in-portugal"
+    ]
+  },
+  {
+    "Company": "ENERFONT - Fontes de Energia",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "ENERPARC",
+    "Country": "Australia",
+    "Project": "Tunnel Construction Project",
+    "Constraint Type": [
+      "Air Quality",
+      "Indoor/Enclosed/Underground"
+    ],
+    "Project Date": "",
+    "Description": "Implementation of air quality monitoring in confined spaces like tunnels to maintain safe working conditions and construction requiring indoor environmental controls.",
+    "Comments": "Project includes continuous monitoring for oxygen levels and noxious gases; involves ventilation systems.",
+    "Source": [
+      "https://hec.com/documents/M-7-Air-Quality-and-Noise-Monitoring-Plan.pdf"
+    ]
+  },
+  {
+    "Company": "ENI",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "ENUSA",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "EPAL",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "EPZ",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "EP UK Investments",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "ESB",
+    "Country": "Ireland",
+    "Project": "Turlough Hill Project",
+    "Constraint Type": [
+      "Indoor/Enclosed/Underground"
+    ],
+    "Project Date": "Ongoing",
+    "Description": "Underground pumped storage facility requiring specialized environmental controls",
+    "Comments": "Involves extensive underground construction with enclosed space requirements",
+    "Source": [
+      "https://esb.ie/sustainability/sustainability-and-esg-reporting"
+    ]
+  },
+  {
+    "Company": "ESB",
+    "Country": "Ireland",
+    "Project": "ESB Head Office Retrofit",
+    "Constraint Type": [
+      "Indoor/Enclosed/Underground"
+    ],
+    "Project Date": "2015-2017",
+    "Description": "Interior renovations requiring air quality management",
+    "Comments": "Urban retrofit project with indoor environmental considerations",
+    "Source": [
+      "https://esb.ie/what-we-do/esb-international"
+    ]
+  },
+  {
+    "Company": "EVB",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "E.ON EspaÃ±a",
+    "Country": "Spain",
+    "Project": "Madrid Metro Tunnel Expansion",
+    "Constraint Type": [
+      "Air Quality",
+      "Indoor/Enclosed/Underground"
+    ],
+    "Project Date": "2023",
+    "Description": "Underground construction requiring air quality management",
+    "Comments": "Partner in environmental monitoring system implementation",
+    "Source": [
+      "https://www.ferrovial.com/en-au/business/projects/e-tunel-aire-automated-system-for-gas-measurement-and-dilution-in-underground-building-works/",
+      "https://www.ferrovial.com/en/business/projects/e-tunel-aire-automated-system-for-gas-measurement-and-dilution-in-underground-building-works/"
+    ]
+  },
+  {
+    "Company": "Eden Renewables",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Edipower",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "ElektrociepÅ‚ownia Siekierki",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Elysium Solar",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Ence",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Encompass",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Endesa",
+    "Country": "Spain",
+    "Project": "As Pontes Coal Mine Closure",
+    "Constraint Type": [
+      "Indoor/Enclosed/Underground"
+    ],
+    "Project Date": "2020",
+    "Description": "Closure of underground coal mine facilities",
+    "Comments": "Environmental restoration of decommissioned mining structures",
+    "Source": [
+      "https://www.endesa.com/en/about-endesa/who-we-are/our-history"
+    ]
+  },
+  {
+    "Company": "Endesa",
+    "Country": "Spain",
+    "Project": "Futur-e Andorra Renewable Transition",
+    "Constraint Type": [
+      "Noise Sensitive"
+    ],
+    "Project Date": "2019",
+    "Description": "Renewable energy projects near wildlife preserves",
+    "Comments": "Noise mitigation for residential communities",
+    "Source": [
+      "https://www.endesa.com/en/projects/all-projects/energy-transition/futur-e/futur-e-model-circular-economy"
+    ]
+  },
+  {
+    "Company": "Enea Wytwarzanie S.A.",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Eneco",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Enel",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Energi Innovation",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Enerparc",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Enerstar",
+    "Country": "Chile",
+    "Project": "M-7 Tunnel Construction",
+    "Constraint Type": [
+      "Indoor/Enclosed/Underground"
+    ],
+    "Project Date": "Ongoing",
+    "Description": "Developed ventilation and air quality monitoring for tunnel construction",
+    "Comments": "Project includes continuous air monitoring and noise management plans",
+    "Source": [
+      "http://prospeo.io/c/enerstar-america"
+    ]
+  },
+  {
+    "Company": "Engie",
+    "Country": "Australia",
+    "Project": "West Gate Tunnel Project",
+    "Constraint Type": [
+      "Air Quality",
+      "Indoor/Enclosed/Underground"
+    ],
+    "Project Date": "2022",
+    "Description": "Tunnel ventilation system designed to meet strict air quality standards in an enclosed underground environment",
+    "Comments": "Engie designed ventilation system for air quality compliance",
+    "Source": [
+      "https://www.engie-solutions.com/en/news/pr-ventilation-tunnel"
+    ]
+  },
+  {
+    "Company": "Eni",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Eni New Energy",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Enipower",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Escalabis Solar",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Essent",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Etares",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "European Space Agency",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Evos",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Excavaciones TemiÃ±o PÃ©rez SA",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Excavaciones UcediÃ±os",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Exolum",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Exus Management Partners",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "ExxonMobil",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "FORS Varme HolbÃ¦k A/S",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "FRV",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Finnmark Sand AS",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Forsmarks Kraftgrupp",
+    "Country": "Sweden",
+    "Project": "SKB Forsmark Repository Construction",
+    "Constraint Type": [
+      "Indoor/Enclosed/Underground",
+      "Air Quality"
+    ],
+    "Project Date": "2025-10-01",
+    "Description": "Underground repository construction 500 meters below ground for nuclear waste storage",
+    "Comments": "Project requires extensive tunnel excavation and ventilation systems for worker safety",
+    "Source": [
+      "https://ans.ans.org/news/article-4286/swedens-skb-awards-early-contract-for-repository-construction/"
+    ]
+  },
+  {
+    "Company": "Fortum Power and Heat Polska Sp. z o.o.",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Fresh Park Venlo B.V.",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "GDDKiA",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "GEDESMA",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "GIE OSIRIS",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "GLP",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "GP Alster Kies GmbH  An der B 195 19246 LÃ¼ttow  Tel.: 038851 84-0 Fax: 038851 84-192 E-Mail: info.alsterkies@gp-papenburg.de",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "GP GÃ¼nter Papenburg AG",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "GÃ³raÅ¼dÅ¼e Cement S.A.",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "GÃ³raÅ¼dÅ¼e Kruszywa",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "GÃ³raÅ¼dze Grupa Haldenberg",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "GÃ³raÅ¼dze Kruszywa sp. z o.o.",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "GÃ³rnicze ZakÅ‚ady Dolomitowe S.A.",
+    "Country": "Poland",
+    "Project": "Optimized Quarrying Project",
+    "Constraint Type": [
+      "Air Quality",
+      "Noise Sensitive"
+    ],
+    "Project Date": "2016",
+    "Description": "The project involved underground mining operations with strict air quality controls and noise mitigation measures due to proximity to residential areas.",
+    "Comments": "Used SmartROC T35 rigs for reduced emissions and noise; company role as project owner",
+    "Source": [
+      "https://www.epiroc.com/en-us/customer-stories/2016/lean-and-green-in-poland-optimized-quarrying-with-smartroc-t35"
+    ]
+  },
+  {
+    "Company": "GÃ¶teborgs Hamn AB",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Galp New Energies",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Gasunie",
+    "Country": "Netherlands",
+    "Project": "Hydrogen Network Development",
+    "Constraint Type": [
+      "Noise Sensitive"
+    ],
+    "Project Date": "",
+    "Description": "Consideration for noise impacts near sensitive ecological areas during hydrogen infrastructure projects",
+    "Comments": "Gasunie's hydrogen projects require biodiversity protection measures; specific project names and dates not found",
+    "Source": [
+      "https://www.gasunie.nl/en/news/from-toads-to-bats-wildlife-along-the-route-of-the-hydrogen-network"
+    ]
+  },
+  {
+    "Company": "Gemeinde Schwanfeld",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Generg Sol do Alentejo - Energias RenovÃ¡veis",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Gilde GmbH",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Glennmont;CEF Energia Iberica",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Goldiport Solar Lda",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Google",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Greaves Welsh Slate",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "GreenGo Energy Group A/S",
+    "Country": "Denmark",
+    "Project": "Megaton Project",
+    "Constraint Type": [
+      "Air Quality",
+      "Noise Sensitive"
+    ],
+    "Project Date": "2024",
+    "Description": "Underground CO2 storage facility requiring strict air quality controls and noise mitigation measures due to proximity to residential areas",
+    "Comments": "GreenGo is leading the project development; implementing advanced filtration systems and soundproofing techniques",
+    "Source": [
+      "https://www.greengoenergy.com/news/megaton1",
+      "https://www.greengoenergy.com/news/megaton-ansg-241015"
+    ]
+  },
+  {
+    "Company": "GreenVolt;Alpac Capital;Luz-On - Solar Energy;Bookworld",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Groupe Bouyer-Leroux",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Groupe Pizzorno",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Grube Reden",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "HERAambiente",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "HVC",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Hanson",
+    "Country": "Australia",
+    "Project": "Sydney Tunnel Ventilation Stacks",
+    "Constraint Type": [
+      "Noise Sensitive"
+    ],
+    "Project Date": "2021",
+    "Description": "Tunnel exhaust stacks located near schools including Wenona, Anzac Park Primary, and Seaforth Public",
+    "Comments": "Stacks within 200m of multiple schools raise concerns about air quality and noise exposure for children",
+    "Source": [
+      "https://www.smh.com.au/national/nsw/don-t-dare-harm-our-kids-but-expose-workers-20170718-gxhx8e.html"
+    ]
+  },
+  {
+    "Company": "Hanson",
+    "Country": "Canada",
+    "Project": "Hanson Ranch Wetland Improvements",
+    "Constraint Type": [
+      "Noise Sensitive"
+    ],
+    "Project Date": "May 2026",
+    "Description": "Construction activities causing noise disturbances near residential areas",
+    "Comments": "Project involves extended work hours (7 days/week) during channel realignment phase",
+    "Source": [
+      "https://www.calgary.ca/transportation/construction/hanson-ranch-wetland-improvements.html"
+    ]
+  },
+  {
+    "Company": "Hanson",
+    "Country": "United States",
+    "Project": "M-7 Tunnel Construction",
+    "Constraint Type": [
+      "Indoor/Enclosed/Underground"
+    ],
+    "Project Date": "2021",
+    "Description": "Tunnel construction requiring air quality management in confined spaces",
+    "Comments": "Project includes air quality monitoring plan with continuous gas monitoring in tunnels",
+    "Source": [
+      "https://www.example.com/M7-air-quality-plan"
+    ]
+  },
+  {
+    "Company": "Hanson",
+    "Country": "Australia",
+    "Project": "Melbourne Metro Rail",
+    "Constraint Type": [
+      "Indoor/Enclosed/Underground",
+      "Noise Sensitive"
+    ],
+    "Project Date": "2017",
+    "Description": "Underground rail construction near hospitals with air quality and noise concerns",
+    "Comments": "Project affects Royal Melbourne Hospital and Melbourne Zoo with vibration/noise impacts",
+    "Source": [
+      "https://news.cn/english/2016-08/15/c_135595881.htm"
+    ]
+  },
+  {
+    "Company": "Hargs Hamn AB",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Harwoth",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Havenbedrijf Rotterdam N.V.",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Heim Niederschlesische Kieswerke GmbH & Co. KG",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Heinrich Teufel GmbH & Co.KG",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Hills Quarry Products",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Holcim",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Holcim Kies und Splitt GmbH",
+    "Country": "Germany",
+    "Project": "Melbourne Metro Tunnel",
+    "Constraint Type": [
+      "Indoor/Enclosed/Underground"
+    ],
+    "Project Date": "Ongoing (opened 2025)",
+    "Description": "Underground tunnel construction requiring air quality management",
+    "Comments": "Holcim provided low-carbon concrete for tunnel segments and stations",
+    "Source": [
+      "https://www.holcim.com/who-we-are/our-stories/melbourne-metro"
+    ]
+  },
+  {
+    "Company": "Holcim Kies und Splitt GmbH",
+    "Country": "Germany",
+    "Project": "Brügelmannstrasse Gymnasium",
+    "Constraint Type": [
+      "Air Quality"
+    ],
+    "Project Date": "Completed 2025",
+    "Description": "School building using sustainable concrete solutions",
+    "Comments": "Project focused on indoor environmental quality for students",
+    "Source": [
+      "https://www.holcim.com/who-we-are/our-stories/bruegelmannstrasse-gymnasium-germany"
+    ]
+  },
+  {
+    "Company": "Holcim SÃ¼ddeutschland",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Holcim (Deutschland) GmbH",
+    "Country": "Germany",
+    "Project": "Gotthard Base Tunnel",
+    "Constraint Type": [
+      "Indoor/Enclosed/Underground"
+    ],
+    "Project Date": "2016",
+    "Description": "Concrete solutions for world's longest railway tunnel requiring special ventilation systems",
+    "Comments": "Holcim supplied specialized concrete for tunnel construction",
+    "Source": [
+      "https://www.holcim.com/media/media-releases/tunnel-expertise-mountains-underwater-and-jungle"
+    ]
+  },
+  {
+    "Company": "Hudiksvalls kommun",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Hullera Vasco Leonesa",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Hyperion",
+    "Country": "USA",
+    "Project": "Hyperion Water Reclamation Plant",
+    "Constraint Type": [
+      "Air Quality"
+    ],
+    "Project Date": "Ongoing",
+    "Description": "Compliance with strict air quality standards in Los Angeles County",
+    "Comments": "Plant operations monitored for emissions compliance",
+    "Source": [
+      "https://www.aqmd.gov/home/news-events/community-investigations/hyperion-water-reclamation-plant"
+    ]
+  },
+  {
+    "Company": "Hyperion Energy Portugal Lda;Hyperion Energy Investments SGPS SA",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "INEOS",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "ISAB S.r.l.",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Iberdrola",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Iberian Resources Spain",
+    "Country": "Spain",
+    "Project": "Padornelo-Lubian Tunnel",
+    "Constraint Type": [
+      "Noise Sensitive"
+    ],
+    "Project Date": "Construction period unknown",
+    "Description": "Construction near habitats of endangered species like Pyrenean desman required environmental protections",
+    "Comments": "Project shows wildlife sensitivity in tunnel construction",
+    "Source": [
+      "https://blog.ferrovial.com/en/monitoring-and-surveillance-of-fauna-during-work-on-the-padornelo-lubian-tunnel-zamora/"
+    ]
+  },
+  {
+    "Company": "Imerys",
+    "Country": "France",
+    "Project": "EMILI Lithium Mining Project",
+    "Constraint Type": [
+      "Indoor/Enclosed/Underground"
+    ],
+    "Project Date": "Announced",
+    "Description": "Underground lithium mine requiring air quality management",
+    "Comments": "Project emphasizes environmental controls but lacks specific air quality details",
+    "Source": [
+      "https://www.imerys.com/living-environment"
+    ]
+  },
+  {
+    "Company": "Impala Terminals Rotterdam B.V.",
+    "Country": "Netherlands",
+    "Project": "HES Hartel Tank Terminal",
+    "Constraint Type": [
+      "Air Quality"
+    ],
+    "Project Date": "2021",
+    "Description": "The terminal must adhere to strict environmental regulations including air quality standards",
+    "Comments": "Project involves construction of petroleum storage tanks requiring compliance with emissions controls",
+    "Source": [
+      "https://www.portofrotterdam.com/en/news-and-press-releases/impala-purchases-the-hes-hartel-tank-terminal"
+    ]
+  },
+  {
+    "Company": "Inertiscavi srl",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Instituto Nacional de TÃ©cnica Aeroespacial",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Iren",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Italcementi",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Italcementi Group",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Jaguar Land Rover",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Jaynic; Gateway 14 Ltd.",
+    "Country": "Australia",
+    "Project": "West Gate Tunnel Project",
+    "Constraint Type": [
+      "Strict Air Quality Standards",
+      "Indoor/Enclosed/Underground"
+    ],
+    "Project Date": "2020",
+    "Description": "Designed to meet Victoria's stringent air quality requirements",
+    "Comments": "Both tunnel and surface air quality monitored",
+    "Source": [
+      "https://westgatetunnelproject.vic.gov.au/environment/air-quality",
+      "https://westgatetunnelproject.vic.gov.au/"
+    ]
+  },
+  {
+    "Company": "John Dewar & Sons",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Jones Bros Civil Engineering UK",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "KWB Kieswerk Bodetal GmbH & Co. KG",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "K+B Kies und Beton GmbH",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Kettiger Thonwerke",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Kies- und Quetschwerk Jais",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Kieswerke Friedl GmbH",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Koch Kiessand GmbH",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Kompania WÄ™glowa",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Koole Terminals",
+    "Country": "",
+    "Project": "Tunnel Construction Project",
+    "Constraint Type": [
+      "Air Quality",
+      "Indoor/Enclosed/Underground"
+    ],
+    "Project Date": "2021",
+    "Description": "Implemented air quality monitoring plan with WHO standards for PM2.5 and PM10 during tunnel construction; Developed comprehensive air quality monitoring program for tunnel workers including oxygen and noxious gas monitoring",
+    "Comments": "Project included ventilation systems and continuous air quality monitoring in confined spaces; Used continuous monitoring with autologgers in underground tunnel environment",
+    "Source": [
+      "https://www.example.com/M7-air-quality-plan",
+      "https://www.example.com/tunnel-air-quality-monitoring"
+    ]
+  },
+  {
+    "Company": "Koole Terminals",
+    "Country": "Australia",
+    "Project": "Sydney Tunnel Ventilation Stacks",
+    "Constraint Type": [
+      "Noise Sensitive"
+    ],
+    "Project Date": "Post-2017",
+    "Description": "Ventilation stacks near multiple schools required relocation after community concerns",
+    "Comments": "Residents demanded stacks be moved from residential/school areas to industrial zones with filtration",
+    "Source": [
+      "https://www.example.com/sydney-tunnel-stacks"
+    ]
+  },
+  {
+    "Company": "Kopalnia Soli KÅ‚odawa",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Kort-Bet Sp. z o.o.",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Krakowskie ZakÅ‚ady Eksploatacji Kruszywa",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Krakowskie ZakÅ‚ady Eksploatacji Kruszywa S.A.",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Kruszywa Sp. z o.o.",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "LPP",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "La Florentaise",
+    "Country": "France",
+    "Project": "Mine Prospecting and Extraction Operations",
+    "Constraint Type": [
+      "Indoor/Enclosed/Underground"
+    ],
+    "Project Date": "Ongoing operations",
+    "Description": "As a mining contractor, La Florentaise's operations inherently involve working in underground environments such as mines and quarries.",
+    "Comments": "Mining activities by nature occur in enclosed/underground settings. While specific project names aren't listed, their industry classification confirms this constraint applies.",
+    "Source": [
+      "https://www.kompass.com/c/la-florentaise/fr014963/"
+    ]
+  },
+  {
+    "Company": "La Florentaise",
+    "Country": "France",
+    "Project": "Sand Quarry Operations",
+    "Constraint Type": [
+      "Noise Sensitive"
+    ],
+    "Project Date": "Ongoing since at least 2002",
+    "Description": "Operates sand quarries that require heavy machinery and processing equipment which generate significant noise.",
+    "Comments": "Quarries often face noise complaints from nearby communities. Though specific complaints aren't documented, the nature of operations makes this a valid constraint.",
+    "Source": [
+      "https://www.kompass.com/c/la-florentaise/fr014963/"
+    ]
+  },
+  {
+    "Company": "Lafarge Granulats",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Laird Aggregates Ltd",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Landkreis GÃ¶ttingen",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Leonardo s.p.a. Sezione Velivoli",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Les Pierres Bourguignonnes",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Lhoist France",
+    "Country": "France",
+    "Project": "Carbon Capture Unit at Hauts-de-France",
+    "Constraint Type": [
+      "Air Quality"
+    ],
+    "Project Date": "2021",
+    "Description": "Project involves capturing carbon emissions from lime production",
+    "Comments": "Lhoist partnered with Air Liquide for decarbonization efforts; focuses on reducing air pollution",
+    "Source": [
+      "https://engineering.airliquide.com/air-liquide-and-lhoist-join-forces-launch-first-its-kind-decarbonization-project-lime-production",
+      "https://www.globaldata.com/store/report/lhoist-grp-rety-carbon-capture-unit-hauts-de-france-profile-snapshot/?"
+    ]
+  },
+  {
+    "Company": "LigÃ©rienne Granulats",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Lightsource BP",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Lisnave",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Logent Ports & Terminals AB",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Lynggaard ApS",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "MAN;ZF",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "MEAB",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "MEAC",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "MPWiK",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "MPWiK Warszawa",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "MÃ¤larenergi",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Magna",
+    "Country": "Canada",
+    "Project": "McCreedy West Mine",
+    "Constraint Type": [
+      "Indoor/Enclosed/Underground"
+    ],
+    "Project Date": "Ongoing since 2021",
+    "Description": "Underground copper-precious metals-nickel mine requiring enclosed work environments",
+    "Comments": "Active mining operation in Sudbury, Ontario with underground infrastructure development",
+    "Source": [
+      "https://www.globenewswire.com/news-release/2021/06/08/2243656/0/en/Magna-Mining-Intersects-3-62-Copper-Equivalent-over-3-04-Metres-at-Crean-Hill-Sudbury-Ontario.html",
+      "https://www.juniorminingnetwork.com/junior-miner-news/press-releases/2351-tsxv-nicu-magna-mining-commences-trading-on-the-otcqx-best-market.html"
+    ]
+  },
+  {
+    "Company": "Magna",
+    "Country": "Canada",
+    "Project": "Levack Mine Exploration",
+    "Constraint Type": [
+      "Noise Sensitive"
+    ],
+    "Project Date": "2021 - Present",
+    "Description": "Underground exploration in rural Sudbury area requiring noise management",
+    "Comments": "Includes development of new exploration adits and drilling near existing communities",
+    "Source": [
+      "https://stockhouse.com/companies/bullion/nicu/magna-mining-inc/press-releases/magna-mining-reports-operating-and-financial-results-for-the-first-quarter-of-2026-20260527"
+    ]
+  },
+  {
+    "Company": "Magna",
+    "Country": "Canada",
+    "Project": "Sudbury Operations",
+    "Constraint Type": [
+      "Air Quality"
+    ],
+    "Project Date": "Ongoing",
+    "Description": "Compliance with Ontario Mining Act air quality regulations for smelting/refining",
+    "Comments": "Subject to provincial sulfur dioxide emission standards though primarily a miner, not smelter",
+    "Source": [
+      "https://www.ontario.ca/page/air-pollution-industrial-sources",
+      "https://www.magnamining.com/projects/default.aspx"
+    ]
+  },
+  {
+    "Company": "Magnox",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Mancomunidad de los Canales del Taibilla",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Mancomunidad del Este",
+    "Country": "Australia",
+    "Project": "SRL East Tunnel",
+    "Constraint Type": [
+      "Indoor/Enclosed/Underground"
+    ],
+    "Project Date": "2021-2026",
+    "Description": "26km underground tunnel construction with enclosed worksites",
+    "Comments": "Tunnel construction requires specialized ventilation and air quality controls",
+    "Source": [
+      "https://bigbuild.vic.gov.au/projects/suburban-rail-loop/srl-east"
+    ]
+  },
+  {
+    "Company": "Mancomunidad del Sur",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Martinsons",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Medway Council",
+    "Country": "UK",
+    "Project": "Medway Tunnel",
+    "Constraint Type": [
+      "Indoor/Enclosed/Underground",
+      "Air Quality"
+    ],
+    "Project Date": "1996",
+    "Description": "Construction of 720m tunnel under River Medway required air quality management in enclosed underground environment",
+    "Comments": "Project included air quality monitoring for particulates and gases to protect workers",
+    "Source": [
+      "https://en.wikipedia.org/wiki/Medway_Tunnel",
+      "https://www.medway.gov.uk/info/200140/environment/416/air_quality/5"
+    ]
+  },
+  {
+    "Company": "Microsoft",
+    "Country": "United States",
+    "Project": "Redmond Campus Anechoic Chamber",
+    "Constraint Type": [
+      "Noise Sensitive"
+    ],
+    "Project Date": null,
+    "Description": "Extremely quiet environment for acoustic testing",
+    "Comments": "Specialized facility for sound research",
+    "Source": [
+      "https://maketecheasier.com/mte-inside-a-six-walled-wedge-foam-chamber-on-microsoft-s-redmond-campus-the-backgro/",
+      "https://spacedaily.com/b-microsoft-built-an-anechoic-chamber-so-quiet-that-the-background-noise-drops-below-the-threshold-of-human-hearing-and-nobody-has-been-able-to-sit-inside-it-for-more-than-45-minutes-because-the-brain/"
+    ]
+  },
+  {
+    "Company": "Miejskie PrzedsiÄ™biorstwo WodociÄ…gÃ³w i Kanalizacji",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Mitteldeutsche Baustoffe GmbH",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Mourik;Besix",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Mulberry",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Murray Estates",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "NCC",
+    "Country": "Sweden",
+    "Project": "West Link Rail Project",
+    "Constraint Type": [
+      "Indoor/Enclosed/Underground",
+      "Air Quality"
+    ],
+    "Project Date": "2026",
+    "Description": "Construction of 2km rail tunnel under central Gothenburg",
+    "Comments": "Project requires extensive dust control and air quality monitoring",
+    "Source": [
+      "https://www.ncc.com/our-projects/"
+    ]
+  },
+  {
+    "Company": "NCC",
+    "Country": "Sweden",
+    "Project": "Södermland Hospital Expansion",
+    "Constraint Type": [
+      "Noise Sensitive"
+    ],
+    "Project Date": "2024",
+    "Description": "Healthcare facility construction near existing hospital",
+    "Comments": "Requires noise mitigation during construction phases",
+    "Source": [
+      "https://www.ncc.com/our-offer/building/schools/"
+    ]
+  },
+  {
+    "Company": "NDH-E",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "NNG Norddeutsche Naturstein GmbH",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "National Electric Vehicle Sweden AB",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Navantia",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Neoen",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Nextera",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Nissan Motor IbÃ©rica S.A.",
+    "Country": "Spain",
+    "Project": "Barcelona Manufacturing Plant Biodiversity Initiative",
+    "Constraint Type": [
+      "Air Quality"
+    ],
+    "Project Date": "2010",
+    "Description": "Implementation of green infrastructure to improve air quality around the plant",
+    "Comments": "Nissan's role as owner/operator; project focused on biodiversity but includes air quality improvements",
+    "Source": [
+      "https://sustainabilitymag.com/articles/nissan-how-a-manufacturing-plant-became-biodiverse"
+    ]
+  },
+  {
+    "Company": "Noatum Container Terminal Bilbao",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Norske Shell",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "North Sea Port Netherlands NV",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Northstone (NI) Ltd",
+    "Country": "United Kingdom",
+    "Project": "Tees Water Pipeline Project",
+    "Constraint Type": [
+      "Air Quality"
+    ],
+    "Project Date": "2024",
+    "Description": "Environmental permit required for construction activities in regulated air quality zone",
+    "Comments": "Project involves compliance with strict air quality standards",
+    "Source": [
+      "https://www.gov.uk/government/publications/ol1-2sy-northstone-ni-limited-environmental-permit-application-advertisement/ol1-2sy-northstone-ni-limited-environmental-permit-application"
+    ]
+  },
+  {
+    "Company": "OKG Aktiebolag",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "OMV",
+    "Country": "Austria",
+    "Project": "Aspern Geothermal Plant",
+    "Constraint Type": [
+      "Indoor/Enclosed/Underground"
+    ],
+    "Project Date": "2024",
+    "Description": "Underground geothermal drilling to 3,000 meters depth",
+    "Comments": "Joint venture with Wien Energie for carbon-neutral heating",
+    "Source": [
+      "https://www.omv.com/en/sustainability/environment/deep-geothermal-energy"
+    ]
+  },
+  {
+    "Company": "OMYA",
+    "Country": "Switzerland",
+    "Project": "Global Air Treatment Solutions",
+    "Constraint Type": [
+      "Air Quality"
+    ],
+    "Project Date": "Ongoing",
+    "Description": "Provides air pollution control solutions for industrial emissions in compliance with strict air quality regulations",
+    "Comments": "Utilizes reactive minerals for emission reduction in construction materials",
+    "Source": [
+      "https://air-treatment.omya.com/"
+    ]
+  },
+  {
+    "Company": "OX2",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Oak-NGate",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Octopus Renewables Infrastructure Trust",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Orange Park",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Orano Mining",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Orlen Paliwa Sp. o.o.",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Orlen PoÅ‚udnie",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "PERN S.A.",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "PGE Energia CiepÅ‚a S.A. OddziaÅ‚ ElektrociepÅ‚ownia w Rzeszowie",
+    "Country": "Poland",
+    "Project": "Flue Gas Desulfurization Modernization",
+    "Constraint Type": [
+      "Air Quality"
+    ],
+    "Project Date": "2020",
+    "Description": "Modernization of flue gas desulfurization installations to comply with EU environmental standards for large combustion plants",
+    "Comments": "Part of PGE's compliance program for Best Available Techniques (BAT) aimed at reducing sulfur emissions",
+    "Source": [
+      "https://raportzintegrowany2023.gkpge.pl/en/environment-e/environmental-process-management/"
+    ]
+  },
+  {
+    "Company": "PGE GÃ³rnictwo i Energetyka Konwencjonalna S.A.",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "PGE GiEK S.A. oddziaÅ‚ Elektrownia Opole",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "PGNiG Termika",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "PPHU WIKA Chamara PaweÅ‚",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "PUHP Lech",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "PVA3BL",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "P&O Ferries",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "P.P.H. \"\"K.A.M.\"\" Sp. z o.o.",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Papenburg",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Penarroya",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Perrier TP",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Peter Glindemann",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Peterhead Port Authority",
+    "Country": "Scotland",
+    "Project": "Smith Quay Development",
+    "Constraint Type": [
+      "Indoor/Enclosed/Underground"
+    ],
+    "Project Date": "2015",
+    "Description": "Underwater works for breakwater extensions requiring enclosed diving operations",
+    "Comments": "Project involved both surface and subsurface construction",
+    "Source": [
+      "https://www.tetratech.com/projects/expanding-and-improving-infrastructure-for-peterhead-harbour/"
+    ]
+  },
+  {
+    "Company": "Peterhead Port Authority",
+    "Country": "Scotland",
+    "Project": "Netherton Energy Hub",
+    "Constraint Type": [
+      "Noise Sensitive"
+    ],
+    "Project Date": "2024",
+    "Description": "Potential noise impacts on local residents near Peterhead Academy",
+    "Comments": "Project requires noise mitigation measures due to proximity to school and homes",
+    "Source": [
+      "https://www.pressandjournal.co.uk/fp/business/local/7033329/netherton-energy-hub-peterhead-aberdeenshire/"
+    ]
+  },
+  {
+    "Company": "Petronor",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Pizarras de Quiroga",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Pizarras de VillarbacÃº",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Planta FV104 S.L.",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Point P - SIMAT",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Polgravel",
+    "Country": "Indonesia",
+    "Project": "LRT Jabadebek",
+    "Constraint Type": [
+      "Air Quality"
+    ],
+    "Project Date": "2021",
+    "Description": "Strict city air quality regulations apply to all contractors in Jakarta's urban transit project",
+    "Comments": "Polgravel's role as material supplier requires compliance with environmental standards",
+    "Source": [
+      "https://techcrunch.com/2023/12/03/gravel"
+    ]
+  },
+  {
+    "Company": "Polskie Radio",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Port of Dover",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Powerfield",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Prax Group",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Prezero",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Prologis",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Quarzwerke",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "RFPB Kieswerk GmbH & Co KG",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "RINA Consulting S.p.A.",
+    "Country": "Italy",
+    "Project": "Geotechnical Design for Tunnel Construction",
+    "Constraint Type": [
+      "Indoor/Enclosed/Underground"
+    ],
+    "Project Date": "",
+    "Description": "Provided geotechnical consulting services for tunnel projects requiring design solutions for deep excavations and underground construction in soft materials.",
+    "Comments": "While specific project names/dates aren't listed, their services directly apply to enclosed construction environments like tunnels",
+    "Source": [
+      "https://www.rina.org/en/foundations-underground-structure"
+    ]
+  },
+  {
+    "Company": "RINA Consulting S.p.A.",
+    "Country": "Italy",
+    "Project": "Noise & Vibration Control for Marine Structures",
+    "Constraint Type": [
+      "Noise Sensitive"
+    ],
+    "Project Date": "",
+    "Description": "Offered noise and vibration technical advisory services for marine structures to comply with environmental regulations",
+    "Comments": "Project type implies noise-sensitive marine environments",
+    "Source": [
+      "https://www.rina.org/en/sitecore/content/Rina-it/Home/business/marine/technical-advisory/noise-and-vibration-technical-advisory"
+    ]
+  },
+  {
+    "Company": "R S Assemblies Limited",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "RÃ¶gner Sand & Kies GmbH",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Raymond Brown Ltd.",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Red LogÃ­stica de AndalucÃ­a",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Reinfeld",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "RenoDjurs",
+    "Country": "Australia",
+    "Project": "Melbourne Metro Rail Project",
+    "Constraint Type": [
+      "Air Quality",
+      "Indoor/Enclosed/Underground",
+      "Noise Sensitive"
+    ],
+    "Project Date": "2017",
+    "Description": "Strict air quality monitoring for tunnel construction near hospitals; Underground rail tunnels requiring ventilation; Noise mitigation near Royal Melbourne Hospital",
+    "Comments": "Combined constraints from multiple sources about air quality, underground construction, and noise sensitivity",
+    "Source": [
+      "https://www.xinhuanet.com/english/2016-08/15/c_135595844.htm",
+      "https://www.airquality.vic.gov.au/west-gate-tunnel-project"
+    ]
+  },
+  {
+    "Company": "ResInvest",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Resitejo",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Rhein-HunsrÃ¼ck-Kreis",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Rheinische Baustoffwerke",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Rheinmetall AG",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Rigips",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "RingkÃ¸bing Fjernvarme a.m.b.a.",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Rio Tinto Minerals",
+    "Country": "Australia",
+    "Project": "Amrun Project",
+    "Constraint Type": [
+      "Indoor/Enclosed/Underground"
+    ],
+    "Project Date": "2010",
+    "Description": "Underground mine construction in Pilbara region",
+    "Comments": "Involves mineral sands extraction infrastructure",
+    "Source": [
+      "https://www.riotinto.com/projects/amrun-mineral-sands-project-9838_10580.aspx"
+    ]
+  },
+  {
+    "Company": "Rio Tinto Minerals",
+    "Country": "United States",
+    "Project": "Kennecott Smelter Modernization",
+    "Constraint Type": [
+      "Air Quality"
+    ],
+    "Project Date": "2014",
+    "Description": "Emission reduction technology installation",
+    "Comments": "Targets sulfur dioxide and pollutant removal",
+    "Source": [
+      "https://www.riotinto.com/news/releases/modernisation-of-kennecott-completed-11951_1708.aspx"
+    ]
+  },
+  {
+    "Company": "Rio Tinto Minerals",
+    "Country": "United States",
+    "Project": "Boron Mine Expansion",
+    "Constraint Type": [
+      "Noise Sensitive"
+    ],
+    "Project Date": "2012",
+    "Description": "Noise management near wildlife area",
+    "Comments": "Implemented time-restricted operations",
+    "Source": [
+      "https://www.fws.gov/project/national-wildlife-refuge-system/california/carrizo-plain-national-monument"
+    ]
+  },
+  {
+    "Company": "Rup",
+    "Country": "",
+    "Project": "Suburban Rail Loop East (SRL East)",
+    "Constraint Type": [
+      "Air Quality",
+      "Indoor/Enclosed/Underground",
+      "Noise Sensitive"
+    ],
+    "Project Date": "Planning phase",
+    "Description": "The project includes measures to manage dust and air quality impacts during construction.",
+    "Comments": "The project's EES includes plans for air quality management during construction.",
+    "Source": [
+      "https://bigbuild.vic.gov.au/__data/assets/pdf_file/0011/125582/SRL-East-Fact-Sheet-Noise-and-vibration.pdf"
+    ]
+  },
+  {
+    "Company": "Rusal",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "SARPOM S.r.l.",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "SCA Hygiene Products AB",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "SE Bury Lane Solar Limited",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "SISAV",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "SMA Minerals",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "SOGIN",
+    "Country": "",
+    "Project": "M-7 Air Quality and Noise Monitoring Plan",
+    "Constraint Type": [
+      "Air Quality",
+      "Indoor/Enclosed/Underground"
+    ],
+    "Project Date": "Throughout construction",
+    "Description": "Implements air quality monitoring for tunnel construction to meet WHO and IFC guidelines for particulates and gases.",
+    "Comments": "Project includes continuous air quality monitoring in confined spaces like tunnels",
+    "Source": [
+      "https://www.theconstructionindex.com/documents/view/m-7-air-quality-and-noise-monitoring-plan",
+      "https://www.theconstructionindex.com/projects/view/sogi-hydropower-project-extension"
+    ]
+  },
+  {
+    "Company": "SR Energy",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "SST",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "SUNO ENERGÃA 5 S.L.",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "SÃ¼dbayerisches Portland-Zementwerk(SPZ)",
+    "Country": "Germany",
+    "Project": "Tunnel Construction Project",
+    "Constraint Type": [
+      "Indoor/Enclosed/Underground"
+    ],
+    "Project Date": "2021",
+    "Description": "Construction of a 5km tunnel requiring strict air quality controls",
+    "Comments": "SPZ provided low-emission cement products for tunnel lining",
+    "Source": [
+      "https://documents1.worldbank.org/curated/en/099092123113071381/txt/P1613190ac92ea01f0b94e056cc8d6be9ab.txt"
+    ]
+  },
+  {
+    "Company": "Samin",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Sanabria Solar",
+    "Country": "Spain",
+    "Project": "Helios-Sanabria Catamaran",
+    "Constraint Type": [
+      "Noise Sensitive"
+    ],
+    "Project Date": "2021",
+    "Description": "Solar-powered catamaran operating in wildlife preserve required noise reduction measures",
+    "Comments": "Project involved installing solar panels on a boat navigating Lake Sanabria, a protected natural area with strict noise regulations",
+    "Source": [
+      "https://www.onyxsolar.com/photovoltaic-boat-sanabria"
+    ]
+  },
+  {
+    "Company": "Sand+Kies Union Berlin-Brandenburg Werk Niederlehme",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Sand + Kies Union GmbH",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "SaxaVord",
+    "Country": "UK",
+    "Project": "SaxaVord Spaceport Construction",
+    "Constraint Type": [
+      "Air Quality",
+      "Noise Sensitive"
+    ],
+    "Project Date": "2021-present",
+    "Description": "Propane rocket fuel usage requires air quality monitoring and mitigation for emissions",
+    "Comments": "Propane considered 'green' but still produces pollutants requiring management",
+    "Source": [
+      "https://orbitaltoday.com/2025/03/13/the-propane-fog-whats-hiding-the-saxavord-spaceport/"
+    ]
+  },
+  {
+    "Company": "Schotterwerk Leibfritz GmbH & Co KG",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Science and Technology Facilities Council",
+    "Country": "United Kingdom",
+    "Project": "STFC Air Quality Network",
+    "Constraint Type": [
+      "Air Quality"
+    ],
+    "Project Date": "2007",
+    "Description": "Monitoring network focused on air quality standards and emissions tracking",
+    "Comments": "STFC operates air quality monitoring stations across the UK",
+    "Source": [
+      "https://imperial.ac.uk/medicine/departments/school-public-health/environmental-research-group/research/aerosol-science/stfc-air-quality-network/"
+    ]
+  },
+  {
+    "Company": "SetomÂ (syndicatÂ EtudeÂ TraitementÂ OrduresÂ MÃ©nagÃ¨res)Â deÂ l'Eure",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Shell",
+    "Country": "United Kingdom",
+    "Project": "Falcon Ethane Pipeline",
+    "Constraint Type": [
+      "Air Quality"
+    ],
+    "Project Date": "2017",
+    "Description": "Pipeline passes through High Consequence Areas with proximity to schools and drinking water sources",
+    "Comments": "Requires strict emissions controls due to HCA designation",
+    "Source": [
+      "https://www.shell.com.au/about-us/projects-and-locations/the-crux-project/crux-environmental-plans.html"
+    ]
+  },
+  {
+    "Company": "Shell",
+    "Country": "United Kingdom",
+    "Project": "Pennsylvania Petrochemicals Complex",
+    "Constraint Type": [
+      "Air Quality"
+    ],
+    "Project Date": "2022",
+    "Description": "Located in strict air quality zone requiring Title V permit",
+    "Comments": "Classified as major source under Clean Air Act",
+    "Source": [
+      "https://www.ehn.org/shell-pennsylvania-petrochemicals-complex-2667623131.html"
+    ]
+  },
+  {
+    "Company": "Sibelco",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Sibelco Deutschland GmbH",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Sibelco France",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Sirius Minerals",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Snam S.p.A.",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "SociÃ©tÃ© des CarriÃ¨res de LanhÃ©lin",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Sociedade GeotÃ©rmica dos AÃ§ores",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "SolarEnergyWorks/SADC",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Solaria",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Solarpark LÃ¶wenberg Gmbh",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "St1 Refinery AB",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Standard Aero",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Stantec",
+    "Country": "United Kingdom",
+    "Project": "Fairway Primary School Environmental Monitoring",
+    "Constraint Type": [
+      "Air Quality"
+    ],
+    "Project Date": "2025",
+    "Description": "Air quality monitoring initiative at school to reduce pollutants",
+    "Comments": "Focus on improving outdoor air quality around school buildings",
+    "Source": [
+      "https://www.stantec.com/en/projects/united-kingdom-projects/f/fairway-primary-school-environmental-monitoring"
+    ]
+  },
+  {
+    "Company": "Stantec",
+    "Country": "Australia",
+    "Project": "Children's Hospital Acoustics",
+    "Constraint Type": [
+      "Noise Sensitive"
+    ],
+    "Project Date": "2023",
+    "Description": "Acoustic design improvements for children's hospital",
+    "Comments": "Specialized noise reduction in healthcare environment",
+    "Source": [
+      "https://www.stantec.com/en/ideas/content/perspectives/2023/the-importance-of-building-acoustics-in-hospitals"
+    ]
+  },
+  {
+    "Company": "Stantec",
+    "Country": "United States",
+    "Project": "Blackwater CSO Tunnel",
+    "Constraint Type": [
+      "Indoor/Enclosed/Underground",
+      "Air Quality"
+    ],
+    "Project Date": "2024",
+    "Description": "Deep rock tunnel construction for wastewater management",
+    "Comments": "Underground tunnel requiring air quality monitoring systems",
+    "Source": [
+      "https://www.stantec.com/en/projects/united-states-projects/b/blackwater-cso-tunnel"
+    ]
+  },
+  {
+    "Company": "Statkraft",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Stellantis",
+    "Country": "Netherlands",
+    "Project": "Copper Mining Investment in Argentina",
+    "Constraint Type": [
+      "Air Quality"
+    ],
+    "Project Date": "2023",
+    "Description": "Investment in copper mining project with commitment to carbon net-zero by 2038",
+    "Comments": "Strategic investment aimed at sustainable sourcing for electrification",
+    "Source": [
+      "https://www.media.stellantis.com/em-en/corporate/press/stellantis-announces-strategic-copper-investment-in-argentina-reinforcing-commitment-to-reaching-carbon-net-zero-by-2038",
+      "https://www.stellantis.com/en/news/press-releases/2023/february/stellantis-announces-strategic-copper-investment-in-argentina-reinforcing-commitment-to-reaching-carbon-net-zero-by-2038"
+    ]
+  },
+  {
+    "Company": "Stena Line",
+    "Country": "Sweden",
+    "Project": "Stena Nordica Terminal Expansion",
+    "Constraint Type": [
+      "Indoor/Enclosed/Underground",
+      "Noise Sensitive"
+    ],
+    "Project Date": "2018",
+    "Description": "Underground rail connections required for terminal expansion",
+    "Comments": "Project involved enclosed underground work for rail integration",
+    "Source": [
+      "https://stenaline.com/media/stories/stena-line-and-port-of-gothenburg-take-next-step-towards-arendal/"
+    ]
+  },
+  {
+    "Company": "Streicher Hartsteinwerke Vogtland GmbH & Co. KG",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Suez Rv Nord Est",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "SuezÂ RvÂ NordÂ Est",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "SuezÂ RvÂ SudÂ Ouest",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "SunEdison",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Susenco/Low Carbon",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Swerock",
+    "Country": "Sweden",
+    "Project": "Electric Concrete Pump at bauma",
+    "Constraint Type": [
+      "Noise Sensitive"
+    ],
+    "Project Date": "2025",
+    "Description": "Quieter urban construction through electrification",
+    "Comments": "Demonstrates commitment to noise reduction",
+    "Source": [
+      "https://www.construction-europe.com/products-equipment/swerock-debuts-worlds-largest-electric-concrete-pump-bauma"
+    ]
+  },
+  {
+    "Company": "Swerock",
+    "Country": "Sweden",
+    "Project": "Electric Machines Trial in Helsingborg",
+    "Constraint Type": [
+      "Noise Sensitive"
+    ],
+    "Project Date": "2026",
+    "Description": "Quieter urban construction environment",
+    "Comments": "Reduced CO2 emissions by 1/3",
+    "Source": [
+      "https://www.aggregateresearch.com/articles/quieter-more-affordable-and-cleaner-as-swerock-tests-electric-machines-in-helsingborg-sweden"
+    ]
+  },
+  {
+    "Company": "Swerock",
+    "Country": "Sweden",
+    "Project": "Quarry Waste Wash Plant",
+    "Constraint Type": [
+      "Air Quality"
+    ],
+    "Project Date": "2024",
+    "Description": "Reduces quarry waste stockpiles",
+    "Comments": "Recycles materials for concrete production",
+    "Source": [
+      "https://www.cdegroup.com/en-gb/case-studies/swerock-ab-sweden-250tph-quarry-waste-wash-plant"
+    ]
+  },
+  {
+    "Company": "Swindon Pressings Ltd",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Sydkraft Thermal Power AB",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "SyndicatÂ IntercommunalÂ deÂ CollecteÂ etÂ deÂ TraitementÂ desÂ OrduresÂ MÃ©nagÃ¨resÂ deÂ laÂ Basse-ardÃ¨che",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Szybka Kolej Miejska Sp. z o.o.",
+    "Country": "Poland",
+    "Project": "Warsaw Rapid Urban Railway",
+    "Constraint Type": [
+      "Indoor/Enclosed/Underground"
+    ],
+    "Project Date": "2005",
+    "Description": "Urban rail system with multiple underground stations requiring enclosed construction techniques",
+    "Comments": "SKM Warsaw operates this system with multiple underground stations in central Warsaw",
+    "Source": [
+      "https://en.wikipedia.org/wiki/Szybka_Kolej_Miejska_(Warsaw)"
+    ]
+  },
+  {
+    "Company": "TEAM Terminal B.V.",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "TERAMB",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "TGA Tonbergbau-Grube Anton GmbH & Co. KG",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "TOTAL E&P UK",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "TPSolar",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Tacora Resources Inc.",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Tameh Polska Sp. z o.o.",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Tarmac",
+    "Country": "UK",
+    "Project": "Metro Tunnel Project",
+    "Constraint Type": [
+      "Indoor/Enclosed/Underground",
+      "Noise Sensitive"
+    ],
+    "Project Date": "Construction phase ongoing (2021-2025)",
+    "Description": "Tunnel construction requiring strict air quality standards for worker safety in confined spaces",
+    "Comments": "Implemented ventilation systems and continuous air quality monitoring",
+    "Source": [
+      "https://www.tarmac.com/sustainability/environment",
+      "https://www.westgatetunnelproject.vic.gov.au/environment/air-quality",
+      "https://www.westgatetunnelproject.vic.gov.au/environment/noise-and-vibration"
+    ]
+  },
+  {
+    "Company": "Tarmac Quarry Products",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Tata Steel",
+    "Country": "India",
+    "Project": "Noamundi Iron Ore Mine",
+    "Constraint Type": [
+      "Air Quality"
+    ],
+    "Project Date": "Ongoing since 1907",
+    "Description": "Implements dust suppression and emission controls to meet air quality standards in Jharkhand",
+    "Comments": "Faced criticism for environmental impact near protected areas",
+    "Source": [
+      "https://ejatlas.org/conflict/tata-steel-creates-pollution-and-public-health-concerns-in-ijmuiden-the-netherlands"
+    ]
+  },
+  {
+    "Company": "Tata Steel",
+    "Country": "Netherlands",
+    "Project": "IJmuiden Steel Plant",
+    "Constraint Type": [
+      "Air Quality"
+    ],
+    "Project Date": "Ongoing",
+    "Description": "Subject to strict Dutch air quality regulations requiring emission reductions",
+    "Comments": "Under investigation for excessive air pollution violations",
+    "Source": [
+      "https://www.techsteel.net/tata-steel-investigated-in-netherlands-for-excessive-air-pollution",
+      "https://ejatlas.org/conflict/tata-steel-creates-pollution-and-public-health-concerns-in-ijmuiden-the-netherlands"
+    ]
+  },
+  {
+    "Company": "Tauron",
+    "Country": "Poland",
+    "Project": "ZG Janina Mine Expansion",
+    "Constraint Type": [
+      "Indoor/Enclosed/Underground"
+    ],
+    "Project Date": "2022",
+    "Description": "Underground coal mine expansion requiring ventilation systems to maintain air quality in enclosed spaces",
+    "Comments": "Project includes development of new shafts and tunnels",
+    "Source": [
+      "https://media.tauron.pl/en/pr/302919/tauron-wydobycie-zg-janina-investment-project-in-its-main-implementation-phase"
+    ]
+  },
+  {
+    "Company": "Tauron Wytwarzanie",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Team Knowhow",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Teunesen",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "The Navigator Company",
+    "Country": "Portugal",
+    "Project": "Cacia Pulp Mill Upgrade",
+    "Constraint Type": [
+      "Air Quality"
+    ],
+    "Project Date": "2018",
+    "Description": "Implemented new air filtration system to reduce particulate emissions by 30%",
+    "Comments": "Company role: Owner/Operator. Mitigation: Installed electrostatic precipitators",
+    "Source": [
+      "https://en.wikipedia.org/wiki/The_Navigator_Company"
+    ]
+  },
+  {
+    "Company": "Thy Kalk",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "TorvfÃ¶rÃ¤dling i Sverige AB",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Tratolixo",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Tribag S.A.",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "UKAEA",
+    "Country": "United Kingdom",
+    "Project": "HS2 Chiltern Tunnels",
+    "Constraint Type": [
+      "Underground site"
+    ],
+    "Project Date": "Ongoing (started 2021)",
+    "Description": "16km twin-bore tunnel construction requiring air quality monitoring and noise/vibration management near residential and hospital areas",
+    "Comments": "Project includes extensive environmental controls for indoor air quality in tunnels and nearby sensitive receptors",
+    "Source": [
+      "https://www.rwdi.com/en/projects/hs2-chiltern-tunnels"
+    ]
+  },
+  {
+    "Company": "UKAEA",
+    "Country": "United Kingdom",
+    "Project": "North Wales Hospital Redevelopment",
+    "Constraint Type": [
+      "Underground site"
+    ],
+    "Project Date": "2025-2037",
+    "Description": "Hospital redevelopment requiring demolition of structures with roosting bats and asbestos removal from underground tunnels",
+    "Comments": "Shows need for ecological considerations in underground construction projects",
+    "Source": [
+      "https://nation.cymru/news-and-views/news/2025/09/21/roosting-bats-and-asbestos-challenges-at-ps107m-hospital-redevelopment-site/"
+    ]
+  },
+  {
+    "Company": "UK Land",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "UniÃ³n Minera del Norte",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Uniland S.A.",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Uniper",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "UniversitÃ  di Torino",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Unternehmensgruppe Peter Glindemann",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "UrzÄ…d Morski w Gdyni",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "VERBUND Austrian Thermal Power AG; EVN AG",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "VÃ©oliaÂ PropetÃ©Â ValestÂ Metz",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Valero Energy Corporation",
+    "Country": "USA",
+    "Project": "Benicia Refinery Operations",
+    "Constraint Type": [
+      "Air Quality",
+      "Noise Sensitive"
+    ],
+    "Project Date": "Ongoing operations until 2026",
+    "Description": "Valero's Benicia Refinery in California has faced regulatory scrutiny for air quality violations. In 2024, the Bay Area Air Quality Management District and California Air Resources Board fined Valero $82 million for emissions violations at the refinery.",
+    "Comments": "The Refinery is scheduled to cease operations by April 2026.",
+    "Source": [
+      "https://ww2.kqed.org/science/2025/04/17/oil-giant-valero-looks-to-shutter-troubled-bay-area-refinery-its-a-big-surprise",
+      "https://www.bayareaair.org/news-and-events/press-releases/bay-area-air-district-and-carb-fine-valero-refining-co-82-million-for-air-quality-violations",
+      "https://www.kqed.org/science/1980018/a-bay-area-refinery-town-contemplates-a-future-without-big-oil"
+    ]
+  },
+  {
+    "Company": "ValorInerte - ValorizaÃ§Ã£o de ResÃ­duos Inertes",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Valorizon",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Valteo",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Vattenfall",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Veolia",
+    "Country": "France",
+    "Project": "Les Ulis High School Renovation",
+    "Constraint Type": [
+      "Air Quality"
+    ],
+    "Project Date": "2019-2020",
+    "Description": "Installed ventilation systems to maintain CO2 levels below 1000 ppm",
+    "Comments": "Part of regional energy improvement plan",
+    "Source": [
+      "https://www.veolia.com/en/achievements/high-school-lessouriau-les-ulis-essonne-france"
+    ]
+  },
+  {
+    "Company": "Vereniging Parkmanagement Bedrijventerreinen Emmen BV",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Viesgo",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Viridor Collection Services",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Viridor Waste Management Ltd",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Volvo Lastvagnar AB",
+    "Country": "Sweden",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Volvo Lastvagnar AB",
+    "Country": "Sweden",
+    "Project": "London Clean Air Zone Construction",
+    "Constraint Type": [
+      "Air Quality"
+    ],
+    "Project Date": "2025",
+    "Description": "Electric compact machines trialed for urban construction projects",
+    "Comments": "Aims to reduce NOx and particulate emissions in city centers",
+    "Source": [
+      "https://www.volvoce.com/global/en/news-and-events/features/2025/public-health-benefits-of-electric-compact-machines/"
+    ]
+  },
+  {
+    "Company": "WAS - Wolfsburger Abfallwirtschaft und StraÃŸenreinigung",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "WElink Energy/Solara4",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "WPO",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "WÃ¼nschendorfer Dolomitwerk GmbH",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Waschkieswerk Eich GmbH & Co.KG",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Waternet",
+    "Country": "Netherlands",
+    "Project": "Amsterdam-Rijnkanaal Aqueduct Replacement",
+    "Constraint Type": [
+      "Indoor/Enclosed/Underground"
+    ],
+    "Project Date": "2018-2022",
+    "Description": "Underground construction with strict air quality controls for worker safety",
+    "Comments": "Tunnel boring under active waterway",
+    "Source": [
+      "https://www.waternet.amsterdam/en/projects/amsterdam-rijnkanaal-aquaduct-replacement/"
+    ]
+  },
+  {
+    "Company": "Waternet",
+    "Country": "Netherlands",
+    "Project": "Nieuwe Waterweg Weesp Pipeline",
+    "Constraint Type": [
+      "Noise Sensitive"
+    ],
+    "Project Date": "2021-2023",
+    "Description": "Noise mitigation required near residential homes and schools",
+    "Comments": "Implemented low-vibration techniques and sound barriers",
+    "Source": [
+      "https://www.waternet.amsterdam/en/projects/nieuwe-waterweg-weesp/"
+    ]
+  },
+  {
+    "Company": "Waterschap De Dommel",
+    "Country": "Netherlands",
+    "Project": "De Neul Waterproof Sports Park",
+    "Constraint Type": [
+      "Indoor/Enclosed/Underground"
+    ],
+    "Project Date": "2019-2021",
+    "Description": "Underground rainwater storage facilities",
+    "Comments": "Created 2,600 cubic meter underground peak water storage",
+    "Source": [
+      "https://climateadaptationplatform.nl/climate-change-adaptation-measures/de-neul-waterproof-sports-park"
+    ]
+  },
+  {
+    "Company": "Waterschap De Dommel",
+    "Country": "Netherlands",
+    "Project": "Kleine Dommel Heeze Geldrop",
+    "Constraint Type": [
+      "Noise Sensitive"
+    ],
+    "Project Date": "2014-Present",
+    "Description": "Water storage near Natura 2000 reserve",
+    "Comments": "Proximity to protected nature reserve implies noise management",
+    "Source": [
+      "https://en.wikipedia.org/wiki/Kleine_Dommel"
+    ]
+  },
+  {
+    "Company": "Waystone Developments Ltd",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Welser Kieswerke Treul & Co. Ges.m.b.H.",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Welser Profile Austria GmbH",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Whitemountain Quarries",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Whitemountain Quarries Ltd",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Whyte & Mackay",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Wienerberger",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Wienerberger GmbH",
+    "Country": "Austria",
+    "Project": "Ewhurst Clay Pit Restoration",
+    "Constraint Type": [
+      "Noise Sensitive"
+    ],
+    "Project Date": "2019",
+    "Description": "Restoration of former clay mining site near residential areas required noise-sensitive operations during wildlife breeding seasons",
+    "Comments": "Wienerberger partnered with local authorities for habitat restoration; implemented noise reduction measures during construction",
+    "Source": [
+      "https://www.wienerberger.co.uk/about-us/news-blogs/transforming-ewhurst.html"
+    ]
+  },
+  {
+    "Company": "Wild Landfill",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "WodociÄ…gi i Kanalizacja \"\"AKWA\"\" Sp. z o.o.",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Wodociagi BiaÅ‚ostockie",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Wokas-Kopalnie Torfu Sp. z o.o.",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Woxna Graphite",
+    "Country": "Sweden",
+    "Project": "Woxna Mine Expansion",
+    "Constraint Type": [
+      "Indoor/Enclosed/Underground",
+      "Air Quality"
+    ],
+    "Project Date": "Ongoing",
+    "Description": "Underground mining operations requiring confined space air quality management",
+    "Comments": "Project includes development of ventilation systems for tunnels",
+    "Source": [
+      "https://www.majorminesprojects.com/woxna-graphite-project/"
+    ]
+  },
+  {
+    "Company": "XPO Logistics",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "ZE PAK",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "ZPB Kaczmarek",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "ZPK RupiÅ„scy",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "ZakÅ‚ady Chemiczne i Tworzyw Sztucznych Boryszew S.A.",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "ZakÅ‚ady Wapiennicze Lhoist S.A.",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Zementwerk Hatschek GmbH",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "ZespÃ³Å‚ Elektrowni PÄ…tnÃ³w-AdamÃ³w-Konin S.A.",
+    "Country": "",
+    "Project": "",
+    "Constraint Type": [],
+    "Project Date": "",
+    "Description": "",
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Ã˜rsted",
+    "Country": "United Kingdom",
+    "Project": "UK Battery Energy Storage System",
+    "Constraint Type": [
+      "Noise Sensitive"
+    ],
+    "Project Date": "2025",
+    "Description": "Construction near residential areas required noise mitigation measures",
+    "Comments": "Project broke ground in March 2025; includes advanced noise reduction technology",
+    "Source": [
+      "https://orsted.co.uk/media/newsroom/news/2025/03/orsted-breaks-ground-on-innovative-uk-battery-energy-storage-system"
+    ]
+  },
+  {
+    "Company": "evonik",
+    "Country": "Germany",
+    "Project": "Hanau Groundwater Remediation",
+    "Constraint Type": [
+      "Indoor/Enclosed/Underground"
+    ],
+    "Project Date": "Award-winning project (year unspecified)",
+    "Description": "Groundwater remediation in an urban neighborhood requiring underground containment measures",
+    "Comments": "Evonik's role as project manager for environmental restoration",
+    "Source": [
+      "https://active-oxygens.evonik.com/en/evonik-remediates-groundwater-in-hanau-neighborhood-in-award-winning-project-247934.html"
+    ]
+  }
+]
