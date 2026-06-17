@@ -51,7 +51,8 @@ const industry    = args.industry || 'construction infrastructure materials heav
 const rawModelId  = args.model || process.env.BEDROCK_RESEARCH_MODEL_ID || 'amazon.nova-premier-v1:0';
 const modelId     = /^(us|eu|ap)\./.test(rawModelId) ? rawModelId : `us.${rawModelId}`;
 const region      = args.region || process.env.AWS_REGION || 'us-east-2';
-const numRuns     = Math.max(1, parseInt(args.runs || '3', 10));
+const numRuns     = Math.max(1, parseInt(args.runs || '1', 10));
+const concurrency = Math.max(1, parseInt(args.concurrency || '4', 10));
 
 console.log(`\n🔬 LangGraph 5-Category Research`);
 console.log(`   Companies : ${companies.join(', ')}`);
@@ -59,6 +60,7 @@ console.log(`   Industry  : ${industry}`);
 console.log(`   Model     : ${modelId}`);
 console.log(`   Region    : ${region}`);
 console.log(`   Runs/task : ${numRuns}`);
+console.log(`   Workers   : ${concurrency}`);
 console.log(`   Output    : ${outputDir}\n`);
 
 // ── Bedrock client ────────────────────────────────────────────────────────────
@@ -86,6 +88,30 @@ function extractJsonObject(text) {
   const end   = text.lastIndexOf('}');
   if (start === -1 || end === -1 || end <= start) return null;
   try { return JSON.parse(text.slice(start, end + 1)); } catch { return null; }
+}
+
+function createLimiter(limit) {
+  let active = 0;
+  const queue = [];
+
+  const next = () => {
+    if (active >= limit) return;
+    const entry = queue.shift();
+    if (!entry) return;
+    active += 1;
+    Promise.resolve()
+      .then(entry.fn)
+      .then(entry.resolve, entry.reject)
+      .finally(() => {
+        active -= 1;
+        next();
+      });
+  };
+
+  return (fn) => new Promise((resolve, reject) => {
+    queue.push({ fn, resolve, reject });
+    next();
+  });
 }
 
 // ── Page fetcher ──────────────────────────────────────────────────────────────
@@ -994,9 +1020,11 @@ async function main() {
     }
   }
 
-  // Run all company × category in parallel
+  const limit = createLimiter(concurrency);
+
+  // Run company × category with a bounded number of concurrent workers
   const results = await Promise.all(
-    tasks.map(async ({ company, catKey }) => {
+    tasks.map(({ company, catKey }) => limit(async () => {
       const catConfig = CATEGORIES[catKey];
       process.stdout.write(`  [${catKey}] ${company.slice(0, 40)}… `);
       try {
@@ -1008,7 +1036,7 @@ async function main() {
         console.log(`✗ ${err.message}`);
         return { company, catKey, result: [catConfig.emptyRecord(company)] };
       }
-    })
+    }))
   );
 
   // Group by category — each company contributes an array of records (one per result found)
