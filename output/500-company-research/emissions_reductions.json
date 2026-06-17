@@ -1,0 +1,5191 @@
+[
+  {
+    "Company": "50Hertz Transmission GmbH;Avacon Netz GmbH",
+    "Country": "Germany",
+    "Emissions Reduction Target": "100% renewable energy in grid area",
+    "Target Year": "2032",
+    "Baseline Year": "",
+    "Pledge Year": "2020",
+    "Net-Zero Target": true,
+    "Comments": "Commitment to 100% renewable energy integration implies significant emissions reductions",
+    "Source": [
+      "https://www.50hertz.com/en/Company/Sustainability/Climate-and-environment",
+      "https://www.eliagroup.eu/en/elia-group-climate-approach"
+    ]
+  },
+  {
+    "Company": "A2A",
+    "Country": "Italy",
+    "Emissions Reduction Target": "90%",
+    "Target Year": "2050",
+    "Baseline Year": "2023",
+    "Pledge Year": "2025",
+    "Net-Zero Target": true,
+    "Comments": "Carbon footprint reduction compared to 2023 levels, with residual emissions neutralized through certified removals",
+    "Source": [
+      "https://www.southpole.com/work/developing-a-climate-transition-plan-for-a2a"
+    ]
+  },
+  {
+    "Company": "ALSÃ‰Ã‰N",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "AMPYR Solar Europe",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "ANDRA",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Abbey Renewables",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Aberdeen Harbour Board",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Acciona Solar",
+    "Country": "Spain",
+    "Emissions Reduction Target": "60% reduction in greenhouse gas emissions",
+    "Target Year": "2030",
+    "Baseline Year": "2017",
+    "Pledge Year": "2019",
+    "Net-Zero Target": true,
+    "Comments": "Company has been carbon neutral since 2016 and committed to net-zero by 2040",
+    "Source": [
+      "https://www.acciona.com/updates/news/acciona-steps-up-its-climate-ambition-and-commits-to-reducing-its-greenhouse-gas-emissions-by-60-for-2030/",
+      "https://www.acciona-energia.com/updates/news/acciona-steps-up-its-climate-ambition-and-commits-to-reducing-its-greenhouse-gas-emissions-by-60-for-2030"
+    ]
+  },
+  {
+    "Company": "Acea Ambiente",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Adif",
+    "Country": "Spain",
+    "Emissions Reduction Target": "up to 86%",
+    "Target Year": "2030",
+    "Baseline Year": "2018",
+    "Pledge Year": "2023",
+    "Net-Zero Target": true,
+    "Comments": "The company aims to achieve net zero greenhouse gas emissions by 2050.",
+    "Source": [
+      "https://www.railjournal.com/sustainability/adif-to-reduce-carbon-footprint-by-up-to-86-by-2030/",
+      "https://www.adif.es/en_GB/sostenibilidad/58457"
+    ]
+  },
+  {
+    "Company": "Albispark",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Alcoa",
+    "Country": "United States",
+    "Emissions Reduction Target": "30% reduction in GHG intensity",
+    "Target Year": "2025",
+    "Baseline Year": "2015",
+    "Pledge Year": "2016",
+    "Net-Zero Target": true,
+    "Comments": "Target applies to aluminum smelting and alumina refining operations (Scope 1 and 2)",
+    "Source": [
+      "https://www.alcoa.com/global/en/sustainability/climate-change.asp"
+    ]
+  },
+  {
+    "Company": "Alcoa",
+    "Country": "United States",
+    "Emissions Reduction Target": "50% reduction in GHG intensity",
+    "Target Year": "2030",
+    "Baseline Year": "2015",
+    "Pledge Year": "2016",
+    "Net-Zero Target": true,
+    "Comments": "Target applies to aluminum smelting and alumina refining operations (Scope 1 and 2)",
+    "Source": [
+      "https://www.alcoa.com/global/en/sustainability/climate-change.asp"
+    ]
+  },
+  {
+    "Company": "Alcoa",
+    "Country": "United States",
+    "Emissions Reduction Target": "Net-zero emissions",
+    "Target Year": "2050",
+    "Baseline Year": "",
+    "Pledge Year": "2021",
+    "Net-Zero Target": true,
+    "Comments": "Covers all global operations (Scope 1 and 2)",
+    "Source": [
+      "https://www.alcoa.com/global/en/news/press-releases/2021/october/alcoa-states-its-ambition-to-reach-net-zero-greenhouse-gas-emissions-by-2050.asp"
+    ]
+  },
+  {
+    "Company": "Alfa Logistik Sp. z o.o.",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Algar",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "AlphaReal",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Alseva",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Alter Enersun CÃ¡ceres Tres",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Ambassador",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Ambilital",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Ambisousa",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Amey",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Amey Cespa",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Anesco",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Angle Park Sand & Gravel Co.",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "AprovalÂ 16",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Aquila Capital",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Arcillas Oliete",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Ardagh Glass",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "August Oppermann Kiesgewinnungs- und -Vertriebs-GmbH",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Aura Power",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "2030",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": true,
+    "Comments": "Committed to net zero carbon emissions by 2030 but no quantitative reduction targets found",
+    "Source": [
+      "https://www.aurapower.com/our-approach/",
+      "https://www.cdp.net/en/companies/companies-scores?searchTerm=Aura+Power",
+      "https://sciencebasedtargets.org/companies-taking-action?search=aura+power"
+    ]
+  },
+  {
+    "Company": "Avantis Services NV",
+    "Country": "Belgium",
+    "Emissions Reduction Target": "Committed to science-based targets for emissions reductions",
+    "Target Year": "2030",
+    "Baseline Year": "2021",
+    "Pledge Year": "2022",
+    "Net-Zero Target": true,
+    "Comments": "Avantis Services NV has established science-based targets for greenhouse gas emissions reductions aligned with SBTi criteria, aiming for 2030 with 2021 as baseline year",
+    "Source": [
+      "https://avantiseducation.com/news/avantis-education-publishes-esg-highlights-report-2024/"
+    ]
+  },
+  {
+    "Company": "Ayuntamiento de Burgos",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Azimuthbenefit",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "AzurÂ Valorisation",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "BASF SE",
+    "Country": "Germany",
+    "Emissions Reduction Target": "25% reduction in absolute CO2 emissions",
+    "Target Year": "2030",
+    "Baseline Year": "2018",
+    "Pledge Year": "2021",
+    "Net-Zero Target": true,
+    "Comments": "Targets Scope 1 and 2 emissions",
+    "Source": [
+      "https://www.basf.com/global/en/investors/calendar-and-publications/factbook/basf-group/strategy/targets.html"
+    ]
+  },
+  {
+    "Company": "BASF SE",
+    "Country": "Germany",
+    "Emissions Reduction Target": "Net-zero greenhouse gas emissions",
+    "Target Year": "2050",
+    "Baseline Year": "",
+    "Pledge Year": "2020",
+    "Net-Zero Target": true,
+    "Comments": "Includes Scope 1, 2 and 3.1 emissions",
+    "Source": [
+      "https://bericht.basf.com/2024/en/combined-managements-report/fundamentals-of-the-group/strategy/our-targets.html"
+    ]
+  },
+  {
+    "Company": "BMW AG",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Banco Santander",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Banks Group",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Bardon Aggregates",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Basalt AG",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Basaltwerk Pechbrunn GmbH",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Betriebsleiterin: Anja Sommerfeld",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Better Energy",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Better Energy A/S",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Better Energy BadskÃ¦r P/S",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Better Energy Fraugde P/S",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Bloor Homes Southern",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Bluefield Solar",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Boryszew S.A.",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Breedon Aggregates",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Brice Aggregates",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "British Solar Renewables",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "BurgenlÃ¤ndischer MÃ¼llverband",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Burgenland Energie;ImWind",
+    "Country": "Austria",
+    "Emissions Reduction Target": "Net zero",
+    "Target Year": "2030",
+    "Baseline Year": "",
+    "Pledge Year": "2021",
+    "Net-Zero Target": true,
+    "Comments": "Burgenland Energie's parent company, Energie Burgenland AG, has committed to making the Burgenland region climate-neutral by 2025 through a €2 billion investment in renewables.",
+    "Source": [
+      "https://www.neuezeit.at/burgenland-austrias-invests-two-billion-for-new-climate-change-policy/"
+    ]
+  },
+  {
+    "Company": "CEM Ambiente",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "CF Industries",
+    "Country": "United States",
+    "Emissions Reduction Target": "Net-zero Scope 1 and 2 emissions",
+    "Target Year": "2050",
+    "Baseline Year": "",
+    "Pledge Year": "2023",
+    "Net-Zero Target": true,
+    "Comments": "Includes 25% Scope 1 CO2e intensity reduction by 2030 (2015 baseline)",
+    "Source": [
+      "https://www.cfindustries.com/sustainability/our-decarbonization-strategy",
+      "https://www.cfindustries.com/investors/news-events-and-presentations/press-releases/press-release-details/2023/CF-Industries-Announces-Emissions-Reduction-Project-at-Yazoo-City-MS-Facility-Agreement-with-ExxonMobil-to-Transport-and-Sequester-Up-to-500000-Metric-Tons-CO2-Annually/default.aspx"
+    ]
+  },
+  {
+    "Company": "CIMPOR - Cimentos de Portugal",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "CLC",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "CLH",
+    "Country": "UK",
+    "Emissions Reduction Target": "Net zero carbon emissions",
+    "Target Year": "2045",
+    "Baseline Year": "",
+    "Pledge Year": "2023",
+    "Net-Zero Target": true,
+    "Comments": "Part of NHS commitment to reach net zero by 2045",
+    "Source": [
+      "https://www.clch.nhs.uk/about-us/ensuring-a-sustainable-future"
+    ]
+  },
+  {
+    "Company": "CLH",
+    "Country": "UK",
+    "Emissions Reduction Target": "47% reduction in direct emissions",
+    "Target Year": "2028-2032",
+    "Baseline Year": "Current levels",
+    "Pledge Year": "2023",
+    "Net-Zero Target": true,
+    "Comments": "Reduction in emissions under direct control compared to current levels",
+    "Source": [
+      "https://www.clch.nhs.uk/about-us/ensuring-a-sustainable-future"
+    ]
+  },
+  {
+    "Company": "CSIC;MPG",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Calcia",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Carbosulcis Spa",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Cardiff International Airport Limited",
+    "Country": "United Kingdom",
+    "Emissions Reduction Target": "Carbon neutral",
+    "Target Year": "2040",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": true,
+    "Comments": "Commitment to become carbon neutral by 2040",
+    "Source": [
+      "https://www.airport-technology.com/news/cardiff-airport-aims-to-become-a-carbon-neutral-airport-by-2040/?"
+    ]
+  },
+  {
+    "Company": "Carmarthenshire County Council",
+    "Country": "Wales",
+    "Emissions Reduction Target": "Net Zero Carbon",
+    "Target Year": "2030",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": true,
+    "Comments": "The council aims to achieve net zero carbon emissions by 2030 through energy conservation measures and solar energy.",
+    "Source": [
+      "https://www.ameresco.com/portfolio-item/carmarthenshire-county-council-wales-uk/",
+      "https://www.carmarthenshire.gov.wales/home/council-services/climate-change-and-biodiversity/climate-change/reduce-carbon-emissions/"
+    ]
+  },
+  {
+    "Company": "Castle Green",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Celsa Group",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Cementos Cosmos",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Cemex",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Central Fotovoltaica Sol Poente",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Centrales Nucleares Almaraz-Trillo",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Chint Solar/ Astronergy",
+    "Country": "China",
+    "Emissions Reduction Target": "Carbon neutrality in operations",
+    "Target Year": "2028",
+    "Baseline Year": "",
+    "Pledge Year": "2023",
+    "Net-Zero Target": true,
+    "Comments": "Applies to CHINT Group's operations including carbon offsets",
+    "Source": [
+      "https://www.chintglobal.com/fr/fr/about-us/news-center/news/chint-reveals-carbon-neutral-plan-for-clients.html",
+      "https://www.chintglobal.com/global/en/about-us/news-center/news/chint-reveals-carbon-neutral-plan-for-clients.html"
+    ]
+  },
+  {
+    "Company": "Clearway Group",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Cleve Hill Solar Park Ltd",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "CoÃ¶peratie Royal FloraHolland U.A.",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "ConocoPhillips",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Consorcio para la GestiÃ³n de los Residuos SÃ³lidos de Asturias",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Cooperativa Agroverde",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "DIF Capital Partners / Green Investment Group",
+    "Country": "Netherlands",
+    "Emissions Reduction Target": "100% of AUM to be aligned to net zero",
+    "Target Year": "2040",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": true,
+    "Comments": "DIF Capital Partners has committed to aligning 100% of its assets under management to net zero by 2040.",
+    "Source": [
+      "https://www.dif.eu/app/uploads/2022/11/NZAM-Public-Statement-of-Commitment-DIF.pdf"
+    ]
+  },
+  {
+    "Company": "DIF Capital Partners / Green Investment Group",
+    "Country": "United Kingdom",
+    "Emissions Reduction Target": "Net zero aligned actions",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "2021",
+    "Net-Zero Target": true,
+    "Comments": "Green Investment Group has committed to a series of net-zero aligned actions since May 2021, although specific numerical targets are not detailed in the available sources.",
+    "Source": [
+      "https://greeninvestmentgroup.com/net-zero/"
+    ]
+  },
+  {
+    "Company": "DP World",
+    "Country": "United Arab Emirates",
+    "Emissions Reduction Target": "42% reduction in Scope 1 and 62.2% reduction in Scope 2 GHG emissions by 2030 from 2022 levels",
+    "Target Year": "2030",
+    "Baseline Year": "2022",
+    "Pledge Year": "2024",
+    "Net-Zero Target": true,
+    "Comments": "DP World aims to achieve net-zero carbon emissions by 2050 and a 28% reduction in Scope 3 emissions by 2030 from 2022 levels.",
+    "Source": [
+      "https://sustainabilitymag.com/news/dp-world-sustainability-net-zero-and-climate-change-action",
+      "https://economymiddleeast.com/news/uaes-dp-world-sets-ambitious-emission-cuts-goals-commits-to-net-zero-by-2050-with-sbti-approval/"
+    ]
+  },
+  {
+    "Company": "Daisy No1 Limited",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Days of Luck",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Delta Terminal AB",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Dolata",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Dow Silicones UK Ltd.",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Dragage du Val de Loire",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "DuPont (U.K.) Limited",
+    "Country": "United Kingdom",
+    "Emissions Reduction Target": "50% reduction in Scopes 1 and 2 emissions",
+    "Target Year": "2030",
+    "Baseline Year": "2019",
+    "Pledge Year": "2021",
+    "Net-Zero Target": true,
+    "Comments": "Includes Scope 3 emissions reduction of 25% by 2030 from 2020 baseline; Committed to carbon neutral operations by 2050",
+    "Source": [
+      "https://www.dupont.co.uk/about/sustainability/our-goals.html",
+      "https://www.dupont.com/news/dupont-publishes-2026-sustainability-report.html",
+      "https://www.dupont.com/news/dupont-commits-to-net-zero-emissions-by-2050.html"
+    ]
+  },
+  {
+    "Company": "Dunea",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "EDF",
+    "Country": "France",
+    "Emissions Reduction Target": "60% reduction in Scope 1 emissions",
+    "Target Year": "2025",
+    "Baseline Year": "2017",
+    "Pledge Year": "2020",
+    "Net-Zero Target": true,
+    "Comments": "EDF aims for 60% Scope 1 reduction by 2025 (vs 2017) and 70% by 2030. Targets validated by SBTi as 1.5°C-aligned.",
+    "Source": [
+      "https://www.edf.fr/en/the-edf-group/dedicated-sections/journalists/all-press-releases/edf-group-announces-new-objectives-to-reduce-its-co2-emissions-and-reach-net-zero-emissions",
+      "https://www.edf.fr/en/the-edf-group/taking-action-as-a-responsible-company/corporate-social-responsibility/building-the-electricity-system-of-tomorrow/doing-even-more-to-reduce-co2-emissions"
+    ]
+  },
+  {
+    "Company": "EDF",
+    "Country": "France",
+    "Emissions Reduction Target": "Net zero emissions",
+    "Target Year": "2050",
+    "Baseline Year": "",
+    "Pledge Year": "2020",
+    "Net-Zero Target": true,
+    "Comments": "Net zero target covers all GHG scopes (1,2,3) globally and follows SBTi validation of interim targets.",
+    "Source": [
+      "https://www.edf.fr/en/the-edf-group/dedicated-sections/journalists/all-press-releases/edf-group-announces-new-objectives-to-reduce-its-co2-emissions-and-reach-net-zero-emissions",
+      "https://www.edf.fr/en/the-edf-group/dedicated-sections/journalists/all-press-releases/fifth-anniversary-of-the-paris-agreement-edf-steps-up-its-ambitions-and-takes-new-climate-commitments"
+    ]
+  },
+  {
+    "Company": "EDF Ekoserwis Sp. z o.o.",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "EDF Energy",
+    "Country": "United Kingdom",
+    "Emissions Reduction Target": "Net Zero",
+    "Target Year": "2050",
+    "Baseline Year": "2017",
+    "Pledge Year": "2020",
+    "Net-Zero Target": true,
+    "Comments": "Covers all greenhouse gas emissions (Scopes 1, 2 and 3) across all regions. Validated by Moody's as 1.5°C-aligned.",
+    "Source": [
+      "https://www.edf.fr/en/group-edf/raison-detre/fight-against-climate-change",
+      "https://www.edf-energy.co.uk/about-us/sustainable-business-progress-update"
+    ]
+  },
+  {
+    "Company": "EDF Energy",
+    "Country": "United Kingdom",
+    "Emissions Reduction Target": "60% reduction",
+    "Target Year": "2025",
+    "Baseline Year": "2017",
+    "Pledge Year": "2020",
+    "Net-Zero Target": true,
+    "Comments": "Specific target for Scope 1 emissions (direct emissions from owned sources).",
+    "Source": [
+      "https://group.edf.com/en/news/press-releases/cop28-edf-group-announces-new-objectives-reduce-its-co2-emissions-and-reach-net-zero"
+    ]
+  },
+  {
+    "Company": "EDF Renewables",
+    "Country": "France",
+    "Emissions Reduction Target": "50%",
+    "Target Year": "2030",
+    "Baseline Year": "2017",
+    "Pledge Year": "2020",
+    "Net-Zero Target": true,
+    "Comments": "Scope 1 & 2 emissions",
+    "Source": [
+      "https://www.edf.fr/groupe-edf/en/the-edf-group/who-we-are/sustainable-development/a-low-carbon-and-resilient-model/a-net-zero-energy-future"
+    ]
+  },
+  {
+    "Company": "EDF Renewables",
+    "Country": "France",
+    "Emissions Reduction Target": "Net zero",
+    "Target Year": "2050",
+    "Baseline Year": "",
+    "Pledge Year": "2020",
+    "Net-Zero Target": true,
+    "Comments": "Across all scopes",
+    "Source": [
+      "https://www.edf.fr/groupe-edf/en/the-edf-group/who-we-are/sustainable-development/a-low-carbon-and-resilient-model/a-net-zero-energy-future"
+    ]
+  },
+  {
+    "Company": "EDP RenovÃ¡veis",
+    "Country": "Portugal",
+    "Emissions Reduction Target": "Aligned with EDP Group's 98% reduction by 2030",
+    "Target Year": "2030",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": true,
+    "Comments": "EDP Renováveis operates under EDP Group's commitment to reduce emissions by 98% by 2030 and achieve net zero by 2040. Specific targets for the subsidiary aren't isolated but inherit parent goals.",
+    "Source": [
+      "https://www.edp.com/en/we-fight-climate-change",
+      "https://www.edp.com/en/investors/newsroom/press-releases/edp-reinforces-decarbonization-targets-reducing-98-emissions-2030"
+    ]
+  },
+  {
+    "Company": "EDP Renovables EspaÃ±a S.L.U.",
+    "Country": "Spain",
+    "Emissions Reduction Target": "Net zero emissions",
+    "Target Year": "2040",
+    "Baseline Year": "2020",
+    "Pledge Year": "2020",
+    "Net-Zero Target": true,
+    "Comments": "EDP aims for net zero emissions by 2040 with validated science-based targets",
+    "Source": [
+      "https://edp.com/en/responsible-action"
+    ]
+  },
+  {
+    "Company": "EIDF",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "EKZ Renewables AG",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "ENERFONT - Fontes de Energia",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "ENERPARC",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "ENI",
+    "Country": "Italy",
+    "Emissions Reduction Target": "Net zero by 2050",
+    "Target Year": "2050",
+    "Baseline Year": "2018",
+    "Pledge Year": "2024",
+    "Net-Zero Target": true,
+    "Comments": "Interim targets: -68% Upstream Scope 1+2 by 2030; Net zero Upstream by 2030; Net zero company-wide by 2035; Net zero Scope 1+2+3 intensity by 2050",
+    "Source": [
+      "https://www.eni.com/en-IT/sustainability/climate-and-decarbonisation.html",
+      "https://www.eni.com/en-IT/eni-for/2025.html",
+      "https://www.eni.com/en-IT/eni-for/eni-for-2023.html"
+    ]
+  },
+  {
+    "Company": "ENUSA",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "EPAL",
+    "Country": "India",
+    "Emissions Reduction Target": "55%",
+    "Target Year": "2030",
+    "Baseline Year": "2018",
+    "Pledge Year": "2024",
+    "Net-Zero Target": true,
+    "Comments": "Net-zero target year is 2050. Achieved EcoVadis Gold sustainability awards 2023-24",
+    "Source": [
+      "https://www.epal-packaging.com/globalassets/global/downloads/sustainability/epl-global-sustainability-report-fy-2024.pdf"
+    ]
+  },
+  {
+    "Company": "EPZ",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "EP UK Investments",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "ESB",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "EVB",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "E.ON EspaÃ±a",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Eden Renewables",
+    "Country": "United Kingdom",
+    "Emissions Reduction Target": "Carbon neutrality for all operations",
+    "Target Year": "2025",
+    "Baseline Year": "",
+    "Pledge Year": "2024",
+    "Net-Zero Target": true,
+    "Comments": "Commitment to offset remaining emissions through reforestation projects",
+    "Source": [
+      "https://uk.edenrenewables.com/news/2024/tackling-climate-change-through-clean-energy",
+      "https://edenrenewables.com/news/2024/tackling-climate-change-through-clean-energy"
+    ]
+  },
+  {
+    "Company": "Edipower",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "ElektrociepÅ‚ownia Siekierki",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Elysium Solar",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Ence",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Encompass",
+    "Country": "United States",
+    "Emissions Reduction Target": "50% reduction",
+    "Target Year": "2030",
+    "Baseline Year": "2005",
+    "Pledge Year": "2022",
+    "Net-Zero Target": true,
+    "Comments": "Committed to 50% emissions reduction by 2030 from 2005 baseline as part of Biden Administration's climate pledge",
+    "Source": [
+      "https://www.transitionpathwayinitiative.org/companies/encompass-health"
+    ]
+  },
+  {
+    "Company": "Endesa",
+    "Country": "Spain",
+    "Emissions Reduction Target": "Net zero",
+    "Target Year": "2040",
+    "Baseline Year": "2023",
+    "Pledge Year": "2023",
+    "Net-Zero Target": true,
+    "Comments": "Aligned with SBTi and Paris Agreement goals",
+    "Source": [
+      "https://www.endesa.com/en/press/press-room/noticias/endesa-reaffirms-its-commitment-sustainability-confirming-goal-zero-emissions-2040",
+      "https://group.endesa.com/en/sustainability/our-commitment/energy-transition/decarbonisation"
+    ]
+  },
+  {
+    "Company": "Enea Wytwarzanie S.A.",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Eneco",
+    "Country": "Netherlands",
+    "Emissions Reduction Target": "Net-zero",
+    "Target Year": "2035",
+    "Baseline Year": "Not explicitly stated",
+    "Pledge Year": "Not explicitly stated",
+    "Net-Zero Target": true,
+    "Comments": "Eneco has committed to becoming climate neutral by 2035 through its climate plan, focusing on green electricity and alternatives to natural gas.",
+    "Source": [
+      "https://www.eneco.nl/en/about-us/what-we-do/overview-climate/",
+      "https://www.eneco.nl/en/about-us/who-we-are/one-planet-plan/our-climate-plan/"
+    ]
+  },
+  {
+    "Company": "Enel",
+    "Country": "Italy",
+    "Emissions Reduction Target": "80% reduction in direct GHG emissions per kWh",
+    "Target Year": "2030",
+    "Baseline Year": "2017",
+    "Pledge Year": "2020",
+    "Net-Zero Target": true,
+    "Comments": "Target validated by SBTi. Separate net-zero goal for 2040.",
+    "Source": [
+      "https://www.enel.com/investors/sustainability/strategy-sustainable-progress/sustainability-plan",
+      "https://www.enelamericas.com/content/enel-americas/en/megamenu/Sustainability/Environment.html"
+    ]
+  },
+  {
+    "Company": "Energi Innovation",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Enerparc",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Enerstar",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Engie",
+    "Country": "France",
+    "Emissions Reduction Target": "-64% Scope 1-3 GHG by 2030",
+    "Target Year": "2030",
+    "Baseline Year": "2019",
+    "Pledge Year": "2022",
+    "Net-Zero Target": true,
+    "Comments": "Net Zero Carbon by 2045",
+    "Source": [
+      "https://www.engie.com/en/explore/voices-of/engie-accelerates-its-decarbonization-trajectory-for-2030/",
+      "https://www.engie.com/en/news/6-questions-julia-maris"
+    ]
+  },
+  {
+    "Company": "Eni",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Eni New Energy",
+    "Country": "Italy",
+    "Emissions Reduction Target": "Net zero",
+    "Target Year": "2050",
+    "Baseline Year": "2018",
+    "Pledge Year": "2021",
+    "Net-Zero Target": true,
+    "Comments": "Eni commits to carbon neutrality by 2050 with intermediate targets including -68% net Scope 1+2 upstream GHG emissions by 2030",
+    "Source": [
+      "https://www.eni.com/static/en-IT/infographics/eni-for-2021/carbon-neutrality/",
+      "https://www.eni.com/en-IT/media/press-release/2025/05/eni-publishes-eni-for-2024-report-highlighting.html"
+    ]
+  },
+  {
+    "Company": "Enipower",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Escalabis Solar",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Essent",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Etares",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "European Space Agency",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Evos",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Excavaciones TemiÃ±o PÃ©rez SA",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Excavaciones UcediÃ±os",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Exolum",
+    "Country": "",
+    "Emissions Reduction Target": "53% reduction",
+    "Target Year": "2030",
+    "Baseline Year": "2018",
+    "Pledge Year": "",
+    "Net-Zero Target": true,
+    "Comments": "Aligned with SBTi targets. Net Zero by 2040 with 90% reduction",
+    "Source": [
+      "https://exolum.com/en/sustainability/environment/net-zero-plan/",
+      "https://exolum.com/sostenibilidad/medioambiente/net-zero-plan/"
+    ]
+  },
+  {
+    "Company": "Exus Management Partners",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "ExxonMobil",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "FORS Varme HolbÃ¦k A/S",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "FRV",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Finnmark Sand AS",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Forsmarks Kraftgrupp",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Fortum Power and Heat Polska Sp. z o.o.",
+    "Country": "Poland",
+    "Emissions Reduction Target": "90% per MWh Scope 1&2 by 2040",
+    "Target Year": "2040",
+    "Baseline Year": "2023",
+    "Pledge Year": "2024",
+    "Net-Zero Target": true,
+    "Comments": "Part of Fortum Group's net-zero by 2040 commitment. Targets include coal phase-out in Poland by 2027 and biomass transition in CHP plants.",
+    "Source": [
+      "https://www.fortum.com/en/media/2025/01/fortum-introduces-ambitious-climate-targets-validated-sbti-sets-net-zero-target-2040",
+      "https://www.fortum.com/en/media/2025/10/fortum-advances-its-coal-exit-eur-85-million-investment-decarbonisation-zabrze-plant-poland"
+    ]
+  },
+  {
+    "Company": "Fresh Park Venlo B.V.",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "GDDKiA",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "GEDESMA",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "GIE OSIRIS",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "GLP",
+    "Country": "Singapore",
+    "Emissions Reduction Target": "Carbon neutral",
+    "Target Year": "Before 2050",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": true,
+    "Comments": "GLP has committed to be carbon neutral before 2050 and is working on strengthening their climate change commitments.",
+    "Source": [
+      "https://www.glp.com/article/glp-releases-annual-esg-report",
+      "https://eu.glp.com/esg/develop-and-manage-sustainable/"
+    ]
+  },
+  {
+    "Company": "GP Alster Kies GmbH  An der B 195 19246 LÃ¼ttow  Tel.: 038851 84-0 Fax: 038851 84-192 E-Mail: info.alsterkies@gp-papenburg.de",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "GP GÃ¼nter Papenburg AG",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "GÃ³raÅ¼dÅ¼e Cement S.A.",
+    "Country": "Poland",
+    "Emissions Reduction Target": "50%",
+    "Target Year": "2030",
+    "Baseline Year": "2019",
+    "Pledge Year": "2025",
+    "Net-Zero Target": true,
+    "Comments": "Committed to a 50% reduction in CO2 emissions by 2030 (from 2019 levels) and net-zero by 2050",
+    "Source": [
+      "https://www.heidelbergmaterials.com/en/media/press-releases/heidelbergcement-submits-near-and-long-term-co2-reduction-targets-science-based-targets-initiative",
+      "https://www.globalcement.com/news/itemlist/tag/G%C3%B3ra%C5%BAd%C5%BAe"
+    ]
+  },
+  {
+    "Company": "GÃ³raÅ¼dÅ¼e Kruszywa",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "GÃ³raÅ¼dze Grupa Haldenberg",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "GÃ³raÅ¼dze Kruszywa sp. z o.o.",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "GÃ³rnicze ZakÅ‚ady Dolomitowe S.A.",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "GÃ¶teborgs Hamn AB",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Galp New Energies",
+    "Country": "Portugal",
+    "Emissions Reduction Target": "Net-zero carbon intensity by 2050",
+    "Target Year": "2050",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": true,
+    "Comments": "Interim target to reduce emissions intensity by 4% annually between 2022-2027",
+    "Source": [
+      "https://knowesg.com/esg-ratings/galp-energia-sgps-s-a",
+      "https://www.worldbenchmarkingalliance.org/publication/oil-and-gas/companies/galp-energia-3/"
+    ]
+  },
+  {
+    "Company": "Gasunie",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Gemeinde Schwanfeld",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Generg Sol do Alentejo - Energias RenovÃ¡veis",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Gilde GmbH",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Glennmont;CEF Energia Iberica",
+    "Country": "Portugal",
+    "Emissions Reduction Target": "Net zero emissions",
+    "Target Year": "2040",
+    "Baseline Year": "",
+    "Pledge Year": "2023",
+    "Net-Zero Target": true,
+    "Comments": "CEF Energia Iberica has committed to achieving net zero emissions by 2040.",
+    "Source": [
+      "https://www.telefonica.com/en/web/sustainability/energy-and-climate-change"
+    ]
+  },
+  {
+    "Company": "Goldiport Solar Lda",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Google",
+    "Country": "United States",
+    "Emissions Reduction Target": "50% reduction in Scope 1, 2, and 3 emissions",
+    "Target Year": "2030",
+    "Baseline Year": "2019",
+    "Pledge Year": "2020",
+    "Net-Zero Target": true,
+    "Comments": "Aims to achieve net zero across all operations and its full value chain by 2030.",
+    "Source": [
+      "https://www.esgtoday.com/google-reduces-data-center-emissions-but-supply-chain-continues-to-drive-carbon-footprint-higher/",
+      "https://thesustainableinnovation.com/google/",
+      "https://trellis.net/article/google-isnt-abandoning-its-2030-goal-despite-another-big-emissions-increase/"
+    ]
+  },
+  {
+    "Company": "Greaves Welsh Slate",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "GreenGo Energy Group A/S",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "GreenVolt;Alpac Capital;Luz-On - Solar Energy;Bookworld",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Groupe Bouyer-Leroux",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Groupe Pizzorno",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Grube Reden",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "HERAambiente",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "HVC",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Hanson",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Hargs Hamn AB",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Harwoth",
+    "Country": "",
+    "Emissions Reduction Target": "Operationally net zero by 2030 and net zero for all emissions by 2040",
+    "Target Year": "2040",
+    "Baseline Year": "Not explicitly stated",
+    "Pledge Year": "2023",
+    "Net-Zero Target": true,
+    "Comments": "Near-term and net-zero targets validated by SBTi in October 2023",
+    "Source": [
+      "https://www.haworth.com/ideas/haworth-reaches-a-major-milestone",
+      "https://www.haworth.com/us/en/about/sustainability/climate-action/"
+    ]
+  },
+  {
+    "Company": "Havenbedrijf Rotterdam N.V.",
+    "Country": "Netherlands",
+    "Emissions Reduction Target": "90%",
+    "Target Year": "2030",
+    "Baseline Year": "2019",
+    "Pledge Year": "2022",
+    "Net-Zero Target": true,
+    "Comments": "Accelerated reduction of own emissions by 90% by 2030 and 75% by 2025 (vs 2019)",
+    "Source": [
+      "https://www.portofrotterdam.com/en/news-and-press/news/the-port-of-rotterdam-authority-accelerates-the-reduction-of-its-own-carbon-emissions",
+      "https://www.portofrotterdam.com/en/doing-business/developing-sustainably/energy-transition/porthos-and-aramis"
+    ]
+  },
+  {
+    "Company": "Heim Niederschlesische Kieswerke GmbH & Co. KG",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Heinrich Teufel GmbH & Co.KG",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Hills Quarry Products",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Holcim",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Holcim Kies und Splitt GmbH",
+    "Country": "Switzerland",
+    "Emissions Reduction Target": "<400 kg CO2 per ton of cementitious materials",
+    "Target Year": "2030",
+    "Baseline Year": "2020",
+    "Pledge Year": "2020",
+    "Net-Zero Target": true,
+    "Comments": "Scope 1 and 2 targets validated by SBTi. Part of net-zero roadmap.",
+    "Source": [
+      "https://www.holcim.com/holcim-net-zero-sbti",
+      "https://www.holcim.com/media/media-releases/lafargeholcim-net-zero-pledge-science-based-targets"
+    ]
+  },
+  {
+    "Company": "Holcim Kies und Splitt GmbH",
+    "Country": "Switzerland",
+    "Emissions Reduction Target": "Net zero",
+    "Target Year": "2050",
+    "Baseline Year": "2020",
+    "Pledge Year": "2020",
+    "Net-Zero Target": true,
+    "Comments": "Includes Scope 1, 2 and 3 emissions. Validated by SBTi.",
+    "Source": [
+      "https://www.holcim.com/holcim-net-zero-sbti",
+      "https://www.holcim.com/media/media-releases/lafargeholcim-net-zero-pledge-science-based-targets"
+    ]
+  },
+  {
+    "Company": "Holcim SÃ¼ddeutschland",
+    "Country": "Germany",
+    "Emissions Reduction Target": "94.9% reduction in Scope 1 & 2 emissions per ton of cementitious materials",
+    "Target Year": "2050",
+    "Baseline Year": "2020",
+    "Pledge Year": "2020",
+    "Net-Zero Target": true,
+    "Comments": "Part of Holcim Group's global net-zero pledge validated by SBTi. Specific regional targets for Süddeutschland not found; using group-level data with German operational focus on CCUS technology.",
+    "Source": [
+      "https://www.holcim.com/sustainability/climate-action",
+      "https://www.holcim.com/newsroom/media-releases/holcim-first-its-sector-full-net-zero-pathway-endorsed-sbti",
+      "https://sciencebasedtargets.org/companies-taking-action"
+    ]
+  },
+  {
+    "Company": "Holcim (Deutschland) GmbH",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Hudiksvalls kommun",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Hullera Vasco Leonesa",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Hyperion",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Hyperion Energy Portugal Lda;Hyperion Energy Investments SGPS SA",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "INEOS",
+    "Country": "United Kingdom",
+    "Emissions Reduction Target": "33% reduction in scope 1 and 2 emissions",
+    "Target Year": "2030",
+    "Baseline Year": "2019",
+    "Pledge Year": "2020",
+    "Net-Zero Target": true,
+    "Comments": "INEOS aims to achieve net-zero emissions by 2050, with a company-wide GHG management system in place.",
+    "Source": [
+      "https://www.ineos.com/sustainability/",
+      "https://www.ineos.com/sustainability/environment/"
+    ]
+  },
+  {
+    "Company": "ISAB S.r.l.",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Iberdrola",
+    "Country": "Spain",
+    "Emissions Reduction Target": "43%",
+    "Target Year": "2030",
+    "Baseline Year": "2017",
+    "Pledge Year": "2020",
+    "Net-Zero Target": true,
+    "Comments": "Scope 1, 2 and 3 GHG emissions reduction",
+    "Source": [
+      "https://sciencebasedtargets.org/companies-taking-action/company/iberdrola-s-a-",
+      "https://www.iberdrola.com/sustainability/climate-change/climate-action/net-zero"
+    ]
+  },
+  {
+    "Company": "Iberdrola",
+    "Country": "Spain",
+    "Emissions Reduction Target": "Net zero",
+    "Target Year": "2039",
+    "Baseline Year": "2020",
+    "Pledge Year": "2023",
+    "Net-Zero Target": true,
+    "Comments": "Entire value chain emissions",
+    "Source": [
+      "https://sciencebasedtargets.org/companies-taking-action/company/iberdrola-s-a-"
+    ]
+  },
+  {
+    "Company": "Iberdrola",
+    "Country": "Australia",
+    "Emissions Reduction Target": "Net zero",
+    "Target Year": "2040",
+    "Baseline Year": "",
+    "Pledge Year": "2024",
+    "Net-Zero Target": true,
+    "Comments": "Carbon emissions target",
+    "Source": [
+      "https://www.iberdrola.com/sustainability/climate-change/climate-action/net-zero"
+    ]
+  },
+  {
+    "Company": "Iberian Resources Spain",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Imerys",
+    "Country": "France",
+    "Emissions Reduction Target": "42% reduction in Scope 1 & 2 GHG emissions",
+    "Target Year": "2030",
+    "Baseline Year": "2021",
+    "Pledge Year": "2018",
+    "Net-Zero Target": true,
+    "Comments": "Aligned with 1.5°C trajectory and validated by SBTi",
+    "Source": [
+      "https://www.imerys.com/sustainability/reducing-our-carbon-footprint",
+      "https://www.imerys.com/sites/default/files/inline-files/IMERYS_CLIMATE_TRANSITION_PLAN_2024.pdf"
+    ]
+  },
+  {
+    "Company": "Imerys",
+    "Country": "France",
+    "Emissions Reduction Target": "32.7% reduction in Scope 1 & 2 GHG emissions",
+    "Target Year": "2028",
+    "Baseline Year": "2021",
+    "Pledge Year": "2022",
+    "Net-Zero Target": true,
+    "Comments": "Validated by SBTi as part of sustainability-linked bond framework",
+    "Source": [
+      "https://www.imerys.com/sites/default/files/inline-files/IMERYS_CLIMATE_TRANSITION_PLAN_2024.pdf"
+    ]
+  },
+  {
+    "Company": "Imerys",
+    "Country": "France",
+    "Emissions Reduction Target": "25% reduction in Scope 3 GHG emissions",
+    "Target Year": "2030",
+    "Baseline Year": "2021",
+    "Pledge Year": "2021",
+    "Net-Zero Target": true,
+    "Comments": "Ambition to reduce value chain emissions",
+    "Source": [
+      "https://www.imerys.com/sustainability/reducing-our-carbon-footprint"
+    ]
+  },
+  {
+    "Company": "Impala Terminals Rotterdam B.V.",
+    "Country": "Netherlands",
+    "Emissions Reduction Target": "Carbon-neutral freight service",
+    "Target Year": null,
+    "Baseline Year": null,
+    "Pledge Year": "2022",
+    "Net-Zero Target": true,
+    "Comments": "Launched certified carbon-neutral freight service in 2022",
+    "Source": [
+      "https://www.trafigura.com/press-releases/impala-terminals-to-provide-a-certified-carbon-neutral-freight-service",
+      "https://www.fastmarkets.com/insights/trafiguras-impala-terminals-launches-carbon-neutral-freight-service/"
+    ]
+  },
+  {
+    "Company": "Inertiscavi srl",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Instituto Nacional de TÃ©cnica Aeroespacial",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Iren",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Italcementi",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Italcementi Group",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Jaguar Land Rover",
+    "Country": "United Kingdom",
+    "Emissions Reduction Target": "46% reduction in operational emissions, 54% reduction across value chain",
+    "Target Year": "2030",
+    "Baseline Year": "2019",
+    "Pledge Year": "2021",
+    "Net-Zero Target": true,
+    "Comments": "Net zero by 2039. Targets approved by Science Based Targets initiative (SBTi)",
+    "Source": [
+      "https://www.jaguarlandrover.com/sustainability/sustainability-targets",
+      "https://www.automotivemanufacturingsolutions.com/sustainability/article/jaguar-land-rover-invites-suppliers-to-align-to-2030-sustainability-commitments",
+      "https://media.jaguarlandrover.com/news/2022/03/jaguar-land-rover-announces-2030-sustainability-targets"
+    ]
+  },
+  {
+    "Company": "Jaynic; Gateway 14 Ltd.",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "John Dewar & Sons",
+    "Country": "Scotland",
+    "Emissions Reduction Target": "50% reduction by 2025 (from 2019 baseline)",
+    "Target Year": "2025",
+    "Baseline Year": "2019",
+    "Pledge Year": "2022",
+    "Net-Zero Target": true,
+    "Comments": "Part of Bacardi Limited's net-zero commitments covering all brands",
+    "Source": [
+      "https://www.bacardilimited.com/sustainability/good-footprint/",
+      "https://www.bacardilimited.com/our-story/esg-reports/"
+    ]
+  },
+  {
+    "Company": "Jones Bros Civil Engineering UK",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "KWB Kieswerk Bodetal GmbH & Co. KG",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "K+B Kies und Beton GmbH",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Kettiger Thonwerke",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Kies- und Quetschwerk Jais",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Kieswerke Friedl GmbH",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Koch Kiessand GmbH",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Kompania WÄ™glowa",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Koole Terminals",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Kopalnia Soli KÅ‚odawa",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Kort-Bet Sp. z o.o.",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Krakowskie ZakÅ‚ady Eksploatacji Kruszywa",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Krakowskie ZakÅ‚ady Eksploatacji Kruszywa S.A.",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Kruszywa Sp. z o.o.",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "LPP",
+    "Country": "Poland",
+    "Emissions Reduction Target": "42% reduction in Scope 1 and 2 emissions",
+    "Target Year": "2030",
+    "Baseline Year": "2021",
+    "Pledge Year": "2023",
+    "Net-Zero Target": true,
+    "Comments": "LPP's commitment includes climate neutrality by 2050",
+    "Source": [
+      "https://www.lpp.com/en/press-releases/lpp-with-decarbonisation-plan-approved-by-sbti",
+      "https://www.lpp.com/en/sustainable-development/environment/emissions/"
+    ]
+  },
+  {
+    "Company": "La Florentaise",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Lafarge Granulats",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Laird Aggregates Ltd",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Landkreis GÃ¶ttingen",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Leonardo s.p.a. Sezione Velivoli",
+    "Country": "Italy",
+    "Emissions Reduction Target": "53% reduction in Scope 1 & 2 emissions",
+    "Target Year": "2030",
+    "Baseline Year": "2020",
+    "Pledge Year": "2024",
+    "Net-Zero Target": true,
+    "Comments": "Approved by Science-Based Targets initiative",
+    "Source": [
+      "https://www.leonardo.com/en/media-hub/news-and-stories-detail/-/asset_publisher/dXyt/content/leonardo-accelerates-its-decarbonisation-and-climate-action-roadmap-with-new-targets-approved-by-science-based-targets-initiative"
+    ]
+  },
+  {
+    "Company": "Les Pierres Bourguignonnes",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Lhoist France",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "LigÃ©rienne Granulats",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Lightsource BP",
+    "Country": "United Kingdom",
+    "Emissions Reduction Target": "Net zero Scope 1 & 2",
+    "Target Year": "2050",
+    "Baseline Year": "2019",
+    "Pledge Year": "2019",
+    "Net-Zero Target": true,
+    "Comments": "Aligns with BP Group's net zero commitment through renewable energy projects",
+    "Source": [
+      "https://lightsourcebp.com/gr/news/lightsource-bp-publishes-2024-sustainability-report/"
+    ]
+  },
+  {
+    "Company": "Lisnave",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Logent Ports & Terminals AB",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Lynggaard ApS",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "MAN;ZF",
+    "Country": "Germany",
+    "Emissions Reduction Target": "50% reduction in own production emissions",
+    "Target Year": "2030",
+    "Baseline Year": "2018",
+    "Pledge Year": "",
+    "Net-Zero Target": true,
+    "Comments": "Aims for net-zero emissions by 2050",
+    "Source": [
+      "https://www.man-es.com/company/press-releases/press-details/2022/09/23/man-energy-solutions-aims-to-halve-own-co2-emissions-by-2030"
+    ]
+  },
+  {
+    "Company": "MEAB",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "MEAC",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "MPWiK",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "MPWiK Warszawa",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "MÃ¤larenergi",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Magna",
+    "Country": "Canada",
+    "Emissions Reduction Target": "90% reduction in Scopes 1, 2 and 3 by 2050",
+    "Target Year": "2050",
+    "Baseline Year": "2021",
+    "Pledge Year": "2024",
+    "Net-Zero Target": true,
+    "Comments": "Targets validated by Science Based Targets initiative. Near-term goals: 42% Scope 1&2 and 25% Scope 3 reduction by 2030",
+    "Source": [
+      "https://www.magna.com/company/sustainability/a-magna-sustainability-milestone",
+      "https://www.magna.com/newsroom/releases/news-release-details/2023/Magna-Commits-to-Achieve-Net-Zero-by-2050/default.aspx"
+    ]
+  },
+  {
+    "Company": "Magnox",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Mancomunidad de los Canales del Taibilla",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Mancomunidad del Este",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Mancomunidad del Sur",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Martinsons",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Medway Council",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Microsoft",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Miejskie PrzedsiÄ™biorstwo WodociÄ…gÃ³w i Kanalizacji",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Mitteldeutsche Baustoffe GmbH",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Mourik;Besix",
+    "Country": "Belgium",
+    "Emissions Reduction Target": "57% reduction in Scope 1 & 2 emissions",
+    "Target Year": "2030",
+    "Baseline Year": "2019",
+    "Pledge Year": "2020",
+    "Net-Zero Target": true,
+    "Comments": "Net-zero emissions target by 2050 for Scope 1 & 2",
+    "Source": [
+      "https://www.besix.com/en/sustainability/our-planet"
+    ]
+  },
+  {
+    "Company": "Mulberry",
+    "Country": "UK",
+    "Emissions Reduction Target": "37.8%",
+    "Target Year": "2028",
+    "Baseline Year": "2019",
+    "Pledge Year": "2024",
+    "Net-Zero Target": true,
+    "Comments": "Covers Scope 1, 2 and 3 emissions. Validated by SBTi.",
+    "Source": [
+      "https://www.mulberry.com/uk/sustainability/climate",
+      "https://www.mulberry.com/uk/made-to-last"
+    ]
+  },
+  {
+    "Company": "Mulberry",
+    "Country": "UK",
+    "Emissions Reduction Target": "33.3%",
+    "Target Year": "2030",
+    "Baseline Year": "2019",
+    "Pledge Year": "2024",
+    "Net-Zero Target": true,
+    "Comments": "Specific to Scope 3 emissions (value chain). Includes FLAG methodology. Validated by SBTi.",
+    "Source": [
+      "https://www.mulberry.com/uk/sustainability/climate",
+      "https://www.mulberry.com/uk/made-to-last"
+    ]
+  },
+  {
+    "Company": "Murray Estates",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "NCC",
+    "Country": "Sweden",
+    "Emissions Reduction Target": "42% reduction",
+    "Target Year": "2030",
+    "Baseline Year": "2024",
+    "Pledge Year": "2025",
+    "Net-Zero Target": true,
+    "Comments": "Target includes both own operations and entire value chain emissions.",
+    "Source": [
+      "https://www.ncc.com/en/sustainability/climate-and-energy/",
+      "https://en.wikipedia.org/wiki/NCC_(company)#Sustainability"
+    ]
+  },
+  {
+    "Company": "NDH-E",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "NNG Norddeutsche Naturstein GmbH",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "National Electric Vehicle Sweden AB",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Navantia",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Neoen",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Nextera",
+    "Country": "United States",
+    "Emissions Reduction Target": "Carbon-neutral by 2045",
+    "Target Year": "2045",
+    "Baseline Year": null,
+    "Pledge Year": "2022",
+    "Net-Zero Target": true,
+    "Comments": "NextEra announced plans to eliminate carbon emissions from operations by 2045 through solar and storage expansion",
+    "Source": [
+      "https://www.utilitydive.com/news/nextera-eliminate-carbon-emissions-2045-solar-storage-fpl/625464/"
+    ]
+  },
+  {
+    "Company": "Nissan Motor IbÃ©rica S.A.",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Noatum Container Terminal Bilbao",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Norske Shell",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "North Sea Port Netherlands NV",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Northstone (NI) Ltd",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "OKG Aktiebolag",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "OMV",
+    "Country": "Austria",
+    "Emissions Reduction Target": "Net zero by 2050 (Scope 1, 2, 3)",
+    "Target Year": "2050",
+    "Baseline Year": "2019",
+    "Pledge Year": "2022",
+    "Net-Zero Target": true,
+    "Comments": "Includes operational and product portfolio emissions (Scope 3)",
+    "Source": [
+      "https://reports.omv.com/en/annual-report/2024/directors-report-sustainability-statement/environmental-information/e1-climate-change.html",
+      "https://reports.omv.com/en/annual-report/2024/directors-report-sustainability-statement/environmental-information/e1-climate-change/targets.html"
+    ]
+  },
+  {
+    "Company": "OMV",
+    "Country": "Austria",
+    "Emissions Reduction Target": "30% reduction (Scope 1&2), 20% reduction (Scope 3)",
+    "Target Year": "2030",
+    "Baseline Year": "2019",
+    "Pledge Year": "2022",
+    "Net-Zero Target": true,
+    "Comments": "Interim targets aligned with IEA's SDS. Scope 3 covers product use and supply chain emissions",
+    "Source": [
+      "https://reports.omv.com/en/annual-report/2024/directors-report-sustainability-statement/environmental-information/e1-climate-change/targets.html"
+    ]
+  },
+  {
+    "Company": "OMYA",
+    "Country": "Switzerland",
+    "Emissions Reduction Target": "50% reduction in Scope 1 and 2 emissions",
+    "Target Year": "2030",
+    "Baseline Year": "2019",
+    "Pledge Year": "",
+    "Net-Zero Target": true,
+    "Comments": "Carbon neutrality for Scopes 1 and 2 by 2050; 54 renewable energy projects completed since 2018",
+    "Source": [
+      "https://www.omya.com/environment",
+      "https://www.omya.com/Documents/CORP%20Microsites/Omya_Sustainability_Brochure.pdf"
+    ]
+  },
+  {
+    "Company": "OX2",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Oak-NGate",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Octopus Renewables Infrastructure Trust",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Orange Park",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Orano Mining",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Orlen Paliwa Sp. o.o.",
+    "Country": "Poland",
+    "Emissions Reduction Target": "Net zero by 2050",
+    "Target Year": "2050",
+    "Baseline Year": "2020",
+    "Pledge Year": "2020",
+    "Net-Zero Target": true,
+    "Comments": "Part of ORLEN Group's net-zero commitment announced in 2020",
+    "Source": [
+      "https://www.orlen.pl/en/Sustainability/Climate-Governance/ORLEN-Group-Climate-Policy",
+      "https://www.orlen2030.com/en/orlen-transition-plan/decarbonisation-strategy"
+    ]
+  },
+  {
+    "Company": "Orlen PoÅ‚udnie",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "PERN S.A.",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "PGE Energia CiepÅ‚a S.A. OddziaÅ‚ ElektrociepÅ‚ownia w Rzeszowie",
+    "Country": "Poland",
+    "Emissions Reduction Target": "70% low/zero-carbon heat generation",
+    "Target Year": "2030",
+    "Baseline Year": "",
+    "Pledge Year": "2020",
+    "Net-Zero Target": true,
+    "Comments": "Part of PGE Group's 2050 climate neutrality strategy with 70% low-carbon district heating by 2030",
+    "Source": [
+      "https://raportzintegrowany2023.gkpge.pl/en/social-s/social-environment/fair-energy-transition/",
+      "https://raportzintegrowany2022.gkpge.pl/en/sustainable-investments/decarbonisation-of-district-heating/"
+    ]
+  },
+  {
+    "Company": "PGE GÃ³rnictwo i Energetyka Konwencjonalna S.A.",
+    "Country": "Poland",
+    "Emissions Reduction Target": "Climate neutrality",
+    "Target Year": "2050",
+    "Baseline Year": "",
+    "Pledge Year": "2020",
+    "Net-Zero Target": true,
+    "Comments": "Commitment to climate neutrality by 2050 with strategic focus on low-emission technologies",
+    "Source": [
+      "https://www.gkpge.pl/en/pge-group/about-group/pge-group-s-strategy",
+      "https://raportzintegrowany2023.gkpge.pl/en/strategy/direction-climate-neutrality/"
+    ]
+  },
+  {
+    "Company": "PGE GiEK S.A. oddziaÅ‚ Elektrownia Opole",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "PGNiG Termika",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "PPHU WIKA Chamara PaweÅ‚",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "PUHP Lech",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "PVA3BL",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "P&O Ferries",
+    "Country": "United Kingdom",
+    "Emissions Reduction Target": "Scope 1: 42%, Scope 2: 62%, Scope 3: 28%",
+    "Target Year": "2030",
+    "Baseline Year": "2022",
+    "Pledge Year": "2022",
+    "Net-Zero Target": true,
+    "Comments": "Comprehensive emissions targets across all scopes with 2022 baseline",
+    "Source": [
+      "https://www.poferries.com/content/dam/poferries/documents/Sustainability_Strategy.pdf",
+      "https://www.rivieramm.com/news-content-hub/news/content-hub/po-ferries-slashes-carbon-footprint-by-85000-tonnes"
+    ]
+  },
+  {
+    "Company": "P.P.H. \"\"K.A.M.\"\" Sp. z o.o.",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Papenburg",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Penarroya",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Perrier TP",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Peter Glindemann",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Peterhead Port Authority",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Petronor",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Pizarras de Quiroga",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Pizarras de VillarbacÃº",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Planta FV104 S.L.",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Point P - SIMAT",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Polgravel",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Polskie Radio",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Port of Dover",
+    "Country": "United Kingdom",
+    "Emissions Reduction Target": "Net-zero for Scope 1 & 2 emissions",
+    "Target Year": "2025",
+    "Baseline Year": "2007",
+    "Pledge Year": "",
+    "Net-Zero Target": true,
+    "Comments": "Achieved net-zero 25 years ahead of UK government targets. Original target was 2030. Part of 2050 Masterplan for Green Shipping Corridor.",
+    "Source": [
+      "https://www.seatrade-cruise.com/environmental-health/port-of-dover-hits-net-zero-target-25-years-early",
+      "https://www.energyconnects.com/news/renewables/2026/april/uk-s-port-of-dover-achieves-its-carbon-net-zero-target-25-years-early/"
+    ]
+  },
+  {
+    "Company": "Powerfield",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Prax Group",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Prezero",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Prologis",
+    "Country": "United States",
+    "Emissions Reduction Target": "Net-zero emissions",
+    "Target Year": "2040",
+    "Baseline Year": "",
+    "Pledge Year": "2022",
+    "Net-Zero Target": true,
+    "Comments": "Covers entire value chain (Scopes 1, 2 and 3). Validated by SBTi in 2024.",
+    "Source": [
+      "https://www.prnewswire.com/news-releases/prologis-commits-to-net-zero-emissions-by-2040-301571389.html",
+      "https://www.prologis.com/esg/environmental/sustainability"
+    ]
+  },
+  {
+    "Company": "Quarzwerke",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "RFPB Kieswerk GmbH & Co KG",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "RINA Consulting S.p.A.",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "R S Assemblies Limited",
+    "Country": "UK",
+    "Emissions Reduction Target": "75% absolute emissions reduction from own operations",
+    "Target Year": "2029/30",
+    "Baseline Year": "2019/20",
+    "Pledge Year": "2023",
+    "Net-Zero Target": true,
+    "Comments": "Net zero in direct operations by 2030 and across value chain by 2050",
+    "Source": [
+      "https://www.rsgroup.com/sustainability/environmental/",
+      "https://www.themanufacturer.com/articles/rs-group-announces-ambitious-carbon-reduction-targets/"
+    ]
+  },
+  {
+    "Company": "RÃ¶gner Sand & Kies GmbH",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Raymond Brown Ltd.",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Red LogÃ­stica de AndalucÃ­a",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Reinfeld",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "RenoDjurs",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "ResInvest",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Resitejo",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Rhein-HunsrÃ¼ck-Kreis",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Rheinische Baustoffwerke",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Rheinmetall AG",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Rigips",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "RingkÃ¸bing Fjernvarme a.m.b.a.",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Rio Tinto Minerals",
+    "Country": "Australia",
+    "Emissions Reduction Target": "50% reduction in Scope 1 and 2 emissions",
+    "Target Year": "2030",
+    "Baseline Year": "2018",
+    "Pledge Year": "2021",
+    "Net-Zero Target": true,
+    "Comments": "Net-zero emissions by 2050",
+    "Source": [
+      "https://mine.nridigital.com/mine_australia_jun23/mined_the_heat_rio_tinto_s_plan_to_cut_ghg_emissions",
+      "https://www.accr.org.au/research/analysis-rio-tintos-2024-climate-action-plan-cap/"
+    ]
+  },
+  {
+    "Company": "Rup",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Rusal",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "SARPOM S.r.l.",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "SCA Hygiene Products AB",
+    "Country": "",
+    "Emissions Reduction Target": "Not explicitly stated",
+    "Target Year": "Not explicitly stated",
+    "Baseline Year": "Not explicitly stated",
+    "Pledge Year": "2024",
+    "Net-Zero Target": true,
+    "Comments": "SCA has committed to science-based targets validated by SBTi in 2024, but specific numerical targets for emissions reductions were not found in the search results. They aim for climate neutrality by 2040.",
+    "Source": [
+      "https://www.sca.com/en/sustainability/climate/",
+      "https://www.sca.com/en/sustainability/climate-transition-plan/"
+    ]
+  },
+  {
+    "Company": "SE Bury Lane Solar Limited",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "SISAV",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "SMA Minerals",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "SOGIN",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "SR Energy",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "SST",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "SUNO ENERGÃA 5 S.L.",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "SÃ¼dbayerisches Portland-Zementwerk(SPZ)",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Samin",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Sanabria Solar",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Sand+Kies Union Berlin-Brandenburg Werk Niederlehme",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Sand + Kies Union GmbH",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "SaxaVord",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Schotterwerk Leibfritz GmbH & Co KG",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Science and Technology Facilities Council",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "SetomÂ (syndicatÂ EtudeÂ TraitementÂ OrduresÂ MÃ©nagÃ¨res)Â deÂ l'Eure",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Shell",
+    "Country": "UK",
+    "Emissions Reduction Target": "Net-zero emissions",
+    "Target Year": "2050",
+    "Baseline Year": "",
+    "Pledge Year": "2021",
+    "Net-Zero Target": true,
+    "Comments": "Target includes Scope 1, 2, and 3 emissions.",
+    "Source": [
+      "https://www.shell.com/energy-and-innovation/the-energy-future/shell-sustainability-report.html"
+    ]
+  },
+  {
+    "Company": "Shell",
+    "Country": "UK",
+    "Emissions Reduction Target": "50% reduction in operational emissions",
+    "Target Year": "2030",
+    "Baseline Year": "2016",
+    "Pledge Year": "2021",
+    "Net-Zero Target": true,
+    "Comments": "Includes Scope 1 and 2 emissions.",
+    "Source": [
+      "https://www.shell.com/energy-and-innovation/the-energy-future/shell-sustainability-report.html"
+    ]
+  },
+  {
+    "Company": "Shell",
+    "Country": "UK",
+    "Emissions Reduction Target": "15-20% reduction in net carbon intensity of energy products",
+    "Target Year": "2030",
+    "Baseline Year": "2016",
+    "Pledge Year": "2024",
+    "Net-Zero Target": true,
+    "Comments": "Includes Scope 1, 2, and 3 emissions.",
+    "Source": [
+      "https://www.shell.com/energy-and-innovation/the-energy-future/shell-sustainability-report.html"
+    ]
+  },
+  {
+    "Company": "Shell",
+    "Country": "UK",
+    "Emissions Reduction Target": "100% reduction in net carbon intensity of energy products",
+    "Target Year": "2050",
+    "Baseline Year": "2016",
+    "Pledge Year": "2024",
+    "Net-Zero Target": true,
+    "Comments": "Includes Scope 1, 2, and 3 emissions.",
+    "Source": [
+      "https://www.shell.com/energy-and-innovation/the-energy-future/shell-sustainability-report.html"
+    ]
+  },
+  {
+    "Company": "Sibelco",
+    "Country": "Belgium",
+    "Emissions Reduction Target": "37% reduction in Scope 1 and 2 emissions intensity",
+    "Target Year": "2030",
+    "Baseline Year": "2021",
+    "Pledge Year": "2021",
+    "Net-Zero Target": true,
+    "Comments": "Targets validated by SBTi. Focuses on Scope 1-2 intensity reductions and supplier/customer engagement for Scope 3. No explicit net-zero pledge found in available results.",
+    "Source": [
+      "https://www.sibelco.com/-/media/project/one-sibelco/dotcom/sustainability/pdf/sibelco-climate-report.pdf",
+      "https://www.sibelco.com/en/sustainability/protecting-the-planet"
+    ]
+  },
+  {
+    "Company": "Sibelco Deutschland GmbH",
+    "Country": "Germany",
+    "Emissions Reduction Target": "37% reduction in Scope 1 and 2 emissions intensity",
+    "Target Year": "2030",
+    "Baseline Year": "2021",
+    "Pledge Year": "2021",
+    "Net-Zero Target": true,
+    "Comments": "Aligns with Science Based Targets initiative and Paris Agreement goals",
+    "Source": [
+      "https://www.sibelco.com/news/sibelco-announces-ambitious-carbon-emissions-reduction-target"
+    ]
+  },
+  {
+    "Company": "Sibelco France",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Sirius Minerals",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Snam S.p.A.",
+    "Country": "Italy",
+    "Emissions Reduction Target": "Carbon neutrality by 2040",
+    "Target Year": "2040",
+    "Baseline Year": "",
+    "Pledge Year": "2024",
+    "Net-Zero Target": true,
+    "Comments": "Part of energy transition plan with €11.5bn investment",
+    "Source": [
+      "https://www.power-technology.com/news/italys-snam-unveils-e11-5bn-energy-transition-investment-plan/"
+    ]
+  },
+  {
+    "Company": "SociÃ©tÃ© des CarriÃ¨res de LanhÃ©lin",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Sociedade GeotÃ©rmica dos AÃ§ores",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "SolarEnergyWorks/SADC",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Solaria",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Solarpark LÃ¶wenberg Gmbh",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "St1 Refinery AB",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Standard Aero",
+    "Country": "United States",
+    "Emissions Reduction Target": "45%",
+    "Target Year": "2030",
+    "Baseline Year": "",
+    "Pledge Year": "2022",
+    "Net-Zero Target": true,
+    "Comments": "Net zero carbon footprint by 2050",
+    "Source": [
+      "https://standardaero.com/standardaero-sets-goals-to-achieve-a-net-45-carbon-reduction-by-year-2030-and-a-net-zero-carbon-footprint-by-2050/"
+    ]
+  },
+  {
+    "Company": "Stantec",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Statkraft",
+    "Country": "Norway",
+    "Emissions Reduction Target": "<20 gCO₂e/kWh emissions intensity",
+    "Target Year": "2025",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": true,
+    "Comments": "Statkraft has set an emissions intensity target of <20 gCO₂e/kWh by 2025 and joined the UN's Climate Neutral Now initiative, though specific net-zero timeline not detailed.",
+    "Source": [
+      "https://www.statkraft.com/sustainability/climate-action/",
+      "https://qextcloud.statkraft.com/sustainability/our-commitments/climate-change/"
+    ]
+  },
+  {
+    "Company": "Stellantis",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Stena Line",
+    "Country": "Sweden",
+    "Emissions Reduction Target": "30%",
+    "Target Year": "2030",
+    "Baseline Year": "2019",
+    "Pledge Year": "2020",
+    "Net-Zero Target": true,
+    "Comments": "Aims to reduce total CO2 emissions by 30% by 2030 and achieve net-zero by 2050",
+    "Source": [
+      "https://www.stenaline.com/en/about-us/sustainability/affordable-and-clean-energy",
+      "https://www.stenaline.com/en/media/stories/sustainability-work-behind-the-scenes-that-makes-a-big-difference",
+      "https://sfarnytt.se/en/sustainable-shipping/"
+    ]
+  },
+  {
+    "Company": "Streicher Hartsteinwerke Vogtland GmbH & Co. KG",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Suez Rv Nord Est",
+    "Country": "France",
+    "Emissions Reduction Target": "39% reduction in water business, 26% in waste business",
+    "Target Year": "2030",
+    "Baseline Year": "2019",
+    "Pledge Year": "2023",
+    "Net-Zero Target": true,
+    "Comments": "Parent company SUEZ targets apply; subsidiary-specific data not found",
+    "Source": [
+      "https://www.suez.com/en/group/who-are-we/our-purpose/acting-for-climate",
+      "https://www.suez.com/-/media/suez-com/documents/suez-com/finance/other-publications/suez-sustainable-development-roadmap.pdf"
+    ]
+  },
+  {
+    "Company": "SuezÂ RvÂ NordÂ Est",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "SuezÂ RvÂ SudÂ Ouest",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "SunEdison",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Susenco/Low Carbon",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Swerock",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Swindon Pressings Ltd",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Sydkraft Thermal Power AB",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "SyndicatÂ IntercommunalÂ deÂ CollecteÂ etÂ deÂ TraitementÂ desÂ OrduresÂ MÃ©nagÃ¨resÂ deÂ laÂ Basse-ardÃ¨che",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Szybka Kolej Miejska Sp. z o.o.",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "TEAM Terminal B.V.",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "TERAMB",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "TGA Tonbergbau-Grube Anton GmbH & Co. KG",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "TOTAL E&P UK",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "TPSolar",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Tacora Resources Inc.",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Tameh Polska Sp. z o.o.",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Tarmac",
+    "Country": "UK",
+    "Emissions Reduction Target": "30% absolute reduction",
+    "Target Year": "2030",
+    "Baseline Year": "2021",
+    "Pledge Year": "2023",
+    "Net-Zero Target": true,
+    "Comments": "Validated by SBTi in line with 1.5°C framework",
+    "Source": [
+      "https://www.tarmac.com/media/3314/tarmac-sustainability-report-2022.pdf",
+      "https://www.tarmac.com/sustainability/net-zero-roadmap"
+    ]
+  },
+  {
+    "Company": "Tarmac Quarry Products",
+    "Country": "United Kingdom",
+    "Emissions Reduction Target": "30% reduction",
+    "Target Year": "2030",
+    "Baseline Year": "2021",
+    "Pledge Year": "2021",
+    "Net-Zero Target": true,
+    "Comments": "Committed to net zero by 2050 through parent company CRH's roadmap",
+    "Source": [
+      "https://www.tarmac.com/media/3189/tarmac-sustainability-report-2021.pdf",
+      "https://www.tarmac.com/sustainability/net-zero-roadmap"
+    ]
+  },
+  {
+    "Company": "Tata Steel",
+    "Country": "India",
+    "Emissions Reduction Target": "Net-Zero",
+    "Target Year": "2045",
+    "Baseline Year": "",
+    "Pledge Year": "2020",
+    "Net-Zero Target": true,
+    "Comments": "Company-wide net-zero target for Tata Steel Group",
+    "Source": [
+      "https://www.tatasteel.com/newsroom/in-the-news/2024/tata-steel-aims-to-increase-share-of-renewable-energy-with-aim-to-become-net-zero-by-2045/",
+      "https://www.tatasteel.com/investors/integrated-report-2023-24/climate-change-report.html"
+    ]
+  },
+  {
+    "Company": "Tauron",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Tauron Wytwarzanie",
+    "Country": "Poland",
+    "Emissions Reduction Target": "50%",
+    "Target Year": "2030",
+    "Baseline Year": "2018",
+    "Pledge Year": "2022",
+    "Net-Zero Target": true,
+    "Comments": "Aims for climate neutrality by 2050; 14 MtCO2e reduction by 2030",
+    "Source": [
+      "https://www.tauron-pe.pl/en/our-responsibility/environment/climate-neutrality-2050",
+      "https://www.tauron-pe.pl/documents/20184/29697/Integrated+Report+2022.pdf/7892b2b7-10a4-d5fc-59fd-2132f59037b0?t=1688682042311"
+    ]
+  },
+  {
+    "Company": "Team Knowhow",
+    "Country": "UK",
+    "Emissions Reduction Target": "",
+    "Target Year": "2030",
+    "Baseline Year": "",
+    "Pledge Year": "2023",
+    "Net-Zero Target": true,
+    "Comments": "Achieved carbon neutrality in 2023; No numerical reduction target specified",
+    "Source": [
+      "https://www.teamenergy.co.uk/environmental-policy/",
+      "https://www.teamenergy.co.uk/about-team-energy/"
+    ]
+  },
+  {
+    "Company": "Teunesen",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "The Navigator Company",
+    "Country": "Portugal",
+    "Emissions Reduction Target": "63% reduction in Scope 1 and 2 emissions, 37.5% reduction in Scope 3 emissions",
+    "Target Year": "2035",
+    "Baseline Year": "2020",
+    "Pledge Year": "2022",
+    "Net-Zero Target": true,
+    "Comments": "Carbon neutrality commitment by 2035 aligns with net-zero target",
+    "Source": [
+      "https://www.midlandpaper.com/navigators-targets-to-reduce-emissions-by-2035-approved-by-sbti/"
+    ]
+  },
+  {
+    "Company": "Thy Kalk",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "TorvfÃ¶rÃ¤dling i Sverige AB",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Tratolixo",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Tribag S.A.",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "UKAEA",
+    "Country": "UK",
+    "Emissions Reduction Target": "Not specified in public documents",
+    "Target Year": "2050",
+    "Baseline Year": "",
+    "Pledge Year": "2024",
+    "Net-Zero Target": true,
+    "Comments": "Supports UK's national net-zero goal through fusion research but lacks specific operational emissions targets",
+    "Source": [
+      "https://www.gov.uk/government/publications/ppn-0124-carbon-reduction-contract-schedule/carbon-reduction-schedule-html",
+      "https://www.gov.uk/government/publications/environment-agency-reaching-net-zero/environment-agency-reaching-net-zero-update-january-2024"
+    ]
+  },
+  {
+    "Company": "UK Land",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "UniÃ³n Minera del Norte",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Uniland S.A.",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Uniper",
+    "Country": "Germany",
+    "Emissions Reduction Target": "≥ 55%",
+    "Target Year": "2030",
+    "Baseline Year": "2005",
+    "Pledge Year": "2022",
+    "Net-Zero Target": true,
+    "Comments": "Group-wide carbon neutrality by 2040",
+    "Source": [
+      "https://www.uniper.energy/company/sustainability/climate-action-and-security-of-supply"
+    ]
+  },
+  {
+    "Company": "UniversitÃ  di Torino",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Unternehmensgruppe Peter Glindemann",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "UrzÄ…d Morski w Gdyni",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "VERBUND Austrian Thermal Power AG; EVN AG",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "VÃ©oliaÂ PropetÃ©Â ValestÂ Metz",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Valero Energy Corporation",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "ValorInerte - ValorizaÃ§Ã£o de ResÃ­duos Inertes",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Valorizon",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Valteo",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Vattenfall",
+    "Country": "Sweden",
+    "Emissions Reduction Target": "At least 90% reduction",
+    "Target Year": "2040",
+    "Baseline Year": "2017",
+    "Pledge Year": "2019",
+    "Net-Zero Target": true,
+    "Comments": "Approved by Science Based Targets initiative (SBTi)",
+    "Source": [
+      "https://group.vattenfall.com/sustainability/climate/our-climate-targets"
+    ]
+  },
+  {
+    "Company": "Veolia",
+    "Country": "France",
+    "Emissions Reduction Target": "-50% Scope 1 and 2 emissions",
+    "Target Year": "2032",
+    "Baseline Year": "2021",
+    "Pledge Year": "2024",
+    "Net-Zero Target": true,
+    "Comments": "Net zero target covers Scopes 1, 2 and 3 emissions. Validated by Science Based Targets initiative (SBTi).",
+    "Source": [
+      "https://www.veolia.com/sites/g/files/legacy_files/documents/2024/2024-02/2024-CP-Half-year-results-presentation-EN.pdf",
+      "https://www.veolia.com/en/group/purpose/ecological-transformation/climate"
+    ]
+  },
+  {
+    "Company": "Vereniging Parkmanagement Bedrijventerreinen Emmen BV",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Viesgo",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Viridor Collection Services",
+    "Country": "United Kingdom",
+    "Emissions Reduction Target": "Net zero carbon emissions",
+    "Target Year": "2040",
+    "Baseline Year": "2020",
+    "Pledge Year": "2020",
+    "Net-Zero Target": true,
+    "Comments": "Committed to net zero carbon emissions by 2040 with validated science-based targets",
+    "Source": [
+      "https://energy-oil-gas.com/news/viridors-vision-is-to-be-the-uks-leading-innovator-of-resource-recovery-and-recycling-transforming-waste-for-a-climate-positive-future/"
+    ]
+  },
+  {
+    "Company": "Viridor Waste Management Ltd",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Volvo Lastvagnar AB",
+    "Country": "Sweden",
+    "Emissions Reduction Target": "40% reduction per vehicle-km",
+    "Target Year": "2030",
+    "Baseline Year": "2019",
+    "Pledge Year": "2020",
+    "Net-Zero Target": true,
+    "Comments": "Target applies to trucks division. Net-zero goal for value chain emissions by 2040.",
+    "Source": [
+      "https://www.volvogroup.com/content/volvo-group/master/en/sustainability/climate-goals-strategy"
+    ]
+  },
+  {
+    "Company": "WAS - Wolfsburger Abfallwirtschaft und StraÃŸenreinigung",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "WElink Energy/Solara4",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "WPO",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "WÃ¼nschendorfer Dolomitwerk GmbH",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Waschkieswerk Eich GmbH & Co.KG",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Waternet",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Waterschap De Dommel",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Waystone Developments Ltd",
+    "Country": "UK",
+    "Emissions Reduction Target": "",
+    "Target Year": "2050",
+    "Baseline Year": "2023",
+    "Pledge Year": "2024",
+    "Net-Zero Target": true,
+    "Comments": "SBTi-verified net-zero target and near/long-term reductions. Numerical targets unspecified.",
+    "Source": [
+      "https://www.waystone.com/our-impact/"
+    ]
+  },
+  {
+    "Company": "Welser Kieswerke Treul & Co. Ges.m.b.H.",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Welser Profile Austria GmbH",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Whitemountain Quarries",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Whitemountain Quarries Ltd",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Whyte & Mackay",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Wienerberger",
+    "Country": "Austria",
+    "Emissions Reduction Target": "25% reduction in Scope 1 & 2 emissions",
+    "Target Year": "2026",
+    "Baseline Year": "2020",
+    "Pledge Year": "2020",
+    "Net-Zero Target": true,
+    "Comments": "Aims for net-zero emissions by 2050.",
+    "Source": [
+      "https://www.wienerberger.com/en/sustainability/decarbonization.html",
+      "https://www.wienerberger.com/corp/en/sustainability/sustainability-program-2026.html"
+    ]
+  },
+  {
+    "Company": "Wienerberger GmbH",
+    "Country": "Austria",
+    "Emissions Reduction Target": "25% reduction in Scope 1 & 2 emissions",
+    "Target Year": "2026",
+    "Baseline Year": "2020",
+    "Pledge Year": "2020",
+    "Net-Zero Target": true,
+    "Comments": "Part of EU Green Deal alignment",
+    "Source": [
+      "http://www.wienerberger.com/en/sustainability/sustainability-program-2026.html",
+      "https://annualreport.wienerberger.com/2025/sustainability-program-2023-2026.html"
+    ]
+  },
+  {
+    "Company": "Wienerberger GmbH",
+    "Country": "Austria",
+    "Emissions Reduction Target": "Net-zero emissions",
+    "Target Year": "2050",
+    "Baseline Year": "",
+    "Pledge Year": "2020",
+    "Net-Zero Target": true,
+    "Comments": "Long-term climate neutrality goal",
+    "Source": [
+      "http://www.wienerberger.com/en/sustainability/sustainability-program-2026.html",
+      "https://www.wienerberger.com/en/media/press-releases/2023/20231106-wienerberger-expands-its-sustainability-commitments.html"
+    ]
+  },
+  {
+    "Company": "Wild Landfill",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "WodociÄ…gi i Kanalizacja \"\"AKWA\"\" Sp. z o.o.",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Wodociagi BiaÅ‚ostockie",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Wokas-Kopalnie Torfu Sp. z o.o.",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Woxna Graphite",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "XPO Logistics",
+    "Country": "",
+    "Emissions Reduction Target": "25%",
+    "Target Year": "2030",
+    "Baseline Year": "2019",
+    "Pledge Year": "",
+    "Net-Zero Target": true,
+    "Comments": "Scope 1 and 2 emissions. As of 2025, company is already 7% ahead of target",
+    "Source": [
+      "https://www.xpo.com/en-us/sustainability/news/sustainability/xpo-logistics-renews-its-commitment-to-the-objectif-co%C2%B2-charter-and-targets-an-8-reduction-in-emissions-in-france-by-2027",
+      "https://www.asyousow.org/resolution/adopt-ghg-targets-and-issue-transition-plan-1-5c-aligned-xpo-logistics-inc",
+      "https://www.xpo.com/en-us/sustainability/news/sustainability/sustainability-report-2025"
+    ]
+  },
+  {
+    "Company": "ZE PAK",
+    "Country": "Poland",
+    "Emissions Reduction Target": "Coal phase-out",
+    "Target Year": "2030",
+    "Baseline Year": "",
+    "Pledge Year": "2020",
+    "Net-Zero Target": true,
+    "Comments": "Strategic shift to renewable energy with coal production cessation by 2030 and net-zero emissions by 2050",
+    "Source": [
+      "https://www.enlit.world/library/site-visit-ze-pak-s-decarbonisation-strategy-in-east-poland"
+    ]
+  },
+  {
+    "Company": "ZPB Kaczmarek",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "ZPK RupiÅ„scy",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "ZakÅ‚ady Chemiczne i Tworzyw Sztucznych Boryszew S.A.",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "ZakÅ‚ady Wapiennicze Lhoist S.A.",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Zementwerk Hatschek GmbH",
+    "Country": "Austria",
+    "Emissions Reduction Target": "65%",
+    "Target Year": "2030",
+    "Baseline Year": "1990",
+    "Pledge Year": "2022",
+    "Net-Zero Target": true,
+    "Comments": "Aims for 65% reduction by 2030 and net-zero by 2038",
+    "Source": [
+      "https://www.fivesgroup.com/en/cement-minerals/news/new-contract-signed-rohrdorfer-zement-supply-new-clay-calcination-unit-germany"
+    ]
+  },
+  {
+    "Company": "ZespÃ³Å‚ Elektrowni PÄ…tnÃ³w-AdamÃ³w-Konin S.A.",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "Ã˜rsted",
+    "Country": "",
+    "Emissions Reduction Target": "",
+    "Target Year": "",
+    "Baseline Year": "",
+    "Pledge Year": "",
+    "Net-Zero Target": false,
+    "Comments": "",
+    "Source": []
+  },
+  {
+    "Company": "evonik",
+    "Country": "Germany",
+    "Emissions Reduction Target": "25% reduction in Scope 1 and 2 emissions",
+    "Target Year": "2030",
+    "Baseline Year": "2021",
+    "Pledge Year": "2021",
+    "Net-Zero Target": true,
+    "Comments": "Includes 11.07% Scope 3 reduction (2021-2030)",
+    "Source": [
+      "https://www.pcimag.com/articles/111632-science-based-targets-initiative-confirms-evoniks-climate-targets",
+      "https://active-oxygens-sustainability.evonik.com/en/articles/assuming-responsibility/"
+    ]
+  }
+]

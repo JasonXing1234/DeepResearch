@@ -1,0 +1,560 @@
+📂 Reading customer names from: /home/sagemaker-user/DeepResearch/customer_names.csv
+
+📊 Stress Test Configuration
+   CSV file    : customer_names.csv
+   Total names : 500
+   Processing  : 500 (start=0, limit=all)
+   Concurrency : 6 workers (queue)
+   Max retries : 3 (throttle backoff: 4s → 8s → 16s)
+   Output dir  : /home/sagemaker-user/DeepResearch/output/500-company-research
+   Model       : amazon.nova-premier-v1:0
+   Runs/task   : 1
+
+🚀 Starting queue with 6 parallel workers…
+
+   ✅ [1/500] EPAL                                             52.8s
+   ✅ [2/500] Iberdrola                                        59.3s
+   ✅ [3/500] AMPYR Solar Europe                               45.3s
+   ✅ [4/500] WElink Energy/Solara4                            118.4s
+   ✅ [5/500] Escalabis Solar                                  59.7s
+   ✅ [6/500] Statkraft                                        162.4s
+   ✅ [7/500] Hullera Vasco Leonesa                            56.8s
+   ✅ [8/500] Endesa                                           69.9s
+   ✅ [9/500] Aura Power                                       69.4s
+   ✅ [10/500] OX2                                              72.1s
+   ✅ [11/500] Days of Luck                                     119.7s
+   ✅ [12/500] Iberdrola                                        111.3s
+   ✅ [13/500] ZE PAK                                           60.0s
+   ✅ [14/500] SR Energy                                        54.0s
+   ✅ [15/500] Neoen                                            116.4s
+📂 Reading customer names from: /home/sagemaker-user/DeepResearch/customer_names.csv
+
+📊 Stress Test Configuration
+   CSV file    : customer_names.csv
+   Total names : 500
+   Processing  : 485 (start=15, limit=all)
+   Concurrency : 20 workers (queue)
+   Max retries : 3 (throttle backoff: 4s → 8s → 16s)
+   Output dir  : /home/sagemaker-user/DeepResearch/output/500-company-research
+   Model       : amazon.nova-premier-v1:0
+   Runs/task   : 1
+
+🚀 Starting queue with 20 parallel workers…
+
+   ✅ [1/485] Norske Shell                                     84.1s
+   ✅ [2/485] EDP RenovÃ¡veis                                  100.1s
+   ✅ [3/485] ENUSA                                            48.4s
+   ✅ [4/485] Cleve Hill Solar Park Ltd                        158.1s
+   ✅ [5/485] ZakÅ‚ady Wapiennicze Lhoist S.A.                 80.2s
+   ✅ [6/485] Sand + Kies Union GmbH                           171.8s
+   ✅ [7/485] GreenVolt;Alpac Capital;Luz-On - Solar Energy;Bo 159.3s
+📂 Reading customer names from: /home/sagemaker-user/DeepResearch/customer_names.csv
+
+📊 Stress Test Configuration
+   CSV file    : customer_names.csv
+   Total names : 500
+   Processing  : 479 (start=21, limit=all)
+   Concurrency : 20 workers (queue)
+   Max retries : 3 (throttle backoff: 4s → 8s → 16s)
+   Output dir  : /home/sagemaker-user/DeepResearch/output/500-company-research
+   Model       : amazon.nova-premier-v1:0
+   Runs/task   : 1
+
+🚀 Starting queue with 20 parallel workers…
+
+   ✅ [1/479] Imerys                                           60.7s
+   ✅ [2/479] Sand + Kies Union GmbH                           81.5s
+   ✅ [3/479] Mitteldeutsche Baustoffe GmbH                    83.4s
+   ✅ [4/479] GP Alster Kies GmbH  An der B 195 19246 LÃ¼ttow  84.7s
+   ✅ [5/479] Iberdrola                                        88.4s
+   ✅ [6/479] UrzÄ…d Morski w Gdyni                            88.8s
+   ✅ [7/479] Albispark                                        92.0s
+   ✅ [8/479] Aquila Capital                                   95.1s
+   ✅ [9/479] Nextera                                          96.2s
+   ✅ [10/479] ZakÅ‚ady Wapiennicze Lhoist S.A.                 98.6s
+   ✅ [11/479] ESB                                              101.3s
+   ✅ [12/479] ZakÅ‚ady Chemiczne i Tworzyw Sztucznych Boryszew 104.4s
+   ✅ [13/479] Endesa                                           113.7s
+   ✅ [14/479] CIMPOR - Cimentos de Portugal                    118.9s
+   ✅ [15/479] Cardiff International Airport Limited            127.2s
+   ✅ [16/479] GreenVolt;Alpac Capital;Luz-On - Solar Energy;Bo 129.0s
+   ✅ [17/479] The Navigator Company                            52.1s
+   ✅ [18/479] Valero Energy Corporation                        151.8s
+   ✅ [19/479] Encompass                                        64.2s
+   ✅ [20/479] Brice Aggregates                                 162.2s
+   ✅ [21/479] Prax Group                                       75.2s
+   ✅ [22/479] Energi Innovation                                61.5s
+   ✅ [23/479] PGE GÃ³rnictwo i Energetyka Konwencjonalna S.A.  87.4s
+   ✅ [24/479] Elysium Solar                                    57.5s
+   ✅ [25/479] ZPK RupiÅ„scy                                    67.0s
+   ✅ [26/479] ExxonMobil                                       120.5s
+   ✅ [27/479] GÃ³raÅ¼dÅ¼e Cement S.A.                          82.4s
+   ✅ [28/479] Burgenland Energie;ImWind                        57.0s
+   ✅ [29/479] Stena Line                                       207.9s
+   ✅ [30/479] Petronor                                         209.8s
+   ✅ [31/479] Chint Solar/ Astronergy                          55.6s
+   ✅ [32/479] National Electric Vehicle Sweden AB              54.0s
+   ✅ [33/479] Better Energy BadskÃ¦r P/S                       83.5s
+   ✅ [34/479] HVC                                              81.7s
+   ✅ [35/479] Endesa                                           76.3s
+   ✅ [36/479] Perrier TP                                       75.3s
+   ✅ [37/479] SÃ¼dbayerisches Portland-Zementwerk(SPZ)         67.9s
+   ✅ [38/479] GreenGo Energy Group A/S                         125.9s
+   ✅ [39/479] GÃ¶teborgs Hamn AB                               92.7s
+   ✅ [40/479] North Sea Port Netherlands NV                    85.4s
+   ✅ [41/479] MPWiK Warszawa                                   86.9s
+   ✅ [42/479] Peterhead Port Authority                         188.7s
+   ✅ [43/479] GÃ¶teborgs Hamn AB                               119.4s
+   ✅ [44/479] CF Industries                                    65.6s
+   ✅ [45/479] SÃ¼dbayerisches Portland-Zementwerk(SPZ)         97.8s
+   ✅ [46/479] Woxna Graphite                                   198.6s
+   ✅ [47/479] Orlen PoÅ‚udnie                                  90.6s
+   ✅ [48/479] Wodociagi BiaÅ‚ostockie                          49.2s
+   ✅ [49/479] Lisnave                                          50.3s
+   ✅ [50/479] Wokas-Kopalnie Torfu Sp. z o.o.                  84.3s
+   ✅ [51/479] Mancomunidad del Sur                             54.7s
+   ✅ [52/479] Enerstar                                         68.2s
+   ✅ [53/479] Cooperativa Agroverde                            226.2s
+   ✅ [54/479] Burgenland Energie;ImWind                        93.1s
+   ✅ [55/479] Enea Wytwarzanie S.A.                            229.4s
+   ✅ [56/479] British Solar Renewables                         65.4s
+   ✅ [57/479] Fresh Park Venlo B.V.                            67.9s
+   ✅ [58/479] CLC                                              78.6s
+   ✅ [59/479] NNG Norddeutsche Naturstein GmbH                 94.8s
+   ✅ [60/479] Excavaciones TemiÃ±o PÃ©rez SA                   84.1s
+   ✅ [61/479] Mancomunidad de los Canales del Taibilla         87.6s
+   ✅ [62/479] Jaguar Land Rover                                82.2s
+   ✅ [63/479] ZPK RupiÅ„scy                                    67.0s
+   ✅ [64/479] Navantia                                         61.4s
+   ✅ [65/479] DP World                                         146.0s
+   ✅ [66/479] Consorcio para la GestiÃ³n de los Residuos SÃ³li 73.6s
+   ✅ [67/479] Solarpark LÃ¶wenberg Gmbh                        70.2s
+   ✅ [68/479] Teunesen                                         86.3s
+   ✅ [69/479] ALSÃ‰Ã‰N                                         90.4s
+   ❌ [70/479] Tarmac                                           300.0s
+   ✅ [71/479] GÃ³raÅ¼dze Grupa Haldenberg                      98.3s
+   ✅ [72/479] Engie                                            174.9s
+   ✅ [73/479] GIE OSIRIS                                       52.5s
+   ✅ [74/479] Carbosulcis Spa                                  74.9s
+   ✅ [75/479] PGE GÃ³rnictwo i Energetyka Konwencjonalna S.A.  83.1s
+   ✅ [76/479] Hyperion                                         54.5s
+   ✅ [77/479] GÃ³raÅ¼dÅ¼e Cement S.A.                          123.1s
+   ✅ [78/479] Suez Rv Nord Est                                 81.5s
+   ✅ [79/479] ENI                                              84.5s
+   ✅ [80/479] Pizarras de Quiroga                              156.5s
+   ✅ [81/479] Polgravel                                        72.0s
+   ✅ [82/479] Solaria                                          121.7s
+   ✅ [83/479] GÃ³raÅ¼dze Kruszywa sp. z o.o.                   55.0s
+   ✅ [84/479] Italcementi Group                                134.2s
+   ✅ [85/479] Inertiscavi srl                                  69.3s
+   ✅ [86/479] Goldiport Solar Lda                              69.5s
+   ✅ [87/479] Pizarras de VillarbacÃº                          133.6s
+   ✅ [88/479] GÃ³rnicze ZakÅ‚ady Dolomitowe S.A.               206.0s
+   ✅ [89/479] Tarmac                                           94.0s
+   ✅ [90/479] UK Land                                          52.4s
+   ✅ [91/479] Tata Steel                                       114.8s
+   ✅ [92/479] Better Energy Fraugde P/S                        133.5s
+   ✅ [93/479] EKZ Renewables AG                                79.6s
+   ✅ [94/479] ENERPARC                                         143.3s
+   ✅ [95/479] Mulberry                                         43.5s
+   ✅ [96/479] PGE GiEK S.A. oddziaÅ‚ Elektrownia Opole         96.5s
+   ✅ [97/479] HERAambiente                                     78.6s
+   ✅ [98/479] Endesa                                           82.4s
+   ✅ [99/479] VERBUND Austrian Thermal Power AG; EVN AG        109.5s
+   ✅ [100/479] Lynggaard ApS                                    80.8s
+   ✅ [101/479] SISAV                                            71.2s
+   ✅ [102/479] Iberian Resources Spain                          180.0s
+   ✅ [103/479] Enel                                             96.2s
+   ✅ [104/479] ENERFONT - Fontes de Energia                     229.2s
+   ✅ [105/479] Calcia                                           101.6s
+   ✅ [106/479] Avantis Services NV                              208.1s
+   ✅ [107/479] ENI                                              72.2s
+   ✅ [108/479] Kort-Bet Sp. z o.o.                              73.6s
+   ✅ [109/479] Galp New Energies                                80.2s
+   ✅ [110/479] MEAB                                             84.6s
+   ✅ [111/479] Better Energy A/S                                67.0s
+   ✅ [112/479] Holcim (Deutschland) GmbH                        57.4s
+   ✅ [113/479] UniÃ³n Minera del Norte                          60.7s
+   ✅ [114/479] Powerfield                                       137.8s
+   ✅ [115/479] SE Bury Lane Solar Limited                       90.0s
+   ✅ [116/479] Unternehmensgruppe Peter Glindemann              76.8s
+   ✅ [117/479] Magnox                                           67.7s
+   ✅ [118/479] EVB                                              119.3s
+   ✅ [119/479] SolarEnergyWorks/SADC                            70.5s
+   ✅ [120/479] Ambassador                                       131.6s
+   ✅ [121/479] Eden Renewables                                  69.4s
+   ✅ [122/479] EDF Renewables                                   71.3s
+   ✅ [123/479] Central Fotovoltaica Sol Poente                  50.7s
+   ✅ [124/479] Endesa                                           96.7s
+   ✅ [125/479] Adif                                             104.4s
+   ✅ [126/479] K+B Kies und Beton GmbH                          104.8s
+   ✅ [127/479] Rio Tinto Minerals                               136.5s
+   ✅ [128/479] Sydkraft Thermal Power AB                        72.7s
+   ✅ [129/479] EDF Energy                                       89.3s
+   ✅ [130/479] Iberdrola                                        112.4s
+   ✅ [131/479] Alter Enersun CÃ¡ceres Tres                      93.5s
+   ✅ [132/479] FORS Varme HolbÃ¦k A/S                           57.9s
+   ✅ [133/479] BMW AG                                           77.9s
+   ✅ [134/479] Iberdrola                                        155.2s
+   ✅ [135/479] SunEdison                                        74.1s
+   ✅ [136/479] PGE GÃ³rnictwo i Energetyka Konwencjonalna S.A.  59.5s
+   ✅ [137/479] Iberdrola                                        111.1s
+   ✅ [138/479] Science and Technology Facilities Council        55.6s
+   ✅ [139/479] Alcoa                                            80.4s
+   ✅ [140/479] Better Energy                                    142.6s
+   ✅ [141/479] Magna                                            86.9s
+   ✅ [142/479] Polskie Radio                                    48.7s
+   ✅ [143/479] Vattenfall                                       160.9s
+   ✅ [144/479] WPO                                              99.9s
+   ✅ [145/479] ISAB S.r.l.                                      79.5s
+   ✅ [146/479] Martinsons                                       86.3s
+   ✅ [147/479] Stellantis                                       218.0s
+   ✅ [148/479] Sanabria Solar                                   75.0s
+   ✅ [149/479] OMV                                              123.2s
+   ✅ [150/479] FRV                                              72.8s
+   ✅ [151/479] Hills Quarry Products                            67.2s
+   ✅ [152/479] SUNO ENERGÃA 5 S.L.                             77.5s
+   ✅ [153/479] Resitejo                                         128.1s
+   ✅ [154/479] WÃ¼nschendorfer Dolomitwerk GmbH                 53.8s
+   ✅ [155/479] Kruszywa Sp. z o.o.                              131.2s
+   ✅ [156/479] Hargs Hamn AB                                    129.5s
+   ✅ [157/479] TorvfÃ¶rÃ¤dling i Sverige AB                     63.3s
+   ✅ [158/479] RÃ¶gner Sand & Kies GmbH                         73.7s
+   ✅ [159/479] Instituto Nacional de TÃ©cnica Aeroespacial      146.9s
+   ✅ [160/479] Eneco                                            96.9s
+   ✅ [161/479] Vereniging Parkmanagement Bedrijventerreinen Emm 70.2s
+   ✅ [162/479] Lhoist France                                    76.0s
+   ✅ [163/479] St1 Refinery AB                                  63.1s
+   ✅ [164/479] PERN S.A.                                        85.7s
+   ✅ [165/479] Abbey Renewables                                 98.8s
+   ✅ [166/479] Uniland S.A.                                     75.0s
+   ✅ [167/479] Wienerberger GmbH                                89.1s
+   ✅ [168/479] Basaltwerk Pechbrunn GmbH                        272.2s
+   ✅ [169/479] Iberdrola                                        56.3s
+   ✅ [170/479] GDDKiA                                           102.5s
+   ✅ [171/479] Ence                                             53.4s
+   ✅ [172/479] Red LogÃ­stica de AndalucÃ­a                     59.1s
+   ✅ [173/479] Alfa Logistik Sp. z o.o.                         95.1s
+   ✅ [174/479] Sociedade GeotÃ©rmica dos AÃ§ores                70.4s
+   ✅ [175/479] EDP Renovables EspaÃ±a S.L.U.                    86.5s
+   ✅ [176/479] Enerparc                                         73.9s
+   ✅ [177/479] Rheinische Baustoffwerke                         67.0s
+   ✅ [178/479] Galp New Energies                                128.3s
+   ✅ [179/479] Amey Cespa                                       68.1s
+   ✅ [180/479] P.P.H. ""K.A.M."" Sp. z o.o.                     72.2s
+   ✅ [181/479] Viesgo                                           68.4s
+   ✅ [182/479] PERN S.A.                                        113.0s
+   ✅ [183/479] ANDRA                                            101.1s
+   ✅ [184/479] Octopus Renewables Infrastructure Trust          57.7s
+   ✅ [185/479] Enel                                             82.3s
+   ✅ [186/479] Koole Terminals                                  85.6s
+   ✅ [187/479] EP UK Investments                                150.6s
+   ✅ [188/479] Tata Steel                                       78.5s
+   ✅ [189/479] Acea Ambiente                                    75.2s
+   ✅ [190/479] Daisy No1 Limited                                64.7s
+   ✅ [191/479] August Oppermann Kiesgewinnungs- und -Vertriebs- 86.2s
+   ✅ [192/479] Koole Terminals                                  87.3s
+   ✅ [193/479] Clearway Group                                   81.9s
+   ✅ [194/479] Arcillas Oliete                                  72.4s
+   ✅ [195/479] Oak-NGate                                        91.6s
+   ✅ [196/479] DuPont (U.K.) Limited                            89.2s
+   ✅ [197/479] Jaguar Land Rover                                90.7s
+   ✅ [198/479] Betriebsleiterin: Anja Sommerfeld                56.3s
+   ✅ [199/479] Tarmac                                           62.1s
+   ✅ [200/479] UKAEA                                            55.3s
+   ✅ [201/479] Basalt AG                                        106.7s
+   ✅ [202/479] Jaynic; Gateway 14 Ltd.                          109.5s
+   ✅ [203/479] Better Energy A/S                                74.2s
+   ✅ [204/479] Essent                                           64.1s
+   ✅ [205/479] La Florentaise                                   65.1s
+   ✅ [206/479] SyndicatÂ IntercommunalÂ deÂ CollecteÂ etÂ deÂ T 65.0s
+   ✅ [207/479] Aberdeen Harbour Board                           62.2s
+   ✅ [208/479] ZPB Kaczmarek                                    98.0s
+   ✅ [209/479] Holcim Kies und Splitt GmbH                      80.7s
+   ✅ [210/479] Waystone Developments Ltd                        121.3s
+   ✅ [211/479] Leonardo s.p.a. Sezione Velivoli                 64.4s
+   ✅ [212/479] SCA Hygiene Products AB                          69.8s
+   ✅ [213/479] PERN S.A.                                        78.2s
+   ✅ [214/479] SaxaVord                                         121.5s
+   ✅ [215/479] Etares                                           49.2s
+   ✅ [216/479] Iren                                             89.4s
+   ✅ [217/479] ValorInerte - ValorizaÃ§Ã£o de ResÃ­duos Inertes 58.6s
+   ✅ [218/479] AlphaReal                                        130.3s
+   ✅ [219/479] WAS - Wolfsburger Abfallwirtschaft und StraÃŸenr 69.4s
+   ✅ [220/479] Quarzwerke                                       144.6s
+   ✅ [221/479] Algar                                            154.2s
+   ✅ [222/479] P&O Ferries                                      91.0s
+   ✅ [223/479] Generg Sol do Alentejo - Energias RenovÃ¡veis    65.4s
+   ✅ [224/479] Prezero                                          128.4s
+   ✅ [225/479] Penarroya                                        163.7s
+   ✅ [226/479] OMYA                                             108.3s
+   ✅ [227/479] Ardagh Glass                                     102.2s
+   ✅ [228/479] Tauron Wytwarzanie                               134.5s
+   ✅ [229/479] TPSolar                                          105.2s
+   ✅ [230/479] Rheinmetall AG                                   56.4s
+   ✅ [231/479] Gasunie                                          57.5s
+   ✅ [232/479] PGNiG Termika                                    72.0s
+   ✅ [233/479] Iberdrola                                        64.2s
+   ✅ [234/479] Aquila Capital                                   70.0s
+   ✅ [235/479] Adif                                             162.4s
+   ✅ [236/479] Holcim                                           51.2s
+   ✅ [237/479] Rup                                              135.6s
+   ✅ [238/479] Exus Management Partners                         58.2s
+   ✅ [239/479] Hyperion Energy Portugal Lda;Hyperion Energy Inv 67.3s
+   ✅ [240/479] Enipower                                         168.5s
+   ✅ [241/479] Aura Power                                       108.6s
+   ✅ [242/479] Holcim                                           83.7s
+   ✅ [243/479] Castle Green                                     88.6s
+   ✅ [244/479] Havenbedrijf Rotterdam N.V.                      73.1s
+   ✅ [245/479] Greaves Welsh Slate                              60.0s
+   ✅ [246/479] Point P - SIMAT                                  85.7s
+   ✅ [247/479] Gilde GmbH                                       72.8s
+   ✅ [248/479] Banks Group                                      55.1s
+   ✅ [249/479] WodociÄ…gi i Kanalizacja ""AKWA"" Sp. z o.o.     111.9s
+   ✅ [250/479] PPHU WIKA Chamara PaweÅ‚                         54.8s
+   ✅ [251/479] Eni New Energy                                   58.8s
+   ✅ [252/479] Logent Ports & Terminals AB                      82.4s
+   ✅ [253/479] A2A                                              88.0s
+   ✅ [254/479] Thy Kalk                                         93.6s
+   ✅ [255/479] Heim Niederschlesische Kieswerke GmbH & Co. KG   113.5s
+   ✅ [256/479] ENERPARC                                         50.9s
+   ✅ [257/479] TOTAL E&P UK                                     68.3s
+   ✅ [258/479] Orange Park                                      52.1s
+   ✅ [259/479] Orano Mining                                     77.2s
+   ✅ [260/479] Alseva                                           63.0s
+   ✅ [261/479] Acciona Solar                                    84.2s
+   ✅ [262/479] Planta FV104 S.L.                                67.7s
+   ✅ [263/479] Welser Profile Austria GmbH                      147.8s
+   ✅ [264/479] Ambilital                                        97.7s
+   ✅ [265/479] Bloor Homes Southern                             50.1s
+   ✅ [266/479] DIF Capital Partners / Green Investment Group    94.9s
+   ✅ [267/479] Gemeinde Schwanfeld                              54.0s
+   ✅ [268/479] ZespÃ³Å‚ Elektrowni PÄ…tnÃ³w-AdamÃ³w-Konin S.A.  93.5s
+   ✅ [269/479] Anesco                                           73.0s
+   ✅ [270/479] MPWiK                                            71.3s
+   ✅ [271/479] MEAC                                             63.0s
+   ✅ [272/479] SARPOM S.r.l.                                    49.4s
+   ✅ [273/479] EDF                                              89.5s
+   ✅ [274/479] Harwoth                                          79.0s
+   ✅ [275/479] Finnmark Sand AS                                 98.0s
+   ✅ [276/479] Laird Aggregates Ltd                             53.1s
+   ✅ [277/479] Mitteldeutsche Baustoffe GmbH                    74.8s
+   ✅ [278/479] Evos                                             67.0s
+   ✅ [279/479] Centrales Nucleares Almaraz-Trillo               60.9s
+   ✅ [280/479] PERN S.A.                                        80.1s
+   ✅ [281/479] Medway Council                                   60.6s
+   ✅ [282/479] Swerock                                          81.6s
+   ✅ [283/479] MAN;ZF                                           136.7s
+   ✅ [284/479] Waternet                                         49.1s
+   ✅ [285/479] Bluefield Solar                                  76.1s
+   ✅ [286/479] RingkÃ¸bing Fjernvarme a.m.b.a.                  63.8s
+   ✅ [287/479] Dolata                                           66.5s
+   ✅ [288/479] Sirius Minerals                                  98.0s
+   ✅ [289/479] Sand+Kies Union Berlin-Brandenburg Werk Niederle 73.3s
+   ✅ [290/479] BASF SE                                          91.9s
+   ✅ [291/479] Tarmac Quarry Products                           66.8s
+   ✅ [292/479] Orlen Paliwa Sp. o.o.                            182.0s
+   ✅ [293/479] Lafarge Granulats                                94.8s
+   ✅ [294/479] Tauron Wytwarzanie                               78.9s
+   ✅ [295/479] Port of Dover                                    44.6s
+   ✅ [296/479] RINA Consulting S.p.A.                           73.2s
+   ✅ [297/479] Peter Glindemann                                 57.8s
+   ✅ [298/479] ResInvest                                        154.8s
+   ✅ [299/479] Kompania WÄ™glowa                                141.9s
+   ✅ [300/479] PVA3BL                                           86.6s
+   ✅ [301/479] Breedon Aggregates                               85.8s
+   ✅ [302/479] Reinfeld                                         99.9s
+   ✅ [303/479] Celsa Group                                      173.8s
+   ✅ [304/479] Galp New Energies                                56.8s
+   ✅ [305/479] Adif                                             121.1s
+   ✅ [306/479] Waschkieswerk Eich GmbH & Co.KG                  67.7s
+   ✅ [307/479] Kettiger Thonwerke                               71.2s
+   ✅ [308/479] Dow Silicones UK Ltd.                            68.7s
+   ✅ [309/479] Tauron Wytwarzanie                               97.7s
+   ✅ [310/479] Papenburg                                        64.2s
+   ✅ [311/479] Les Pierres Bourguignonnes                       62.8s
+   ✅ [312/479] LigÃ©rienne Granulats                            45.2s
+   ✅ [313/479] Carbosulcis Spa                                  106.7s
+   ✅ [314/479] Dragage du Val de Loire                          164.9s
+   ✅ [315/479] Tauron Wytwarzanie                               69.7s
+   ✅ [316/479] Tarmac                                           85.3s
+   ✅ [317/479] CoÃ¶peratie Royal FloraHolland U.A.              66.0s
+   ✅ [318/479] AprovalÂ 16                                      123.9s
+   ✅ [319/479] Holcim (Deutschland) GmbH                        52.5s
+   ✅ [320/479] Azimuthbenefit                                   51.1s
+   ✅ [321/479] Susenco/Low Carbon                               64.5s
+   ✅ [322/479] Uniper                                           107.2s
+   ✅ [323/479] Eni                                              93.3s
+   ✅ [324/479] XPO Logistics                                    158.0s
+   ✅ [325/479] RFPB Kieswerk GmbH & Co KG                       64.6s
+   ✅ [326/479] Mancomunidad del Este                            76.0s
+   ✅ [327/479] Neoen                                            91.3s
+   ✅ [328/479] Jaguar Land Rover                                58.9s
+   ✅ [329/479] Stantec                                          94.3s
+   ✅ [330/479] MÃ¤larenergi                                     62.9s
+   ✅ [331/479] VÃ©oliaÂ PropetÃ©Â ValestÂ Metz                  109.3s
+   ✅ [332/479] Cemex                                            115.4s
+   ✅ [333/479] GP GÃ¼nter Papenburg AG                          61.2s
+   ✅ [334/479] Rigips                                           112.8s
+   ✅ [335/479] SST                                              65.1s
+   ✅ [336/479] Tauron Wytwarzanie                               80.3s
+   ✅ [337/479] 50Hertz Transmission GmbH;Avacon Netz GmbH       76.3s
+   ✅ [338/479] Tarmac                                           178.2s
+   ✅ [339/479] Miejskie PrzedsiÄ™biorstwo WodociÄ…gÃ³w i Kanali 276.4s
+   ✅ [340/479] Shell                                            105.7s
+   ✅ [341/479] NCC                                              74.5s
+   ✅ [342/479] Sibelco France                                   132.5s
+   ✅ [343/479] Veolia                                           100.5s
+   ✅ [344/479] Viridor Collection Services                      72.8s
+   ✅ [345/479] ElektrociepÅ‚ownia Siekierki                     55.3s
+   ✅ [346/479] Edipower                                         65.9s
+   ✅ [347/479] Valteo                                           76.4s
+   ✅ [348/479] Vattenfall                                       85.4s
+   ✅ [349/479] Landkreis GÃ¶ttingen                             52.4s
+   ✅ [350/479] EDF                                              71.1s
+   ✅ [351/479] Whyte & Mackay                                   76.0s
+   ✅ [352/479] Iberdrola                                        154.5s
+   ✅ [353/479] Standard Aero                                    86.3s
+   ✅ [354/479] Wild Landfill                                    74.2s
+   ✅ [355/479] Banco Santander                                  70.4s
+   ✅ [356/479] A2A                                              98.2s
+   ✅ [357/479] Volvo Lastvagnar AB                              188.1s
+   ✅ [358/479] TERAMB                                           84.2s
+   ✅ [359/479] Zementwerk Hatschek GmbH                         87.8s
+   ✅ [360/479] Google                                           104.6s
+   ✅ [361/479] Sibelco                                          127.2s
+   ✅ [362/479] PGE Energia CiepÅ‚a S.A. OddziaÅ‚ ElektrociepÅ‚o 46.0s
+   ✅ [363/479] Mourik;Besix                                     146.3s
+   ✅ [364/479] RenoDjurs                                        74.6s
+   ✅ [365/479] Exolum                                           56.3s
+   ✅ [366/479] Angle Park Sand & Gravel Co.                     95.5s
+   ✅ [367/479] CLH                                              183.0s
+   ✅ [368/479] Italcementi                                      91.0s
+   ✅ [369/479] INEOS                                            140.1s
+   ✅ [370/479] Samin                                            95.6s
+   ✅ [371/479] Engie                                            49.3s
+   ✅ [372/479] Whitemountain Quarries                           56.5s
+   ✅ [373/479] Microsoft                                        72.4s
+   ✅ [374/479] Dunea                                            55.8s
+   ✅ [375/479] EIDF                                             80.7s
+   ✅ [376/479] AzurÂ Valorisation                               63.5s
+   ✅ [377/479] Raymond Brown Ltd.                               54.5s
+   ✅ [378/479] TEAM Terminal B.V.                               99.9s
+   ✅ [379/479] Adif                                             77.0s
+   ✅ [380/479] Viridor Waste Management Ltd                     94.3s
+   ✅ [381/479] PUHP Lech                                        70.6s
+   ✅ [382/479] Kopalnia Soli KÅ‚odawa                           76.0s
+   ✅ [383/479] Kieswerke Friedl GmbH                            55.4s
+   ✅ [384/479] Koch Kiessand GmbH                               56.1s
+   ✅ [385/479] Forsmarks Kraftgrupp                             154.1s
+   ✅ [386/479] Bloor Homes Southern                             51.0s
+   ✅ [387/479] Heinrich Teufel GmbH & Co.KG                     81.2s
+   ✅ [388/479] Prologis                                         69.0s
+   ✅ [389/479] Carmarthenshire County Council                   88.8s
+   ✅ [390/479] Tameh Polska Sp. z o.o.                          198.7s
+   ✅ [391/479] Prologis                                         95.7s
+   ✅ [392/479] Iberdrola                                        116.1s
+   ✅ [393/479] R S Assemblies Limited                           67.2s
+   ✅ [394/479] Krakowskie ZakÅ‚ady Eksploatacji Kruszywa S.A.   58.9s
+   ✅ [395/479] CSIC;MPG                                         91.3s
+   ✅ [396/479] Welser Kieswerke Treul & Co. Ges.m.b.H.          94.2s
+   ✅ [397/479] European Space Agency                            74.1s
+   ✅ [398/479] Grube Reden                                      106.0s
+   ✅ [399/479] Whitemountain Quarries Ltd                       69.9s
+   ✅ [400/479] Glennmont;CEF Energia Iberica                    86.3s
+   ✅ [401/479] Holcim SÃ¼ddeutschland                           78.0s
+   ✅ [402/479] Exolum                                           72.8s
+   ✅ [403/479] SOGIN                                            89.4s
+   ✅ [404/479] Holcim                                           209.8s
+   ✅ [405/479] Boryszew S.A.                                    68.3s
+   ✅ [406/479] GLP                                              92.9s
+   ✅ [407/479] Fortum Power and Heat Polska Sp. z o.o.          79.7s
+   ✅ [408/479] Centrales Nucleares Almaraz-Trillo               161.4s
+   ✅ [409/479] Snam S.p.A.                                      61.3s
+   ✅ [410/479] Murray Estates                                   213.7s
+   ✅ [411/479] Impala Terminals Rotterdam B.V.                  51.2s
+   ✅ [412/479] Lightsource BP                                   62.2s
+   ✅ [413/479] Hudiksvalls kommun                               47.7s
+   ✅ [414/479] SetomÂ (syndicatÂ EtudeÂ TraitementÂ OrduresÂ MÃ 79.5s
+   ✅ [415/479] SuezÂ RvÂ SudÂ Ouest                             70.2s
+   ✅ [416/479] Team Knowhow                                     65.3s
+   ✅ [417/479] SociÃ©tÃ© des CarriÃ¨res de LanhÃ©lin            53.6s
+   ✅ [418/479] Tacora Resources Inc.                            147.6s
+   ✅ [419/479] KWB Kieswerk Bodetal GmbH & Co. KG               71.0s
+   ✅ [420/479] GÃ³raÅ¼dÅ¼e Kruszywa                             86.9s
+   ✅ [421/479] Waterschap De Dommel                             124.4s
+   ✅ [422/479] Lightsource BP                                   65.7s
+   ✅ [423/479] ENUSA                                            57.8s
+   ✅ [424/479] Ambisousa                                        120.8s
+   ✅ [425/479] Shell                                            101.2s
+   ✅ [426/479] Wienerberger                                     67.8s
+   ✅ [427/479] Cementos Cosmos                                  72.7s
+   ✅ [428/479] Tratolixo                                        53.7s
+   ✅ [429/479] Bardon Aggregates                                146.0s
+   ✅ [430/479] BurgenlÃ¤ndischer MÃ¼llverband                   85.6s
+   ✅ [431/479] PERN S.A.                                        67.2s
+   ✅ [432/479] CEM Ambiente                                     93.8s
+   ✅ [433/479] UniversitÃ  di Torino                            60.3s
+   ✅ [434/479] GEDESMA                                          83.2s
+   ✅ [435/479] evonik                                           74.3s
+   ✅ [436/479] OKG Aktiebolag                                   63.8s
+   ✅ [437/479] Tauron                                           85.9s
+   ✅ [438/479] Nissan Motor IbÃ©rica S.A.                       64.2s
+   ✅ [439/479] Excavaciones UcediÃ±os                           93.4s
+   ✅ [440/479] TGA Tonbergbau-Grube Anton GmbH & Co. KG         56.3s
+   ✅ [441/479] Exolum                                           85.5s
+   ✅ [442/479] Valorizon                                        120.3s
+   ✅ [443/479] EPZ                                              86.1s
+   ✅ [444/479] SuezÂ RvÂ NordÂ Est                              72.0s
+   ✅ [445/479] Kies- und Quetschwerk Jais                       79.0s
+   ❌ [446/479] BRIVEL - Britas e BetÃµes de Vila Real           300.0s
+   ✅ [447/479] Tribag S.A.                                      79.3s
+   ✅ [448/479] Hanson                                           101.8s
+   ✅ [449/479] Streicher Hartsteinwerke Vogtland GmbH & Co. KG  150.2s
+   ✅ [450/479] Enel                                             63.0s
+   ✅ [451/479] Neoen                                            71.0s
+   ✅ [452/479] Microsoft                                        74.7s
+   ✅ [453/479] Swindon Pressings Ltd                            69.5s
+   ✅ [454/479] Groupe Bouyer-Leroux                             73.0s
+   ✅ [455/479] Ayuntamiento de Burgos                           70.2s
+   ✅ [456/479] NDH-E                                            100.4s
+   ✅ [457/479] SMA Minerals                                     90.9s
+   ✅ [458/479] Groupe Pizzorno                                  83.4s
+   ✅ [459/479] John Dewar & Sons                                86.9s
+   ✅ [460/479] EP UK Investments                                66.7s
+   ✅ [461/479] Delta Terminal AB                                41.8s
+   ✅ [462/479] Schotterwerk Leibfritz GmbH & Co KG              69.1s
+   ✅ [463/479] Rhein-HunsrÃ¼ck-Kreis                            82.0s
+   ✅ [464/479] Rusal                                            83.3s
+   ✅ [465/479] Jones Bros Civil Engineering UK                  128.0s
+   ✅ [466/479] Northstone (NI) Ltd                              70.7s
+   ✅ [467/479] Amey                                             134.7s
+   ✅ [468/479] LPP                                              88.2s
+   ✅ [469/479] Krakowskie ZakÅ‚ady Eksploatacji Kruszywa        84.6s
+   ✅ [470/479] Szybka Kolej Miejska Sp. z o.o.                  72.0s
+   ✅ [471/479] Noatum Container Terminal Bilbao                 59.7s
+   ✅ [472/479] ConocoPhillips                                   91.0s
+   ✅ [473/479] TPSolar                                          63.9s
+   ✅ [474/479] E.ON EspaÃ±a                                     119.7s
+   ✅ [475/479] EDF Ekoserwis Sp. z o.o.                         72.5s
+   ✅ [476/479] Sibelco Deutschland GmbH                         95.6s
+   ✅ [477/479] Tarmac                                           111.2s
+   ✅ [478/479] Hyperion                                         95.8s
+   ✅ [479/479] Ã˜rsted                                          141.3s
+
+══════════════════════════════════════════════════════════════
+📈 STRESS TEST COMPLETE
+══════════════════════════════════════════════════════════════
+   Total companies  : 479
+   ✅ Succeeded      : 477
+   ❌ Failed         : 2
+   🔁 Throttle hits  : 0
+   ⏱  Total time    : 2277.3s
+   ⚡ Avg/company   : 92.1s
+   📁 Results       : /home/sagemaker-user/DeepResearch/output/500-company-research/
+   📝 Log           : /home/sagemaker-user/DeepResearch/output/500-company-research/stress-test-results.ndjson
+══════════════════════════════════════════════════════════════
+
+⚠️  Failed companies:
+   • Tarmac: killed by signal SIGTERM
+   • BRIVEL - Britas e BetÃµes de Vila Real: killed by signal SIGTERM
