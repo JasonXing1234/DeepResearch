@@ -533,46 +533,58 @@ async function novaGroundingSearch(
   };
   const items = resp?.output?.message?.content || [];
 
-  let answerText = '';
+  // Nova interleaves `text` and `citationsContent` items. The `text` segment
+  // immediately preceding a `citationsContent` block is the grounded excerpt
+  // for those cited URLs (sourceContent is absent in this API version).
   const rawCitations: Array<{ title: string; url: string; snippet: string }> = [];
+  let lastText = '';
 
   for (const item of items) {
-    if (typeof item?.text === 'string') answerText += item.text + ' ';
+    if (typeof item?.text === 'string') {
+      lastText = stripThinking(item.text as string);
+      continue;
+    }
     const citations = (item?.citationsContent as { citations?: unknown[] } | undefined)?.citations || [];
-    for (const citation of citations as Array<Record<string, unknown>>) {
-      const loc = citation?.location as Record<string, unknown> | undefined;
-      const web = loc?.web as Record<string, unknown> | undefined;
-      const url = web?.url as string | undefined;
-      if (!url?.startsWith('http')) continue;
-      const srcContent = citation?.sourceContent as Record<string, unknown> | undefined;
-      const genPart = citation?.generatedResponsePart as Record<string, unknown> | undefined;
-      const textPart = genPart?.textResponsePart as Record<string, unknown> | undefined;
-      rawCitations.push({
-        title:   (web?.title || web?.domain || url) as string,
-        url,
-        snippet: stripThinking((srcContent?.text || textPart?.text || '') as string),
-      });
+    if (citations.length > 0) {
+      const snippet = lastText;
+      lastText = '';
+      for (const citation of citations as Array<Record<string, unknown>>) {
+        const loc = citation?.location as Record<string, unknown> | undefined;
+        const web = loc?.web as Record<string, unknown> | undefined;
+        const url = web?.url as string | undefined;
+        if (!url?.startsWith('http')) continue;
+        const srcContent = citation?.sourceContent as Record<string, unknown> | undefined;
+        const genPart = citation?.generatedResponsePart as Record<string, unknown> | undefined;
+        const textPart = genPart?.textResponsePart as Record<string, unknown> | undefined;
+        const fallback = stripThinking((srcContent?.text || textPart?.text || '') as string);
+        rawCitations.push({
+          title:   (web?.title || web?.domain || url) as string,
+          url,
+          snippet: snippet || fallback,
+        });
+      }
     }
   }
 
-  const cleanAnswer = stripThinking(answerText);
-  const seen = new Set<string>();
-  const sources: Array<{ title: string; url: string }> = [];
-  const sourcesWithSnippets: SearchResult[] = [];
-
+  // Deduplicate by URL, keeping the longest snippet per URL
+  const byUrl = new Map<string, { title: string; url: string; snippet: string }>();
   for (const c of rawCitations) {
-    if (seen.has(c.url)) continue;
-    seen.add(c.url);
-    sources.push({ title: c.title, url: c.url });
-    sourcesWithSnippets.push({ title: c.title, url: c.url, snippet: c.snippet });
+    const existing = byUrl.get(c.url);
+    if (!existing || c.snippet.length > existing.snippet.length) byUrl.set(c.url, c);
   }
+  const deduped = [...byUrl.values()];
+
+  const sources: Array<{ title: string; url: string }> = deduped.map(c => ({ title: c.title, url: c.url }));
+  const sourcesWithSnippets: SearchResult[] = deduped;
 
   const snippetSeen = new Set<string>();
-  const snippets = rawCitations
+  const snippets = deduped
     .map(c => c.snippet)
     .filter(s => { if (!s || snippetSeen.has(s)) return false; snippetSeen.add(s); return true; });
 
-  const fullText = [...snippets, cleanAnswer].filter(Boolean).join('\n\n');
+  // Use only grounded web snippets for extraction — Nova's synthesized answer text
+  // is excluded because it may contain hallucinated content when real sources are sparse.
+  const fullText = snippets.filter(Boolean).join('\n\n');
   return { fullText, sources, sourcesWithSnippets };
 }
 
