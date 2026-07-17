@@ -19,6 +19,8 @@ import {
   BedrockRuntimeClient,
   ConverseCommand,
 } from '@aws-sdk/client-bedrock-runtime';
+import { NodeHttpHandler } from '@smithy/node-http-handler';
+import { HttpsProxyAgent } from 'https-proxy-agent';
 
 // ── CLI args ──────────────────────────────────────────────────────────────────
 
@@ -42,6 +44,7 @@ const outputDir  = resolve(args.output || './output/company-profiling');
 const rawModelId = args.model || process.env.BEDROCK_RESEARCH_MODEL_ID || 'amazon.nova-premier-v1:0';
 const modelId    = /^(us|eu|ap)\./.test(rawModelId) ? rawModelId : `us.${rawModelId}`;
 const region     = args.region || process.env.AWS_REGION || 'us-east-1';
+const httpsProxy = args['https-proxy'] || process.env.HTTPS_PROXY || process.env.https_proxy;
 
 // ── Company definitions ───────────────────────────────────────────────────────
 
@@ -61,8 +64,18 @@ const COMPANIES = [
 ];
 
 // ── Bedrock client ────────────────────────────────────────────────────────────
-
-const client = new BedrockRuntimeClient({ region });
+// Some networks (e.g. corporate SageMaker environments) require routing AWS SDK
+// traffic through an HTTPS proxy — mirrors the pattern used in the repo's other
+// Bedrock scripts (test-bedrock-agent.mjs, test-bedrock-agent-deep-search.mjs).
+const clientConfig = { region };
+if (httpsProxy) {
+  clientConfig.requestHandler = new NodeHttpHandler({
+    connectionTimeout: 10000,
+    requestTimeout: 60000,
+    httpsAgent: new HttpsProxyAgent(httpsProxy),
+  });
+}
+const client = new BedrockRuntimeClient(clientConfig);
 
 console.log(`\n🏗️  Company Profiling Research`);
 console.log(`   Model   : ${modelId}`);
@@ -176,11 +189,11 @@ async function novaSearch(query, systemPrompt) {
     const cmd = new ConverseCommand({
       modelId,
       messages: [{ role: 'user', content: [{ text:
-        `Search the web thoroughly for the following. Read the full content of every relevant page you find — including official company websites, LinkedIn profiles, government records, news articles, and local business directories. Extract and report ALL specific details you find: company description, services, projects (with names, locations, dates), people (names and titles), equipment/fleet, and any other relevant information. Be as detailed as possible.\n\nQuery: ${query}`
+        `Search the web thoroughly for the following. Perform as many distinct searches as needed, from whatever angles you judge most useful, to build a complete picture — don't stop after a single search. Read the full content of every relevant page you find. Extract and report ALL specific details you find about the company. Be as detailed as possible.\n\nQuery: ${query}`
       }] }],
       system: [{ text: systemPrompt }],
       toolConfig: { tools: [{ systemTool: { name: 'nova_grounding' } }] },
-      inferenceConfig: { maxTokens: 3000 },
+      inferenceConfig: { maxTokens: 6000 },
     });
     const resp    = await client.send(cmd);
     const results = extractNovaResults(resp);
@@ -218,25 +231,57 @@ async function novaBrowseUrl(url, company, systemPrompt) {
 // Only keep snippets that actually mention the company (by any significant alias keyword).
 // Also accepts results whose URL itself contains a company keyword (official site pages
 // often don't repeat the company name in their page text).
-function filterRelevantResults(results, company) {
+// Generic company-type/designator words (spans many languages) — when an alias
+// contains one of these, we require it to be among the matched words. This is
+// the key disambiguator between an actual company and an unrelated person or
+// entity that happens to share the same personal name (e.g. "Luiz Costa" the
+// construction company vs. "Luiz Costa" an unrelated individual online).
+const DESIGNATOR_WORDS = new Set([
+  'construtora', 'construtor', 'construcciones', 'constructora', 'construction',
+  'ltda', 'ltd', 'llc', 'inc', 'corp', 'corporation', 'company', 'group', 'grupo',
+  'sa', 'srl', 'gmbh', 'plc', 'ag', 'nv', 'bv', 'kg', 'spa', 'oy', 'ab', 'co',
+]);
+
+function buildAliasKeywordSets(company) {
   const STOP = new Set(['the', 'and', 'or', 'in', 'of', 'a', 'an', 'for', 'by', 'at',
-                        // Common company suffixes (any language)
-                        'inc', 'corp', 'co', 'llc', 'ltd', 'group', 'sa', 'srl', 'bv', 'gmbh',
                         // Portuguese
                         'de', 'do', 'da', 'e', 'em', 'no', 'na',
                         // Spanish
                         'el', 'la', 'los', 'las', 'del', 'y',
                         // French
                         'le', 'les', 'des', 'du', 'et']);
-  const keywords = [...new Set(
-    company.searchNames.flatMap(n =>
-      n.toLowerCase().split(/\s+/).filter(w => w.length > 2 && !STOP.has(w))
-    )
-  )];
+  return company.searchNames.map(n =>
+    n.toLowerCase().split(/\s+/).filter(w => w.length > 2 && !STOP.has(w))
+  ).filter(set => set.length > 0);
+}
+
+// Returns true if `haystack` sufficiently matches one of the company's aliases.
+// Requires 2+ matching words (or all words for 1-2-word aliases) AND, if the
+// alias contains a company designator word (see DESIGNATOR_WORDS), that word
+// must be one of the matches — otherwise a bare personal-name overlap (e.g. a
+// common surname) is not enough to count as a company match.
+function matchesCompanyAlias(haystack, aliasKeywordSets) {
+  return aliasKeywordSets.some(kws => {
+    const hits = kws.filter(kw => haystack.includes(kw));
+    const required = Math.min(kws.length, 2);
+    if (hits.length < required) return false;
+    const designators = kws.filter(kw => DESIGNATOR_WORDS.has(kw));
+    if (designators.length > 0 && !designators.some(d => hits.includes(d))) return false;
+    return true;
+  });
+}
+
+function filterRelevantResults(results, company) {
+  // Build one keyword set per alias (rather than one flat pool) so we can require
+  // multiple distinct words from the SAME alias to match — a single shared word
+  // (e.g. a common surname like "Costa" or "Luiz") is not enough on its own and
+  // causes false positives against unrelated people/companies with similar names.
+  const aliasKeywordSets = buildAliasKeywordSets(company);
+
   return results.filter(r => {
     const urlLower = r.url.toLowerCase();
-    const haystack = `${r.title} ${r.snippet}`.toLowerCase();
-    return keywords.some(kw => urlLower.includes(kw) || haystack.includes(kw));
+    const haystack = `${r.title} ${r.snippet} ${urlLower}`.toLowerCase();
+    return matchesCompanyAlias(haystack, aliasKeywordSets);
   });
 }
 
@@ -365,51 +410,62 @@ async function discoverAndBrowseOfficialSite(company, pass1Results, systemPrompt
 }
 
 
-// High score = company's own site, news about them, gov contracts
-// Low score = generic directories, off-topic pages
+// High score = company's own site, news about them, gov/registry records
+// Low score = generic aggregator directories, off-topic pages
+// NOTE: kept generic/domain-agnostic so this scales across hundreds of companies
+// in any country or industry — no country- or agency-specific hardcoding here.
+const GENERIC_AGGREGATOR_DOMAINS = [
+  'zoominfo.com', 'datanyze.com', 'kompass.com', 'dnb.com', 'craft.co',
+  'rocketreach.co', 'owler.com', 'aeroleads.com', 'apollo.io', 'lusha.com',
+  'crunchbase.com', 'signalhire.com', 'cybo.com', 'yellowpages',
+];
+
 function scoreUrl(url, company) {
   const u = url.toLowerCase();
-  const keywords = company.searchNames.flatMap(n =>
-    n.toLowerCase().split(/\s+/).filter(w => w.length > 3)
-  );
+  // Same multi-word + designator-word requirement as filterRelevantResults — a
+  // single common word shared with an unrelated entity (e.g. a common surname)
+  // shouldn't be enough to score a URL as company-relevant.
+  const aliasKeywordSets = buildAliasKeywordSets(company);
+  const matchesAlias = (haystack) => matchesCompanyAlias(haystack, aliasKeywordSets);
+
   let score = 0;
-  if (keywords.some(kw => u.includes(kw))) score += 10;
-  // Extra boost for pages on the company's own domain (highest-value source)
+  if (matchesAlias(u)) score += 10;
+  // Extra boost for pages on the company's own domain (highest-value source).
+  // Domain collision risk is much lower than generic text mentions, so a single
+  // distinctive (>5 char) word is enough here — official domains often use only
+  // part of the full company name/alias (e.g. "tripoloni.com").
   const domainPart = u.replace(/^https?:\/\/(www\.)?/, '').split('/')[0];
-  if (keywords.some(kw => domainPart.includes(kw))) score += 15;
-  if (u.includes('linkedin.com/company') || u.includes('devex.com') || u.includes('kompass.com')) score += 4;
-  if (u.includes('escavador.com') || u.includes('jusbrasil.com') || u.includes('cnpj')) score += 3;
-  // Penalise clearly off-topic
+  const distinctiveWords = aliasKeywordSets.flat().filter(w => w.length > 5);
+  if (distinctiveWords.some(kw => domainPart.includes(kw))) score += 15;
+  if (u.includes('linkedin.com/company')) score += 6;
+  // Generic boosts for source *types* likely to carry real detail — not tied to
+  // any specific country's agencies/registries, so this generalizes across markets.
+  if (/\.gov(\.|\/|$)/.test(u) || u.includes('.gov.')) score += 5;
+  if (/\b(news|noticia|jornal|imprensa|press)\b/.test(u)) score += 3;
+  if (/\b(registry|registro|cnpj|company-number|companies-house|cadastr)\b/.test(u)) score += 3;
+  // Penalise generic contact-scraping / aggregator directories — low-information,
+  // frequently mismatched to the wrong company of a similar name.
+  if (GENERIC_AGGREGATOR_DOMAINS.some(d => domainPart.includes(d))) score -= 8;
+  // Penalise clearly off-topic Caterpillar/competitor dealer noise
   if (u.includes('parts.cat.com') || u.includes('careers.cat') || u.includes('mercadolivre') ||
       u.includes('wikipedia') || u.includes('reverso.net') || u.includes('scribd') ||
-      u.includes('volvoce.com') || u.includes('researchgate') || u.includes('avesco') ||
-      u.includes('carolinacat') || u.includes('toromontcat') || u.includes('thompsontractor')) score -= 10;
+      u.includes('volvoce.com') || u.includes('researchgate')) score -= 10;
   return score;
 }
 
-// ── Search queries — language-agnostic, topic-driven ─────────────────────────
-// Queries describe *what to find* in English. Nova resolves language from location context.
+// ── Search queries — minimal seeds, not prescriptive ─────────────────────────
+// Just give Nova the company's name(s) + location as search seeds — the wrapping
+// instruction in novaSearch() already tells it to search thoroughly and extract
+// everything (services, projects, people, equipment, etc.), so Nova's own
+// grounding tool decides what specifically to look for. This scales to hundreds
+// of companies with diverse backgrounds without us prescribing topic categories
+// (which tends to invite loosely-matched, off-topic results such as generic
+// government pages or unrelated same-name people/companies).
 
 function queries(company) {
-  const n = company.searchNames;
-  const primaryName = n[0];
-  const altNames    = n.slice(1).map(a => `"${a}"`).join(' OR ');
-  const loc         = company.location;
-
-  return [
-    // Broad profile
-    `"${primaryName}" ${loc} construction company profile services projects`,
-    // Alt names
-    altNames ? `(${altNames}) ${loc} construction company profile projects` : null,
-    // Projects and contracts
-    `"${primaryName}" construction projects contracts infrastructure`,
-    // People
-    `"${primaryName}" founders directors engineers leadership team`,
-    // Equipment and fleet management
-    `"${primaryName}" equipment fleet Caterpillar VisionLink dealer ${company.dealer}`,
-    // Official website
-    `"${primaryName}" official website`,
-  ].filter(Boolean);
+  const names = company.searchNames;
+  const loc   = company.location;
+  return names.map(name => `${name} ${loc}`);
 }
 
 // ── Nova extraction (no grounding) ───────────────────────────────────────────
@@ -546,8 +602,14 @@ Be thorough — read the full content of official company websites, LinkedIn pro
 Report every specific detail you find: services, projects (with names/locations/dates), people (names and titles), equipment, and any other relevant facts.`;
 
   // ── Pass 1: keyword searches to discover URLs ─────────────────────────────
-  console.log(`\n  🌐 Pass 1 — keyword searches to discover sources…`);
-  const searchResultArrays = await Promise.all(queries(company).map(q => novaSearch(q, systemPrompt)));
+  // Nova's grounding tool has real run-to-run variance in what it decides to search
+  // and surface for the same simple input — repeating each minimal query several
+  // times (rather than making the query text itself more prescriptive) leverages
+  // that variability to improve recall while keeping queries() fully hands-off.
+  const SEARCH_REPEATS = 3;
+  console.log(`\n  🌐 Pass 1 — keyword searches to discover sources (×${SEARCH_REPEATS} each)…`);
+  const searchCalls = queries(company).flatMap(q => Array(SEARCH_REPEATS).fill(q));
+  const searchResultArrays = await Promise.all(searchCalls.map(q => novaSearch(q, systemPrompt)));
   const rawResults = searchResultArrays.flat();
 
   const seenPass1 = new Set();
@@ -558,19 +620,35 @@ Report every specific detail you find: services, projects (with names/locations/
   });
 
   // ── Pass 2: deep-read top-scored pages from search results ───────────────
-  const rankedUrls = allUrls(pass1Results)
+  // Only consider results whose title/snippet/URL actually references this company
+  // (by name/alias keyword) — otherwise directory sites (kompass, zoominfo, devex, etc.)
+  // for unrelated, similarly-named companies get scored highly by scoreUrl()'s generic
+  // domain bonus and end up deep-read instead of the real company's pages.
+  const relevantPass1 = filterRelevantResults(pass1Results, company);
+  const candidatePool = relevantPass1.length > 0 ? relevantPass1 : pass1Results;
+
+  if (process.env.DEBUG_FILTER) {
+    const keptUrls = new Set(relevantPass1.map(r => r.url));
+    const droppedUrls = allUrls(pass1Results).filter(u => !keptUrls.has(u));
+    console.log(`\n  🐛 DEBUG_FILTER — raw Pass 1 URLs: ${allUrls(pass1Results).length}, kept: ${keptUrls.size}, dropped: ${droppedUrls.length}`);
+    console.log(`     Dropped URLs:`);
+    droppedUrls.forEach(u => console.log(`       ✗ ${u}`));
+  }
+
+  // Cast a wider net (12 vs. the previous 6) so more of the discovered sources get
+  // deep-read — favors recall (more informative links) over speed/cost.
+  const rankedUrls = allUrls(candidatePool)
     .map(url => ({ url, score: scoreUrl(url, company) }))
     .filter(({ score }) => score > 0)
     .sort((a, b) => b.score - a.score)
-    .slice(0, 4)
+    .slice(0, 12)
     .map(({ url }) => url);
 
   console.log(`\n  📖 Pass 2 — deep-reading ${rankedUrls.length} top-ranked URL(s)…`);
-  const pass2Results = [];
-  for (const url of rankedUrls) {
-    const r = await novaBrowseUrl(url, company, systemPrompt);
-    pass2Results.push(...r);
-  }
+  const pass2ResultArrays = await Promise.all(
+    rankedUrls.map(url => novaBrowseUrl(url, company, systemPrompt))
+  );
+  const pass2Results = pass2ResultArrays.flat();
 
   // ── Pass 3: discover + browse the official company website ────────────────
   console.log(`\n  🌐 Pass 3 — official site discovery…`);
@@ -698,7 +776,7 @@ function toMarkdown(profiles) {
     // Sources
     lines.push('\n### Sources');
     if (p.SOURCES?.length > 0) {
-      for (const url of p.SOURCES.slice(0, 20)) {
+      for (const url of p.SOURCES) {
         lines.push(`- ${url}`);
       }
     } else {

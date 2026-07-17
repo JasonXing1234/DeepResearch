@@ -206,6 +206,11 @@ export function SimpleResearchView() {
       } else {
         toast.success(`Research complete for all ${companies.length} companies`);
       }
+
+      // Automatically sync accumulated results to Snowflake once research finishes.
+      if (totalRows > 0) {
+        void handleExportSnowflake(finalProgress);
+      }
     } finally {
       setIsResearching(false);
     }
@@ -224,6 +229,7 @@ export function SimpleResearchView() {
   };
 
   const [isExporting, setIsExporting] = useState(false);
+  const [isExportingSnowflake, setIsExportingSnowflake] = useState(false);
 
   const handleDownloadExcel = async () => {
     if (!results) return;
@@ -249,6 +255,25 @@ export function SimpleResearchView() {
       toast.error('Failed to generate Excel file');
     } finally {
       setIsExporting(false);
+    }
+  };
+
+  const handleExportSnowflake = async (finalResults: ResearchResults) => {
+    setIsExportingSnowflake(true);
+    try {
+      const response = await apiFetch('/api/export-snowflake', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ results: finalResults }),
+      });
+      const data = await response.json();
+      if (!response.ok || !data.success) throw new Error(data.error || `Server error ${response.status}`);
+      toast.success(`Synced ${data.detailsInserted} detail rows and ${data.summaryInserted} summary rows to Snowflake`);
+    } catch (err) {
+      console.error('[export-snowflake]', err);
+      toast.error(err instanceof Error ? err.message : 'Failed to sync data to Snowflake');
+    } finally {
+      setIsExportingSnowflake(false);
     }
   };
 
@@ -454,7 +479,13 @@ export function SimpleResearchView() {
               <CardDescription>
                 {totalRows} total rows across 5 categories
                 {isResearching && <span className="text-blue-600"> · updating live as companies complete</span>}.{' '}
-                <span className="text-amber-600">Results are not saved — download before leaving.</span>
+                {isExportingSnowflake ? (
+                  <span className="text-blue-600 inline-flex items-center gap-1">
+                    <Loader2 className="h-3 w-3 animate-spin" />Syncing to Snowflake…
+                  </span>
+                ) : (
+                  <span className="text-amber-600">Download for a local copy — data also syncs to Snowflake automatically once research completes.</span>
+                )}
               </CardDescription>
             )}
           </CardHeader>

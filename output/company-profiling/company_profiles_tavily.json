@@ -1,0 +1,182 @@
+[
+  {
+    "NAME": "Constructo Tripoloni (Tripoloni Construction)",
+    "LOCATION": "Sao Paulo, Brazil",
+    "CAT_DEALER": "PESA",
+    "INDUSTRY": {
+      "INDUSTRY": "Heavy civil construction, road building, infrastructure development",
+      "USE_CASES": "Earthmoving, paving, structural reinforcement",
+      "DESCRIPTION": "Constructo Tripoloni specializes in infrastructure projects including heavy construction, roadworks, and structural engineering. They've executed major projects like highway duplications and bridge reinforcements. The company emphasizes quality and compliance in all operations."
+    },
+    "PROJECTS": [
+      {
+        "PROJECT_NAME": "SP-381 Road Paving",
+        "ROLE": "Contractor",
+        "STATUS": "Past",
+        "DESCRIPTION": "Initial road paving project in São Paulo state",
+        "SOURCE": "https://tripoloni.com/category/construction"
+      },
+      {
+        "PROJECT_NAME": "Marechal Rondon Bridge Rehabilitation",
+        "ROLE": "Contractor",
+        "STATUS": "Past",
+        "DESCRIPTION": "Structural recovery and reinforcement of Marechal Rondon bridge in Mato Grosso",
+        "SOURCE": "https://connectamericas.com/sites/default/files/company_files/Apresenta%C3%A7%C3%A3o%20CST%20-%20Vers%C3%A3o%20Portug%C3%AAs-Espanhol.pdf"
+      },
+      {
+        "PROJECT_NAME": "Bauru Airport Access Improvement",
+        "ROLE": "Contractor",
+        "STATUS": "Past",
+        "DESCRIPTION": "Duplication and improvements to Bauru Airport access road (SP-321)",
+        "SOURCE": "https://connectamericas.com/sites/default/files/company_files/Apresenta%C3%A7%C3%A3o%20CST%20-%20Vers%C3%A3o%20Portug%C3%AAs-Espanhol.pdf"
+      },
+      {
+        "PROJECT_NAME": "BR-116 Duplication - Vale do Ribeira",
+        "ROLE": "Contractor",
+        "STATUS": "Past",
+        "DESCRIPTION": "Highway duplication in Vale do Ribeira region (São Paulo-Curitiba-Florianópolis corridor)",
+        "SOURCE": "https://connectamericas.com/sites/default/files/company_files/Apresenta%C3%A7%C3%A3o%20CST%20-%20Vers%C3%A3o%20Portug%C3%AAs-Espanhol.pdf"
+      },
+      {
+        "PROJECT_NAME": "BR-265/MG Implementation",
+        "ROLE": "Contractor",
+        "STATUS": "Past",
+        "DESCRIPTION": "Implementation and paving of 47.8km BR-265 highway in Minas Gerais",
+        "SOURCE": "https://connectamericas.com/sites/default/files/company_files/Apresenta%C3%A7%C3%A3o%20CST%20-%20Vers%C3%A3o%20Portug%C3%AAs-Espanhol.pdf"
+      }
+    ],
+    "PEOPLE": [
+      {
+        "NAME": "Paulo Francisco Tripoloni",
+        "TITLE": "Founding Partner",
+        "SOURCE": "https://connectamericas.com/sites/default/files/company_files/Apresenta%C3%A7%C3%A3o%20CST%20-%20Vers%C3%A3o%20Portug%C3%AAs-Espanhol.pdf"
+      },
+      {
+        "NAME": "Antônio Sanches",
+        "TITLE": "Founding Partner",
+        "SOURCE": "https://connectamericas.com/sites/default/files/company_files/Apresenta%C3%A7%C3%A3o%20CST%20-%20Vers%C3%A3o%20Portug%C3%AAs-Espanhol.pdf"
+      },
+      {
+        "NAME": "João Sanchez Junqueira",
+        "TITLE": "Founding Partner",
+        "SOURCE": "https://connectamericas.com/sites/default/files/company_files/Apresenta%C3%A7%C3%A3o%20CST%20-%20Vers%C3%A3o%20Portug%C3%AAs-Espanhol.pdf"
+      }
+    ],
+    "FLEET_INFORMATION": [],
+    "CHALLENGES": [],
+    "VISIONLINK": {
+      "USES_VISIONLINK": "no",
+      "DETAILS": "Not found",
+      "WORKFLOW_IMPACT": "Not found",
+      "SOURCE": "Not found"
+    },
+    "COMMENTS": "Cat dealer: PESA. Search backend: Tavily. URLs deep-extracted: https://tripoloni.com/category/construction, https://br.linkedin.com/company/construtora-tripoloni-ltda, https://tripoloni.com, https://www.instagram.com/tripoloniconstrutora?hl=en, https://www.bnamericas.com/en/company-profile/construtora-sanches-tripoloni-ltda, https://www.econodata.com.br/consulta-empresa/53503652000105-construtora-tripoloni-ltda, https://www.facebook.com/tripoloniconstrutora, https://empresas.serasaexperian.com.br/consulta-gratis/CONSTRUTORA-SANCHES-TRIPOLONI-LTDA-53503652003120, https://advdinamico.com.br/socios/construtora-tripoloni-ltda-72f12d7a, https://www.zoominfo.com/c/construtora-sanches-tripoloni-ltda/453577193",
+    "SOURCES": [
+      "https://br.linkedin.com/company/construtora-tripoloni-ltda",
+      "https://www.zoominfo.com/c/construtora-sanches-tripoloni-ltda/453577193",
+      "https://www.bnamericas.com/en/company-profile/sanches-tripoloni-ltda",
+      "https://connectamericas.com/sites/default/files/company_files/Apresenta%C3%A7%C3%A3o%20CST%20-%20Vers%C3%A3o%20Portug%C3%AAs-Espanhol.pdf",
+      "https://www.infrapppworld.com/company/sanches-tripoloni",
+      "https://tripoloni.com",
+      "https://www.instagram.com/tripoloniconstrutora?hl=en",
+      "https://www.bnamericas.com/en/company-profile/construtora-sanches-tripoloni-ltda",
+      "https://www.youtube.com/watch?v=yCspN9Pq23Q",
+      "https://www.wirtgen-group.com/media/07_ciber/04_pdf/ci_usina_de_noticias/usina_20_en.pdf",
+      "https://www.econodata.com.br/consulta-empresa/53503652000105-construtora-tripoloni-ltda",
+      "https://tripoloni.com/category/construction",
+      "https://www.facebook.com/tripoloniconstrutora",
+      "https://www.devex.com/organizations/sanches-tripoloni-170713",
+      "https://empresas.serasaexperian.com.br/consulta-gratis/CONSTRUTORA-SANCHES-TRIPOLONI-LTDA-53503652003120",
+      "https://advdinamico.com.br/socios/construtora-tripoloni-ltda-72f12d7a"
+    ]
+  },
+  {
+    "NAME": "CLC (Construtora Luiz Costa)",
+    "LOCATION": "Juazeiro, Brazil",
+    "CAT_DEALER": "Sotreq",
+    "INDUSTRY": {
+      "INDUSTRY": "Civil Engineering",
+      "USE_CASES": "Earthmoving, paving, site preparation, dam construction, bridge building",
+      "DESCRIPTION": "CLC Construtora specializes in heavy civil construction projects including roadworks, earthmoving, and infrastructure development. They build highways, dams, bridges, and perform site preparation services. The company operates across multiple Brazilian states with a focus on quality and sustainability."
+    },
+    "PROJECTS": [
+      {
+        "PROJECT_NAME": "Juazeiro pavement restoration",
+        "ROLE": "Contractor",
+        "STATUS": "Current",
+        "DESCRIPTION": "Road pavement restoration project in Juazeiro",
+        "SOURCE": "https://www.clcconstrutora.com.br"
+      },
+      {
+        "PROJECT_NAME": "BR-304 Duplication",
+        "ROLE": "Contractor",
+        "STATUS": "Current",
+        "DESCRIPTION": "57.6 km highway duplication between Assú and Mossoró",
+        "SOURCE": "https://www.clcconstrutora.com.br"
+      },
+      {
+        "PROJECT_NAME": "Urban Crossing of Juazeiro",
+        "ROLE": "Contractor",
+        "STATUS": "Current",
+        "DESCRIPTION": "Urban mobility improvement project in Juazeiro, Bahia",
+        "SOURCE": "https://www.clcconstrutora.com.br"
+      }
+    ],
+    "PEOPLE": [
+      {
+        "NAME": "Francisco Alex de Oliveira",
+        "TITLE": "Founder",
+        "SOURCE": "https://www.clcconstrutora.com.br"
+      },
+      {
+        "NAME": "Túlio Salatiel Costa Lima",
+        "TITLE": "Partner",
+        "SOURCE": "https://portaldatransparencia.gov.br/contratos/31214117/pessoa-juridica/00779059000120"
+      },
+      {
+        "NAME": "Celiton Luiz Costa de Oliveira",
+        "TITLE": "Managing Partner",
+        "SOURCE": "https://portaldatransparencia.gov.br/contratos/31214117/pessoa-juridica/00779059000120"
+      }
+    ],
+    "FLEET_INFORMATION": [],
+    "CHALLENGES": [
+      {
+        "CHALLENGE": "Restoration of pavement in Juazeiro",
+        "CONTEXT": "CLC Construtora is executing a pavement restoration project in Juazeiro, aiming to improve the road section",
+        "SOURCE": "https://www.clcconstrutora.com.br"
+      }
+    ],
+    "VISIONLINK": {
+      "USES_VISIONLINK": "no",
+      "DETAILS": "No explicit mentions of VisionLink or similar tools found",
+      "WORKFLOW_IMPACT": "Not found",
+      "SOURCE": "Not found"
+    },
+    "COMMENTS": "Cat dealer: Sotreq. Search backend: Tavily. URLs deep-extracted: https://www.clcconstrutora.com.br, https://www.linkedin.com/company/clc-construtora-luiz-costa, https://ie.linkedin.com/company/clc-construtora-luiz-costa, https://sg.linkedin.com/company/clc-construtora-luiz-costa, https://br.linkedin.com/company/clc-construtora-luiz-costa, https://www.instagram.com/clcconstrutora/reels?hl=en, https://m.yelp.com/biz/c-l-c-construtora-luiz-costa-mossor%C3%B3, https://www.devex.com/organizations/construtora-luiz-costa-ltda-clc-construtora-76184, https://www.instagram.com/clcconstrutora?hl=en",
+    "SOURCES": [
+      "https://www.instagram.com/reel/DFYPw-KyjA8",
+      "https://www.instagram.com/clcconstrutora/reels?hl=en",
+      "https://www.linkedin.com/company/clc-construtora-luiz-costa",
+      "https://ie.linkedin.com/company/clc-construtora-luiz-costa",
+      "https://m.yelp.com/biz/c-l-c-construtora-luiz-costa-mossor%C3%B3",
+      "https://www.devex.com/organizations/construtora-luiz-costa-ltda-clc-construtora-76184",
+      "https://www.clcconstrutora.com.br",
+      "https://www.instagram.com/clcconstrutora?hl=en",
+      "https://portaldatransparencia.gov.br/contratos/31214117/pessoa-juridica/00779059000120",
+      "https://portaldatransparencia.gov.br/licitacoes/28228415/pessoa-juridica/00779059000120",
+      "https://www.instagram.com/p/C8HkWJcuV6A",
+      "https://sg.linkedin.com/company/clc-construtora-luiz-costa",
+      "https://br.linkedin.com/company/clc-construtora-luiz-costa",
+      "https://www.instagram.com/reel/DFgHAz3SlEH?hl=en",
+      "https://www.instagram.com/reel/DCU00repdgH",
+      "https://www.instagram.com/reel/DRDKk9DEhgl?hl=en",
+      "https://en.wikipedia.org/wiki/Juazeiro",
+      "https://travelpal.ai/destinations/south-america/brazil/bahia/juazeiro",
+      "https://en.db-city.com/Brazil--Bahia--Juazeiro",
+      "https://www.britannica.com/place/Juazeiro",
+      "https://en.wikivoyage.org/wiki/Juazeiro_(Bahia)",
+      "https://www.kupi.com/en/explore/brazil/juazeiro/history"
+    ]
+  }
+]
