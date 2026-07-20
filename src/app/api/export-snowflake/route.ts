@@ -6,12 +6,21 @@ import { getSnowflakeConnection, executeSnowflakeSql } from '@/lib/snowflake';
 // case the dataset ever needs to land in a different database/schema.
 // NOTE: These tables are owned/managed outside this app (pre-existing
 // production schema) — column names and types below must match exactly.
+// PROD (TODO: switch back once testing is complete):
+// const DETAILS_TABLE =
+//   process.env.SNOWFLAKE_LEADS_DETAILS_TABLE ||
+//   'WATCHTOWER_ANA_DEV_DB.ELI.AI_LEADS_PROFILES_DETAILS';
+// const SUMMARY_TABLE =
+//   process.env.SNOWFLAKE_LEADS_SUMMARY_TABLE ||
+//   'WATCHTOWER_ANA_DEV_DB.ELI.AI_LEADS_PROFILES_SUMMARY';
+
+// TEST (temporary copies for testing purposes):
 const DETAILS_TABLE =
   process.env.SNOWFLAKE_LEADS_DETAILS_TABLE ||
-  'WATCHTOWER_ANA_DEV_DB.ELI.AI_LEADS_PROFILES_DETAILS';
+  'WATCHTOWER_ANA_DEV_DB.ELI.AI_LEADS_PROFILES_DETAILS_TEST';
 const SUMMARY_TABLE =
   process.env.SNOWFLAKE_LEADS_SUMMARY_TABLE ||
-  'WATCHTOWER_ANA_DEV_DB.ELI.AI_LEADS_PROFILES_SUMMARY';
+  'WATCHTOWER_ANA_DEV_DB.ELI.AI_LEADS_PROFILES_SUMMARY_TEST';
 
 const DETAILS_DDL = `
 CREATE TABLE IF NOT EXISTS ${DETAILS_TABLE} (
