@@ -1,11 +1,14 @@
 'use client'
 
-import { useState, useRef } from 'react';
+import { useState, useRef, useMemo } from 'react';
 import { Upload, Search, Download, FileSpreadsheet, Loader2, FileText, CheckCircle, AlertCircle, XCircle } from 'lucide-react';
 import { Button } from './ui/button';
+import { Input } from './ui/input';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from './ui/card';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from './ui/tabs';
 import { toast } from 'sonner';
 import { apiFetch } from '@/lib/api-client';
+import { buildResearchRows, SUMMARY_ATTRIBUTES } from '@/lib/research-report';
 
 const MAX_COMPANIES = 500;
 const CONCURRENCY = 6;
@@ -20,7 +23,7 @@ const CATEGORY_LABELS: Record<string, string> = {
 
 type CategoryKey = 'emissions' | 'investments' | 'purchases' | 'pilots' | 'environments';
 
-type ResearchResults = Record<CategoryKey, object[]>;
+type ResearchResults = Record<CategoryKey, Record<string, unknown>[]>;
 
 type CompanyStatus = 'pending' | 'processing' | 'done' | 'error';
 
@@ -230,6 +233,8 @@ export function SimpleResearchView() {
 
   const [isExporting, setIsExporting] = useState(false);
   const [isExportingSnowflake, setIsExportingSnowflake] = useState(false);
+  const [sheetTab, setSheetTab] = useState('normalized');
+  const [sheetSearch, setSheetSearch] = useState('');
 
   const handleDownloadExcel = async () => {
     if (!results) return;
@@ -291,6 +296,29 @@ export function SimpleResearchView() {
   const doneCount   = progress.filter((p) => p.status === 'done' || p.status === 'error').length;
   const errorCount  = progress.filter((p) => p.status === 'error').length;
   const pct         = progress.length > 0 ? Math.round((doneCount / progress.length) * 100) : 0;
+
+  // Flatten the raw category results into the same "Normalized" (one row per
+  // company, boolean attributes) and "Original" (one row per company per
+  // attribute) shapes used by the Excel/Snowflake exports, so the on-screen
+  // preview always matches what gets downloaded/synced.
+  const { detailRows, summaryRows } = useMemo(
+    () => (results ? buildResearchRows(results) : { detailRows: [], summaryRows: [] }),
+    [results],
+  );
+
+  const filteredSummaryRows = useMemo(
+    () => summaryRows.filter((row) => row.Customer.toLowerCase().includes(sheetSearch.toLowerCase())),
+    [summaryRows, sheetSearch],
+  );
+
+  const filteredDetailRows = useMemo(
+    () => detailRows.filter(
+      (row) =>
+        row.Customer.toLowerCase().includes(sheetSearch.toLowerCase()) ||
+        row.Attribute.toLowerCase().includes(sheetSearch.toLowerCase()),
+    ),
+    [detailRows, sheetSearch],
+  );
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100">
@@ -546,6 +574,118 @@ export function SimpleResearchView() {
             )}
           </CardContent>
         </Card>
+
+        {/* Step 4 — Preview (mirrors the two Excel sheets) */}
+        {results && !isResearching && totalRows > 0 && (
+          <Card>
+            <CardHeader className="pb-3">
+              <CardTitle className="flex items-center gap-2 text-base">
+                <FileSpreadsheet className="h-4 w-4 text-emerald-600" />
+                Preview Results
+              </CardTitle>
+              <CardDescription>
+                Same data as the downloaded workbook — one sheet consolidated per company, one with the raw per-attribute rows.
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <Input
+                value={sheetSearch}
+                onChange={(e) => setSheetSearch(e.target.value)}
+                placeholder="Search companies or attributes…"
+                className="max-w-md"
+              />
+
+              <Tabs value={sheetTab} onValueChange={setSheetTab}>
+                <TabsList>
+                  <TabsTrigger value="normalized">Normalized (Boolean)</TabsTrigger>
+                  <TabsTrigger value="original">Original (Raw)</TabsTrigger>
+                </TabsList>
+
+                <TabsContent value="normalized" className="mt-3">
+                  {filteredSummaryRows.length === 0 ? (
+                    <p className="text-center text-sm text-gray-500 py-8">No results found</p>
+                  ) : (
+                    <div className="max-h-96 overflow-auto rounded border border-gray-200">
+                      <table className="w-full text-sm">
+                        <thead className="sticky top-0 bg-gray-50">
+                          <tr className="border-b border-gray-200">
+                            <th className="px-3 py-2 text-left font-semibold text-gray-900 whitespace-nowrap">Customer</th>
+                            {SUMMARY_ATTRIBUTES.map((attr) => (
+                              <th key={attr} className="px-3 py-2 text-center font-semibold text-gray-900 whitespace-nowrap">
+                                {attr}
+                              </th>
+                            ))}
+                          </tr>
+                        </thead>
+                        <tbody className="divide-y divide-gray-100">
+                          {filteredSummaryRows.map((row, idx) => (
+                            <tr key={`${row.Customer}-${idx}`} className="hover:bg-gray-50">
+                              <td className="px-3 py-2 font-medium text-gray-900 whitespace-nowrap">{row.Customer}</td>
+                              {SUMMARY_ATTRIBUTES.map((attr) => (
+                                <td key={attr} className="px-3 py-2 text-center">
+                                  {row[attr] === 'Yes' ? (
+                                    <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                                      Yes
+                                    </span>
+                                  ) : (
+                                    <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-600">
+                                      No
+                                    </span>
+                                  )}
+                                </td>
+                              ))}
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
+                  )}
+                </TabsContent>
+
+                <TabsContent value="original" className="mt-3">
+                  {filteredDetailRows.length === 0 ? (
+                    <p className="text-center text-sm text-gray-500 py-8">No results found</p>
+                  ) : (
+                    <div className="max-h-96 overflow-auto rounded border border-gray-200">
+                      <table className="w-full text-sm">
+                        <thead className="sticky top-0 bg-gray-50">
+                          <tr className="border-b border-gray-200">
+                            <th className="px-3 py-2 text-left font-semibold text-gray-900 whitespace-nowrap">Customer</th>
+                            <th className="px-3 py-2 text-left font-semibold text-gray-900 whitespace-nowrap">Attribute</th>
+                            <th className="px-3 py-2 text-center font-semibold text-gray-900 whitespace-nowrap">Yes/No</th>
+                            <th className="px-3 py-2 text-left font-semibold text-gray-900">Text</th>
+                            <th className="px-3 py-2 text-left font-semibold text-gray-900">Source</th>
+                          </tr>
+                        </thead>
+                        <tbody className="divide-y divide-gray-100">
+                          {filteredDetailRows.map((row, idx) => (
+                            <tr key={`${row.Customer}-${row.Attribute}-${idx}`} className="hover:bg-gray-50 align-top">
+                              <td className="px-3 py-2 font-medium text-gray-900 whitespace-nowrap">{row.Customer}</td>
+                              <td className="px-3 py-2 whitespace-nowrap text-gray-700">{row.Attribute}</td>
+                              <td className="px-3 py-2 text-center">
+                                {row['Yes/No'] === 'Yes' ? (
+                                  <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                                    Yes
+                                  </span>
+                                ) : (
+                                  <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-600">
+                                    No
+                                  </span>
+                                )}
+                              </td>
+                              <td className="px-3 py-2 text-gray-700 max-w-xs truncate" title={row.Text}>{row.Text}</td>
+                              <td className="px-3 py-2 text-gray-500 max-w-xs truncate" title={row.Source}>{row.Source}</td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
+                  )}
+                </TabsContent>
+              </Tabs>
+            </CardContent>
+          </Card>
+        )}
 
       </div>
     </div>
