@@ -1,0 +1,68 @@
+[
+  {
+    "NAME": "Constructo Tripoloni (Tripoloni Construction)",
+    "LOCATION": "Sao Paulo, Brazil",
+    "CAT_DEALER": "PESA",
+    "INDUSTRY": {
+      "INDUSTRY": null,
+      "USE_CASES": null,
+      "DESCRIPTION": null
+    },
+    "PROJECTS": [],
+    "PEOPLE": [],
+    "FLEET_INFORMATION": [],
+    "CHALLENGES": [],
+    "VISIONLINK": {
+      "USES_VISIONLINK": "no",
+      "DETAILS": "No verifiable information found about VisionLink usage",
+      "WORKFLOW_IMPACT": "Not found",
+      "SOURCE": "Not found"
+    },
+    "COMMENTS": "Cat dealer: PESA. Searched in Portuguese and English. URLs deep-read: https://www.datanyze.com/companies/construtora-sanches-tripoloni-ltda/453577193, https://www.zoominfo.com/c/construtora-sanches-tripoloni-ltda/453577193",
+    "SOURCES": [
+      "https://socnpj.com.br/",
+      "https://en.wikipedia.org/wiki/CNPJ",
+      "https://www.legalmondo.com/product/how-find-company-information-brazil/",
+      "https://www.datanyze.com/companies/construtora-sanches-tripoloni-ltda/453577193",
+      "https://www.datanyze.com/companies/tripoli-construtora/547153870",
+      "https://www.zoominfo.com/c/construtora-sanches-tripoloni-ltda/453577193",
+      "https://www.paulotripoloni.com.br/",
+      "https://en.wikipedia.org/wiki/S%C3%A3o_Paulo",
+      "https://www.datanyze.com/people/Lucilene-Senna/8529616846",
+      "https://www.datanyze.com/people/Camilo-De/13315466833",
+      "https://www.datanyze.com/people/Jos%C3%A9-Horita/2050468128"
+    ]
+  },
+  {
+    "NAME": "CLC (Construtora Luiz Costa)",
+    "LOCATION": "Juazeiro, Brazil",
+    "CAT_DEALER": "Sotreq",
+    "INDUSTRY": {
+      "INDUSTRY": "heavy civil construction",
+      "USE_CASES": "Use case not specified publicly",
+      "DESCRIPTION": "CLC (Construtora Luiz Costa) specializes in heavy construction and infrastructure projects. The company was founded in 1991 and operates in Juazeiro, Brazil. Their work focuses on large-scale construction activities."
+    },
+    "PROJECTS": [],
+    "PEOPLE": [
+      {
+        "NAME": "Willian Jovenor",
+        "TITLE": "Civil Engineer",
+        "SOURCE": "https://www.zoominfo.com/p/Willian-Jovenor/9322665784"
+      }
+    ],
+    "FLEET_INFORMATION": [],
+    "CHALLENGES": [],
+    "VISIONLINK": {
+      "USES_VISIONLINK": "unverified",
+      "DETAILS": "",
+      "WORKFLOW_IMPACT": "",
+      "SOURCE": "Not found"
+    },
+    "COMMENTS": "Cat dealer: Sotreq. Searched in Portuguese and English. URLs deep-read: ",
+    "SOURCES": [
+      "https://www.zoominfo.com/p/Joseroneioliveira-Ronei/10353240586",
+      "https://www.zoominfo.com/p/Willian-Jovenor/9322665784",
+      "https://craft.co/realterm/competitors"
+    ]
+  }
+]

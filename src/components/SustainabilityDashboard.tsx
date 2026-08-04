@@ -269,13 +269,16 @@ export function SustainabilityDashboard() {
             <div className="flex-1 overflow-y-auto">
               <div className="px-8 py-6">
                 <Tabs defaultValue="upload" className="w-full">
-                  <TabsList className="grid w-full max-w-md grid-cols-3">
+                  <TabsList className="grid w-full max-w-xl grid-cols-4">
                     <TabsTrigger value="upload">Upload</TabsTrigger>
                     <TabsTrigger value="results" disabled={summaryResults.length === 0}>
                       Results
                     </TabsTrigger>
                     <TabsTrigger value="details" disabled={detailsResults.length === 0}>
                       Details
+                    </TabsTrigger>
+                    <TabsTrigger value="diagnostics" disabled={diagnosticsResults.length === 0}>
+                      Diagnostics
                     </TabsTrigger>
                   </TabsList>
 

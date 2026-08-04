@@ -1,0 +1,97 @@
+[
+  {
+    "NAME": "Constructo Tripoloni (Tripoloni Construction)",
+    "LOCATION": "Sao Paulo, Brazil",
+    "CAT_DEALER": "PESA",
+    "INDUSTRY": {
+      "INDUSTRY": "Construction",
+      "USE_CASES": "Use case not specified publicly",
+      "DESCRIPTION": "Constructo Tripoloni is a construction company based in São Paulo, Brazil. They emphasize technological innovation and maintain strict quality standards. The company specializes in technical management and construction supervision but does not publicly specify equipment use cases."
+    },
+    "PROJECTS": [],
+    "PEOPLE": [
+      {
+        "NAME": "Paulo Francisco Tripoloni",
+        "TITLE": "Founder",
+        "SOURCE": "https://www.zoominfo.com/c/construtora-sanches-tripoloni-ltda/453577193"
+      },
+      {
+        "NAME": "Antonio Sanches",
+        "TITLE": "Founder",
+        "SOURCE": "https://www.zoominfo.com/c/construtora-sanches-tripoloni-ltda/453577193"
+      },
+      {
+        "NAME": "João Sanchez Junqueira",
+        "TITLE": "Founder",
+        "SOURCE": "https://www.zoominfo.com/c/construtora-sanches-tripoloni-ltda/453577193"
+      },
+      {
+        "NAME": "Wesley Brasil",
+        "TITLE": "Supervisor De Obras",
+        "SOURCE": "https://www.datanyze.com/people/Wesley-Brasil/11460022546"
+      },
+      {
+        "NAME": "Jose Berteli",
+        "TITLE": "Civil Engineer",
+        "SOURCE": "https://www.zoominfo.com/p/Jose-Berteli/6309223576"
+      }
+    ],
+    "FLEET_INFORMATION": [],
+    "CHALLENGES": [],
+    "VISIONLINK": {
+      "USES_VISIONLINK": "unverified",
+      "DETAILS": "Not found",
+      "WORKFLOW_IMPACT": "Not found",
+      "SOURCE": "Not found"
+    },
+    "COMMENTS": "Cat dealer: PESA. Searched in Portuguese and English. URLs deep-read: https://www.datanyze.com/companies/construtora-sanches-tripoloni-ltda/453577193, https://www.zoominfo.com/c/construtora-sanches-tripoloni-ltda/453577193",
+    "SOURCES": [
+      "https://www.datanyze.com/companies/construtora-sanches-tripoloni-ltda/453577193",
+      "https://www.zoominfo.com/c/construtora-sanches-tripoloni-ltda/453577193",
+      "https://www.devex.com/organizations/sanches-tripoloni-170713",
+      "https://www.datanyze.com/people/Wesley-Brasil/11460022546",
+      "https://www.zoominfo.com/p/Jose-Berteli/6309223576",
+      "https://www.legalmondo.com/product/how-find-company-information-brazil/",
+      "https://www.zoominfo.com/c/construtora-tripolo/547008412",
+      "https://www.zoominfo.com/p/Suzanael-Melo/5472430761"
+    ]
+  },
+  {
+    "NAME": "CLC (Construtora Luiz Costa)",
+    "LOCATION": "Juazeiro, Brazil",
+    "CAT_DEALER": "Sotreq",
+    "INDUSTRY": {
+      "INDUSTRY": null,
+      "USE_CASES": null,
+      "DESCRIPTION": null
+    },
+    "PROJECTS": [],
+    "PEOPLE": [],
+    "FLEET_INFORMATION": [],
+    "CHALLENGES": [],
+    "VISIONLINK": {
+      "USES_VISIONLINK": "unverified",
+      "DETAILS": "No specific information found",
+      "WORKFLOW_IMPACT": "Not reported",
+      "SOURCE": "Not found"
+    },
+    "COMMENTS": "Cat dealer: Sotreq. Searched in Portuguese and English. URLs deep-read: https://luizcosta.portfolio.site/",
+    "SOURCES": [
+      "https://gb.kompass.com/en/c/jbc-construtora/br63680369000102/",
+      "https://gr.kompass.com/en/c/jbc-construtora/br63680369000102/",
+      "https://cldconstrutora.com.br/",
+      "https://www.datanyze.com/companies/construtora-lcl/547117133",
+      "https://www.portalin.com.br/in-loco/construcao-civil-do-cariri-se-antecipa-a-reforma-tributaria-e-debate-seus-desafios/",
+      "https://luizcosta.portfolio.site/",
+      "https://www.legalmondo.com/product/how-find-company-information-brazil/",
+      "https://www.dnb.com/business-directory/company-information.construction.br.bahia.juazeiro.html",
+      "https://www.juazeirodonorte.ce.gov.br/",
+      "https://www.commenda.io/llc-registration/brazil",
+      "https://luizcosta.artstation.com/resume",
+      "https://press.uchicago.edu/ucp/books/author/C/L/au27544254.html",
+      "https://community.wolfram.com/web/luizcosta",
+      "http://portfolio-arturluiscosta.blogspot.pt/",
+      "https://portugalchronicle.substack.com/p/q-and-a-with-luis-otavio-costa"
+    ]
+  }
+]

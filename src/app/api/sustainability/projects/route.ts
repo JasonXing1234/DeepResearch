@@ -1,56 +1,57 @@
-import { NextRequest } from 'next/server';
-import { jsonDisabled, makeMockProject } from '@/lib/backend-disabled';
+import { NextRequest, NextResponse } from 'next/server';
+import { createProject, deleteProject, getProject, listProjects } from '@/lib/sustainability-store';
 
 export const runtime = 'nodejs';
-
-function createFallbackId() {
-  return `frontend-${Date.now()}-${Math.random().toString(36).slice(2, 10)}`;
-}
-
-function createProjectId() {
-  try {
-    const randomUUID = globalThis.crypto?.randomUUID;
-    if (typeof randomUUID === 'function') {
-      return randomUUID.call(globalThis.crypto);
-    }
-  } catch {
-    // Fall through to deterministic fallback id.
-  }
-
-  return createFallbackId();
-}
 
 export async function GET(request: NextRequest) {
   const projectId = request.nextUrl.searchParams.get('id');
 
   if (projectId) {
-    return jsonDisabled({
-      project: makeMockProject({ id: projectId }),
-    });
+    const project = getProject(projectId);
+    if (!project) {
+      return NextResponse.json({ success: false, error: 'Project not found' }, { status: 404 });
+    }
+    return NextResponse.json({ success: true, project });
   }
 
-  return jsonDisabled({ projects: [] });
+  return NextResponse.json({ success: true, projects: listProjects() });
 }
 
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json().catch(() => ({}));
+    const name = typeof body?.name === 'string' && body.name.trim() ? body.name.trim() : 'Untitled Project';
+    const description = typeof body?.description === 'string' && body.description.trim() ? body.description.trim() : null;
 
-    return jsonDisabled({
-      project: makeMockProject({
-        id: createProjectId(),
-        name: typeof body?.name === 'string' && body.name.trim() ? body.name : 'Frontend Only Project',
-        description: typeof body?.description === 'string' ? body.description : '',
-      }),
-    });
+    const project = createProject(name, description);
+    return NextResponse.json({ success: true, project });
   } catch (error) {
-    return jsonDisabled({
-      project: makeMockProject({ id: 'error-project' }),
-      error: error instanceof Error ? error.message : 'Unknown error',
-    });
+    return NextResponse.json(
+      { success: false, error: error instanceof Error ? error.message : 'Unknown error' },
+      { status: 500 },
+    );
   }
 }
 
-export async function DELETE() {
-  return jsonDisabled({ message: 'Project deleted from frontend-only branch.' });
+export async function DELETE(request: NextRequest) {
+  try {
+    const body = await request.json().catch(() => ({}));
+    const projectId = typeof body?.projectId === 'string' ? body.projectId : null;
+
+    if (!projectId) {
+      return NextResponse.json({ success: false, error: 'projectId is required' }, { status: 400 });
+    }
+
+    const deleted = deleteProject(projectId);
+    if (!deleted) {
+      return NextResponse.json({ success: false, error: 'Project not found' }, { status: 404 });
+    }
+
+    return NextResponse.json({ success: true });
+  } catch (error) {
+    return NextResponse.json(
+      { success: false, error: error instanceof Error ? error.message : 'Unknown error' },
+      { status: 500 },
+    );
+  }
 }

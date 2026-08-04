@@ -1,0 +1,77 @@
+[
+  {
+    "NAME": "Constructo Tripoloni (Tripoloni Construction)",
+    "LOCATION": "Sao Paulo, Brazil",
+    "CAT_DEALER": "PESA",
+    "INDUSTRY": {
+      "INDUSTRY": null,
+      "USE_CASES": null,
+      "DESCRIPTION": null
+    },
+    "PROJECTS": [],
+    "PEOPLE": [],
+    "FLEET_INFORMATION": [],
+    "CHALLENGES": [],
+    "VISIONLINK": {
+      "USES_VISIONLINK": "no",
+      "DETAILS": "No verifiable information found about VisionLink usage",
+      "WORKFLOW_IMPACT": "Not found",
+      "SOURCE": "Not found"
+    },
+    "COMMENTS": "Cat dealer: PESA. Searched in Portuguese and English. URLs deep-read: https://www.datanyze.com/companies/construtora-sanches-tripoloni-ltda/453577193, https://www.zoominfo.com/c/construtora-sanches-tripoloni-ltda/453577193",
+    "SOURCES": [
+      "https://www.datanyze.com/companies/construtora-sanches-tripoloni-ltda/453577193",
+      "https://www.devex.com/organizations/sanches-tripoloni-170713",
+      "https://en.wikipedia.org/wiki/CNPJ",
+      "https://brbrasilprojetos.com.br/",
+      "https://www.zoominfo.com/c/construtora-sanches-tripoloni-ltda/453577193",
+      "https://pli.semil.sp.gov.br/",
+      "https://www.paulotripoloni.com.br/",
+      "http://www.tripoli.cl/",
+      "https://www.datanyze.com/people/Camilo-De/13315466833",
+      "https://www.datanyze.com/people/Wesley-Brasil/11460022546",
+      "https://www.datanyze.com/people/Charles-Alberto/9326332257",
+      "https://www.datanyze.com/people/Lucilene-Senna/8529616846",
+      "https://www.datanyze.com/people/Claudio-C/10573286847",
+      "https://www.zoominfo.com/pic/construtora-sanches-tripoloni-ltda/453577193"
+    ]
+  },
+  {
+    "NAME": "CLC (Construtora Luiz Costa)",
+    "LOCATION": "Juazeiro, Brazil",
+    "CAT_DEALER": "Sotreq",
+    "INDUSTRY": {
+      "INDUSTRY": "Not found",
+      "USE_CASES": "Not found",
+      "DESCRIPTION": "Not found"
+    },
+    "PROJECTS": [],
+    "PEOPLE": [
+      {
+        "NAME": "Willian Jovenor",
+        "TITLE": "Civil Engineer",
+        "SOURCE": "https://www.zoominfo.com/p/Willian-Jovenor/9322665784"
+      }
+    ],
+    "FLEET_INFORMATION": [],
+    "CHALLENGES": [],
+    "VISIONLINK": {
+      "USES_VISIONLINK": "unverified",
+      "DETAILS": "Not found",
+      "WORKFLOW_IMPACT": "Not found",
+      "SOURCE": "Not found"
+    },
+    "COMMENTS": "Cat dealer: Sotreq. Searched in Portuguese and English. URLs deep-read: ",
+    "SOURCES": [
+      "https://gb.kompass.com/en/c/jbc-construtora/br63680369000102/",
+      "https://bg.kompass.com/en/c/jbc-construtora/br63680369000102/",
+      "https://craft.co/realterm/competitors",
+      "https://www.datanyze.com/companies/construtora-lcl/547117133",
+      "https://za.kompass.com/c/jbc-construtora/br63680369000102/",
+      "https://ojs.sites.ufsc.br/index.php/mixsustentavel/article/view/6935",
+      "https://www.portalin.com.br/in-loco/construcao-civil-do-cariri-se-antecipa-a-reforma-tributaria-e-debate-seus-desafios/",
+      "https://www.zoominfo.com/p/Joseroneioliveira-Ronei/10353240586",
+      "https://www.zoominfo.com/p/Willian-Jovenor/9322665784"
+    ]
+  }
+]
