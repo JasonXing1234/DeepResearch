@@ -588,7 +588,51 @@ async function novaGroundingSearch(
   return { fullText, sources, sourcesWithSnippets };
 }
 
-// ── LLM extraction call ───────────────────────────────────────────────────────
+// ── Tavily search (uses https.request to bypass HTTPS_PROXY) ────────────────────
+
+async function tavilySearch(query: string): Promise<SearchOutput> {
+  const apiKey = process.env.TAVILY_API_KEY;
+  if (!apiKey) throw new Error('TAVILY_API_KEY is not set');
+
+  const reqBody = JSON.stringify({
+    api_key: apiKey,
+    query,
+    search_depth: 'advanced',
+    include_raw_content: false,
+    include_answer: true,
+    max_results: 8,
+  });
+
+  // Use the AP proxy for Tavily (external internet) — this proxy allows api.tavily.com.
+  // Internal services (Bedrock, Snowflake) use proxy.cat.com from the environment.
+  const tavilyProxy = process.env.TAVILY_PROXY || 'http://proxy.ap.cat.com:80';
+
+  const { fetch: undiciFetch, ProxyAgent } = await import('undici');
+  const dispatcher = new ProxyAgent(tavilyProxy);
+
+  // @ts-expect-error undici fetch accepts dispatcher; types differ from global fetch
+  const res = await undiciFetch('https://api.tavily.com/search', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: reqBody,
+    dispatcher,
+  });
+  if (!res.ok) throw new Error(`Tavily error ${res.status}`);
+
+  const data = await res.json() as {
+    answer?: string;
+    results?: Array<{ title: string; url: string; content: string }>
+  };
+  const rawResults = data.results ?? [];
+  const sources = rawResults.map(r => ({ title: r.title, url: r.url }));
+  const sourcesWithSnippets: SearchResult[] = rawResults.map(r => ({
+    title: r.title, url: r.url, snippet: r.content,
+  }));
+  // Prepend Tavily's synthesized answer so the extractor sees a rich summary
+  const answerPrefix = data.answer ? `Summary: ${data.answer}\n\n` : '';
+  const fullText = answerPrefix + rawResults.map(r => r.content).filter(Boolean).join('\n\n');
+  return { fullText, sources, sourcesWithSnippets };
+}
 
 // Per-category extraction instructions derived from user prompt templates
 const CATEGORY_INSTRUCTIONS: Record<string, string> = {
@@ -722,6 +766,8 @@ function normalizeRecords(
     .filter(obj => hasRealDataFields(obj));
 }
 
+// ── LLM extraction via Bedrock ───────────────────────────────────────────────
+
 async function extractWithLLM(
   company: string,
   catConfig: CatConfig,
@@ -776,15 +822,21 @@ async function researchOne(
   industry: string,
   numRuns: number,
   modelId: string,
-  region: string
+  region: string,
+  searchProvider: 'nova' | 'tavily' = 'nova',
 ): Promise<Record<string, unknown>[]> {
   const catConfig = CATEGORIES[catKey];
 
   const attempt = async (): Promise<Record<string, unknown>[]> => {
     let searchOut: SearchOutput;
     try {
-      searchOut = await novaGroundingSearch(catConfig.searchQuery(company), industry, modelId, region, catConfig.label);
-    } catch {
+      if (searchProvider === 'tavily') {
+        searchOut = await tavilySearch(catConfig.searchQuery(company));
+      } else {
+        searchOut = await novaGroundingSearch(catConfig.searchQuery(company), industry, modelId, region, catConfig.label);
+      }
+    } catch (err) {
+      console.error(`${DEBUG} [${company}/${catConfig.label}] search failed (${searchProvider}):`, err instanceof Error ? err.message : err);
       return [];
     }
 
@@ -798,7 +850,9 @@ async function researchOne(
         ? catConfig.dataEnrichQuery(company)
         : catConfig.enrichQuery(company);
       try {
-        const enrichOut = await novaGroundingSearch(enrichQuery, industry, modelId, region, catConfig.label);
+        const enrichOut = searchProvider === 'tavily'
+          ? await tavilySearch(enrichQuery)
+          : await novaGroundingSearch(enrichQuery, industry, modelId, region, catConfig.label);
         if (enrichOut.fullText.trim()) {
           const allSources = [...searchOut.sources];
           const allSnippets = [...searchOut.sourcesWithSnippets];
@@ -893,6 +947,8 @@ export async function POST(req: NextRequest) {
       ? body.industry
       : 'construction infrastructure materials heavy industry';
     const numRuns: number = Math.max(1, parseInt(body?.runs ?? '2', 10));
+    const searchProvider: 'nova' | 'tavily' =
+      body?.searchProvider === 'tavily' ? 'tavily' : 'nova';
 
     const modelId = process.env.BEDROCK_RESEARCH_MODEL_ID || process.env.BEDROCK_MODEL_ID || 'amazon.nova-premier-v1:0';
     const region  = process.env.AWS_REGION || 'us-east-1';
@@ -903,6 +959,7 @@ export async function POST(req: NextRequest) {
       industry,
       numRuns,
       modelId,
+      searchProvider,
     });
 
     if (companies.length === 0) {
@@ -924,7 +981,7 @@ export async function POST(req: NextRequest) {
 
     const results = await Promise.all(
       tasks.map(({ company, catKey }) =>
-        researchOne(company, catKey, industry, numRuns, modelId, region)
+        researchOne(company, catKey, industry, numRuns, modelId, region, searchProvider)
           .catch(() => [CATEGORIES[catKey].emptyRecord(company) as Record<string, unknown>])
       )
     );

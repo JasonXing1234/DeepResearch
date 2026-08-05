@@ -90,7 +90,7 @@ const emptyResults = (): ResearchResults => ({
   emissions: [], investments: [], purchases: [], pilots: [], environments: [],
 });
 
-export function HybridResearchView() {
+export function HybridResearchView({ showHeader = true }: { showHeader?: boolean }) {
   const [companies, setCompanies] = useState<string[]>([]);
   const [fileName, setFileName] = useState<string | null>(null);
   const [chipSearch, setChipSearch] = useState('');
@@ -321,36 +321,36 @@ export function HybridResearchView() {
   );
 
   return (
-    <div className="flex-1 overflow-hidden flex flex-col bg-gray-50">
-      {/* Header */}
-      <div className="border-b border-gray-200 bg-white px-8 py-6">
-        <h2 className="text-3xl font-bold text-gray-900">Deep Research Engine</h2>
-        <p className="text-gray-600 mt-1">
-          Upload a company list, run research, then download the results.
-        </p>
-      </div>
+    <div className="flex-1 overflow-hidden flex flex-col bg-white">
+      {showHeader && (
+        <div className="h-[96px] border-b border-black bg-black px-8 flex items-center">
+          <div>
+            <h2 className="text-4xl font-bold tracking-tight uppercase text-white">Deep Research Engine</h2>
+          </div>
+        </div>
+      )}
 
       <div className="flex-1 overflow-y-auto px-8 py-6">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 items-stretch">
 
         {/* Step 1 — Upload */}
-        <Card>
+        <Card className="flex flex-col">
           <CardHeader className="pb-3">
-            <CardTitle className="flex items-center gap-2 text-base">
+            <CardTitle className="flex items-center gap-2 text-2xl">
               <StepBadge n={1} done={companies.length > 0} />
               Upload Company List
             </CardTitle>
-            <CardDescription>
+            <CardDescription className="text-base mt-1">
               TXT (one company per line) or CSV/TSV (company names in the first column).
               Up to {MAX_COMPANIES} companies.
             </CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent className="flex-1">
             <div
               className={`border-2 border-dashed rounded-lg p-8 text-center cursor-pointer transition-colors ${
                 companies.length > 0
-                  ? 'border-green-300 bg-green-50'
-                  : 'border-gray-300 bg-gray-50 hover:border-blue-400 hover:bg-blue-50'
+                  ? 'border-green-400 bg-green-50'
+                  : 'border-gray-300 bg-gray-50 hover:border-yellow-400 hover:bg-yellow-50'
               }`}
               onClick={() => !isResearching && fileInputRef.current?.click()}
             >
@@ -364,18 +364,18 @@ export function HybridResearchView() {
               />
               {companies.length > 0 ? (
                 <>
-                  <CheckCircle className="h-8 w-8 text-green-600 mx-auto mb-2" />
-                  <p className="font-semibold text-gray-900">{fileName}</p>
-                  <p className="text-sm text-gray-600 mt-1">
+                  <CheckCircle className="h-12 w-12 text-green-600 mx-auto mb-3" />
+                  <p className="font-bold text-gray-900 text-lg">{fileName}</p>
+                  <p className="text-base text-gray-600 mt-1">
                     {companies.length} compan{companies.length !== 1 ? 'ies' : 'y'} loaded
                   </p>
-                  <p className="text-xs text-gray-400 mt-2">Click to change file</p>
+                  <p className="text-sm text-gray-400 mt-2">Click to change file</p>
                 </>
               ) : (
                 <>
-                  <Upload className="h-8 w-8 text-gray-400 mx-auto mb-2" />
-                  <p className="font-semibold text-gray-600">Click to upload company list</p>
-                  <p className="text-sm text-gray-400 mt-1">.txt, .csv, or .tsv</p>
+                  <Upload className="h-12 w-12 text-gray-400 mx-auto mb-3" />
+                  <p className="font-semibold text-gray-600 text-lg">Click to upload company list</p>
+                  <p className="text-base text-gray-400 mt-1">.txt, .csv, or .tsv</p>
                 </>
               )}
             </div>
@@ -389,7 +389,7 @@ export function HybridResearchView() {
                     onChange={(e) => setChipSearch(e.target.value)}
                     placeholder={`Search ${companies.length} companies…`}
                     disabled={isResearching}
-                    className="flex-1 rounded border border-gray-300 bg-white px-3 py-1.5 text-xs text-gray-700 placeholder-gray-400 focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-400 disabled:opacity-50"
+                    className="flex-1 rounded border border-gray-300 bg-white px-3 py-2 text-sm text-gray-700 placeholder-gray-400 focus:border-yellow-400 focus:outline-none focus:ring-1 focus:ring-yellow-400 disabled:opacity-50"
                   />
                   {chipSearch && (
                     <button
@@ -412,7 +412,7 @@ export function HybridResearchView() {
                       .map((c, i) => (
                         <span
                           key={i}
-                          className="inline-flex items-center px-2 py-0.5 rounded bg-blue-100 text-blue-800 text-xs font-medium"
+                          className="inline-flex items-center px-2.5 py-1 rounded bg-[#FFCD11] text-gray-900 text-sm font-semibold"
                         >
                           {c}
                         </span>
@@ -428,21 +428,21 @@ export function HybridResearchView() {
         </Card>
 
         {/* Step 2 — Research */}
-        <Card>
+        <Card className="flex flex-col">
           <CardHeader className="pb-3">
-            <CardTitle className="flex items-center gap-2 text-base">
+            <CardTitle className="flex items-center gap-2 text-2xl">
               <StepBadge n={2} done={!isResearching && results !== null} />
               Run Research
             </CardTitle>
-            <CardDescription>
+            <CardDescription className="text-base mt-1">
               Searches the web across 5 categories per company, processing {CONCURRENCY} companies at a time.
             </CardDescription>
           </CardHeader>
-          <CardContent className="space-y-3">
+          <CardContent className="flex-1 space-y-3">
             <Button
               onClick={handleResearch}
               disabled={isResearching || companies.length === 0}
-              className="bg-blue-600 hover:bg-blue-700 w-full"
+              className="bg-gray-900 hover:bg-black text-white w-full text-base"
               size="lg"
             >
               {isResearching ? (
@@ -467,7 +467,7 @@ export function HybridResearchView() {
                 </div>
                 <div className="w-full bg-gray-200 rounded-full h-2">
                   <div
-                    className="bg-blue-600 h-2 rounded-full transition-all duration-300"
+                    className="bg-[#FFCD11] h-2 rounded-full transition-all duration-300"
                     style={{ width: `${pct}%` }}
                   />
                 </div>
@@ -476,14 +476,14 @@ export function HybridResearchView() {
 
             {/* Live company status log */}
             {progress.length > 0 && (
-              <div className="max-h-48 overflow-y-auto rounded border border-gray-200 bg-gray-50 divide-y divide-gray-100 text-xs">
+              <div className="max-h-48 overflow-y-auto rounded border border-gray-200 bg-gray-50 divide-y divide-gray-100 text-base">
                 {[...progress].reverse().map((p) => (
-                  <div key={p.name} className="flex items-center gap-2 px-3 py-1.5">
-                    {p.status === 'done' && p.hasResults && <CheckCircle className="h-3.5 w-3.5 text-green-500 shrink-0" />}
-                    {p.status === 'done' && !p.hasResults && <CheckCircle className="h-3.5 w-3.5 text-amber-400 shrink-0" />}
-                    {p.status === 'error'      && <XCircle    className="h-3.5 w-3.5 text-red-500   shrink-0" />}
-                    {p.status === 'processing' && <Loader2    className="h-3.5 w-3.5 text-blue-500  shrink-0 animate-spin" />}
-                    {p.status === 'pending'    && <span className="h-3.5 w-3.5 rounded-full border border-gray-300 shrink-0 inline-block" />}
+                  <div key={p.name} className="flex items-center gap-2 px-3 py-2">
+                    {p.status === 'done' && p.hasResults && <CheckCircle className="h-4 w-4 text-green-500 shrink-0" />}
+                    {p.status === 'done' && !p.hasResults && <CheckCircle className="h-4 w-4 text-amber-400 shrink-0" />}
+                    {p.status === 'error'      && <XCircle    className="h-4 w-4 text-red-500   shrink-0" />}
+                    {p.status === 'processing' && <Loader2    className="h-4 w-4 text-yellow-500 shrink-0 animate-spin" />}
+                    {p.status === 'pending'    && <span className="h-4 w-4 rounded-full border border-gray-300 shrink-0 inline-block" />}
                     <span className={`flex-1 truncate ${p.status === 'pending' ? 'text-gray-400' : 'text-gray-700'}`}>
                       {p.name}
                     </span>
@@ -498,9 +498,9 @@ export function HybridResearchView() {
         </Card>
 
         {/* Step 3 — Download */}
-        <Card className={results ? '' : 'opacity-50 pointer-events-none'}>
+        <Card className={`flex flex-col${results ? '' : ' opacity-50 pointer-events-none'}`}>
           <CardHeader className="pb-3">
-            <CardTitle className="flex items-center gap-2 text-base">
+            <CardTitle className="flex items-center gap-2 text-2xl">
               <StepBadge n={3} done={false} />
               Download Results
             </CardTitle>
@@ -509,7 +509,7 @@ export function HybridResearchView() {
                 {totalRows} total rows across 5 categories
                 {isResearching && <span className="text-blue-600"> · updating live as companies complete</span>}.{' '}
                 {isExportingSnowflake ? (
-                  <span className="text-blue-600 inline-flex items-center gap-1">
+                  <span className="text-yellow-600 inline-flex items-center gap-1">
                     <Loader2 className="h-3 w-3 animate-spin" />Syncing to Snowflake…
                   </span>
                 ) : (
@@ -518,11 +518,11 @@ export function HybridResearchView() {
               </CardDescription>
             )}
           </CardHeader>
-          <CardContent className="space-y-3">
+          <CardContent className="flex-1 space-y-3">
             <Button
               onClick={handleDownloadExcel}
               disabled={!results || isExporting}
-              className="bg-emerald-600 hover:bg-emerald-700 w-full"
+              className="bg-[#FFCD11] hover:bg-yellow-400 text-gray-900 font-bold w-full text-base"
               size="lg"
             >
               {isExporting ? (
@@ -536,8 +536,7 @@ export function HybridResearchView() {
               onClick={handleDownloadAll}
               disabled={!results}
               variant="outline"
-              className="w-full"
-              size="sm"
+              className="w-full text-base"
             >
               <Download className="mr-2 h-4 w-4" />
               Download Raw JSON (5 separate files)
@@ -551,10 +550,10 @@ export function HybridResearchView() {
                     <Button
                       key={cat}
                       variant="outline"
-                      size="sm"
+                      size="default"
                       onClick={() => handleDownloadCategory(cat)}
                       disabled={rows === 0}
-                      className="justify-start text-xs"
+                      className="justify-start text-base w-full"
                     >
                       <FileText className="mr-2 h-3.5 w-3.5 shrink-0" />
                       {CATEGORY_LABELS[cat]}
@@ -568,7 +567,7 @@ export function HybridResearchView() {
             )}
 
             {!results && (
-              <div className="flex items-center gap-2 text-sm text-gray-400 justify-center py-2">
+              <div className="flex items-center gap-2 text-base text-gray-400 justify-center py-2">
                 <AlertCircle className="h-4 w-4" />
                 Complete research first to enable download
               </div>
@@ -699,8 +698,8 @@ export function HybridResearchView() {
 function StepBadge({ n, done }: { n: number; done: boolean }) {
   return (
     <span
-      className={`flex items-center justify-center w-6 h-6 rounded-full text-white text-xs font-bold shrink-0 ${
-        done ? 'bg-green-500' : 'bg-blue-600'
+      className={`flex items-center justify-center w-8 h-8 rounded-full text-sm font-bold shrink-0 ${
+        done ? 'bg-green-500 text-white' : 'bg-gray-900 text-[#FFCD11]'
       }`}
     >
       {done ? '✓' : n}
